@@ -7,7 +7,7 @@ import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.GenericApplicationContext;
 
-import com.hrodriguesdev.gui.controller.MainViewController;
+import com.hrodriguesdev.gui.controller.LoadViewController;
 import com.hrodriguesdev.utilitary.NewView;
 
 import javafx.application.Application;
@@ -21,7 +21,7 @@ import javafx.stage.StageStyle;
 
 public class AlfaPirometrosApplication extends Application implements Runnable{
 	private static Scene scene;
-	private static Stage stage;
+	public static Stage stage;
 	private ImageView starting;
 	private Image icon;
 	
@@ -36,7 +36,7 @@ public class AlfaPirometrosApplication extends Application implements Runnable{
 	public void start(Stage arg0) throws Exception {
 
 		loadImage(nameImageViewStarting);
-		Pane pane = (Pane) NewView.loadFXML("mainView", new MainViewController());
+		Pane pane = (Pane) NewView.loadFXML("loadView", new LoadViewController());
 		pane.getChildren().add(starting);
 		scene = new Scene(pane, 400, 300);		
 		stage = arg0;

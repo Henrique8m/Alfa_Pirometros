@@ -6,6 +6,7 @@ import com.hrodriguesdev.AlfaPirometrosApplication;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -35,6 +36,7 @@ public static Stage getNewView(String title, Scene mainScene){
 	Stage stage = new Stage();
 	stage.setMaximized(true);
 	stage.setTitle(title);
+    stage.getIcons().add(new Image(AlfaPirometrosApplication.class.getResource("gui/resources/" + "Yggdrasil icon.jpg").toString()));
 	stage.setScene(mainScene);
 	stage.show();
 	return stage;
