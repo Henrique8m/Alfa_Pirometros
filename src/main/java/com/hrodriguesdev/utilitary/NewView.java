@@ -23,7 +23,7 @@ public class NewView {
 public static void getNewViewModal(String title, Pane pane, Stage stageEvent){
 	Stage stage = new Stage();
 	stage.setTitle(title);
-	stage.setScene(new Scene(pane, 400, 400));
+	stage.setScene(new Scene(pane));
 	stage.setResizable(false);
 	stage.initOwner(stageEvent);
 	stage.initModality(Modality.WINDOW_MODAL);			
@@ -32,11 +32,10 @@ public static void getNewViewModal(String title, Pane pane, Stage stageEvent){
 	stage.showAndWait();
 }
 
-public static Stage getNewView(String title, Scene mainScene){
-	Stage stage = new Stage();
+public static Stage getNewView(String title, Scene mainScene, Stage stage){
 	stage.setMaximized(true);
 	stage.setTitle(title);
-    stage.getIcons().add(new Image(AlfaPirometrosApplication.class.getResource("gui/resources/" + "Yggdrasil icon.jpg").toString()));
+    stage.getIcons().add(new Image(AlfaPirometrosApplication.class.getResource("gui/resources/" + "Yggdrasilicon.jpg").toString()));
 	stage.setScene(mainScene);
 	stage.show();
 	return stage;

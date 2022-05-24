@@ -7,7 +7,9 @@ import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.GenericApplicationContext;
 
+import com.hrodriguesdev.gui.controller.AddMotoristaViewController;
 import com.hrodriguesdev.gui.controller.LoadViewController;
+import com.hrodriguesdev.gui.controller.MainViewController;
 import com.hrodriguesdev.utilitary.NewView;
 
 import javafx.application.Application;
@@ -27,9 +29,20 @@ public class AlfaPirometrosApplication extends Application implements Runnable{
 	
 	private Thread thread;
 	public static boolean springStart = false;
+	
+
 
 	private final String nameIcon = "Yggdrasil icon.jpg";
 	private final String nameImageViewStarting = "Yggdrasil.jpg";
+	
+	public static String caminhoPDF = "C:\\Users\\Usuario\\Desktop\\Carvao.pdf";
+	public static String caminhoDbProperties = "C:\\Program Files\\Java\\resources\\dbAlfa.properties";
+	public static String properties = "Properties.properties";
+	public static String diretorioStr1 = "\\AppData\\Local\\YggDrasil";
+	public static String diretorioStr2 = "\\AppData\\Local\\YggDrasil\\serial";
+	
+	public static MainViewController viewController = new MainViewController();
+	public static AddMotoristaViewController viewaddMotorista = new AddMotoristaViewController();
 
 	//Carregando a view de Load
 	@Override
@@ -68,6 +81,7 @@ public class AlfaPirometrosApplication extends Application implements Runnable{
         ApplicationContextInitializer<GenericApplicationContext> initializer = ac -> {
         
         	ac.registerBean(Application.class, () -> AlfaPirometrosApplication.this);
+        	ac.registerBean(MainViewController.class, () -> viewController);
             ac.registerBean(Parameters.class, this::getParameters);
             ac.registerBean(HostServices.class, this::getHostServices);
 
@@ -75,11 +89,12 @@ public class AlfaPirometrosApplication extends Application implements Runnable{
         this.applicationContext = new SpringApplicationBuilder().sources(Springinit.class)
                 .initializers(initializer).run(getParameters().getRaw().toArray(new String[0]));
      spring.setApplicationContext(applicationContext); 
-     springStart=true;
+    
     }
 	
 	public static void main(String[] args) {
-		launch(args);
+		 springStart=true;
+		 launch(args);
 		System.exit(1);
 	}
 	

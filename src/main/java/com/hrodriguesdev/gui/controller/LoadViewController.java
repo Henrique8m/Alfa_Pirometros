@@ -12,12 +12,18 @@ import javafx.animation.Timeline;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 public class LoadViewController implements Initializable {
+	
 	private Timeline timeline;
+	private static Stage stage;	
+	
+
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		stage = new Stage();
 		beginTimer();
 	}
 
@@ -27,10 +33,9 @@ public class LoadViewController implements Initializable {
 			if (AlfaPirometrosApplication.springStart) {
 				//System.out.println("spring Start true ");
 				try {
-					AnchorPane anchorPane = (AnchorPane) NewView.loadFXML("mainView", new MainViewController());
-					NewView.getNewView("Alfa Pirometros", new Scene(anchorPane));
+					AnchorPane anchorPane = (AnchorPane) NewView.loadFXML("mainView", AlfaPirometrosApplication.viewController);
+					NewView.getNewView("Controle de Caixote", new Scene(anchorPane), stage);
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 					System.exit(1);
 				}
@@ -43,4 +48,9 @@ public class LoadViewController implements Initializable {
 	timeline.play();
 
 	}
+	
+	public static Stage getStage() {
+		return stage;
+	}
+	
 }
