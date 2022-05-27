@@ -2,25 +2,34 @@ package com.hrodriguesdev.controller;
 
 import java.util.List;
 
-import com.hrodriguesdev.entities.Motorista;
-import com.hrodriguesdev.entities.Pesagem;
-import com.hrodriguesdev.service.MotoristaService;
-import com.hrodriguesdev.service.PesagemService;
+import com.hrodriguesdev.entities.Equipamento;
+import com.hrodriguesdev.service.EquipamentoService;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 
 public class Controller {
-	
-	//@Autowired
-	private MotoristaService motoristaService = new MotoristaService();
-	
-	//@Autowired
-	private PesagemService pesagemService = new PesagemService();
+	private EquipamentoService equipamentoService = new EquipamentoService();
 		
 	
-	public ObservableList<Motorista> getByFila(Boolean fila){
+	public ObservableList<Equipamento> getByLaboratorio(boolean laboratorio) {
+		ObservableList<Equipamento> obs = FXCollections.observableArrayList();
+		List<Equipamento> list = equipamentoService.getByLaboratorio(laboratorio);
+		if(list!=null) {
+			obs.addAll(list);
+			return obs;
+		}
+		return null;
+	}
+	
+	public Long addEquipamento(Equipamento equipamento) {
+		return equipamentoService.addEquipamento(equipamento);
+		
+	}
+	
+	/*
+	public ObservableList<Equipamento> getByFila(Boolean fila){
 		ObservableList<Motorista> obs = FXCollections.observableArrayList();		
 		List<Motorista> list = motoristaService.getByFila(true);
 		if(list!=null) {
@@ -50,19 +59,12 @@ public class Controller {
 		return null;	
 	}
 	
-	public ObservableList<Pesagem> getByDescarregando(boolean descarregando) {
-		ObservableList<Pesagem> obs = FXCollections.observableArrayList();
-		List<Pesagem> list = pesagemService.getByDescarregando(descarregando);
-		if(list!=null) {
-			obs.addAll(list);
-			return obs;
-		}
-		return null;
-	}
+	
+
 	
 	public ObservableList<Pesagem> getPesagemByMotoristaId(long id) {
 		ObservableList<Pesagem> obs = FXCollections.observableArrayList();
-		List<Pesagem> list = pesagemService.getPesagemByMotoristaId( id );
+		List<Pesagem> list = equipamentoService.getPesagemByMotoristaId( id );
 		if(list!=null) {
 			obs.addAll(list);
 			return obs;
@@ -74,13 +76,10 @@ public class Controller {
 		return motoristaService.getMotoristaById(id);		
 	}
 	
-	public Long addMotorista(Motorista motorista) {
-		return motoristaService.addMotorista(motorista);
-		
-	}
+
 	
 	public Long addPesagem(Pesagem pesagem) {
-		return pesagemService.addPesagem(pesagem);
+		return equipamentoService.addPesagem(pesagem);
 	
 	}
 	
@@ -89,8 +88,8 @@ public class Controller {
 	}
 	
 	public Boolean editMotoristaDaPesagem(Long idPesagem, Long idMotorista) {
-		return pesagemService.updatePesagem(idPesagem, idMotorista);
+		return equipamentoService.updatePesagem(idPesagem, idMotorista);
 		
-	}
+	}*/
 
 }

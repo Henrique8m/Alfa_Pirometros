@@ -6,7 +6,7 @@ import java.util.ResourceBundle;
 
 import com.hrodriguesdev.AlfaPirometrosApplication;
 import com.hrodriguesdev.controller.Controller;
-import com.hrodriguesdev.entities.Motorista;
+import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.utilitary.Format;
 
 import javafx.event.ActionEvent;
@@ -20,7 +20,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class AddMotoristaViewController implements Initializable {
+public class AddEquipamentoViewController implements Initializable {
 	
 	private Date date;
 	
@@ -32,26 +32,21 @@ public class AddMotoristaViewController implements Initializable {
 	@FXML
 	private Text erro;
 	@FXML
-	public TextField nome, data, cnh, placa, hora, estado, cidade, telefone;
+	public TextField nomeEmpressa, data, ultimaCal, modelo, ns, pat;
 	@FXML
 	private Button salvar, cancelar;
 	
 	@FXML
 	public void salvar(ActionEvent event) {
-		Motorista motorista = new Motorista();
+		Equipamento obj = new Equipamento();
 		try {
-			motorista.setName(nome.getText());
-			motorista.setData(data.getText());
-			motorista.setPlaca(placa.getText());
-			motorista.setHora(hora.getText());
-			motorista.setEstado(estado.getText());
-			motorista.setPhone(telefone.getText());
-			motorista.setCidade(cidade.getText());	
-			motorista.setFila(true);
-			if(cnh.getText()!= "") {
-				Long cnhInput = Long.valueOf(cnh.getText());
-				motorista.setCnh(cnhInput);
-			}
+			obj.setEmpressaName( nomeEmpressa.getText() );				
+			obj.setModelo( modelo.getText() );  
+			obj.setStatus( 1 );
+			obj.setDataChegada( data.getText() );
+			obj.setNs( ns.getText() );
+			obj.setPat( pat.getText() );
+			obj.setUltimaCalib( ultimaCal.getText() );	
 			
 		}catch(Exception e) {
 			e.getMessage();
@@ -59,9 +54,10 @@ public class AddMotoristaViewController implements Initializable {
 			erro.setText("ERRO");
 		}
 		try {
-			motorista.setId(controller.addMotorista(motorista));
-			if(motorista.getId() != 0l) {
-				Stage stage = (Stage) salvar.getScene().getWindow(); 
+			obj.setId(controller.addEquipamento(obj));
+			if(obj.getId() != 0l) {
+				Stage stage = (Stage) salvar.getScene().getWindow();
+				MainViewController.obsListTableFilaEquipamentos.add(obj);
 				stage.close();
 				
 			}else {
@@ -73,7 +69,7 @@ public class AddMotoristaViewController implements Initializable {
 			erro.setText("ERRO");
 			
 		}
-		MainViewController.obsListTableMotorista.add(motorista);
+		
 	}	
 	
 	@FXML
@@ -89,7 +85,7 @@ public class AddMotoristaViewController implements Initializable {
 	
 	@FXML
 	public void format(KeyEvent event) {
-		if(event.getCode().toString() != "BACK_SPACE" ) {
+/*		if(event.getCode().toString() != "BACK_SPACE" ) {
 				
 			 if(event.getTarget().equals(placa)){
 				placa.setText(Format.replacePlaca(placa.getText()));
@@ -144,7 +140,8 @@ public class AddMotoristaViewController implements Initializable {
 				telefone.end();
 				
 			}
-		}		 
+		}*/
+		System.out.println("Format Text");
 	}
 
 	
@@ -157,7 +154,6 @@ public class AddMotoristaViewController implements Initializable {
 		cancelarImg.setImage(image);
 		
 		date = new Date(System.currentTimeMillis());
-	    hora.setText(Format.formataTimeString.format(date));
 	    data.setText(Format.formatData.format(date));
 	    
 	}

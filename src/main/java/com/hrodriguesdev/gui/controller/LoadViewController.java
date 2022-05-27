@@ -29,12 +29,12 @@ public class LoadViewController implements Initializable {
 
 	private void beginTimer() {
 		
-		timeline = new Timeline(new KeyFrame(javafx.util.Duration.seconds(6), ev -> {
+		timeline = new Timeline(new KeyFrame(javafx.util.Duration.seconds(2), ev -> {
 			if (AlfaPirometrosApplication.springStart) {
 				//System.out.println("spring Start true ");
 				try {
 					AnchorPane anchorPane = (AnchorPane) NewView.loadFXML("mainView", AlfaPirometrosApplication.viewController);
-					NewView.getNewView("Controle de Caixote", new Scene(anchorPane), stage);
+					NewView.getNewView("Controle de Estoque", new Scene(anchorPane), stage);
 				} catch (IOException e) {
 					e.printStackTrace();
 					System.exit(1);

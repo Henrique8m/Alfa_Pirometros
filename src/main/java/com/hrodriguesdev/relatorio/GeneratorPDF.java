@@ -1,18 +1,8 @@
 package com.hrodriguesdev.relatorio;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.List;
-
 import com.hrodriguesdev.AlfaPirometrosApplication;
-import com.hrodriguesdev.entities.Motorista;
-import com.hrodriguesdev.entities.Pesagem;
 import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Element;
 import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.pdf.PdfWriter;
 
 public class GeneratorPDF {
 	
@@ -21,7 +11,7 @@ public class GeneratorPDF {
 	private Document document;
 	private Paragraph paragraph;
 	private String nome, placa, cidade, estado, telefone;
-
+/*
 	public Boolean newDocument(Motorista motoristaPDF, List<Pesagem> listPDF) {
 		document = new Document();
 		File file = new File(caminho);	
@@ -99,7 +89,7 @@ public class GeneratorPDF {
     			estado + "  " + 
 				telefone ;
 		
-	}
+	}*/
 	
 }
 
