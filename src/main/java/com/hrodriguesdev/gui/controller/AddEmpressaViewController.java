@@ -1,80 +1,66 @@
 package com.hrodriguesdev.gui.controller;
 
-import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
 import java.util.ResourceBundle;
 
 import com.hrodriguesdev.AlfaPirometrosApplication;
 import com.hrodriguesdev.controller.Controller;
+import com.hrodriguesdev.entities.Empressa;
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.utilitary.Format;
-import com.hrodriguesdev.utilitary.InputFilter;
-import com.hrodriguesdev.utilitary.NewView;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class AddEquipamentoViewController implements Initializable {
+public class AddEmpressaViewController implements Initializable {
 	
-	private Date date;
-	
-	//@Autowired
 	private Controller controller = new Controller();
 	
 	@FXML
-	private ImageView cancelarImg, salvarImg, addEmpressaImg;
+	private ImageView cancelarImg, salvarImg;
 	@FXML
 	private Text erro;
 	@FXML
-	public TextField data, ultimaCal, modelo, ns, pat;
+	public TextField nomeEmpressa, cidade, estado, endereco, cep;
 	@FXML
 	private Button salvar, cancelar;
-	@FXML
-	private ComboBox<String> nomeEmpressa = new ComboBox<>();
-	
-	public static ObservableList<String> obsString = FXCollections.observableArrayList();
 	
 	
 	@FXML
 	public void salvar(ActionEvent event) {
-		Equipamento obj = new Equipamento();
+		Empressa empressa = new Empressa();
 		try {
-			obj.setEmpressaName( nomeEmpressa.getValue() );				
-			obj.setModelo( modelo.getText() );  
-			obj.setStatus( 1 );
-			obj.setDataChegada( data.getText() );
-			obj.setNs( ns.getText() );
-			obj.setPat( pat.getText() );
-			obj.setUltimaCalib( ultimaCal.getText() );	
+			if(nomeEmpressa.getText() != null && nomeEmpressa.getText() != "")
+				empressa.setName(nomeEmpressa.getText());	
+			else {
+				erro.setText("ERRO");
+				return;
+			}
+				empressa.setCidade( cidade.getText() );
+				empressa.setEstado( estado.getText());
+				empressa.setEndereço( endereco.getText() );
+				empressa.setCep( cep.getText() );
 			
 		}catch(Exception e) {
 			e.getMessage();
 			e.getCause();
 			erro.setText("ERRO");
+			return;
 		}
 		try {
-			obj.setId(controller.addEquipamento(obj));
-			if(obj.getId() != 0l) {
-				Stage stage = (Stage) salvar.getScene().getWindow();
-				MainViewController.obsListTableFilaEquipamentos.add(obj);
-				stage.close();
-				
-			}else {
+			empressa.setId(controller.addEmpressa(empressa));
+			if(empressa.getId() == 0l) {
 				erro.setText("ERRO");
+				return;
 			}
 			
 		} catch (NumberFormatException e) {
@@ -82,6 +68,7 @@ public class AddEquipamentoViewController implements Initializable {
 			erro.setText("ERRO");
 			
 		}
+		AddEquipamentoViewController.obsString.add( empressa.getName() );
 		
 	}	
 	
@@ -154,38 +141,17 @@ public class AddEquipamentoViewController implements Initializable {
 				
 			}
 		}*/
-		//System.out.println("Format Text");
+		System.out.println("Format Text");
 	}
-
-	
 	
 	@Override
-	public void initialize(URL location, ResourceBundle resources) {		
-		
-		obsString = controller.getEmpressas();
-		FilteredList<String> filteredList = new FilteredList<>(obsString);  
-		
-		nomeEmpressa.getEditor().textProperty().addListener(new InputFilter<String>( nomeEmpressa, filteredList ) );
-		
-		
-		
+	public void initialize(URL location, ResourceBundle resources) {
 
 		Image image =  new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-adicionar.png").toString() );
 		salvarImg.setImage(image);
 		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-excluir.png").toString() );
 		cancelarImg.setImage(image);
-		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-adicionar.png").toString() );
-		addEmpressaImg.setImage(image);
-		
-		date = new Date(System.currentTimeMillis());
-	    data.setText(Format.formatData.format(date));
 	    
-	}
-	
-    @FXML
-    private void addEmpressa(ActionEvent e) throws IOException {
-    	NewView.getNewViewModal("Adcionar Empressa", (Pane) NewView.loadFXML("newEmpressa", AlfaPirometrosApplication.viewaddEmpressa), LoadViewController.getStage());
-    	
-    }
+	}	
 
 }

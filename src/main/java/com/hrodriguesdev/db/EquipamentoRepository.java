@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.hrodriguesdev.entities.Empressa;
 import com.hrodriguesdev.entities.Equipamento;
 
 public class EquipamentoRepository {
@@ -43,7 +44,7 @@ public class EquipamentoRepository {
 		return list;
 	}
 	
-public Long addEquipamento(Equipamento equipamento) {
+	public Long addEquipamento(Equipamento equipamento) {
 		Long id = 0l;		
 		try {
 			conn = DB.getConnection();
@@ -106,6 +107,34 @@ public Long addEquipamento(Equipamento equipamento) {
 			e.printStackTrace();
 		}
 		return obj;		
+	}
+
+	public boolean updatedeEquipamento(Long id, int status) {
+		boolean ok = false;
+		
+		try {
+			conn = DB.getConnection();
+			pst = conn.prepareStatement("UPDATE tb_equipamento "
+											+ "SET status = " + status 
+											+" WHERE "
+											+"(id = ?)");
+			
+			pst.setLong( 1, id );
+			
+			int rowsAccepted = pst.executeUpdate();
+			if(rowsAccepted>0)
+				ok=true;
+		
+		}catch (SQLException e) {
+			ok=false;
+		System.out.println(e.getMessage());	
+		}
+		finally {
+			DB.closeStatement(pst);
+			
+		}
+		return ok;
+
 	}
 
 

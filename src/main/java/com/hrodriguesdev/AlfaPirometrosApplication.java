@@ -1,6 +1,8 @@
 package com.hrodriguesdev;
 
+import com.hrodriguesdev.gui.controller.AddEmpressaViewController;
 import com.hrodriguesdev.gui.controller.AddEquipamentoViewController;
+import com.hrodriguesdev.gui.controller.AddOrcamentoViewController;
 import com.hrodriguesdev.gui.controller.LoadViewController;
 import com.hrodriguesdev.gui.controller.MainViewController;
 import com.hrodriguesdev.utilitary.NewView;
@@ -34,6 +36,8 @@ public class AlfaPirometrosApplication extends Application{
 	
 	public static MainViewController viewController = new MainViewController();
 	public static AddEquipamentoViewController viewaddChegadaEquipamento = new AddEquipamentoViewController();
+	public static AddEmpressaViewController viewaddEmpressa = new AddEmpressaViewController();
+	public static AddOrcamentoViewController viewAddOrcamento = new AddOrcamentoViewController();
 
 	//Carregando a view de Load
 	@Override

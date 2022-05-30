@@ -28,12 +28,12 @@ public class EquipamentoService {
 		return 0l;
 	}
 
-	public Boolean updatePesagem(Long idPesagem, Long idMotorista) {
-		return true;
-	}
-
 	public List<Equipamento> getPesagemByMotoristaId(Long id) {
 		return new ArrayList<>();
+	}
+
+	public boolean updatedeEquipamento(Long id, int status) {
+		return repository.updatedeEquipamento(id, status);
 	}
 
 

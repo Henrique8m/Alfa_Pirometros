@@ -36,16 +36,16 @@
                      <children>
                         <HBox prefHeight="696.0" prefWidth="1250.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <TableView fx:id="tableFilaEquipamentos" prefHeight="696.0" prefWidth="711.0" style="-fx-background-radius: 10;">
+                              <TableView fx:id="tableFilaEquipamentos" prefHeight="696.0" prefWidth="844.0" style="-fx-background-radius: 10;">
                                 <columns>
-                                    <TableColumn minWidth="800.0" prefWidth="800.0" text="Equipamentos em Laboratorio">
+                                    <TableColumn minWidth="690.0" prefWidth="834.0" text="Equipamentos em Laboratorio">
                                        <columns>
-                                        <TableColumn fx:id="empressa" editable="false" prefWidth="145.0" text="Empresa" />
-                                          <TableColumn fx:id="status" minWidth="150.0" prefWidth="107.0" text="Status" />
-                                          <TableColumn fx:id="dataChegada" editable="false" prefWidth="89.0" text="Data Chegada" />
-                                          <TableColumn fx:id="modelo" editable="false" prefWidth="88.0" text="Modelo" />
-                                          <TableColumn fx:id="ns" prefWidth="113.0" text="Numero de Serie" />
-                                          <TableColumn fx:id="pat" minWidth="100.0" prefWidth="37.0" text="Patrimonio" />
+                                        <TableColumn fx:id="empressa" editable="false" minWidth="250.0" prefWidth="250.0" text="Empresa" />
+                                          <TableColumn fx:id="status" minWidth="180.0" prefWidth="180.0" text="Status" />
+                                          <TableColumn fx:id="dataChegada" editable="false" minWidth="83.0" prefWidth="83.0" text="Data Chegada" />
+                                          <TableColumn fx:id="modelo" editable="false" minWidth="100.0" prefWidth="100.0" text="Modelo" />
+                                          <TableColumn fx:id="ns" minWidth="100.0" prefWidth="100.0" text="Numero de Serie" />
+                                          <TableColumn fx:id="pat" minWidth="100.0" prefWidth="100.0" text="Patrimonio" />
                                        </columns>
                                     </TableColumn>
                                 </columns>
@@ -88,13 +88,10 @@
                                              </font></Button>
                                           <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
                                              <children>
-                                                <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#updateStatus" prefHeight="45.0" prefWidth="185.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Atualizar Status">
+                                                <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#updateStatus" prefHeight="45.0" prefWidth="185.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Atualizar-Aguardando">
                                                    <graphic>
                                                       <ImageView fx:id="refresh" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" />
                                                    </graphic>
-                                                   <font>
-                                                      <Font size="15.0" />
-                                                   </font>
                                                 </Button>
                                              </children>
                                              <GridPane.margin>

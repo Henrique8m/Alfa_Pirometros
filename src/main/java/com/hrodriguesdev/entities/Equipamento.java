@@ -54,6 +54,20 @@ public class Equipamento implements Serializable {
 		this.modelo = modelo;
 	}
 
+	public String getStatusStr() {
+		switch (status) {
+			case 1: return "Aguardando Orçamento";
+			case 2:	return "Enviar Orçamento";
+			case 3: return "Aguardando Aprovação";
+			case 4: return "Aprovado, aquardando Reparo!";
+			case 5: return "Liberado, aquardando Coleta!";
+			case 6: return "Não Aprovado, aquardando coleta!";
+				
+			default: return "";
+		}
+		
+	}
+	
 	public int getStatus() {
 		return status;
 	}
@@ -155,6 +169,7 @@ public class Equipamento implements Serializable {
 	private String certificado;
 	private double valor;
 	private boolean laboratorio;
+	private String statusStr;
 	
 
 	//@OneToOne(mappedBy = "motorista", fetch = FetchType.EAGER)

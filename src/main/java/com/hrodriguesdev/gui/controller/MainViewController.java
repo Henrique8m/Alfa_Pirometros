@@ -16,6 +16,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -35,16 +36,7 @@ public class MainViewController implements Initializable{
 	private Controller controller = new Controller();
 	private Timeline timeline;
 	
-	
-	/*
-	private Boolean descarregando = false ;	
-	private Double totalPeso = 0d;
-	
-	private List<Pesagem> listPDF = new ArrayList<>();
-	private Motorista motoristaPDF;
-	
-	*/
-	
+	public static Equipamento addOrcamento;
 	
 	@FXML
 	private ImageView logoYgg, cadastrar, refresh, abrir, cadastrar2, inserirColeta, home, buscar, buscar1, pdf;
@@ -53,7 +45,7 @@ public class MainViewController implements Initializable{
 	@FXML
 	private TableColumn<Equipamento, String> empressa;
 	@FXML
-	private TableColumn<Equipamento, Integer> status;
+	private TableColumn<Equipamento, String> status;
 	@FXML
 	private TableColumn<Equipamento, String> dataChegada;
 	@FXML
@@ -78,7 +70,24 @@ public class MainViewController implements Initializable{
     
     @FXML
     private void addOrcamento(ActionEvent e) throws IOException {
-    	NewView.getNewViewModal("Entrada Equipamento", (Pane) NewView.loadFXML("orcamento", AlfaPirometrosApplication.viewaddChegadaEquipamento), LoadViewController.getStage());
+    	int status = 2;
+		if(tableFilaEquipamentos.getSelectionModel().getSelectedItem() != null) {			
+			addOrcamento = tableFilaEquipamentos.getSelectionModel().getSelectedItem();
+			NewView.getNewViewModal("Entrada Equipamento", (Pane) NewView.loadFXML("orcamento", AlfaPirometrosApplication.viewAddOrcamento), LoadViewController.getStage());
+			
+			controller.updatedeEquipamento( tableFilaEquipamentos.getSelectionModel().getSelectedItem().getId(), status );
+				obsListTableFilaEquipamentos = controller.getByLaboratorio(true);
+				tableFilaEquipamentos.setItems(obsListTableFilaEquipamentos);
+				tableFilaEquipamentos.refresh();
+			
+			obsListTableFilaEquipamentos = controller.getByLaboratorio(true);
+			tableFilaEquipamentos.setItems(obsListTableFilaEquipamentos);
+			tableFilaEquipamentos.refresh();
+		}
+		else {
+			System.out.println("Nada Selecionado");
+		}
+
     	
     }
     
@@ -90,34 +99,18 @@ public class MainViewController implements Initializable{
     
     @FXML
     private void updateStatus(ActionEvent e) throws IOException {
+    	int status = 3;
+		if(tableFilaEquipamentos.getSelectionModel().getSelectedItem() != null) {
+			controller.updatedeEquipamento( tableFilaEquipamentos.getSelectionModel().getSelectedItem().getId(), status );
+			obsListTableFilaEquipamentos = controller.getByLaboratorio(true);
+			tableFilaEquipamentos.setItems(obsListTableFilaEquipamentos);
+			tableFilaEquipamentos.refresh();
+		}
+		else {
+			System.out.println("Nada Selecionado");
+		}
+	
     	
-    	/*    	  
-    	 * 
-    	 *   if(descarregando) {
-    		descarregando=false;
-        	name.setText("");    		
-        	placa2.setText("");
-    		obsListTableMotorista.add(motorista);	    
-    		motorista=null;
-	    	tableMotorista.refresh();	
-    	    	if(!descarregando) {    		
-	    	if(!tableMotorista.getSelectionModel().isEmpty()) {
-	    		descarregando=true;
-	    		name.setText(tableMotorista.getSelectionModel().getSelectedItem().getName()); 
-	    		placa2.setText(tableMotorista.getSelectionModel().getSelectedItem().getPlaca()); 
-	    		motorista = new Motorista();
-	    		motorista = tableMotorista.getSelectionModel().getSelectedItem();	    		
-	    		obsListTableMotorista.remove(tableMotorista.getSelectionModel().getSelectedIndex());	    		
-	    		tableMotorista.refresh();
-	    		
-	    	}else
-	    		System.out.println("Nada Selecionado");
-	    		    	
-    	}else
-    		System.out.println("Temos registro corrente");
-    		
-    		
-    		*/
     }    
     @FXML
     private void openOrcamento(ActionEvent e) throws IOException {
@@ -149,24 +142,13 @@ public class MainViewController implements Initializable{
 	
 	@FXML
 	public void click(MouseEvent event) {
+
 		System.out.println("Click");		
 	}	
 	
 	@FXML
     private void gerarPDF(ActionEvent e) throws IOException {
 		
-		/*
-		if(motoristaPDF != null) {
-			if(!generator.newDocument(motoristaPDF, listPDF) ) {
-				Alerts.showAlert("Documento ", "Não foi possiver criar o documento ",
-						"", AlertType.ERROR);
-			}else {
-				String caminho = "E:\\Javas\\Java";
-				Alerts.showAlert("Documento ", "Relatorio criado com sucesso!! ",
-						"Diretorio = " + caminho , AlertType.INFORMATION);
-			}
-		}    	
-		*/
     	
     }
     
@@ -186,10 +168,7 @@ public class MainViewController implements Initializable{
 	
 	
 //----------------------------------------------------------------------------------------------------------------------
-	
-//	private List<String> avaliablePorts;
-//	private String defautPort = "COM4";
-//	private Date date;
+
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -227,51 +206,12 @@ public class MainViewController implements Initializable{
 	    dataChegada.setSortType(TableColumn.SortType.DESCENDING);
 	    
 	    empressa.setCellValueFactory(new PropertyValueFactory<Equipamento, String>("empressaName"));
-	    status.setCellValueFactory(new PropertyValueFactory<Equipamento, Integer>("status"));
+	    status.setCellValueFactory(new PropertyValueFactory<Equipamento, String>("statusStr"));
 		dataChegada.setCellValueFactory( new PropertyValueFactory<Equipamento, String>("dataChegada"));
 		modelo.setCellValueFactory(new PropertyValueFactory<Equipamento, String>("modelo"));
 		ns.setCellValueFactory(new PropertyValueFactory<Equipamento, String>("ns"));
 		pat.setCellValueFactory(new PropertyValueFactory<Equipamento, String>("pat"));
 		tableFilaEquipamentos.setItems(obsListTableFilaEquipamentos);
-		
-		
-		/*
-		//Table pesagem corrente
-		obsListTableCarvao =FXCollections.observableArrayList();
-		//Alimentar as informações de Peso corrente, e numero de Caixotes
-		for(Pesagem p: obsListTableCarvao) {
-			totalPeso += p.getPeso();
-		}
-		caixotes.setText(Integer.toString( obsListTableCarvao.size() ) );
-		pesoDescarregando.setText( Double.toString(totalPeso) );
-		caixotes.setText( Integer.toString(obsListTableCarvao.size()) );
-		tableFilaEquipamentos.setEditable(false);
-	 	numeroCaixote.setSortType(TableColumn.SortType.DESCENDING);
-		numeroCaixote.setCellValueFactory(new PropertyValueFactory<Pesagem, Integer>("numeroCaixote"));
-		peso.setCellValueFactory(new PropertyValueFactory<Pesagem, Double>("peso"));
-		dataHora.setCellValueFactory( new PropertyValueFactory<Pesagem, String>("dataHora"));
-		responsavel.setCellValueFactory(new PropertyValueFactory<Pesagem, String>("responsavel"));
-		tableFilaEquipamentos.setItems(obsListTableCarvao); 		
-		
-		//Table find Motorista
-		tableMotoristaFind.setEditable(false);		 
-		nomeMotorista1.setSortType(TableColumn.SortType.DESCENDING);
-		nomeMotorista1.setCellValueFactory(new PropertyValueFactory<Motorista, String>("name"));
-		placa1.setCellValueFactory(new PropertyValueFactory<Motorista, String>("placa"));
-		dataChegada1.setCellValueFactory(new PropertyValueFactory<Motorista, String>("data"));
-		horaChegada1.setCellValueFactory(new PropertyValueFactory<Motorista, String>("hora"));
-		tableMotoristaFind.setItems(obsListTableViewMotoristaFind);		
-		
-		//Table de pesagem relacionado ao Motorista
-		tablePesoCarvao1.setEditable(false);		 
-		numeroCaixote1.setSortType(TableColumn.SortType.DESCENDING);
-		numeroCaixote1.setCellValueFactory(new PropertyValueFactory<Pesagem, Integer>("numeroCaixote"));
-		peso1.setCellValueFactory(new PropertyValueFactory<Pesagem, Double>("peso"));
-		dataHora1.setCellValueFactory( new PropertyValueFactory<Pesagem, String>("dataHora"));
-		responsavel1.setCellValueFactory( new PropertyValueFactory<Pesagem, String>("responsavel"));		
-		tablePesoCarvao1.setItems(obsListTableCarvao1);
-		*/
-		
 		
 		
 		
