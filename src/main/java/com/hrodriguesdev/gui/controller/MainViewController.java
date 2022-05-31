@@ -7,6 +7,8 @@ import java.util.ResourceBundle;
 import com.hrodriguesdev.AlfaPirometrosApplication;
 import com.hrodriguesdev.controller.Controller;
 import com.hrodriguesdev.entities.Equipamento;
+import com.hrodriguesdev.entities.Orcamento;
+import com.hrodriguesdev.gui.alert.Alerts;
 import com.hrodriguesdev.utilitary.NewView;
 
 import javafx.animation.KeyFrame;
@@ -16,8 +18,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Scene;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -26,7 +27,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
 //@Component
@@ -36,7 +36,8 @@ public class MainViewController implements Initializable{
 	private Controller controller = new Controller();
 	private Timeline timeline;
 	
-	public static Equipamento addOrcamento;
+	public static Equipamento equipamento;
+	public static Orcamento orcamento;
 	
 	@FXML
 	private ImageView logoYgg, cadastrar, refresh, abrir, cadastrar2, inserirColeta, home, buscar, buscar1, pdf;
@@ -69,35 +70,6 @@ public class MainViewController implements Initializable{
     }
     
     @FXML
-    private void addOrcamento(ActionEvent e) throws IOException {
-    	int status = 2;
-		if(tableFilaEquipamentos.getSelectionModel().getSelectedItem() != null) {			
-			addOrcamento = tableFilaEquipamentos.getSelectionModel().getSelectedItem();
-			NewView.getNewViewModal("Entrada Equipamento", (Pane) NewView.loadFXML("orcamento", AlfaPirometrosApplication.viewAddOrcamento), LoadViewController.getStage());
-			
-			controller.updatedeEquipamento( tableFilaEquipamentos.getSelectionModel().getSelectedItem().getId(), status );
-				obsListTableFilaEquipamentos = controller.getByLaboratorio(true);
-				tableFilaEquipamentos.setItems(obsListTableFilaEquipamentos);
-				tableFilaEquipamentos.refresh();
-			
-			obsListTableFilaEquipamentos = controller.getByLaboratorio(true);
-			tableFilaEquipamentos.setItems(obsListTableFilaEquipamentos);
-			tableFilaEquipamentos.refresh();
-		}
-		else {
-			System.out.println("Nada Selecionado");
-		}
-
-    	
-    }
-    
-    @FXML
-    private void addColeta(ActionEvent e) throws IOException {
-    
-    
-    }
-    
-    @FXML
     private void updateStatus(ActionEvent e) throws IOException {
     	int status = 3;
 		if(tableFilaEquipamentos.getSelectionModel().getSelectedItem() != null) {
@@ -109,17 +81,46 @@ public class MainViewController implements Initializable{
 		else {
 			System.out.println("Nada Selecionado");
 		}
-	
+	   	
+    }  
+    
+    @FXML
+    private void addOrcamento(ActionEvent e) throws IOException {
+    	int status = 2;
+		if(tableFilaEquipamentos.getSelectionModel().getSelectedItem() != null) {			
+			equipamento = tableFilaEquipamentos.getSelectionModel().getSelectedItem();
+			NewView.getNewViewModal("Entrada Equipamento", (Pane) NewView.loadFXML("orcamento", new AddOrcamentoViewController() ), LoadViewController.getStage());
+			obsListTableFilaEquipamentos = controller.getByLaboratorio(true);		
+			tableFilaEquipamentos.setItems(obsListTableFilaEquipamentos);
+			tableFilaEquipamentos.refresh();
+		}
+		else {
+			System.out.println("Nada Selecionado");
+		}
     	
-    }    
+    }
+    
+    
     @FXML
     private void openOrcamento(ActionEvent e) throws IOException {
-  
+    	if(tableFilaEquipamentos.getSelectionModel().getSelectedItem() != null) {
+    		equipamento = tableFilaEquipamentos.getSelectionModel().getSelectedItem();
+    		orcamento = controller.getOrcamento( tableFilaEquipamentos.getSelectionModel().getSelectedItem().getOrcamento_id() );
+    		if(orcamento != null) {
+    			NewView.getNewViewModal("Entrada Equipamento", (Pane) NewView.loadFXML("orcamentoView", new OrcamentoViewController() ), LoadViewController.getStage());
+    		}else
+    			Alerts.showAlert("Orcamento" , "Status Orcamento", "Não consta orçamento para este equipamento" , AlertType.INFORMATION);
+    		
+    	}
 	        	
     }
           
  
- 
+     @FXML
+    private void addColeta(ActionEvent e) throws IOException {
+    	System.out.println();
+    
+    }
 	
 	
 	

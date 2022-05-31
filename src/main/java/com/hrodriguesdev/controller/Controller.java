@@ -4,8 +4,10 @@ import java.util.List;
 
 import com.hrodriguesdev.entities.Empressa;
 import com.hrodriguesdev.entities.Equipamento;
+import com.hrodriguesdev.entities.Orcamento;
 import com.hrodriguesdev.service.EmpressaService;
 import com.hrodriguesdev.service.EquipamentoService;
+import com.hrodriguesdev.service.OrcamentoService;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,6 +16,7 @@ import javafx.collections.ObservableList;
 public class Controller {
 	private EquipamentoService equipamentoService = new EquipamentoService();
 	private EmpressaService empressaService = new EmpressaService();
+	private OrcamentoService orcamentoService = new OrcamentoService();
 	
 	
 		
@@ -53,9 +56,25 @@ public class Controller {
 		return equipamentoService.updatedeEquipamento(id, status);
 		
 	}
+	
+	public boolean updatedeEquipamentoOrcamento(Long id, Long idOrcamento) {
+		return equipamentoService.updatedeEquipamentoOrcamento(id, idOrcamento);
+		
+	}
+
+	public Long addOrcamento(Orcamento orcamento) {
+		return 	orcamentoService.addOrcamento(orcamento);
+	}
+
+	public Orcamento getOrcamento(Long id) {
+		return orcamentoService.getOrcamento(id);
+	}
 
 	/*
-	 * 
+	 		
+
+			
+			
 	public ObservableList<Equipamento> getByFila(Boolean fila){
 		ObservableList<Motorista> obs = FXCollections.observableArrayList();		
 		List<Motorista> list = motoristaService.getByFila(true);

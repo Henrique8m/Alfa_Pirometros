@@ -8,6 +8,8 @@ import com.hrodriguesdev.gui.controller.MainViewController;
 import com.hrodriguesdev.utilitary.NewView;
 
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -23,7 +25,14 @@ public class AlfaPirometrosApplication extends Application{
 	
 	public static boolean springStart = false;
 	
-
+	public static ObservableList<String> obsPecasEstoque = FXCollections.observableArrayList(
+			"BotaoLiga", "BoMeFIIFIIIIndicmax", "CaixaBat",
+			"FontCarbIndic", "FontCarbDelta", "PinFemeAliFII", "PinFemeAliFIII", "BatFIIFIII", "BatDescartavel", "BatInditemp", "BatLitio", "CarrEcil", "CarrItalterm",
+			"PCIFIII", "PCIFKal", "DispFKal", "FIII", "Indicmax", "CIFII", "CIIndicmax", "sirene", 
+			"MascaraFII", "MascaraFKal", "MascaraFIII", "MascaraCarbo", "MascaraIndic", "EtiqLatFII", "EtiqLatFIII", "EtiqTrasFII", "Punho", 
+			"ReceptaculoS", "ReceptaculoSU", "ReceptaculoEcil", "ReceptaculoK", "PlugFS", "PlugFK", "PlugMS", "PlugMK", "TomadaS"
+			);
+	public static ObservableList<String> obsQuantidade = FXCollections.observableArrayList("1","2","3","4","5","6","7","8","9","10");
 
 	private final String nameIcon = "Yggdrasilicon.jpg";
 	private final String nameImageViewStarting = "Yggdrasil.jpg";
@@ -37,7 +46,7 @@ public class AlfaPirometrosApplication extends Application{
 	public static MainViewController viewController = new MainViewController();
 	public static AddEquipamentoViewController viewaddChegadaEquipamento = new AddEquipamentoViewController();
 	public static AddEmpressaViewController viewaddEmpressa = new AddEmpressaViewController();
-	public static AddOrcamentoViewController viewAddOrcamento = new AddOrcamentoViewController();
+	
 
 	//Carregando a view de Load
 	@Override

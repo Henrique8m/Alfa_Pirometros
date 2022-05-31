@@ -6,7 +6,16 @@ import java.util.ResourceBundle;
 import com.hrodriguesdev.AlfaPirometrosApplication;
 import com.hrodriguesdev.controller.Controller;
 import com.hrodriguesdev.entities.Equipamento;
+import com.hrodriguesdev.entities.EstoqueConsumo;
+import com.hrodriguesdev.entities.EstoqueEletricos;
+import com.hrodriguesdev.entities.EstoqueEletronicos;
+import com.hrodriguesdev.entities.EstoqueEstetico;
+import com.hrodriguesdev.entities.Orcamento;
+import com.hrodriguesdev.utilitary.InputFilter;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -16,6 +25,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
@@ -24,36 +34,104 @@ import javafx.stage.Stage;
 
 public class AddOrcamentoViewController implements Initializable {
 	
-	private Controller controller = new Controller();
 	private Equipamento equipamento;
+	private Orcamento orcamento;
+	private EstoqueConsumo consumo = new EstoqueConsumo();
+	private EstoqueEletricos eletricos = new EstoqueEletricos();
+	private EstoqueEletronicos eletronicos = new EstoqueEletronicos();
+	private EstoqueEstetico estetico = new EstoqueEstetico();
+	private Controller controller = new Controller();
 	
-	@FXML
-	private ImageView cancelarImg, salvarImg;
-	@FXML
-	private Text erro;
-	@FXML
-	public TextField nomeEmpressa, data, modelo, ns, pat, ultimaCal;
+	private Long orcamentoId;
+	private String list = "Lista de Materiais Usados; \n";
+	private String nova = "";
+	
+	//Button
 	@FXML
 	private Button salvar, cancelar;
-	@FXML
-	private TableView<String> tableOrcamento = new TableView<>();
-	@FXML
-	private TableColumn<String, String> item;
-	@FXML
-	private TableColumn<String, String> quantidade;
 	
+	//Image Button
+	@FXML
+	private ImageView cancelarImg, salvarImg;
+	
+	@FXML
+	private Text erro, erro2;
+	
+	//Info Employee 
+	@FXML
+	public TextField nomeEmpressa, data, modelo, ns, pat, ultimaCal;
+
+	
+	//Table
+	@FXML
+	private TableView<Orcamento> tableOrcamento = new TableView<>();
+	private ObservableList<Orcamento> obsMateriais = FXCollections.observableArrayList();
+	@FXML
+	private TableColumn<Orcamento, String> item;
+	@FXML
+	private TableColumn<Orcamento, Integer> quantidade;
+	
+	//Add Orçamentos
 	@FXML
 	private TextArea obs;
 	@FXML
 	private ComboBox<String> newItem = new ComboBox<>();
 	@FXML
-	private ComboBox<Integer> quantidadeItem = new ComboBox<>();
+	private ComboBox<String> quantidadeItem = new ComboBox<>();
 	
+		
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		conboBoxInit();
+		imageInit();
+		textFildInserts();
+		tabelaInit();
+		
+	}	
 	
 	@FXML
+	public void addItem(ActionEvent event) {
+		if(!newItem.getValue().isEmpty() && !newItem.getValue().isBlank() && quantidadeItem.getValue()!= null) {
+			obsMateriais.add(new Orcamento(newItem.getValue(), Integer.parseInt( quantidadeItem.getValue() ) ) );
+			tableOrcamento.refresh();
+			newItem.setValue("");
+			quantidadeItem.setValue("");
+			
+		}else if( !obs.getText().isEmpty() ) {
+			obsMateriais.add( new Orcamento(obs.getText(), 0 ) );
+			obs.setText("");
+			
+		}else {
+			erro2.setText("Error");
+		}
+		
+	}	
+
+
+	@FXML
 	public void salvar(ActionEvent event) {
-		
-		
+
+		if(obsMateriais.size()>0) {
+			obsMateriais.forEach((orcamento)-> {	
+			String itemStr = orcamento.getItem();
+			String quanti = String.valueOf( orcamento.getQuantidade() );	
+			this.nova = this.list + "Item - "+  itemStr + "  ||  Quantidade - " + quanti + "\n";
+			this.list = nova;
+			});
+			orcamentoId = controller.addOrcamento( new Orcamento(nova, 0) );
+			if(controller.updatedeEquipamentoOrcamento(equipamento.getId() , orcamentoId)) {
+				controller.updatedeEquipamento(equipamento.getId(), 2);
+				try {
+					Stage stage = (Stage) cancelar.getScene().getWindow(); 
+					stage.close();
+				} catch (NumberFormatException e) {
+					e.printStackTrace();
+				}
+			}else {
+				erro.setText("Erro");
+			}
+		}
+	
 	}	
 	
 	@FXML
@@ -70,24 +148,94 @@ public class AddOrcamentoViewController implements Initializable {
 	@FXML
 	public void format(KeyEvent event) {
 		
+}
+	
+	private void tabelaInit() {
+		item.setCellValueFactory(new PropertyValueFactory<Orcamento, String>("Item") );
+		quantidade.setCellValueFactory(new PropertyValueFactory<Orcamento, Integer>("quantidade"));
+		tableOrcamento.setItems(obsMateriais);
+		
 	}
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		equipamento = MainViewController.addOrcamento;
+
+
+	private void conboBoxInit() {
+		quantidadeItem.setEditable(true);
+		newItem.setEditable(true);
+		FilteredList<String> filteredListInt = new FilteredList<>(AlfaPirometrosApplication.obsQuantidade);		
+		quantidadeItem.getEditor().textProperty().addListener(new InputFilter<String>( quantidadeItem, filteredListInt ) );
+		//FilteredList<String> filteredList = new FilteredList<>(AlfaPirometrosApplication.obsPecasEstoque);		
+		newItem.getEditor().textProperty().addListener(new InputFilter<String>( newItem, new FilteredList<>(AlfaPirometrosApplication.obsPecasEstoque) ) );
+	}
+	
+	private void imageInit() {
+		Image image =  new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-adicionar.png").toString() );
+		salvarImg.setImage(image);
+		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-excluir.png").toString() );
+		cancelarImg.setImage(image);
+	}
+	
+	private void textFildInserts() {
+		equipamento = MainViewController.equipamento;
 		nomeEmpressa.setText(equipamento.getEmpressaName());
 		data.setText(equipamento.getDataChegada());
 		modelo.setText(equipamento.getModelo());
 		ns.setText(equipamento.getNs());
 		pat.setText(equipamento.getPat());
-		ultimaCal.setText(equipamento.getUltimaCalib());
+		ultimaCal.setText(equipamento.getUltimaCalib());	
+	}
 		
-		
-
-		Image image =  new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-adicionar.png").toString() );
-		salvarImg.setImage(image);
-		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-excluir.png").toString() );
-		cancelarImg.setImage(image);
-	    
-	}	
+	private boolean listManutencao(String value, int intValue) {
+		/*
+		switch (value) {
+			case "BotaoLiga": return "Aguardando Orçamento";
+			case "BoMeFIIFIIIIndicmax":	return "Enviar Orçamento";
+			case "CaixaBat": return "Aguardando Aprovação";
+			case "FontCarbIndic": return "Aprovado, aquardando Reparo!";
+			case "FontCarbDelta": return "Liberado, aquardando Coleta!";
+			case "PinFemeAliFII": return "Não Aprovado, aquardando coleta!";
+			
+			case "PinFemeAliFIII": return "Aguardando Orçamento";
+			case "BatFIIFIII":	return "Enviar Orçamento";
+			case "BatDescartavel": return "Aguardando Aprovação";
+			case "BatInditemp": return "Aprovado, aquardando Reparo!";
+			case "BatLitio": return "Liberado, aquardando Coleta!";
+			case "CarrEcil": return "Não Aprovado, aquardando coleta!";		
+			case "CarrItalterm": return "Aguardando Orçamento";
+			
+			case "PCIFIII":	return "Enviar Orçamento";
+			case "PCIFKal": return "Aguardando Aprovação";
+			case "DispFKal": return "Aprovado, aquardando Reparo!";
+			case "FIII": return "Liberado, aquardando Coleta!";
+			case "Indicmax": return "Não Aprovado, aquardando coleta!";		
+			case "CIFII": return "Aguardando Orçamento";
+			case "CIIndicmax":	return "Enviar Orçamento";
+			case "sirene": return "Aguardando Aprovação";
+			
+			case "MascaraFII":	return "Enviar Orçamento";
+			case "MascaraFKal": return "Aguardando Aprovação";
+			case "MascaraFIII": return "Aprovado, aquardando Reparo!";
+			case "MascaraCarbo": return "Liberado, aquardando Coleta!";
+			case "MascaraIndic": return "Não Aprovado, aquardando coleta!";		
+			case "EtiqLatFII": return "Aguardando Orçamento";
+			case "EtiqLatFIII":	return "Enviar Orçamento";
+			case "EtiqTrasFII": return "Aguardando Aprovação";		
+			case "Punho":	return "Enviar Orçamento";
+			
+			case "ReceptaculoS": return "Aguardando Aprovação";
+			case "ReceptaculoSU": return "Aprovado, aquardando Reparo!";
+			case "ReceptaculoEcil": return "Liberado, aquardando Coleta!";
+			case "ReceptaculoK": return "Não Aprovado, aquardando coleta!";		
+			case "PlugFS": return "Aguardando Orçamento";
+			case "PlugFK":	return "Enviar Orçamento";
+			case "PlugMS": return "Aguardando Aprovação";
+			case "PlugMK":	return "Enviar Orçamento";
+			case "TomadaS": return "Aguardando Aprovação";
+			
+		default: return "";
+		}
+		return false;
+		*/
+		return true;
+	}
 
 }

@@ -169,6 +169,7 @@ public class Equipamento implements Serializable {
 	private String certificado;
 	private double valor;
 	private boolean laboratorio;
+	@SuppressWarnings("unused")
 	private String statusStr;
 	
 
@@ -178,6 +179,7 @@ public class Equipamento implements Serializable {
 	private EstoqueEstetico estoqueEstetico;
 	private EstoqueSinal estoqueSinal;
 	private Empressa empressa;
+	private Long orcamento_id;
 	
 	public Equipamento() {}
 	
@@ -191,6 +193,19 @@ public class Equipamento implements Serializable {
 
 	public void setLaboratorio(boolean laboratorio) {
 		this.laboratorio = laboratorio;
+	}
+
+
+	public void setStatusStr(String statusStr) {
+		this.statusStr = statusStr;
+	}
+
+	public Long getOrcamento_id() {
+		return orcamento_id;
+	}
+
+	public void setOrcamento_id(Long orcamento_id) {
+		this.orcamento_id = orcamento_id;
 	}
 	
 	

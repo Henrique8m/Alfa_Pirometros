@@ -11,10 +11,10 @@ public class EstoqueSinal implements Serializable {
 	//@GeneratedValue(strategy = GenerationType.IDENTITY)
 	
 	private Long id;
-	private int S;
-	private int SU;
-	private int Ecil;
-	private int K;
+	private int ReceptaculoS;
+	private int ReceptaculoSU;
+	private int ReceptaculoEcil;
+	private int ReceptaculoK;
 	private int PlugFS;
 	private int PlugFK;
 	private int PlugMS;

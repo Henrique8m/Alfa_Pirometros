@@ -36,5 +36,10 @@ public class EquipamentoService {
 		return repository.updatedeEquipamento(id, status);
 	}
 
+	public boolean updatedeEquipamentoOrcamento(Long id, Long idOrcamento) {
+		
+		return repository.updatedeEquipamentoOrcamento(id, idOrcamento);
+	}
+
 
 }

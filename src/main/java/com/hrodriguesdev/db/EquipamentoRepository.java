@@ -89,6 +89,7 @@ public class EquipamentoRepository {
 	public Equipamento parseEquipamento(ResultSet rs) {
 		Equipamento obj = new Equipamento();
 		try {
+			obj.setOrcamento_id( rs.getLong("orcamento_id"));
 			obj.setId( rs.getLong("Id") );	
 			obj.setEmpressaName( rs.getString("empressaName") );				
 			obj.setModelo( rs.getString("modelo") );  
@@ -116,6 +117,34 @@ public class EquipamentoRepository {
 			conn = DB.getConnection();
 			pst = conn.prepareStatement("UPDATE tb_equipamento "
 											+ "SET status = " + status 
+											+" WHERE "
+											+"(id = ?)");
+			
+			pst.setLong( 1, id );
+			
+			int rowsAccepted = pst.executeUpdate();
+			if(rowsAccepted>0)
+				ok=true;
+		
+		}catch (SQLException e) {
+			ok=false;
+		System.out.println(e.getMessage());	
+		}
+		finally {
+			DB.closeStatement(pst);
+			
+		}
+		return ok;
+
+	}
+
+	public boolean updatedeEquipamentoOrcamento(Long id, Long idOrcamento) {
+		boolean ok = false;
+		
+		try {
+			conn = DB.getConnection();
+			pst = conn.prepareStatement("UPDATE tb_equipamento "
+											+ "SET orcamento_id = " + idOrcamento 
 											+" WHERE "
 											+"(id = ?)");
 			
