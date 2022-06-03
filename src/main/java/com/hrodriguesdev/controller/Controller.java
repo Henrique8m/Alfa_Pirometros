@@ -1,7 +1,9 @@
 package com.hrodriguesdev.controller;
 
+import java.sql.SQLException;
 import java.util.List;
 
+import com.hrodriguesdev.db.DbException;
 import com.hrodriguesdev.entities.Empressa;
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.entities.Orcamento;
@@ -21,7 +23,7 @@ public class Controller {
 	
 		
 	
-	public ObservableList<Equipamento> getByLaboratorio(boolean laboratorio) {
+	public ObservableList<Equipamento> getByLaboratorio(boolean laboratorio) throws DbException, SQLException {
 		ObservableList<Equipamento> obs = FXCollections.observableArrayList();
 		List<Equipamento> list = equipamentoService.getByLaboratorio(laboratorio);
 		if(list!=null) {

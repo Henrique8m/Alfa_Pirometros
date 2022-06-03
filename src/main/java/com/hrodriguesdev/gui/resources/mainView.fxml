@@ -18,34 +18,30 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane minHeight="750.0" minWidth="1250.0" prefHeight="750.0" prefWidth="1250.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane minHeight="300.0" minWidth="400.0" prefHeight="750.0" prefWidth="1250.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ScrollPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
-        </content>
-      </ScrollPane>
-      <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <ScrollPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <TabPane minHeight="400.0" minWidth="400.0" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
           <Tab text="Principal">
                <content>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" />
                </content>
                <content>
-                  <AnchorPane prefHeight="700.0" prefWidth="1250.0">
+                  <AnchorPane minHeight="300.0" minWidth="400.0" prefHeight="700.0" prefWidth="1250.0">
                      <children>
-                        <HBox prefHeight="696.0" prefWidth="1250.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <HBox minHeight="300.0" minWidth="100.0" prefHeight="697.0" prefWidth="1250.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <TableView fx:id="tableFilaEquipamentos" prefHeight="696.0" prefWidth="844.0" style="-fx-background-radius: 10;">
+                              <TableView fx:id="tableFilaEquipamentos" cache="true" depthTest="DISABLE" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="200.0" minWidth="844.0" prefHeight="1000.0" prefWidth="1500.0" style="-fx-background-radius: 10;" tableMenuButtonVisible="true">
                                 <columns>
-                                    <TableColumn minWidth="690.0" prefWidth="834.0" text="Equipamentos em Laboratorio">
+                                    <TableColumn editable="false" maxWidth="-Infinity" minWidth="844.0" prefWidth="1500.0" resizable="false" text="Equipamentos em Laboratorio">
                                        <columns>
-                                        <TableColumn fx:id="empressa" editable="false" minWidth="250.0" prefWidth="250.0" text="Empresa" />
-                                          <TableColumn fx:id="status" minWidth="180.0" prefWidth="180.0" text="Status" />
-                                          <TableColumn fx:id="dataChegada" editable="false" minWidth="83.0" prefWidth="83.0" text="Data Chegada" />
-                                          <TableColumn fx:id="modelo" editable="false" minWidth="100.0" prefWidth="100.0" text="Modelo" />
-                                          <TableColumn fx:id="ns" minWidth="100.0" prefWidth="100.0" text="Numero de Serie" />
-                                          <TableColumn fx:id="pat" minWidth="100.0" prefWidth="100.0" text="Patrimonio" />
+                                        <TableColumn fx:id="empressa" editable="false" minWidth="250.0" prefWidth="500.0" text="Empresa" />
+                                          <TableColumn fx:id="status" editable="false" minWidth="180.0" prefWidth="300.0" text="Status" />
+                                          <TableColumn fx:id="dataChegada" editable="false" minWidth="83.0" prefWidth="150.0" text="Data Chegada" />
+                                          <TableColumn fx:id="modelo" editable="false" minWidth="100.0" prefWidth="150.0" text="Modelo" />
+                                          <TableColumn fx:id="ns" editable="false" minWidth="100.0" prefWidth="150.0" text="Numero de Serie" />
+                                          <TableColumn fx:id="pat" editable="false" minWidth="100.0" prefWidth="150.0" text="Patrimonio" />
                                        </columns>
                                     </TableColumn>
                                 </columns>
@@ -55,20 +51,23 @@
                                  <padding>
                                     <Insets left="10.0" right="10.0" />
                                  </padding>
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
                               </TableView>
-                              <VBox prefHeight="502.0" prefWidth="313.0">
+                              <VBox prefWidth="313.0">
                                  <children>
-                                    <GridPane prefHeight="685.0" prefWidth="313.0" style="-fx-background-color: #a8a8a8; -fx-background-radius: 10;">
+                                    <GridPane alignment="CENTER" minHeight="500.0" minWidth="244.0" prefHeight="1000.0" prefWidth="500.0" style="-fx-background-color: #a8a8a8; -fx-background-radius: 10;">
                                       <columnConstraints>
-                                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="314.0" prefWidth="100.0" />
                                       </columnConstraints>
                                       <rowConstraints>
-                                        <RowConstraints maxHeight="60.0" minHeight="60.0" prefHeight="60.0" vgrow="SOMETIMES" />
-                                        <RowConstraints maxHeight="60.0" minHeight="60.0" prefHeight="60.0" vgrow="SOMETIMES" />
-                                          <RowConstraints maxHeight="60.0" minHeight="60.0" prefHeight="60.0" vgrow="SOMETIMES" />
-                                          <RowConstraints maxHeight="60.0" minHeight="60.0" prefHeight="60.0" vgrow="SOMETIMES" />
-                                          <RowConstraints maxHeight="60.0" minHeight="60.0" prefHeight="60.0" vgrow="SOMETIMES" />
-                                          <RowConstraints maxHeight="900.0" minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="110.0" minHeight="60.0" prefHeight="80.0" valignment="CENTER" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="110.0" minHeight="60.0" prefHeight="80.0" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="110.0" minHeight="60.0" prefHeight="80.0" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="110.0" minHeight="60.0" prefHeight="80.0" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="110.0" minHeight="60.0" prefHeight="80.0" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="500.0" minHeight="244.0" prefHeight="300.0" vgrow="SOMETIMES" />
                                       </rowConstraints>
                                        <children>
                                           <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#addEquipamento" prefHeight="45.0" prefWidth="185.0" style="-fx-background-radius: 10; -fx-cursor: hand;" text="Cadastrar Chegada">
@@ -79,26 +78,7 @@
                                                 <ImageView fx:id="cadastrar" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" />
                                              </graphic>
                                           </Button>
-                                          <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#addOrcamento" prefHeight="45.0" prefWidth="185.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Inserir Orçamento" GridPane.rowIndex="2">
-                                             <graphic>
-                                                <ImageView fx:id="cadastrar2" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" />
-                                             </graphic>
-                                             <font>
-                                                <Font size="15.0" />
-                                             </font></Button>
-                                          <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
-                                             <children>
-                                                <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#updateStatus" prefHeight="45.0" prefWidth="185.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Atualizar-Aguardando">
-                                                   <graphic>
-                                                      <ImageView fx:id="refresh" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" />
-                                                   </graphic>
-                                                </Button>
-                                             </children>
-                                             <GridPane.margin>
-                                                <Insets />
-                                             </GridPane.margin>
-                                          </HBox>
-                                          <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#openOrcamento" prefHeight="45.0" prefWidth="185.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Abrir Orçamento" GridPane.rowIndex="3">
+                                          <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#openOrcamento" prefHeight="45.0" prefWidth="185.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Abrir Orçamento" GridPane.rowIndex="2">
                                              <graphic>
                                                 <ImageView fx:id="abrir" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" />
                                              </graphic>
@@ -106,7 +86,7 @@
                                                 <Font size="15.0" />
                                              </font>
                                           </Button>
-                                          <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#addColeta" prefHeight="45.0" prefWidth="185.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Inserir Coleta" GridPane.rowIndex="4">
+                                          <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#addColeta" prefHeight="45.0" prefWidth="185.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Inserir Coleta" GridPane.rowIndex="3">
                                              <graphic>
                                                 <ImageView fx:id="inserirColeta" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" />
                                              </graphic>
@@ -115,6 +95,19 @@
                                              </font>
                                           </Button>
                                           <ImageView fx:id="logoYgg" fitHeight="244.0" fitWidth="313.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="5" />
+                                          <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#updateStatus" prefHeight="45.0" prefWidth="185.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Atualizar Status" GridPane.rowIndex="4">
+                                             <graphic>
+                                                <ImageView fx:id="refresh" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" />
+                                             </graphic>
+                                          </Button>
+                                          <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#addOrcamento" prefHeight="45.0" prefWidth="185.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Inserir Orçamento" GridPane.rowIndex="1">
+                                             <graphic>
+                                                <ImageView fx:id="cadastrar2" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" />
+                                             </graphic>
+                                             <font>
+                                                <Font size="15.0" />
+                                             </font>
+                                          </Button>
                                        </children>
                                        <VBox.margin>
                                           <Insets />
@@ -127,7 +120,8 @@
                               </VBox>
                            </children>
                         </HBox>
-                     </children></AnchorPane>
+                     </children>
+                  </AnchorPane>
                </content>
                <graphic>
                   <ImageView fx:id="home" fitHeight="23.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true" />
@@ -244,7 +238,8 @@
                </content>
                <graphic>
                   <ImageView fx:id="buscar" fitHeight="22.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true" />
-               </graphic></Tab>
+               </graphic>
+            </Tab>
         </tabs>
       </TabPane>
    </children>

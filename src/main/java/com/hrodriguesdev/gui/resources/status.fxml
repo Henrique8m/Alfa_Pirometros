@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="160.0" prefWidth="613.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Button fx:id="cancelar" alignment="CENTER" layoutX="14.0" layoutY="22.0" mnemonicParsing="false" onAction="#aguardandoOrcamento" prefHeight="45.0" prefWidth="185.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Aguardando Orçamento" textAlignment="CENTER">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
+      <Button alignment="CENTER" layoutX="14.0" layoutY="91.0" mnemonicParsing="false" onAction="#enviarOrcamento" prefHeight="45.0" prefWidth="185.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Enviar Orçamento" textAlignment="CENTER">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
+      <Button alignment="CENTER" layoutX="214.0" layoutY="22.0" mnemonicParsing="false" onAction="#aguardandoAprovacao" prefHeight="45.0" prefWidth="185.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Aguardando Aprovação" textAlignment="CENTER">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
+      <Button alignment="CENTER" layoutX="214.0" layoutY="91.0" mnemonicParsing="false" onAction="#aguardandoReparo" prefHeight="45.0" prefWidth="185.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Aprovado, aquardando Reparo!" textAlignment="CENTER" />
+      <Button alignment="CENTER" layoutX="414.0" layoutY="22.0" mnemonicParsing="false" onAction="#liberado" prefHeight="45.0" prefWidth="185.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Liberado, aquardando Coleta!" textAlignment="CENTER" />
+      <Button alignment="CENTER" layoutX="414.0" layoutY="91.0" mnemonicParsing="false" onAction="#naoAprovado" prefHeight="45.0" prefWidth="185.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Não Aprovado, aquardando coleta!" textAlignment="CENTER">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

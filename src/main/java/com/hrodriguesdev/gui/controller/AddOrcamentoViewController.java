@@ -13,10 +13,12 @@ import com.hrodriguesdev.entities.EstoqueEstetico;
 import com.hrodriguesdev.entities.Orcamento;
 import com.hrodriguesdev.utilitary.InputFilter;
 
+import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -28,6 +30,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -158,13 +161,14 @@ public class AddOrcamentoViewController implements Initializable {
 	}
 
 
+	@SuppressWarnings("unchecked")
 	private void conboBoxInit() {
 		quantidadeItem.setEditable(true);
 		newItem.setEditable(true);
 		FilteredList<String> filteredListInt = new FilteredList<>(AlfaPirometrosApplication.obsQuantidade);		
 		quantidadeItem.getEditor().textProperty().addListener(new InputFilter<String>( quantidadeItem, filteredListInt ) );
 		//FilteredList<String> filteredList = new FilteredList<>(AlfaPirometrosApplication.obsPecasEstoque);		
-		newItem.getEditor().textProperty().addListener(new InputFilter<String>( newItem, new FilteredList<>(AlfaPirometrosApplication.obsPecasEstoque) ) );
+		newItem.getEditor().textProperty().addListener( new InputFilter<String>( newItem, new FilteredList<>(AlfaPirometrosApplication.obsPecasEstoque) ) );
 	}
 	
 	private void imageInit() {

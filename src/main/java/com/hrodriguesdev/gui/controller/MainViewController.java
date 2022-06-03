@@ -2,15 +2,18 @@ package com.hrodriguesdev.gui.controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import com.hrodriguesdev.AlfaPirometrosApplication;
 import com.hrodriguesdev.controller.Controller;
+import com.hrodriguesdev.db.DbException;
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.entities.Orcamento;
 import com.hrodriguesdev.gui.alert.Alerts;
 import com.hrodriguesdev.utilitary.NewView;
 
+import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
@@ -33,7 +36,7 @@ import javafx.scene.layout.Pane;
 public class MainViewController implements Initializable{
 		
 //	private GeneratorPDF generator = new GeneratorPDF();	
-	private Controller controller = new Controller();
+	public static Controller controller = new Controller();
 	private Timeline timeline;
 	
 	public static Equipamento equipamento;
@@ -66,23 +69,31 @@ public class MainViewController implements Initializable{
     @FXML
     private void addEquipamento(ActionEvent e) throws IOException {
     	NewView.getNewViewModal("Entrada Equipamento", (Pane) NewView.loadFXML("entradaEquipamento", AlfaPirometrosApplication.viewaddChegadaEquipamento), LoadViewController.getStage());
-    	
+		tableFilaEquipamentos.setItems(obsListTableFilaEquipamentos);
+		tableFilaEquipamentos.refresh();    	
     }
     
     @FXML
     private void updateStatus(ActionEvent e) throws IOException {
-    	int status = 3;
 		if(tableFilaEquipamentos.getSelectionModel().getSelectedItem() != null) {
-			controller.updatedeEquipamento( tableFilaEquipamentos.getSelectionModel().getSelectedItem().getId(), status );
-			obsListTableFilaEquipamentos = controller.getByLaboratorio(true);
+			equipamento = tableFilaEquipamentos.getSelectionModel().getSelectedItem();
+			NewView.getNewViewModal("Alterar Status", (Pane) NewView.loadFXML("status", new StatusViewController() ), LoadViewController.getStage());
+			try {
+				obsListTableFilaEquipamentos = controller.getByLaboratorio(true);
+			} catch (DbException | SQLException e1) {
+				Alerts.showAlert("DB exception ", "Erro na comunicação com banco de dados", e1.getMessage(), AlertType.ERROR);
+			}
 			tableFilaEquipamentos.setItems(obsListTableFilaEquipamentos);
 			tableFilaEquipamentos.refresh();
 		}
 		else {
-			System.out.println("Nada Selecionado");
+			showAlerts();
 		}
 	   	
-    }  
+    }
+
+
+    
     
     @FXML
     private void addOrcamento(ActionEvent e) throws IOException {
@@ -90,12 +101,16 @@ public class MainViewController implements Initializable{
 		if(tableFilaEquipamentos.getSelectionModel().getSelectedItem() != null) {			
 			equipamento = tableFilaEquipamentos.getSelectionModel().getSelectedItem();
 			NewView.getNewViewModal("Entrada Equipamento", (Pane) NewView.loadFXML("orcamento", new AddOrcamentoViewController() ), LoadViewController.getStage());
-			obsListTableFilaEquipamentos = controller.getByLaboratorio(true);		
+			try {
+				obsListTableFilaEquipamentos = controller.getByLaboratorio(true);
+			} catch (DbException | SQLException e2) {
+				Alerts.showAlert("DB exception ", "Erro na comunicação com banco de dados", e2.getMessage(), AlertType.ERROR);
+			}
 			tableFilaEquipamentos.setItems(obsListTableFilaEquipamentos);
 			tableFilaEquipamentos.refresh();
 		}
 		else {
-			System.out.println("Nada Selecionado");
+			showAlerts();
 		}
     	
     }
@@ -111,15 +126,15 @@ public class MainViewController implements Initializable{
     		}else
     			Alerts.showAlert("Orcamento" , "Status Orcamento", "Não consta orçamento para este equipamento" , AlertType.INFORMATION);
     		
-    	}
+    	}else showAlerts();
 	        	
     }
           
  
      @FXML
     private void addColeta(ActionEvent e) throws IOException {
-    	System.out.println();
-    
+    	//System.out.println();
+    	showAlerts();
     }
 	
 	
@@ -202,7 +217,15 @@ public class MainViewController implements Initializable{
 	public void strartTable() {	
 		
 		//Table fila de Motorista descarregando
-	    obsListTableFilaEquipamentos = controller.getByLaboratorio(true);
+	    try {
+	    	obsListTableFilaEquipamentos = controller.getByLaboratorio(true);
+	    	oldObs = obsListTableFilaEquipamentos;
+	    }catch(DbException e) {
+	    	Alerts.showAlert("DB exception ", "Erro na comunicação com banco de dados", e.getMessage(), AlertType.ERROR);
+	    } catch (SQLException e) {
+	    	Alerts.showAlert("SQL exception ", "Erro na comunicação com banco de dados", e.getMessage(), AlertType.ERROR);
+		}
+		
 	    tableFilaEquipamentos.setEditable(false);	 
 	    dataChegada.setSortType(TableColumn.SortType.DESCENDING);
 	    
@@ -218,19 +241,43 @@ public class MainViewController implements Initializable{
 		
 		
 	}
+	
+	private ObservableList<Equipamento> oldObs = FXCollections.observableArrayList();
 	private void beginTimer() {
 		
 		timeline = new Timeline(new KeyFrame(javafx.util.Duration.seconds(60), ev -> {
 			
-			obsListTableFilaEquipamentos = controller.getByLaboratorio(true);
+			try {
+				obsListTableFilaEquipamentos = controller.getByLaboratorio(true);
+				if(obsListTableFilaEquipamentos.size() > oldObs.size() ) {
+					Alerts.showAlert("Updatede Lista", "", "Equipamento da empressa " + obsListTableFilaEquipamentos.get(obsListTableFilaEquipamentos.size()-1).getEmpressaName() + " foi adcionado a lista de equipamentos ", AlertType.INFORMATION);
+				
+				}
+				if(obsListTableFilaEquipamentos.size() < oldObs.size() ) {
+					oldObs = obsListTableFilaEquipamentos;
+				}
+				for(int i =0; i< oldObs.size(); i++) {
+					if( obsListTableFilaEquipamentos.get(i).getStatus() != oldObs.get(i).getStatus() ) {
+						Alerts.showAlert("Updatede Lista", "", "Equipamento da empressa " + obsListTableFilaEquipamentos.get(obsListTableFilaEquipamentos.size()-1).getEmpressaName() + " teve o status alterado ", AlertType.ERROR);
+					}
+				}
+				oldObs = obsListTableFilaEquipamentos;
+			} catch (DbException | SQLException e) {
+				Alerts.showAlert("DB exception ", "Erro na comunicação com banco de dados", e.getMessage(), AlertType.ERROR);
+			}
 			
 			
 		}));
 
-	timeline.setCycleCount(10);
+	timeline.setCycleCount(Animation.INDEFINITE);
 	timeline.play();
 
 	}
+	
+	
+	private void showAlerts() {
+		Alerts.showAlert("Seleção ", "", "Nada Selecionado ", AlertType.INFORMATION);
+	}  
 	
 
 }

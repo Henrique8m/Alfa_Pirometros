@@ -17,9 +17,9 @@ public class EquipamentoRepository {
 	ResultSet rs = null;
 	PreparedStatement pst = null;
 	
-	public List<Equipamento> getByLaboratorio(boolean laboratorio) {
+	public List<Equipamento> getByLaboratorio(boolean laboratorio) throws DbException, SQLException{
 		List<Equipamento> list = new ArrayList<>();		
-		try {
+		
 			conn = DB.getConnection();			
 			st = conn.createStatement();			
 			rs = st.executeQuery("SELECT * FROM alfaestoque.tb_equipamento;");			
@@ -28,18 +28,15 @@ public class EquipamentoRepository {
 				if( rs.getBoolean("laboratorio")== true)
 					list.add(parseEquipamento(rs));	
 			
-		}
-		catch (SQLException e) {
-			e.printStackTrace();
-		}
-		finally {
+	
+		
 			DB.closeResultSet(rs);
 			DB.closeStatement(st);
 
 			conn = null;
 			st = null;
 			rs = null;
-		}
+		
 
 		return list;
 	}

@@ -23,6 +23,13 @@ public class AlfaPirometrosApplication extends Application{
 	private ImageView starting;
 	private Image icon;
 	
+// 1: return "Aguardando Orçamento";
+// 2: return "Enviar Orçamento";
+// 3: return "Aguardando Aprovação";
+// 4: return "Aprovado, aquardando Reparo!";
+// 5: return "Liberado, aquardando Coleta!";
+// 6: return "Não Aprovado, aquardando coleta!";
+	
 	public static boolean springStart = false;
 	
 	public static ObservableList<String> obsPecasEstoque = FXCollections.observableArrayList(

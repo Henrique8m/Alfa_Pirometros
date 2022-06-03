@@ -66,9 +66,9 @@ public class InputFilter<T> implements ChangeListener<String> {
 	public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 	    StringProperty value = new SimpleStringProperty(newValue);
 	    this.count++;
-	    System.out.println(this.count);
-	    System.out.println(oldValue);
-	    System.out.println(newValue);
+	    //System.out.println(this.count);
+	    //System.out.println(oldValue);
+	    //System.out.println(newValue);
 	    // If any item is selected we save that reference.
 	    T selected = box.getSelectionModel().getSelectedItem() != null
 	            ? box.getSelectionModel().getSelectedItem() : null;
@@ -77,7 +77,7 @@ public class InputFilter<T> implements ChangeListener<String> {
 	    // We save the String of the selected item.
 	    if (selected != null) {
 	        selectedString =  selected.toString();
-	        System.out.println(selected.toString() + "  " + "Selectede diferente de null");
+	      //  System.out.println(selected.toString() + "  " + "Selectede diferente de null");
 	    }
 	
 	    if (upperCase) {
@@ -96,18 +96,19 @@ public class InputFilter<T> implements ChangeListener<String> {
 	
 	    // If an item is selected and the value in the editor is the same
 	    // as the selected item we don't filter the list.
-	    if (selected != null ) {
+	    if (selected != null && selected != "") {
 	        // This will place the caret at the end of the string when
 	        // something is selected.
-	        System.out.println(value.get());
-	        System.out.println(selectedString);
+	       // System.out.println(value.get());
+	       // System.out.println(selectedString);
 	        selected = null;
 	        Platform.runLater(() -> box.getEditor().end());
 	        
-	    } else {
+	    } else if(!newValue.isBlank()){	
+	    	//System.out.println("setPredicate");
+	       // System.out.println(value.get());
 	        items.setPredicate(item -> {
-	            System.out.println("setPredicate");
-	            System.out.println(value.get());
+
 	            T itemString = item;
 	            if (this.box.getConverter().toString(itemString).toUpperCase().contains(value.get().toUpperCase())) {
 	                return true;

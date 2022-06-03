@@ -1,8 +1,10 @@
 package com.hrodriguesdev.service;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.hrodriguesdev.db.DbException;
 import com.hrodriguesdev.db.EquipamentoRepository;
 import com.hrodriguesdev.entities.Equipamento;
 
@@ -10,7 +12,7 @@ import com.hrodriguesdev.entities.Equipamento;
 public class EquipamentoService {
 	private EquipamentoRepository repository = new EquipamentoRepository();
 	
-	public List<Equipamento> getByLaboratorio(boolean laboratorio) {		
+	public List<Equipamento> getByLaboratorio(boolean laboratorio) throws DbException, SQLException  {		
 		return repository.getByLaboratorio(laboratorio);
 	}	
 	
