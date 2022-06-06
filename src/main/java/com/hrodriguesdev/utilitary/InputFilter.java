@@ -6,10 +6,14 @@ import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.transformation.FilteredList;
+import javafx.event.EventHandler;
 import javafx.scene.control.ComboBox;
+import javafx.scene.input.KeyEvent;
 
-public class InputFilter<T> implements ChangeListener<String> {
+public class InputFilter<T> implements ChangeListener<String>{
 	
+	private String oldValor;
+	private String newValor;
 	private ComboBox<T> box;
 	private FilteredList<T> items;
 	private boolean upperCase;
@@ -32,18 +36,23 @@ public class InputFilter<T> implements ChangeListener<String> {
 	    this.maxLength = maxLength;
 	    this.restriction = restriction;
 	    this.box.setItems(items);
-	    this.box.showingProperty().addListener(new ChangeListener<Boolean>() {
-	
-	        @Override
-	        public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-	            if (newValue == false) {
-	                items.setPredicate(null);
-	                box.getParent().requestFocus();
-	            }
-	
-	        }
-	
-	    });
+   	
+
+//		 this.box.showingProperty().addListener(new ChangeListener<Boolean>() {
+//	
+//	        @Override
+//	        public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+//	        	System.out.println("old " + oldValue);
+//	        	System.out.println("New "+ newValue );
+//	            if (newValue == false) {
+//	            	System.out.println("IF entrou");
+//	                items.setPredicate(null);
+//	               // box.getParent().requestFocus();
+//	            }
+//	
+//	        }
+//	
+//	    });
 	}
 	
 	public InputFilter(ComboBox<T> box, FilteredList<T> items, boolean upperCase, int maxLength) {
@@ -54,10 +63,12 @@ public class InputFilter<T> implements ChangeListener<String> {
 	    this(box, items, upperCase, -1, null);
 	}
 	
+	
+	
 	public InputFilter(ComboBox<T> box, FilteredList<T> items) {
 	    this(box, items, false);
 	}
-	
+
 	public FilteredList<T> getItems(){
 		return items;
 	}
@@ -66,18 +77,22 @@ public class InputFilter<T> implements ChangeListener<String> {
 	public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 	    StringProperty value = new SimpleStringProperty(newValue);
 	    this.count++;
-	    //System.out.println(this.count);
-	    //System.out.println(oldValue);
-	    //System.out.println(newValue);
-	    // If any item is selected we save that reference.
+	    System.out.println(this.count);
+//	    oldValor = oldValue;
+//	    newValor = newValue;
+//	    System.out.println(oldValue);
+//	    System.out.println(newValue);
+//	    System.out.println( observable.getValue() );
 	    T selected = box.getSelectionModel().getSelectedItem() != null
 	            ? box.getSelectionModel().getSelectedItem() : null;
 	
 	    String selectedString = null;
-	    // We save the String of the selected item.
+	    
+
+	    
 	    if (selected != null) {
-	        selectedString =  selected.toString();
-	      //  System.out.println(selected.toString() + "  " + "Selectede diferente de null");
+	    	System.out.println(selected.toString());
+	        selectedString = selected.toString();
 	    }
 	
 	    if (upperCase) {
@@ -93,19 +108,16 @@ public class InputFilter<T> implements ChangeListener<String> {
 	            value.set(oldValue);
 	        }
 	    }
-	
-	    // If an item is selected and the value in the editor is the same
-	    // as the selected item we don't filter the list.
+
 	    if (selected != null && selected != "") {
-	        // This will place the caret at the end of the string when
-	        // something is selected.
-	       // System.out.println(value.get());
-	       // System.out.println(selectedString);
 	        selected = null;
+	        System.out.println("If selected");
+	        box.getEditor().setText( value.get() );
 	        Platform.runLater(() -> box.getEditor().end());
+	        return;
 	        
 	    } else if(!newValue.isBlank()){	
-	    	//System.out.println("setPredicate");
+	    	System.out.println("setPredicate");
 	       // System.out.println(value.get());
 	        items.setPredicate(item -> {
 
@@ -116,39 +128,35 @@ public class InputFilter<T> implements ChangeListener<String> {
 	                return false;
 	            }
 	        });
+	    }else if((oldValue.length() - 1 ) > newValue.length()) {
+	    	System.out.println("Entrou no set");
+	    	box.getEditor().setText( oldValue );
 	    }
-	
-	    // If the popup isn't already showing we show it.
+
 	    if (!box.isShowing()) {
-	        // If the new value is empty we don't want to show the popup,
-	        // since
-	        // this will happen when the combo box gets manually reset.
 	        if (!newValue.isEmpty() && box.isFocused()) {
+	        	System.out.println("If 1");
 	            box.show();
 	        }
 	    }
-	    // If it is showing and there's only one item in the popup, which is
-	    // an
-	    // exact match to the text, we hide the dropdown.
+
 	    else {
 	        if (items.size() == 1) {
-	            // We need to get the String differently depending on the
-	            // nature
-	            // of the object.
 	            T item = items.get(0);
-	
-	            // To get the value we want to compare with the written
-	            // value, we need to crop the value according to the current
-	            // selectionCrop. 
 	            T comparableItem = item;
 	
 	            if (value.get().equals(comparableItem)) {
+	            	System.out.println("else do if 1");
 	                Platform.runLater(() -> box.hide());
 	            }
 	        }
 	    }
-	    box.getEditor().setText( value.get() );
+	    
+	   
+	    
+	    
 	    
 	}
 		
 }
+

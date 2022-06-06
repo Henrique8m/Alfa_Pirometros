@@ -22,13 +22,13 @@
                         <VBox prefHeight="47.0" prefWidth="222.0" style="-fx-background-color: #c9c9c9;">
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="NOME DA EMPRESSA" wrappingWidth="121.13671875" />
-                              <TextField fx:id="nomeEmpressa" editable="false" onKeyReleased="#format" prefHeight="25.0" prefWidth="84.0" />
+                              <TextField fx:id="nomeEmpressa" onKeyReleased="#format" prefHeight="25.0" prefWidth="84.0" />
                            </children>
                         </VBox>
                         <VBox prefHeight="47.0" prefWidth="97.0">
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="CIDADE" wrappingWidth="89.13671875" />
-                              <TextField fx:id="cidade" editable="false" onKeyReleased="#format" prefHeight="25.0" prefWidth="84.0" />
+                              <TextField fx:id="cidade" onKeyReleased="#format" prefHeight="25.0" prefWidth="84.0" />
                            </children>
                            <HBox.margin>
                               <Insets left="20.0" />

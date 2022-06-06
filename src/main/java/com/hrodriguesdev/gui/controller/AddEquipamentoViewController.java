@@ -184,7 +184,7 @@ public class AddEquipamentoViewController implements Initializable {
 	
     @FXML
     private void addEmpressa(ActionEvent e) throws IOException {
-    	NewView.getNewViewModal("Adcionar Empressa", (Pane) NewView.loadFXML("newEmpressa", AlfaPirometrosApplication.viewaddEmpressa), LoadViewController.getStage());
+    	NewView.getNewViewModal("Adcionar Empressa", (Pane) NewView.loadFXML("newEmpressa", new AddEmpressaViewController()), LoadViewController.getStage());
     	
     }
 

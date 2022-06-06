@@ -13,7 +13,10 @@ import com.hrodriguesdev.entities.EstoqueEstetico;
 import com.hrodriguesdev.entities.Orcamento;
 import com.hrodriguesdev.utilitary.InputFilter;
 
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -82,23 +85,53 @@ public class AddOrcamentoViewController implements Initializable {
 	@FXML
 	private ComboBox<String> quantidadeItem = new ComboBox<>();
 	
+	//config combobox
+	private InputFilter<String> inputFilterNewItem;
+	private InputFilter<String> listener;
+	
 		
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		quantidadeItem.setValue("1");
+		inputFilterNewItem = new InputFilter<String>( newItem,  new FilteredList<>(AlfaPirometrosApplication.obsPecasEstoque) );
+		listener = new InputFilter<String>( quantidadeItem,  new FilteredList<>(AlfaPirometrosApplication.obsQuantidade) );
 		conboBoxInit();
 		imageInit();
 		textFildInserts();
 		tabelaInit();
 		
+		
 	}	
+	
+	@FXML
+	private void addComEnter(KeyEvent event) {
+		if(event.getCode().toString()=="ENTER") {
+			obsMateriais.add(new Orcamento(newItem.getValue(), Integer.parseInt( quantidadeItem.getValue() ) ) );
+			tableOrcamento.refresh();
+			
+			quantidadeItem.getEditor().textProperty().removeListener( listener );	
+			newItem.getEditor().textProperty().removeListener( inputFilterNewItem );
+			
+			newItem.setValue("");
+			quantidadeItem.setValue("1");
+			conboBoxInit();
+		}
+	}
 	
 	@FXML
 	public void addItem(ActionEvent event) {
 		if(!newItem.getValue().isEmpty() && !newItem.getValue().isBlank() && quantidadeItem.getValue()!= null) {
 			obsMateriais.add(new Orcamento(newItem.getValue(), Integer.parseInt( quantidadeItem.getValue() ) ) );
 			tableOrcamento.refresh();
+			
+			quantidadeItem.getEditor().textProperty().removeListener( listener );	
+			newItem.getEditor().textProperty().removeListener( inputFilterNewItem );
+			
 			newItem.setValue("");
-			quantidadeItem.setValue("");
+			quantidadeItem.setValue("1");
+			conboBoxInit();
+			
+			
 			
 		}else if( !obs.getText().isEmpty() ) {
 			obsMateriais.add( new Orcamento(obs.getText(), 0 ) );
@@ -164,11 +197,11 @@ public class AddOrcamentoViewController implements Initializable {
 	@SuppressWarnings("unchecked")
 	private void conboBoxInit() {
 		quantidadeItem.setEditable(true);
-		newItem.setEditable(true);
-		FilteredList<String> filteredListInt = new FilteredList<>(AlfaPirometrosApplication.obsQuantidade);		
-		quantidadeItem.getEditor().textProperty().addListener(new InputFilter<String>( quantidadeItem, filteredListInt ) );
+		newItem.setEditable(true);	
+		
+		quantidadeItem.getEditor().textProperty().addListener(listener );
 		//FilteredList<String> filteredList = new FilteredList<>(AlfaPirometrosApplication.obsPecasEstoque);		
-		newItem.getEditor().textProperty().addListener( new InputFilter<String>( newItem, new FilteredList<>(AlfaPirometrosApplication.obsPecasEstoque) ) );
+		newItem.getEditor().textProperty().addListener( inputFilterNewItem );
 	}
 	
 	private void imageInit() {

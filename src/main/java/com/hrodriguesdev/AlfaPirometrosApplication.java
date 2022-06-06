@@ -51,8 +51,6 @@ public class AlfaPirometrosApplication extends Application{
 	public static String diretorioStr2 = "\\AppData\\Local\\YggDrasil\\serial";
 	
 	public static MainViewController viewController = new MainViewController();
-	public static AddEquipamentoViewController viewaddChegadaEquipamento = new AddEquipamentoViewController();
-	public static AddEmpressaViewController viewaddEmpressa = new AddEmpressaViewController();
 	
 
 	//Carregando a view de Load

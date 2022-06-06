@@ -68,7 +68,7 @@ public class MainViewController implements Initializable{
     
     @FXML
     private void addEquipamento(ActionEvent e) throws IOException {
-    	NewView.getNewViewModal("Entrada Equipamento", (Pane) NewView.loadFXML("entradaEquipamento", AlfaPirometrosApplication.viewaddChegadaEquipamento), LoadViewController.getStage());
+    	NewView.getNewViewModal("Entrada Equipamento", (Pane) NewView.loadFXML("entradaEquipamento", new AddEquipamentoViewController() ), LoadViewController.getStage());
 		tableFilaEquipamentos.setItems(obsListTableFilaEquipamentos);
 		tableFilaEquipamentos.refresh();    	
     }
