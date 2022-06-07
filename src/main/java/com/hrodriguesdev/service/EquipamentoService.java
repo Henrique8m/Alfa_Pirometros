@@ -43,5 +43,10 @@ public class EquipamentoService {
 		return repository.updatedeEquipamentoOrcamento(id, idOrcamento);
 	}
 
+	public Equipamento findEquipamentoNs(String ns) {
+		return repository.findEquipamentoNs( ns );
+		
+	}
+
 
 }

@@ -17,7 +17,7 @@ import javafx.collections.ObservableList;
 
 public class Controller {
 	private EquipamentoService equipamentoService = new EquipamentoService();
-	private EmpressaService empressaService = new EmpressaService();
+	private EmpressaService empresaService = new EmpressaService();
 	private OrcamentoService orcamentoService = new OrcamentoService();
 	
 	
@@ -39,13 +39,13 @@ public class Controller {
 	}
 	
 	public Long addEmpressa(Empressa empressa) {
-		return empressaService.addEmpressa(empressa);
+		return empresaService.addEmpressa(empressa);
 		
 	}
 	
 	public ObservableList<String> getEmpressas(){	
 		ObservableList<String> obs = FXCollections.observableArrayList();
-		List<String> list = empressaService.getAllEmpressa();
+		List<String> list = empresaService.getAllEmpressa();
 		if(list!=null) {
 			obs.addAll(list);
 			return obs;
@@ -70,6 +70,16 @@ public class Controller {
 
 	public Orcamento getOrcamento(Long id) {
 		return orcamentoService.getOrcamento(id);
+	}
+
+	public Long findEmpresaId(String empresaName) {
+		return empresaService.findEmpresaId(empresaName);
+		
+	}
+
+	public Equipamento findEquipamentoNs(String ns) {
+		return equipamentoService.findEquipamentoNs( ns );
+		
 	}
 
 	/*

@@ -7,7 +7,9 @@ import java.util.ResourceBundle;
 
 import com.hrodriguesdev.AlfaPirometrosApplication;
 import com.hrodriguesdev.controller.Controller;
+import com.hrodriguesdev.db.DbException;
 import com.hrodriguesdev.entities.Equipamento;
+import com.hrodriguesdev.gui.alert.Alerts;
 import com.hrodriguesdev.utilitary.Format;
 import com.hrodriguesdev.utilitary.InputFilter;
 import com.hrodriguesdev.utilitary.NewView;
@@ -21,6 +23,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
@@ -52,19 +55,33 @@ public class AddEquipamentoViewController implements Initializable {
 	@FXML
 	public void salvar(ActionEvent event) {
 		Equipamento obj = new Equipamento();
+		if(nomeEmpressa.getValue()== "" ||  modelo.getText()== "" ) {
+			error( "Campo nulo " ,"O campo nome da Empressa e Modelo, não pode ser nulo");
+			return;
+		}
 		try {
-			obj.setEmpressaName( nomeEmpressa.getValue() );				
+			obj.setEmpressa( controller.findEmpresaId( nomeEmpressa.getValue() ) );
+			if ( obj.getEmpressa() == null ) {
+				throw new DbException("Empresa não existe");
+			}
+			
+		}catch(DbException e2) {
+			error( "Find Empresa" ,"Empresa Não Encontrada");
+			return;
+		}
+		try {
+			obj.setEmpressaName( nomeEmpressa.getValue() );	
 			obj.setModelo( modelo.getText() );  
 			obj.setStatus( 1 );
-			obj.setDataChegada( data.getText() );
+			obj.setDataChegada( data.getText() );			
 			obj.setNs( ns.getText() );
 			obj.setPat( pat.getText() );
 			obj.setUltimaCalib( ultimaCal.getText() );	
 			
-		}catch(Exception e) {
-			e.getMessage();
-			e.getCause();
-			erro.setText("ERRO");
+		}catch(NullPointerException e) {
+			e.printStackTrace();
+			error( "Null Pointer " ,"Null Pointer Exeption");			
+			return;
 		}
 		try {
 			obj.setId(controller.addEquipamento(obj));
@@ -74,7 +91,8 @@ public class AddEquipamentoViewController implements Initializable {
 				stage.close();
 				
 			}else {
-				erro.setText("ERRO");
+				error( "SQL Exeption " ,"Error ao Salvar, id não teve retorno");		
+				return;
 			}
 			
 		} catch (NumberFormatException e) {
@@ -85,6 +103,12 @@ public class AddEquipamentoViewController implements Initializable {
 		
 	}	
 	
+	private void error(String titulo, String mensagem) {
+		Alerts.showAlert(titulo, "", mensagem, AlertType.ERROR);
+		Stage stage = (Stage) cancelar.getScene().getWindow(); 
+		stage.close();
+	}
+
 	@FXML
 	public void cancelar(ActionEvent event) {
 		try {
@@ -98,66 +122,29 @@ public class AddEquipamentoViewController implements Initializable {
 	
 	@FXML
 	public void format(KeyEvent event) {
-/*		if(event.getCode().toString() != "BACK_SPACE" ) {
+		if(event.getCode().toString() != "BACK_SPACE" ) {
 				
-			 if(event.getTarget().equals(placa)){
-				placa.setText(Format.replacePlaca(placa.getText()));
-				placa.end();
-				
-			 }else if(event.getTarget().equals(estado)){
-				 String input = estado.getText().toUpperCase().replaceAll("[^A-Z]+", "");
-				 if(input.length() > 2) {
-					 StringBuilder stringBuilder = new StringBuilder(input);
-					 input = stringBuilder.replace(input.length()-1, input.length(), "").toString();
-				 }
-				 estado.setText(input);
-				 estado.end();	
-				 
-			}else if(event.getTarget().equals(nome)){
-				String input = nome.getText().toUpperCase();
-				input = input.replaceAll("[^A-Z-' ']+", "");			
-				nome.setText(input);
-				nome.end();
-				
-			 }else if(event.getTarget().equals(cidade)){
-				String input = cidade.getText().toUpperCase();
-				input = input.replaceAll("[^A-Z-' ']+", "");			
-				cidade.setText(input);
-				cidade.end();
-				
-			 }else if(event.getTarget().equals(cnh)){
-					String input = cnh.getText().replaceAll("[^0-9]+", "");
-					if(input.length() > 11) {
-						 StringBuilder stringBuilder = new StringBuilder(input);
-						 input = stringBuilder.replace(input.length()-1, input.length(), "").toString();
-					}
-					cnh.setText(input);
-					cnh.end();
-					
-			}else if(event.getTarget().equals(telefone)){
-				String input = telefone.getText().replaceAll("[^0-9-'('-')'-'-']+", "");
-				StringBuilder stringBuilder = new StringBuilder(input);
-				if(input.length()>1 && input.charAt(0)!='(') {
-					input = stringBuilder.insert(0, "(").toString();
-					
-				}else if(input.length()>3 && input.charAt(3)!=')') {
-					input = stringBuilder.insert(3, ")").toString();
-				
-				}else if(input.length()>9 && input.charAt(9)!='-') {
-					input = stringBuilder.insert(9, "-").toString();
-				}
-				if(input.length() > 14) {
-					 input = stringBuilder.replace(input.length()-1, input.length(), "").toString();
-				}
-				telefone.setText(input);
-				telefone.end();
-				
-			}
-		}*/
-		//System.out.println("Format Text");
+			 if(event.getTarget().equals(ultimaCal)){
+				 ultimaCal.setText(Format.replaceData( ultimaCal.getText() ) );
+				 ultimaCal.end();
+			 }
+
+		}
+		
 	}
 
-	
+	@FXML
+	public void findNs(ActionEvent event) {
+		Equipamento obj = controller.findEquipamentoNs( ns.getText() );
+		if( obj != null	) {
+			
+			nomeEmpressa.setValue( obj.getEmpressaName() );	
+			modelo.setText( obj.getModelo() );  
+			pat.setText( obj.getPat() );
+			ultimaCal.setText( obj.getDataCal() );	
+		}		
+		
+	}
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {		

@@ -26,6 +26,7 @@ public static void getNewViewModal(String title, Pane pane, Stage stageEvent){
 	stage.setScene(new Scene(pane));
 	stage.setResizable(false);
 	stage.initOwner(stageEvent);
+	stage.getIcons().add(new Image(AlfaPirometrosApplication.class.getResource("gui/resources/" + "Yggdrasilicon.jpg").toString()));
 	stage.initModality(Modality.WINDOW_MODAL);			
 	stage.initStyle(StageStyle.UTILITY);
 	stage.setAlwaysOnTop(true);						

@@ -45,10 +45,11 @@ public class EquipamentoRepository {
 		Long id = 0l;		
 		try {
 			conn = DB.getConnection();
+			conn.setAutoCommit(false);
 			pst = conn.prepareStatement("INSERT INTO tb_equipamento "
-					+ "(empressaName, modelo, status, dataChegada, ns, pat, ultimaCalib, laboratorio) "
+					+ "(empressaName, modelo, status, dataChegada, ns, pat, ultimaCalib, laboratorio, empresa_id) "
 					+ "VALUES "
-					+ "(?, ?, ?, ?, ?, ?, ?, ?)",
+					+ "(?, ?, ?, ?, ?, ?, ?, ?, ?)",
 					Statement.RETURN_GENERATED_KEYS);			
 			
 			pst.setString(1, equipamento.getEmpressaName());
@@ -59,8 +60,10 @@ public class EquipamentoRepository {
 			pst.setString(6, equipamento.getPat());
 			pst.setString(7, equipamento.getUltimaCalib());
 			pst.setBoolean(8, true);	
+			pst.setLong(9, equipamento.getEmpressa());
 			
 			int rowsAffected = pst.executeUpdate();
+			conn.commit();
 			
 			if(rowsAffected> 0) {
 				ResultSet rs = pst.getGeneratedKeys();
@@ -73,7 +76,13 @@ public class EquipamentoRepository {
 			else System.out.println("No rown affected");
 		}
 		catch (SQLException e) {
-		System.out.println(e.getMessage());	
+			System.out.println(e.getMessage());	
+			try {
+				conn.rollback();
+				throw new DbException("Transaction rolled back! Caused by: " + e.getMessage() );
+			}catch (SQLException e1) {
+				throw new DbException("Error trying to rollback! Caused by: \" + e1.getMessage()");
+			}
 		}
 		finally {
 			DB.closeResultSet(rs);
@@ -98,6 +107,7 @@ public class EquipamentoRepository {
 			obj.setUltimaCalib(rs.getString("ultimaCalib"));	
 			obj.setCertificado(rs.getString("certificado") );
 			obj.setValor( rs.getDouble("valor") );	
+			obj.setEmpressa( rs.getLong( "empresa_id" ) );
 			//estoque 
 			//empresa
 		} catch (SQLException e) {
@@ -161,6 +171,32 @@ public class EquipamentoRepository {
 		}
 		return ok;
 
+	}
+
+	public Equipamento findEquipamentoNs(String ns) {
+		Equipamento equipamento = null;
+		conn = DB.getConnection();					
+		try {
+			st = conn.createStatement();
+			rs = st.executeQuery("SELECT * FROM alfaestoque.tb_equipamento;");
+			while (rs.next())  
+				if( rs.getString(7)!=null )
+					if( rs.getString("ns").equalsIgnoreCase(ns) )
+						equipamento = parseEquipamento( rs );	
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}			
+		finally {
+			DB.closeResultSet(rs);
+			DB.closeStatement(st);
+		}
+		conn = null;
+		st = null;
+		rs = null;
+	
+		
+		return equipamento;
 	}
 
 

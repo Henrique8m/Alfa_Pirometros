@@ -62,13 +62,21 @@ public class MainViewController implements Initializable{
 	private TableView<Equipamento> tableFilaEquipamentos;
     public static ObservableList<Equipamento> obsListTableFilaEquipamentos = FXCollections.observableArrayList();
     
+    @FXML
+	private TableColumn<String> descricao;
+	@FXML
+	private TableColumn< String> referencia;
+	@FXML
+	private TableView<String> tabelaAnotacoes;
+    public static ObservableList<String> obsListTableAnotacoes = FXCollections.observableArrayList();
+    
     
     
     
     
     @FXML
     private void addEquipamento(ActionEvent e) throws IOException {
-    	NewView.getNewViewModal("Entrada Equipamento", (Pane) NewView.loadFXML("entradaEquipamento", new AddEquipamentoViewController() ), LoadViewController.getStage());
+    	NewView.getNewViewModal("Entrada Equipamento",  (Pane) NewView.loadFXML("entradaEquipamento", new AddEquipamentoViewController() ) , LoadViewController.getStage());
 		tableFilaEquipamentos.setItems(obsListTableFilaEquipamentos);
 		tableFilaEquipamentos.refresh();    	
     }
@@ -97,7 +105,6 @@ public class MainViewController implements Initializable{
     
     @FXML
     private void addOrcamento(ActionEvent e) throws IOException {
-    	int status = 2;
 		if(tableFilaEquipamentos.getSelectionModel().getSelectedItem() != null) {			
 			equipamento = tableFilaEquipamentos.getSelectionModel().getSelectedItem();
 			NewView.getNewViewModal("Entrada Equipamento", (Pane) NewView.loadFXML("orcamento", new AddOrcamentoViewController() ), LoadViewController.getStage());
@@ -213,6 +220,7 @@ public class MainViewController implements Initializable{
 		
 		
 }	 	
+	
 	
 	public void strartTable() {	
 		

@@ -17,6 +17,11 @@ public class EmpressaService {
 	public List<String> getAllEmpressa() {
 		return repository.getAllEmpressa();
 	}
+
+	public Long findEmpresaId(String empresaName) {
+		return repository.findEmpresaId(empresaName);
+		
+	}
 	
 	
 }

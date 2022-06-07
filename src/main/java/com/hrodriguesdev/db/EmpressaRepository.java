@@ -50,6 +50,7 @@ public Long addEmpressa(Empressa empressa) {
 	Long id = 0l;		
 	try {
 		conn = DB.getConnection();
+		conn.setAutoCommit(false);
 		pst = conn.prepareStatement("INSERT INTO tb_empressa "
 				+ "(name, cidade, estado, endereco, cep) "
 				+ "VALUES "
@@ -63,6 +64,7 @@ public Long addEmpressa(Empressa empressa) {
 		pst.setString(5, empressa.getCep());
 		
 		int rowsAffected = pst.executeUpdate();
+		conn.commit();
 		
 		if(rowsAffected> 0) {
 			ResultSet rs = pst.getGeneratedKeys();
@@ -75,7 +77,13 @@ public Long addEmpressa(Empressa empressa) {
 		else System.out.println("No rown affected");
 	}
 	catch (SQLException e) {
-	System.out.println(e.getMessage());	
+		System.out.println(e.getMessage());	
+		try {
+			conn.rollback();
+			throw new DbException("Transaction rolled back! Caused by: " + e.getMessage() );
+		}catch (SQLException e1) {
+			throw new DbException("Error trying to rollback! Caused by: \" + e1.getMessage()");
+		}
 	}
 	finally {
 		DB.closeResultSet(rs);
@@ -83,6 +91,34 @@ public Long addEmpressa(Empressa empressa) {
 
 	}
 	return id;
+}
+
+
+public Long findEmpresaId(String empresaName) {
+	try {
+		conn = DB.getConnection();			
+		st = conn.createStatement();			
+		rs = st.executeQuery("SELECT * FROM alfaestoque.tb_empressa;");			
+		
+		while (rs.next())  
+			if( rs.getString(2).equalsIgnoreCase(empresaName) )
+				return rs.getLong(1);
+		
+	}
+	catch (SQLException e) {
+		e.printStackTrace();
+		return null;
+	}
+	finally {
+		DB.closeResultSet(rs);
+		DB.closeStatement(st);
+
+		conn = null;
+		st = null;
+		rs = null;
+	}
+
+	return null;
 }
 	
 	public Equipamento parseEquipamento(ResultSet rs) {
@@ -107,6 +143,8 @@ public Long addEmpressa(Empressa empressa) {
 		}
 		return obj;		
 	}
+
+
 
 
 

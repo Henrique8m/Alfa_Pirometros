@@ -30,16 +30,19 @@ public class Format {
 	public static String replaceData(String input) {
 		input = input.replaceAll("[^0-9]+", "");
 		String replace = input;
-		StringBuilder stringBuilder = new StringBuilder(input);;
+		StringBuilder stringBuilder = new StringBuilder(input);
 		
-		if(input.length()>4) {
-			replace = stringBuilder.insert(input.length()-4, '/').toString();
-			if(input.length()>6)
-				replace = stringBuilder.insert(input.length()-6, '/').toString();
-		}
-		if(input.length() > 10) {
+		if(input.length() > 8) {
 			replace = stringBuilder.replace(input.length()-1, input.length(), "").toString();
+			stringBuilder = new StringBuilder(replace);
 		}
+		if(input.length()>4) {
+			replace = stringBuilder.insert(replace.length()-4, '/').toString();
+			if(input.length()>6)
+				replace = stringBuilder.insert(replace.length()-7, '/').toString();
+		}
+
+		
 		return replace;
 	}
 

@@ -40,7 +40,7 @@
                         <VBox prefHeight="47.0" prefWidth="97.0">
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="DATA" wrappingWidth="39.13671875" />
-                              <TextField fx:id="data" editable="false" prefHeight="25.0" prefWidth="84.0" />
+                              <TextField fx:id="data" editable="false" focusTraversable="false" prefHeight="25.0" prefWidth="84.0" />
                            </children>
                            <HBox.margin>
                               <Insets left="20.0" />
@@ -56,13 +56,14 @@
                         <VBox prefHeight="47.0" prefWidth="147.0">
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="MODELO" wrappingWidth="75.13671875" />
-                              <TextField fx:id="modelo" onKeyReleased="#format" prefHeight="25.0" prefWidth="166.0" />
+                              <TextField fx:id="modelo" prefHeight="25.0" prefWidth="166.0" />
                            </children>
                         </VBox>
                         <VBox prefHeight="47.0" prefWidth="114.0">
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="NS" wrappingWidth="39.13671875" />
-                              <TextField fx:id="placa" onKeyReleased="#format" prefHeight="25.0" prefWidth="95.0" />
+                              <TextField fx:id="ns" prefHeight="25.0" prefWidth="95.0" />
+                              <Button mnemonicParsing="false" onAction="#findNs" text="Find" />
                            </children>
                            <HBox.margin>
                               <Insets left="20.0" />
@@ -71,7 +72,7 @@
                         <VBox prefHeight="47.0" prefWidth="101.0">
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="PAT" wrappingWidth="65.13671875" />
-                              <TextField fx:id="cidade" onKeyReleased="#format" prefHeight="25.0" prefWidth="79.0" />
+                              <TextField fx:id="pat" prefHeight="25.0" prefWidth="79.0" />
                            </children>
                            <HBox.margin>
                               <Insets left="20.0" />
@@ -85,7 +86,7 @@
                               <VBox prefHeight="47.0" prefWidth="89.0">
                                  <children>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ULTIMA CAL" wrappingWidth="85.13671875" />
-                                    <TextField fx:id="ultimaCal" prefHeight="25.0" prefWidth="84.0" />
+                                    <TextField fx:id="ultimaCal" onKeyReleased="#format" prefHeight="25.0" prefWidth="84.0" />
                                  </children>
                               </VBox>
                            </children>

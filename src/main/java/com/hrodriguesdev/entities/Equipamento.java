@@ -6,36 +6,46 @@ import java.io.Serializable;
 //@Table(name = "tb_equipamento")
 public class Equipamento implements Serializable {	
 
-	public EstoqueEletronicos getEstoqueEletronicos() {
-		return estoqueEletronicos;
+
+	private static final long serialVersionUID = 1L;
+	///@Id
+	//@GeneratedValue(strategy = GenerationType.IDENTITY)
+	
+	private Long id;
+	private String empressaName;
+	private String modelo;
+
+	private int status;
+	private String dataChegada;
+	private String dataSaida;	
+	private String ns;
+	private String pat;
+	private String ultimaCalib;
+	private String certificado;
+	private double valor;
+	private boolean laboratorio;
+	private String dataCal;
+	@SuppressWarnings("unused")
+	private String statusStr;
+	
+
+	//@OneToOne(mappedBy = "motorista", fetch = FetchType.EAGER)
+//	private EstoqueEletronicos estoqueEletronicos;
+//	private EstoqueEletricos estoqueempressa;
+//	private EstoqueEstetico estoqueEstetico;
+//	private EstoqueSinal estoqueSinal;
+	private Long empressa;
+	private Long orcamento_id;
+	
+	public Equipamento() {}
+		
+
+	public Long getId() {
+		return id;
 	}
 
-	public void setEstoqueEletronicos(EstoqueEletronicos estoqueEletronicos) {
-		this.estoqueEletronicos = estoqueEletronicos;
-	}
-
-	public EstoqueEletricos getEstoqueempressa() {
-		return estoqueempressa;
-	}
-
-	public void setEstoqueempressa(EstoqueEletricos estoqueempressa) {
-		this.estoqueempressa = estoqueempressa;
-	}
-
-	public EstoqueEstetico getEstoqueEstetico() {
-		return estoqueEstetico;
-	}
-
-	public void setEstoqueEstetico(EstoqueEstetico estoqueEstetico) {
-		this.estoqueEstetico = estoqueEstetico;
-	}
-
-	public EstoqueSinal getEstoqueSinal() {
-		return estoqueSinal;
-	}
-
-	public void setEstoqueSinal(EstoqueSinal estoqueSinal) {
-		this.estoqueSinal = estoqueSinal;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getEmpressaName() {
@@ -54,20 +64,6 @@ public class Equipamento implements Serializable {
 		this.modelo = modelo;
 	}
 
-	public String getStatusStr() {
-		switch (status) {
-			case 1: return "Aguardando Orçamento";
-			case 2:	return "Enviar Orçamento";
-			case 3: return "Aguardando Aprovação";
-			case 4: return "Aprovado, aquardando Reparo!";
-			case 5: return "Liberado, aquardando Coleta!";
-			case 6: return "Não Aprovado, aquardando coleta!";
-				
-			default: return "";
-		}
-		
-	}
-	
 	public int getStatus() {
 		return status;
 	}
@@ -132,61 +128,6 @@ public class Equipamento implements Serializable {
 		this.valor = valor;
 	}
 
-	public EstoqueEletronicos getEstoque() {
-		return estoqueEletronicos;
-	}
-
-	public void setEstoque(EstoqueEletronicos estoque) {
-		this.estoqueEletronicos = estoque;
-	}
-
-	public Empressa getEmpressa() {
-		return empressa;
-	}
-
-	public void setEmpressa(Empressa empressa) {
-		this.empressa = empressa;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	private static final long serialVersionUID = 1L;
-	///@Id
-	//@GeneratedValue(strategy = GenerationType.IDENTITY)
-	
-	private Long id;
-	private String empressaName;
-	private String modelo;
-
-	private int status;
-	private String dataChegada;
-	private String dataSaida;	
-	private String ns;
-	private String pat;
-	private String ultimaCalib;
-	private String certificado;
-	private double valor;
-	private boolean laboratorio;
-	@SuppressWarnings("unused")
-	private String statusStr;
-	
-
-	//@OneToOne(mappedBy = "motorista", fetch = FetchType.EAGER)
-	private EstoqueEletronicos estoqueEletronicos;
-	private EstoqueEletricos estoqueempressa;
-	private EstoqueEstetico estoqueEstetico;
-	private EstoqueSinal estoqueSinal;
-	private Empressa empressa;
-	private Long orcamento_id;
-	
-	public Equipamento() {}
-	
-	public void setId(Long id) {
-		this.id = id;
-	}
-
 	public boolean isLaboratorio() {
 		return laboratorio;
 	}
@@ -195,9 +136,12 @@ public class Equipamento implements Serializable {
 		this.laboratorio = laboratorio;
 	}
 
+	public Long getEmpressa() {
+		return empressa;
+	}
 
-	public void setStatusStr(String statusStr) {
-		this.statusStr = statusStr;
+	public void setEmpressa(Long empressa) {
+		this.empressa = empressa;
 	}
 
 	public Long getOrcamento_id() {
@@ -207,6 +151,33 @@ public class Equipamento implements Serializable {
 	public void setOrcamento_id(Long orcamento_id) {
 		this.orcamento_id = orcamento_id;
 	}
-	
+
+	public void setStatusStr(String statusStr) {
+		this.statusStr = statusStr;
+	}
+
+	public String getStatusStr() {
+		switch (status) {
+			case 1: return "Aguardando Orçamento";
+			case 2:	return "Enviar Orçamento";
+			case 3: return "Aguardando Aprovação";
+			case 4: return "Aprovado, aquardando Reparo!";
+			case 5: return "Liberado, aquardando Coleta!";
+			case 6: return "Não Aprovado, aquardando coleta!";
+				
+			default: return "";
+		}
+		
+	}
+
+
+	public String getDataCal() {
+		return dataCal;
+	}
+
+
+	public void setDataCal(String dataCal) {
+		this.dataCal = dataCal;
+	}	
 	
 }
