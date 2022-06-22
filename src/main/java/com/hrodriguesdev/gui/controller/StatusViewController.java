@@ -1,7 +1,6 @@
 package com.hrodriguesdev.gui.controller;
 
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import com.hrodriguesdev.controller.Controller;

@@ -24,5 +24,6 @@ public class Orcamento {
 		Item = item;
 		this.quantidade = quantidade;
 	}
+	public Orcamento() {}
 
 }

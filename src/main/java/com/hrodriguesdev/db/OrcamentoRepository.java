@@ -49,9 +49,9 @@ public class OrcamentoRepository {
 		return id;
 	}
 
-	public Orcamento getOrcamento(Long id) {	
+	public Orcamento getOrcamento(Long id) throws SQLException {	
 		Orcamento orcamento = null;
-		try {
+
 			conn = DB.getConnection();			
 			st = conn.createStatement();			
 			rs = st.executeQuery("SELECT * FROM alfaestoque.tb_orcamento;");			
@@ -62,19 +62,14 @@ public class OrcamentoRepository {
 				}
 						
 			
-		}
-		catch (SQLException e) {
-			e.printStackTrace();
-			return null;
-		}
-		finally {
+
 			DB.closeResultSet(rs);
 			DB.closeStatement(st);
 
 			conn = null;
 			st = null;
 			rs = null;
-		}
+		
 
 		
 		return orcamento;

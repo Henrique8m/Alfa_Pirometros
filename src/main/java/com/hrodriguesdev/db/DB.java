@@ -47,8 +47,16 @@ public class DB {
 			return props;
 		}
 	catch (IOException e) {
-		throw new DbException(e.getMessage());
+		try (FileInputStream fs = new FileInputStream  ( AlfaPirometrosApplication.caminhoDbProperties2 )){
+			Properties props = new Properties();
+			props.load(fs);
+			return props;
+		}
+		catch (IOException e1) {
 		
+		throw new DbException(e1.getMessage());
+		
+	}		
 	}
 	}
 	public static void closeStatement(Statement st) {

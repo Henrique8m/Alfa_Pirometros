@@ -29,7 +29,7 @@ public class LoadViewController implements Initializable {
 
 	private void beginTimer() {
 		
-		timeline = new Timeline(new KeyFrame(javafx.util.Duration.seconds(2), ev -> {
+		timeline = new Timeline(new KeyFrame(javafx.util.Duration.seconds(5), ev -> {
 			if (AlfaPirometrosApplication.springStart) {
 				//System.out.println("spring Start true ");
 				try {

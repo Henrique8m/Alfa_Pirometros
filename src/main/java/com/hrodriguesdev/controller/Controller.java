@@ -4,9 +4,11 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.hrodriguesdev.db.DbException;
+import com.hrodriguesdev.entities.Coletor;
 import com.hrodriguesdev.entities.Empressa;
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.entities.Orcamento;
+import com.hrodriguesdev.service.ColetorService;
 import com.hrodriguesdev.service.EmpressaService;
 import com.hrodriguesdev.service.EquipamentoService;
 import com.hrodriguesdev.service.OrcamentoService;
@@ -19,7 +21,7 @@ public class Controller {
 	private EquipamentoService equipamentoService = new EquipamentoService();
 	private EmpressaService empresaService = new EmpressaService();
 	private OrcamentoService orcamentoService = new OrcamentoService();
-	
+	private ColetorService coletorService = new ColetorService();
 	
 		
 	
@@ -63,12 +65,19 @@ public class Controller {
 		return equipamentoService.updatedeEquipamentoOrcamento(id, idOrcamento);
 		
 	}
-
+	
+	public boolean UpdatedEquipamento(Equipamento equipamento) {
+		
+		return equipamentoService.UpdatedEquipamento(equipamento);
+	}
 	public Long addOrcamento(Orcamento orcamento) {
 		return 	orcamentoService.addOrcamento(orcamento);
 	}
-
-	public Orcamento getOrcamento(Long id) {
+	
+	public Long addColetor(Coletor coletor) {		
+		return coletorService.addColetor(coletor);
+	}
+	public Orcamento getOrcamento(Long id) throws SQLException {
 		return orcamentoService.getOrcamento(id);
 	}
 
@@ -81,6 +90,36 @@ public class Controller {
 		return equipamentoService.findEquipamentoNs( ns );
 		
 	}
+
+	public Empressa findEmpresa(Long empressa) {
+		return empresaService.findEmpressa(empressa);
+	}
+	public 
+	ObservableList<Equipamento> findAll(Equipamento obj) {
+		ObservableList<Equipamento> obs = FXCollections.observableArrayList();
+		List<Equipamento> list = equipamentoService.findAll(obj);
+		if(list!=null) {
+			obs.addAll(list);
+			return obs;
+		}
+					
+		return null;
+	}
+
+	public ObservableList<Equipamento> findPageable() {
+		ObservableList<Equipamento> obs = FXCollections.observableArrayList();
+		List<Equipamento> list = equipamentoService.findAllFirst();
+		if(list!=null) {
+			obs.addAll(list);
+			return obs;
+		}
+					
+		return null;
+	
+	}
+
+
+
 
 	/*
 	 		

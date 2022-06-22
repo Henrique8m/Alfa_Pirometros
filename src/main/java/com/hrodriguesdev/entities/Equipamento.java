@@ -35,11 +35,15 @@ public class Equipamento implements Serializable {
 //	private EstoqueEstetico estoqueEstetico;
 //	private EstoqueSinal estoqueSinal;
 	private Long empressa;
+	
 	private Long orcamento_id;
+	private Long coletor_id;
 	
 	public Equipamento() {}
 		
 
+	
+	
 	public Long getId() {
 		return id;
 	}
@@ -128,7 +132,7 @@ public class Equipamento implements Serializable {
 		this.valor = valor;
 	}
 
-	public boolean isLaboratorio() {
+	public boolean getLaboratorio() {
 		return laboratorio;
 	}
 
@@ -164,6 +168,7 @@ public class Equipamento implements Serializable {
 			case 4: return "Aprovado, aquardando Reparo!";
 			case 5: return "Liberado, aquardando Coleta!";
 			case 6: return "Não Aprovado, aquardando coleta!";
+			case 7: return "Coletado";
 				
 			default: return "";
 		}
@@ -178,6 +183,20 @@ public class Equipamento implements Serializable {
 
 	public void setDataCal(String dataCal) {
 		this.dataCal = dataCal;
+	}
+
+
+
+
+	public Long getColetor_id() {
+		return coletor_id;
+	}
+
+
+
+
+	public void setColetor_id(Long coletor_id) {
+		this.coletor_id = coletor_id;
 	}	
 	
 }

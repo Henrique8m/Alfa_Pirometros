@@ -1,8 +1,5 @@
 package com.hrodriguesdev;
 
-import com.hrodriguesdev.gui.controller.AddEmpressaViewController;
-import com.hrodriguesdev.gui.controller.AddEquipamentoViewController;
-import com.hrodriguesdev.gui.controller.AddOrcamentoViewController;
 import com.hrodriguesdev.gui.controller.LoadViewController;
 import com.hrodriguesdev.gui.controller.MainViewController;
 import com.hrodriguesdev.utilitary.NewView;
@@ -46,6 +43,7 @@ public class AlfaPirometrosApplication extends Application{
 	
 	public static String caminhoPDF = "C:\\Users\\Usuario\\Desktop\\Carvao.pdf";
 	public static String caminhoDbProperties = "C:\\Program Files\\Java\\resources\\dbAlfa.properties";
+	public static String caminhoDbProperties2 = "C:\\Program Files (x86)\\Java\\resources\\dbAlfa.properties";
 	public static String properties = "Properties.properties";
 	public static String diretorioStr1 = "\\AppData\\Local\\YggDrasil";
 	public static String diretorioStr2 = "\\AppData\\Local\\YggDrasil\\serial";

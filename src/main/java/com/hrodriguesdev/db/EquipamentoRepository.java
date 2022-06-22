@@ -199,6 +199,176 @@ public class EquipamentoRepository {
 		return equipamento;
 	}
 
+	public boolean updatedEquipamento(Equipamento equipamento) {
+		boolean ok = false;
+		
+		try {
+			conn = DB.getConnection();
+			pst = conn.prepareStatement("UPDATE tb_equipamento "
+											+ "SET empressaName = ? , "
+											+ "modelo = ? ,"
+											+ " status = ? ,"
+											+ " dataChegada = ? ,"
+											+ " ns = ? , pat = ? ,"
+											+ " ultimaCalib = ? ,"
+											+ " empresa_id = ?,"
+											+ " dataSaida = ?,"
+											+ " coletor_id = ?,"
+											+ " laboratorio = ? "											
+											+ " WHERE "
+											+"(id = ? )");		
+	
+			pst.setString(1, equipamento.getEmpressaName());			
+			pst.setString(2, equipamento.getModelo());
+			pst.setInt(3, equipamento.getStatus());
+			pst.setString(4, equipamento.getDataChegada());			
+			pst.setString(5, equipamento.getNs());
+			pst.setString(6, equipamento.getPat());
+			pst.setString(7, equipamento.getUltimaCalib());
+			pst.setLong(8, equipamento.getEmpressa() );				
+			pst.setString(9, equipamento.getDataSaida() );
+			pst.setLong(10, equipamento.getColetor_id() );
+			pst.setBoolean(11, equipamento.getLaboratorio());
+			pst.setLong( 12, equipamento.getId() );
+			
+			int rowsAccepted = pst.executeUpdate();
+			if(rowsAccepted>0)
+				ok=true;
+		
+		}catch (SQLException e) {
+			ok=false;
+		System.out.println(e.getMessage());	
+		}
+		finally {
+			DB.closeStatement(pst);
+			
+		}
+		return ok;
+
+	}
+
+	public List<Equipamento> findAll(Equipamento obj) {
+		List<Equipamento> list = new ArrayList<>();
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public List<Equipamento> getByEmpressa(String empressaName) {
+		List<Equipamento> list = new ArrayList<>();
+		conn = DB.getConnection();					
+		try {
+			st = conn.createStatement();
+			rs = st.executeQuery("SELECT * FROM alfaestoque.tb_equipamento;");
+			while (rs.next())  
+				if( rs.getString(2)!=null )
+					if( rs.getString(2).equalsIgnoreCase(empressaName) )
+						list.add( parseEquipamento( rs ) );	
+		
+		} catch (SQLException e) {			
+			e.printStackTrace();
+			return null;
+		}			
+		finally {
+			DB.closeResultSet(rs);
+			DB.closeStatement(st);
+		}
+		conn = null;
+		st = null;
+		rs = null;
+	
+		
+		return list;
+
+	}
+
+	public List<Equipamento> getByNs(String ns) {
+		List<Equipamento> list = new ArrayList<>();
+		conn = DB.getConnection();					
+		try {
+			st = conn.createStatement();
+			rs = st.executeQuery("SELECT * FROM alfaestoque.tb_equipamento;");
+			while (rs.next())  
+				if( rs.getString(7)!=null )
+					if( rs.getString(7).equalsIgnoreCase(ns) )
+						list.add( parseEquipamento( rs ) );	
+		
+		} catch (SQLException e) {			
+			e.printStackTrace();
+			return null;
+		}			
+		finally {
+			DB.closeResultSet(rs);
+			DB.closeStatement(st);
+		}
+		conn = null;
+		st = null;
+		rs = null;
+	
+		
+		return list;
+
+	}
+
+	public List<Equipamento> getByPat(String pat) {
+		List<Equipamento> list = new ArrayList<>();
+		conn = DB.getConnection();					
+		try {
+			st = conn.createStatement();
+			rs = st.executeQuery("SELECT * FROM alfaestoque.tb_equipamento;");
+			while (rs.next())  
+				if( rs.getString(8)!=null )
+					if( rs.getString(8).equalsIgnoreCase(pat) )
+						list.add( parseEquipamento( rs ) );	
+		
+		} catch (SQLException e) {			
+			e.printStackTrace();
+			return null;
+		}			
+		finally {
+			DB.closeResultSet(rs);
+			DB.closeStatement(st);
+		}
+		conn = null;
+		st = null;
+		rs = null;
+	
+		
+		return list;
+
+	}
+
+	public List<Equipamento> findAllFirst() {
+		List<Equipamento> list = new ArrayList<>();		
+		try {
+			conn = DB.getConnection();			
+			st = conn.createStatement();			
+			rs = st.executeQuery("SELECT * FROM alfaestoque.tb_equipamento;");			
+
+			int i=0;			
+			while ( rs.next() ) {}			
+			while (rs.previous() && i<10) {				
+	//			if(rs.getBoolean("fila") == false){
+					i++;
+					list.add(parseEquipamento(rs));
+	//			}				
+			}	
+		}catch (SQLException e) {	
+			e.printStackTrace();
+			return null;
+		}
+		finally {
+			DB.closeResultSet(rs);
+			DB.closeStatement(st);
+		}
+
+		conn = null;
+		st = null;
+		rs = null;
+	
+
+	return list;
+}
+
 
 
 	

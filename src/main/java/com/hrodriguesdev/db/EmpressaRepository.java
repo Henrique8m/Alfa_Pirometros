@@ -17,7 +17,53 @@ public class EmpressaRepository {
 	ResultSet rs = null;
 	PreparedStatement pst = null;
 	
+
+
+	public Empressa findEmpressa(Long empressaId) {
+		Empressa empressa = new Empressa();		
+		try {
+			conn = DB.getConnection();			
+			st = conn.createStatement();			
+			rs = st.executeQuery("SELECT * FROM alfaestoque.tb_empressa;");			
+			
+			while (rs.next())  
+				if( rs.getLong("id") == empressaId)
+					empressa = empressaParce( rs );	
+			
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		finally {
+			DB.closeResultSet(rs);
+			DB.closeStatement(st);
+
+			conn = null;
+			st = null;
+			rs = null;
+		}
+
+		return empressa;
+	}
 	
+	
+	private Empressa empressaParce(ResultSet rs2) {
+		Empressa empressa = new Empressa();
+		
+		try {
+			empressa.setName(rs.getString(2));
+			empressa.setCidade(rs.getString(3));
+			empressa.setEstado(rs.getString(4));
+			empressa.setEndereço(rs.getString(5));
+			empressa.setCep(rs.getString(6));  
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return empressa;
+	}
+
+
 	public List<String> getAllEmpressa() {
 		List<String> list = new ArrayList<>();		
 		try {
@@ -143,6 +189,7 @@ public Long findEmpresaId(String empresaName) {
 		}
 		return obj;		
 	}
+
 
 
 

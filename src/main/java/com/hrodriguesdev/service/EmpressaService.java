@@ -22,6 +22,10 @@ public class EmpressaService {
 		return repository.findEmpresaId(empresaName);
 		
 	}
+
+	public Empressa findEmpressa(Long empressa) {
+		return repository.findEmpressa(empressa);
+	}
 	
 	
 }

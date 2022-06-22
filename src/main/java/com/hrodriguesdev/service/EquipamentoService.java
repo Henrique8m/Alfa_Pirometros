@@ -48,5 +48,44 @@ public class EquipamentoService {
 		
 	}
 
+	public boolean UpdatedEquipamento(Equipamento equipamento) {
+		// TODO Auto-generated method stub
+		return repository.updatedEquipamento(equipamento);
+	}
+
+	public List<Equipamento> findAll(Equipamento obj) {
+		List<Equipamento> list = new ArrayList<>();
+//		&& obj.getNs()!= null &&  obj.getPat()!= null
+		if( obj.getEmpressaName()!= null) {
+			list =  repository.getByEmpressa(obj.getEmpressaName() );			
+		}
+		if(obj.getNs()!= null) {
+			if(list.size()>0) {
+				for(int i = 0; i<list.size(); i++) {
+					if( !list.get(i).getNs().equalsIgnoreCase( obj.getNs() ) )
+						list.remove(i);
+				}
+			
+			}else list =  repository.getByNs(obj.getNs() );
+
+		}		
+		if(obj.getPat()!= null) {
+			if(list.size()>0) {
+				for(int i = 0; i<list.size(); i++) {
+					if( !list.get(i).getPat().equalsIgnoreCase( obj.getPat() ) )
+						list.remove(i);
+				}		
+			}else list =  repository.getByPat(obj.getPat() );
+
+		}
+		
+
+		return list;
+	}
+
+	public List<Equipamento> findAllFirst() {	
+		return repository.findAllFirst();
+	}
+
 
 }
