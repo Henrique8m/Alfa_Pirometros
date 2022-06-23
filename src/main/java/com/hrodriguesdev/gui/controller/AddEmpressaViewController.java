@@ -71,7 +71,7 @@ public class AddEmpressaViewController implements Initializable {
 			erro.setText("ERRO");
 			
 		}
-		AddEquipamentoViewController.obsString.add( empressa.getName() );
+		EquipamentoViewController.obsString.add( empressa.getName() );
 		
 	}	
 	

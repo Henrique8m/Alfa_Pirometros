@@ -1,17 +1,13 @@
 package com.hrodriguesdev.gui.controller;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.hrodriguesdev.AlfaPirometrosApplication;
-import com.hrodriguesdev.controller.Controller;
 import com.hrodriguesdev.db.DbException;
 import com.hrodriguesdev.entities.Equipamento;
-import com.hrodriguesdev.gui.alert.Alerts;
 import com.hrodriguesdev.utilitary.Format;
 import com.hrodriguesdev.utilitary.InputFilter;
-import com.hrodriguesdev.utilitary.NewView;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,38 +15,17 @@ import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.Pane;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class EditEquipamentoViewController implements Initializable {
-
-	//@Autowired
-	private Controller controller = new Controller();
+public class EditEquipamentoViewController extends EquipamentoViewController implements Initializable{
+	
 	private Equipamento equipamento = MainViewController.equipamentoEdit;
+
 	
-	@FXML
-	private ImageView cancelarImg, salvarImg, addEmpressaImg;
-	@FXML
-	private Text erro;
-	@FXML
-	public TextField data, ultimaCal, modelo, ns, pat;
-	@FXML
-	private Button salvar, cancelar;
-	@FXML
-	private ComboBox<String> nomeEmpressa = new ComboBox<>();
-	
-	public static ObservableList<String> obsString = FXCollections.observableArrayList();
-	
-	
-	@FXML
+	@Override
 	public void salvar(ActionEvent event) {
 		if(nomeEmpressa.getValue()== "" ||  modelo.getText()== "" ) {
 			error( "Campo nulo " ,"O campo nome da Empressa e Modelo, não pode ser nulo");
@@ -101,25 +76,8 @@ public class EditEquipamentoViewController implements Initializable {
 		}
 		
 	}	
-	
-	private void error(String titulo, String mensagem) {
-		Alerts.showAlert(titulo, "", mensagem, AlertType.ERROR);
-		Stage stage = (Stage) cancelar.getScene().getWindow(); 
-		stage.close();
-	}
-	
-	@FXML
-	public void cancelar(ActionEvent event) {
-		try {
-			Stage stage = (Stage) cancelar.getScene().getWindow(); 
-			stage.close();
-		} catch (NumberFormatException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	
-	@FXML
+		
+	@Override
 	public void format(KeyEvent event) {
 		if(event.getCode().toString() != "BACK_SPACE" ) {
 				
@@ -136,23 +94,11 @@ public class EditEquipamentoViewController implements Initializable {
 		
 	}
 	
-	@FXML
-	public void findNs(ActionEvent event) {
-		Equipamento obj = controller.findEquipamentoNs( ns.getText() );
-		if( obj != null	) {
-			
-			nomeEmpressa.setValue( obj.getEmpressaName() );	
-			modelo.setText( obj.getModelo() );  
-			pat.setText( obj.getPat() );
-			ultimaCal.setText( obj.getDataCal() );	
-		}		
-		
-	}
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		
-		
+		ObservableList<String> obsString = FXCollections.observableArrayList();
 		obsString = controller.getEmpressas();
 		FilteredList<String> filteredList = new FilteredList<>(obsString);  
 		nomeEmpressa.getEditor().textProperty().addListener(new InputFilter<String>( nomeEmpressa, filteredList ) );		
@@ -173,12 +119,7 @@ public class EditEquipamentoViewController implements Initializable {
 		data.setEditable(true);
 		    
 	}
-	
-	@FXML
-	private void addEmpressa(ActionEvent e) throws IOException {
-		NewView.getNewViewModal("Adcionar Empressa", (Pane) NewView.loadFXML("newEmpressa", new AddEmpressaViewController()), LoadViewController.getStage());
-		
-	}
+
 
 }
 
