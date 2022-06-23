@@ -258,18 +258,20 @@ public class MainViewController implements Initializable{
     	 if(tableFilaEquipamentos.getSelectionModel().getSelectedItem() != null) {
      		equipamentoEdit = tableFilaEquipamentos.getSelectionModel().getSelectedItem();
      		
-     		if(equipamentoEdit.getStatus() == 5 ||  equipamentoEdit.getStatus() == 6 || equipamentoEdit.getStatus() == 7) {
-     			
-     			NewView.getNewViewModal("Saida de equipamento",  (Pane) NewView.loadFXML("saidaEquipamento", new SaidaEquipamentoViewController() ) , LoadViewController.getStage());
-     			try {
-					obsListTableFilaEquipamentos = controller.getByLaboratorio(true);
-		    		oldObs = obsListTableFilaEquipamentos;
-		    		dbConection = true;
-		    		tableFilaEquipamentos.setItems(obsListTableFilaEquipamentos);
-				} catch (DbException | SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+     		if(equipamentoEdit.getStatus() != 1 && equipamentoEdit.getColetor_id() != null) {
+     			if(equipamentoEdit.getColetor_id() != 0) {
+     				NewView.getNewViewModal("Saida de equipamento",  (Pane) NewView.loadFXML("saidaEquipamento", new SaidaEquipamentoViewController() ) , LoadViewController.getStage());
+	     			try {
+						obsListTableFilaEquipamentos = controller.getByLaboratorio(true);
+			    		oldObs = obsListTableFilaEquipamentos;
+			    		dbConection = true;
+			    		tableFilaEquipamentos.setItems(obsListTableFilaEquipamentos);
+					} catch (DbException | SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+     			}		
+
      			
      		}else
      			Alerts.showAlert("Saida de Equipamento" , "Equipamento nao pode ser liberado por:", equipamentoEdit.getStatusStr() , AlertType.INFORMATION);

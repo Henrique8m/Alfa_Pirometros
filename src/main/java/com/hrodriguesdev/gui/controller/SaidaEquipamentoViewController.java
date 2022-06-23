@@ -29,7 +29,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -59,52 +58,29 @@ public class SaidaEquipamentoViewController implements Initializable {
 	private ComboBox<String> coleta = new ComboBox<>();	
 	public static ObservableList<String> obsString = FXCollections.observableArrayList();
 	
-	private Coletor col;
-	private Equipamento equip;
-	
 	@FXML
 	public void gerarPDF(ActionEvent event) {
-		salvar(event);
+		
 		if(coleta.getValue() != "" &&  nomeColetor.getText() != "" ) {
-			GeneratorPDF pdf = new GeneratorPDF();
-			Empressa empressa = controller.findEmpresa( equip.getEmpressa() );
-			pdf.newDocument(col, equip, empressa);
+			GeneratorPDF pdf = new GeneratorPDF();	
+			Coletor coletor = getColetor();
+			Empressa empressa = controller.findEmpresa( equipamento.getEmpressa() );			
+			if( controller.UpdatedEquipamento(equipamento) ) {
+				pdf.newDocument(coletor, equipamento, empressa);
+				Stage stage = (Stage) salvar.getScene().getWindow();
+				stage.close();
+				
+			}
+			
 		}
+		salvar(event);
 	}
 	
 	
 	@FXML
 	public void salvar(ActionEvent event) {
-		if(coleta.getValue()== "" ||  nomeColetor.getText()== "" ) {
-			error( "Campo nulo " ,"O campo nome da Empressa e nome do coletor, não pode estar vazio");
-			return;
-		}
-		try {	
-			if ( controller.findEmpresaId(coleta.getValue()) == null ) {
-				throw new DbException("Empresa não existe");
-			}
-			Coletor coletor = new Coletor();
-			coletor.setEquipamento_id( equipamento.getId() );	
-			coletor.setEmpressaName(coleta.getValue());
-			coletor.setNomeColetor(nomeColetor.getText());
-			coletor.setDataHoraColeta( dataColeta.getText() );
-			col = coletor;
-			equipamento.setColetor_id( controller.addColetor(coletor) );
-			
-		}catch(DbException e2) {
-			error( "Find Empresa" ,"Empresa Não Encontrada");
-			return;
-		}
-		try {
-			equipamento.setDataSaida( dataColeta.getText() );
-			equipamento.setStatus( 7 );
-			equipamento.setLaboratorio(false);	
-			equip = equipamento;
-		}catch(NullPointerException e) {
-			e.printStackTrace();
-			error( "Null Pointer " ,"Null Pointer Exeption");			
-			return;
-		}
+		getColetor();
+		updateEquipamento();
 		try {
 			
 			if( controller.UpdatedEquipamento(equipamento) ) {
@@ -123,6 +99,55 @@ public class SaidaEquipamentoViewController implements Initializable {
 		}
 		
 		
+	}
+
+
+	private void updateEquipamento() {
+		try {
+			equipamento.setDataSaida( dataColeta.getText() );
+			switch ( equipamento.getStatus() ) {
+			case 2:
+				equipamento.setStatus( 12 );
+				equipamento.setLaboratorio(true);
+				break;
+			case 3:
+				equipamento.setStatus( 13 );
+				equipamento.setLaboratorio(true);
+				break;
+			default:
+				equipamento.setLaboratorio(false);
+				equipamento.setStatus( 7 );
+				break;
+			}
+		}catch(NullPointerException e) {
+			e.printStackTrace();
+			error( "Null Pointer " ,"Null Pointer Exeption");			
+		}
+	}
+
+
+	private Coletor getColetor() {
+		Coletor coletor = new Coletor();
+		if(coleta.getValue()== "" ||  nomeColetor.getText()== "" ) {
+			error( "Campo nulo " ,"O campo nome da Empressa e nome do coletor, não pode estar vazio");
+			return null;
+		}
+		try {	
+			if ( controller.findEmpresaId(coleta.getValue()) == null ) {
+				throw new DbException("Empresa não existe");
+			}
+
+			coletor.setEquipamento_id( equipamento.getId() );	
+			coletor.setEmpressaName(coleta.getValue());
+			coletor.setNomeColetor(nomeColetor.getText());
+			coletor.setDataHoraColeta( dataColeta.getText() );
+			equipamento.setColetor_id( controller.addColetor(coletor) );
+			
+		}catch(DbException e2) {
+			error( "Find Empresa" ,"Empresa Não Encontrada");
+			return null;
+		}
+		return coletor;
 	}	
 	
 	private void error(String titulo, String mensagem) {

@@ -29,6 +29,12 @@ public class AlfaPirometrosApplication extends Application{
 	
 	public static boolean springStart = false;
 	
+	
+	
+	public static String caminhoPDF = "\\Desktop\\Relatorios";
+	
+	
+	
 	public static ObservableList<String> obsPecasEstoque = FXCollections.observableArrayList(
 			"BotaoLiga", "BoMeFIIFIIIIndicmax", "CaixaBat",
 			"FontCarbIndic", "FontCarbDelta", "PinFemeAliFII", "PinFemeAliFIII", "BatFIIFIII", "BatDescartavel", "BatInditemp", "BatLitio", "CarrEcil", "CarrItalterm",
@@ -41,7 +47,6 @@ public class AlfaPirometrosApplication extends Application{
 	private final String nameIcon = "Yggdrasilicon.jpg";
 	private final String nameImageViewStarting = "Yggdrasil.jpg";
 	
-	public static String caminhoPDF = "C:\\Users\\Usuario\\Desktop\\Carvao.pdf";
 	public static String caminhoDbProperties = "C:\\Program Files\\Java\\resources\\dbAlfa.properties";
 	public static String caminhoDbProperties2 = "C:\\Program Files (x86)\\Java\\resources\\dbAlfa.properties";
 	public static String properties = "Properties.properties";

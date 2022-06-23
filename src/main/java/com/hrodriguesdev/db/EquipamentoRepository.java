@@ -142,17 +142,20 @@ public class EquipamentoRepository {
 		return obj;		
 	}
 
-	public boolean updatedeEquipamento(Long id, int status) {
+	public boolean updatedeEquipamento(Long id, int status,Equipamento equipamento) {
 		boolean ok = false;
 		
 		try {
 			conn = DB.getConnection();
 			pst = conn.prepareStatement("UPDATE tb_equipamento "
-											+ "SET status = " + status 
+											+ "SET status = " 
+											+ status 
+											+ "laboratorio = ? "
 											+" WHERE "
 											+"(id = ?)");
 			
-			pst.setLong( 1, id );
+			pst.setBoolean( 1, equipamento.getLaboratorio() );
+			pst.setLong( 2, id );
 			
 			int rowsAccepted = pst.executeUpdate();
 			if(rowsAccepted>0)

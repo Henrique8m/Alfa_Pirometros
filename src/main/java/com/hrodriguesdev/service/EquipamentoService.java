@@ -34,8 +34,8 @@ public class EquipamentoService {
 		return new ArrayList<>();
 	}
 
-	public boolean updatedeEquipamento(Long id, int status) {
-		return repository.updatedeEquipamento(id, status);
+	public boolean updatedeEquipamento(Long id, int status, Equipamento equipamento) {
+		return repository.updatedeEquipamento(id, status, equipamento);
 	}
 
 	public boolean updatedeEquipamentoOrcamento(Long id, Long idOrcamento) {

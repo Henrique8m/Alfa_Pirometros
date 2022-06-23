@@ -156,13 +156,12 @@ public class AddOrcamentoViewController implements Initializable {
 		if(obsMateriais.size()>0) {
 			obsMateriais.forEach((orcamento)-> {	
 			String itemStr = orcamento.getItem();
-			String quanti = String.valueOf( orcamento.getQuantidade() );	
 			this.nova = this.list + itemStr  + "\n";
 			this.list = nova;
 			});
 			orcamentoId = controller.addOrcamento( new Orcamento(nova, 0) );
 			if(controller.updatedeEquipamentoOrcamento(equipamento.getId() , orcamentoId)) {
-				controller.updatedeEquipamento(equipamento.getId(), 2);
+				controller.updatedeEquipamento(equipamento.getId(), 2, equipamento);
 				try {
 					Stage stage = (Stage) cancelar.getScene().getWindow(); 
 					stage.close();
