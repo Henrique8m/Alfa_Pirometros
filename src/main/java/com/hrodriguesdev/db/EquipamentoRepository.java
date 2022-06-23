@@ -8,7 +8,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.hrodriguesdev.entities.Empressa;
 import com.hrodriguesdev.entities.Equipamento;
 
 public class EquipamentoRepository {
@@ -39,6 +38,32 @@ public class EquipamentoRepository {
 		
 
 		return list;
+	}
+
+	public Equipamento findEquipamentoNs(String ns) {
+		Equipamento equipamento = null;
+		conn = DB.getConnection();					
+		try {
+			st = conn.createStatement();
+			rs = st.executeQuery("SELECT * FROM alfaestoque.tb_equipamento;");
+			while (rs.next())  
+				if( rs.getString(7)!=null )
+					if( rs.getString("ns").equalsIgnoreCase(ns) )
+						equipamento = parseEquipamento( rs );	
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}			
+		finally {
+			DB.closeResultSet(rs);
+			DB.closeStatement(st);
+		}
+		conn = null;
+		st = null;
+		rs = null;
+	
+		
+		return equipamento;
 	}
 	
 	public Long addEquipamento(Equipamento equipamento) {
@@ -172,32 +197,29 @@ public class EquipamentoRepository {
 		return ok;
 
 	}
-
-	public Equipamento findEquipamentoNs(String ns) {
-		Equipamento equipamento = null;
-		conn = DB.getConnection();					
-		try {
-			st = conn.createStatement();
-			rs = st.executeQuery("SELECT * FROM alfaestoque.tb_equipamento;");
-			while (rs.next())  
-				if( rs.getString(7)!=null )
-					if( rs.getString("ns").equalsIgnoreCase(ns) )
-						equipamento = parseEquipamento( rs );	
-		
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}			
-		finally {
-			DB.closeResultSet(rs);
-			DB.closeStatement(st);
-		}
-		conn = null;
-		st = null;
-		rs = null;
 	
+	public Boolean deleteEquipamento(Long id) {
+		boolean ok = false;		
+		try {
+			conn = DB.getConnection();
+			pst = conn.prepareStatement("DELETE FROM tb_equipamento WHERE (id = "+ id +" )");	
+			
+			
+			int rowsAccepted = pst.executeUpdate();
+			if(rowsAccepted>0)
+				ok=true;
 		
-		return equipamento;
+		}catch (SQLException e) {
+			ok=false;
+		System.out.println(e.getMessage());	
+		}
+		finally {
+			DB.closeStatement(pst);
+			
+		}
+		return ok;
 	}
+
 
 	public boolean updatedEquipamento(Equipamento equipamento) {
 		boolean ok = false;
@@ -248,7 +270,7 @@ public class EquipamentoRepository {
 	}
 
 	public List<Equipamento> findAll(Equipamento obj) {
-		List<Equipamento> list = new ArrayList<>();
+		//List<Equipamento> list = new ArrayList<>();
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -368,6 +390,8 @@ public class EquipamentoRepository {
 
 	return list;
 }
+
+
 
 
 

@@ -18,7 +18,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane minHeight="300.0" minWidth="400.0" onKeyPressed="#updatedEquipamento" prefHeight="1060.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane minHeight="300.0" minWidth="400.0" prefHeight="1060.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <TabPane minHeight="400.0" minWidth="400.0" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
@@ -33,7 +33,7 @@
                            <children>
                               <VBox>
                                  <children>
-                                    <TableView fx:id="tableFilaEquipamentos" cache="true" depthTest="DISABLE" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="200.0" minWidth="844.0" prefHeight="700.0" prefWidth="1500.0" style="-fx-background-radius: 10;" tableMenuButtonVisible="true">
+                                    <TableView fx:id="tableFilaEquipamentos" cache="true" depthTest="DISABLE" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="200.0" minWidth="844.0" onKeyPressed="#updatedEquipamento" prefHeight="700.0" prefWidth="1500.0" style="-fx-background-radius: 10;" tableMenuButtonVisible="true">
                                       <columns>
                                           <TableColumn editable="false" maxWidth="-Infinity" minWidth="500.0" prefWidth="1500.0" text="Equipamentos em Laboratorio">
                                              <columns>
@@ -227,7 +227,7 @@
                                           <Insets left="20.0" />
                                        </padding>
                                     </HBox>
-                                    <TableView fx:id="tableFindEquipamentos" maxHeight="-Infinity" maxWidth="-Infinity" onMouseClicked="#click" prefHeight="539.0" prefWidth="742.0" style="-fx-background-radius: 10;">
+                                    <TableView fx:id="tableFindEquipamentos" maxHeight="-Infinity" maxWidth="-Infinity" onMouseClicked="#click" onKeyPressed="#updatedEquipamento" prefHeight="539.0" prefWidth="742.0" style="-fx-background-radius: 10;">
                                        <columns>
                                           <TableColumn fx:id="empressaFind" prefWidth="258.0" text="Empresa" />
                                           <TableColumn fx:id="nsFind" prefWidth="69.0" text="Ns" />

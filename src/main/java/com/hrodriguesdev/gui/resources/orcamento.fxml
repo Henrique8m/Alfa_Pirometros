@@ -6,7 +6,6 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.image.ImageView?>
@@ -116,20 +115,21 @@
                                                 <Text layoutX="23.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ADD AO ORCAMENTO" wrappingWidth="147.0" />
                                                 <ComboBox fx:id="newItem" editable="true" layoutX="21.0" layoutY="89.0" onKeyPressed="#addComEnter" pickOnBounds="false" prefWidth="150.0" />
                                                 <ComboBox fx:id="quantidadeItem" editable="true" layoutX="205.0" layoutY="89.0" prefHeight="25.0" prefWidth="75.0" promptText="1" />
-                                                <Button layoutX="215.0" layoutY="255.0" mnemonicParsing="false" onAction="#addItem" prefHeight="45.0" prefWidth="55.0" text="ADD" />
                                                 <Text layoutX="21.0" layoutY="188.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ADD OBSERVAÇÃO">
                                                    <font>
                                                       <Font size="14.0" />
                                                    </font>
                                                 </Text>
-                                                <TextArea fx:id="obs" layoutX="18.0" layoutY="194.0" prefHeight="212.0" prefWidth="156.0" />
+                                                <TextField fx:id="obs" layoutX="14.0" layoutY="207.0" onKeyPressed="#addComEnter" prefHeight="25.0" prefWidth="254.0" />
+                                                <Button layoutX="56.0" layoutY="261.0" mnemonicParsing="false" onAction="#addItem" prefHeight="45.0" prefWidth="55.0" text="ADD" />
                                                 <Text layoutX="205.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="QUANTIDADE" wrappingWidth="75.13671875" />
                                                 <Text fx:id="erro2" fill="RED" layoutX="224.0" layoutY="248.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="39.13671875" />
+                                                <Button layoutX="155.0" layoutY="261.0" mnemonicParsing="false" onAction="#removeItem" prefHeight="45.0" prefWidth="75.0" text="Remove" />
                                              </children>
                                           </AnchorPane>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                                              <children>
-                                                <TableView fx:id="tableOrcamento" focusTraversable="false" prefHeight="413.0" prefWidth="254.0">
+                                                <TableView fx:id="tableOrcamento" prefHeight="413.0" prefWidth="254.0">
                                                   <columns>
                                                     <TableColumn fx:id="item" prefWidth="160.0" text="Item" />
                                                     <TableColumn fx:id="quantidade" minWidth="4.0" prefWidth="93.0" text="Quantidade" />

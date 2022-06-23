@@ -118,6 +118,15 @@ public class Controller {
 	
 	}
 
+	public Boolean deleteEquipamento(Long id) {
+		return equipamentoService.deleteEquipamento(id);
+		
+	}
+
+	public boolean updatedeOrcamento(Orcamento orcamento) {
+		return orcamentoService.updatedeOrcamento( orcamento );
+	}
+
 
 
 

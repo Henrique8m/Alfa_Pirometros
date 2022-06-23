@@ -87,5 +87,10 @@ public class EquipamentoService {
 		return repository.findAllFirst();
 	}
 
+	public Boolean deleteEquipamento(Long id) {
+
+		return repository.deleteEquipamento(id);
+	}
+
 
 }

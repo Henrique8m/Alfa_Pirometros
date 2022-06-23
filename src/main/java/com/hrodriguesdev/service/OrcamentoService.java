@@ -18,5 +18,9 @@ public class OrcamentoService {
 		return repository.getOrcamento(id);
 	}
 
+	public boolean updatedeOrcamento(Orcamento orcamento) {
+		return repository.updatedeOrcamento( orcamento );
+	}
+
 	
 }

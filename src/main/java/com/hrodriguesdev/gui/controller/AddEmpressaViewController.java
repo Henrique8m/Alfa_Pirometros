@@ -7,6 +7,7 @@ import com.hrodriguesdev.AlfaPirometrosApplication;
 import com.hrodriguesdev.controller.Controller;
 import com.hrodriguesdev.entities.Empressa;
 import com.hrodriguesdev.gui.alert.Alerts;
+import com.hrodriguesdev.utilitary.Format;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -97,11 +98,9 @@ public class AddEmpressaViewController implements Initializable {
 				 estado.setText(input);
 				 estado.end();	
 				 
-			}else if(event.getTarget().equals(cidade)){
-				String input = cidade.getText().toUpperCase();
-				input = input.replaceAll("[^A-Z-' ']+", "");			
-				cidade.setText(input);
-				cidade.end();
+			}else if(event.getTarget().equals(cep)){
+				cep.setText(Format.replaceCep( cep.getText() ) );
+				cep.end();
 				
 			 }
 		}

@@ -45,6 +45,23 @@ public class Format {
 		
 		return replace;
 	}
+	
+	public static String replaceCep(String input) {
+		input = input.replaceAll("[^0-9]+", "");
+		String replace = input;
+		StringBuilder stringBuilder = new StringBuilder(input);
+		
+		if(input.length() > 8) {
+			replace = stringBuilder.replace(input.length()-1, input.length(), "").toString();
+			stringBuilder = new StringBuilder(replace);
+		}
+		if(input.length()==8) {
+			replace = stringBuilder.insert(replace.length()-3, '-').toString();
+		}
+
+		
+		return replace;
+	}
 
 	public static final SimpleDateFormat formataTimeString = new SimpleDateFormat("HH:mm");
 	public static final SimpleDateFormat formataDateTimeString = new SimpleDateFormat("dd/MM/yyyy HH:mm");

@@ -27,7 +27,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class AddOrcamentoViewController implements Initializable {
+public class EditOrcamentoViewController implements Initializable {
 	
 	private Equipamento equipamento;
 //	private Orcamento orcamento;
@@ -81,6 +81,18 @@ public class AddOrcamentoViewController implements Initializable {
 		
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		Orcamento orcamento = MainViewController.orcamentoEdit;
+		String bruto = orcamento.getItem();
+		String[] separator =  bruto.split("\n");
+		if( separator.length > 0) {
+			for(int i=0; i < separator.length; i++) {
+				if(i != 0) {
+					obsMateriais.add(new Orcamento(separator[i], 0));
+				}
+			}
+		}
+
+		
 		quantidadeItem.setValue("1");
 		inputFilterNewItem = new InputFilter<String>( newItem,  new FilteredList<>(AlfaPirometrosApplication.obsPecasEstoque) );
 		listener = new InputFilter<String>( quantidadeItem,  new FilteredList<>(AlfaPirometrosApplication.obsQuantidade) );
@@ -155,14 +167,13 @@ public class AddOrcamentoViewController implements Initializable {
 
 		if(obsMateriais.size()>0) {
 			obsMateriais.forEach((orcamento)-> {	
-			String itemStr = orcamento.getItem();
-			String quanti = String.valueOf( orcamento.getQuantidade() );	
-			this.nova = this.list + itemStr  + "\n";
-			this.list = nova;
+				String itemStr = orcamento.getItem();
+				this.nova = this.list + itemStr  + "\n";
+				this.list = nova;
 			});
-			orcamentoId = controller.addOrcamento( new Orcamento(nova, 0) );
-			if(controller.updatedeEquipamentoOrcamento(equipamento.getId() , orcamentoId)) {
-				controller.updatedeEquipamento(equipamento.getId(), 2);
+			Orcamento orcamento = new Orcamento(nova, 0);
+			orcamento.setId( MainViewController.orcamentoEdit.getId() );
+			if( controller.updatedeOrcamento( orcamento ) ) {
 				try {
 					Stage stage = (Stage) cancelar.getScene().getWindow(); 
 					stage.close();
@@ -172,7 +183,10 @@ public class AddOrcamentoViewController implements Initializable {
 			}else {
 				erro.setText("Erro");
 			}
+		}else {
+			erro.setText("Erro");
 		}
+		
 	
 	}	
 	
@@ -201,10 +215,8 @@ public class AddOrcamentoViewController implements Initializable {
 
 	private void conboBoxInit() {
 		quantidadeItem.setEditable(true);
-		newItem.setEditable(true);	
-		
-		quantidadeItem.getEditor().textProperty().addListener(listener );
-		//FilteredList<String> filteredList = new FilteredList<>(AlfaPirometrosApplication.obsPecasEstoque);		
+		newItem.setEditable(true);			
+		quantidadeItem.getEditor().textProperty().addListener(listener );		
 		newItem.getEditor().textProperty().addListener( inputFilterNewItem );
 	}
 	
@@ -224,59 +236,5 @@ public class AddOrcamentoViewController implements Initializable {
 		pat.setText(equipamento.getPat());
 		ultimaCal.setText(equipamento.getUltimaCalib());	
 	}
-		
-//	private boolean listManutencao(String value, int intValue) {
-//		/*
-//		switch (value) {
-//			case "BotaoLiga": return "Aguardando Orçamento";
-//			case "BoMeFIIFIIIIndicmax":	return "Enviar Orçamento";
-//			case "CaixaBat": return "Aguardando Aprovação";
-//			case "FontCarbIndic": return "Aprovado, aquardando Reparo!";
-//			case "FontCarbDelta": return "Liberado, aquardando Coleta!";
-//			case "PinFemeAliFII": return "Não Aprovado, aquardando coleta!";
-//			
-//			case "PinFemeAliFIII": return "Aguardando Orçamento";
-//			case "BatFIIFIII":	return "Enviar Orçamento";
-//			case "BatDescartavel": return "Aguardando Aprovação";
-//			case "BatInditemp": return "Aprovado, aquardando Reparo!";
-//			case "BatLitio": return "Liberado, aquardando Coleta!";
-//			case "CarrEcil": return "Não Aprovado, aquardando coleta!";		
-//			case "CarrItalterm": return "Aguardando Orçamento";
-//			
-//			case "PCIFIII":	return "Enviar Orçamento";
-//			case "PCIFKal": return "Aguardando Aprovação";
-//			case "DispFKal": return "Aprovado, aquardando Reparo!";
-//			case "FIII": return "Liberado, aquardando Coleta!";
-//			case "Indicmax": return "Não Aprovado, aquardando coleta!";		
-//			case "CIFII": return "Aguardando Orçamento";
-//			case "CIIndicmax":	return "Enviar Orçamento";
-//			case "sirene": return "Aguardando Aprovação";
-//			
-//			case "MascaraFII":	return "Enviar Orçamento";
-//			case "MascaraFKal": return "Aguardando Aprovação";
-//			case "MascaraFIII": return "Aprovado, aquardando Reparo!";
-//			case "MascaraCarbo": return "Liberado, aquardando Coleta!";
-//			case "MascaraIndic": return "Não Aprovado, aquardando coleta!";		
-//			case "EtiqLatFII": return "Aguardando Orçamento";
-//			case "EtiqLatFIII":	return "Enviar Orçamento";
-//			case "EtiqTrasFII": return "Aguardando Aprovação";		
-//			case "Punho":	return "Enviar Orçamento";
-//			
-//			case "ReceptaculoS": return "Aguardando Aprovação";
-//			case "ReceptaculoSU": return "Aprovado, aquardando Reparo!";
-//			case "ReceptaculoEcil": return "Liberado, aquardando Coleta!";
-//			case "ReceptaculoK": return "Não Aprovado, aquardando coleta!";		
-//			case "PlugFS": return "Aguardando Orçamento";
-//			case "PlugFK":	return "Enviar Orçamento";
-//			case "PlugMS": return "Aguardando Aprovação";
-//			case "PlugMK":	return "Enviar Orçamento";
-//			case "TomadaS": return "Aguardando Aprovação";
-//			
-//		default: return "";
-//		}
-//		return false;
-//		*/
-//		return true;
-//	}
 
 }

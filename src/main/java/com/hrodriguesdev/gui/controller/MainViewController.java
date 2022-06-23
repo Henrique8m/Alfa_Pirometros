@@ -46,6 +46,7 @@ public class MainViewController implements Initializable{
 	
 	public static Equipamento equipamento;
 	public static Equipamento equipamentoEdit;
+	public static Orcamento orcamentoEdit;
 	public static Orcamento orcamento;
 		
 	@FXML
@@ -77,23 +78,93 @@ public class MainViewController implements Initializable{
     public static ObservableList<Anotations> obsListTableAnotacoes = FXCollections.observableArrayList();
     
     @FXML
-    private void updatedEquipamento(KeyEvent e) throws IOException {{
+    private void updatedEquipamento(KeyEvent e) throws IOException {
     	if(e.getCode().toString() == "F2" ) {
     		if(tableFilaEquipamentos.getSelectionModel().getSelectedItem() != null) 
     		{
     			equipamentoEdit = tableFilaEquipamentos.getSelectionModel().getSelectedItem();
     			NewView.getNewViewModal("Edit Equipamento",  (Pane) NewView.loadFXML("entradaEquipamento", new EditEquipamentoViewController() ) , LoadViewController.getStage());
-    			tableFilaEquipamentos.setItems(obsListTableFilaEquipamentos);
-    			oldObs = obsListTableFilaEquipamentos;
-    			tableFilaEquipamentos.refresh(); 
+
+    		}else if(tableFindEquipamentos.getSelectionModel().getSelectedItem() != null) 
+    		{
+    			equipamentoEdit = tableFindEquipamentos.getSelectionModel().getSelectedItem();
+    			NewView.getNewViewModal("Edit Equipamento",  (Pane) NewView.loadFXML("entradaEquipamento", new EditEquipamentoViewController() ) , LoadViewController.getStage());
+
     		}
     		
+    		    try {
+					obsListTableFilaEquipamentos = controller.getByLaboratorio(true);
+				} catch (DbException | SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+    			tableFilaEquipamentos.setItems(obsListTableFilaEquipamentos);
+    			oldObs = obsListTableFilaEquipamentos;
+    			tableFilaEquipamentos.refresh();   		
+    		
+    		
+    	}else if(e.getCode().toString() == "F3" ) {
+    		
+    		if(tableFilaEquipamentos.getSelectionModel().getSelectedItem() != null) 
+    		{
+    			try {
+    				equipamento = tableFilaEquipamentos.getSelectionModel().getSelectedItem();
+					orcamentoEdit = controller.getOrcamento( tableFilaEquipamentos.getSelectionModel().getSelectedItem().getOrcamento_id() );
+					NewView.getNewViewModal("Edit Orcamento",  (Pane) NewView.loadFXML("orcamento", new EditOrcamentoViewController() ) , LoadViewController.getStage());
+				
+    			} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+    			
+
+    		}else if(tableFindEquipamentos.getSelectionModel().getSelectedItem() != null) 
+    		{
+    			try {
+    				equipamento = tableFilaEquipamentos.getSelectionModel().getSelectedItem();
+					orcamentoEdit = controller.getOrcamento( tableFilaEquipamentos.getSelectionModel().getSelectedItem().getOrcamento_id() );
+					NewView.getNewViewModal("Edit Orcamento",  (Pane) NewView.loadFXML("orcamento", new EditOrcamentoViewController() ) , LoadViewController.getStage());
+				
+    			} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+
+    		}
+			tableFilaEquipamentos.setItems(obsListTableFilaEquipamentos);
+			oldObs = obsListTableFilaEquipamentos;
+			tableFilaEquipamentos.refresh();   		
+		
+    		
     	}
-    }
+    	else if(e.getCode().toString() == "DELETE" ) {    		
+    		if(tableFilaEquipamentos.getSelectionModel().getSelectedItem() != null) 
+    		{
+    			Equipamento equipament = tableFilaEquipamentos.getSelectionModel().getSelectedItem();
+    			if(equipament.getOrcamento_id() == null || equipament.getOrcamento_id() == 0l) {
+    				if (controller.deleteEquipamento( equipament.getId() ) ) {
+    	    		    try {
+    						obsListTableFilaEquipamentos = controller.getByLaboratorio(true);
+    					} catch (DbException | SQLException e1) {
+    						// TODO Auto-generated catch block
+    						e1.printStackTrace();
+    					}
+    	    			tableFilaEquipamentos.setItems(obsListTableFilaEquipamentos);
+    	    			oldObs = obsListTableFilaEquipamentos;
+    	    			tableFilaEquipamentos.refresh();  
+    				}else {
+    					System.out.println("Nao deletado");
+    				}
+    					
+    			}else 
+    				System.out.println("orcamento id " + equipament.getOrcamento_id() );
+    		}
+    		
+    	}else {
+    		System.out.println(e.getCode().toString() );
+    	}
+    
     	
     }
-    
-    
+   
     
     @FXML
     private void addEquipamento(ActionEvent e) throws IOException {
@@ -133,7 +204,6 @@ public class MainViewController implements Initializable{
     private void addOrcamento(ActionEvent e) throws IOException {
 		if(tableFilaEquipamentos.getSelectionModel().getSelectedItem() != null) {			
 			equipamento = tableFilaEquipamentos.getSelectionModel().getSelectedItem();
-			System.out.println(tableFilaEquipamentos.getSelectionModel().getSelectedItem().getOrcamento_id());
 			if(tableFilaEquipamentos.getSelectionModel().getSelectedItem().getOrcamento_id()  == null || tableFilaEquipamentos.getSelectionModel().getSelectedItem().getOrcamento_id() == 0) 
 			{
 				NewView.getNewViewModal("Entrada Equipamento", (Pane) NewView.loadFXML("orcamento", new AddOrcamentoViewController() ), LoadViewController.getStage());
@@ -215,7 +285,8 @@ public class MainViewController implements Initializable{
     @FXML
     private TextField textNsEquip, textPatEquip;
     @FXML
-    private ComboBox<String> textEmpresa = new ComboBox<>();
+    private ComboBox<String> textEmpresa;
+    
     private static ObservableList<String> obsString = FXCollections.observableArrayList();
     private FilteredList<String> filteredList;
     
@@ -251,8 +322,7 @@ public class MainViewController implements Initializable{
 	
 	@FXML
 	public void click(MouseEvent event) {
-
-		System.out.println("Click");		
+		
 	}	
 	
 	@FXML

@@ -40,7 +40,7 @@
                         <VBox prefHeight="47.0" prefWidth="97.0">
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="DATA" wrappingWidth="39.13671875" />
-                              <TextField fx:id="data" editable="false" focusTraversable="false" prefHeight="25.0" prefWidth="84.0" />
+                              <TextField fx:id="data" editable="false" onKeyReleased="#format" focusTraversable="false" prefHeight="25.0" prefWidth="84.0" />
                            </children>
                            <HBox.margin>
                               <Insets left="20.0" />
