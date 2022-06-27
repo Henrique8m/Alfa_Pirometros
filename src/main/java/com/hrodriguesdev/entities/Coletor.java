@@ -1,6 +1,8 @@
 package com.hrodriguesdev.entities;
 
 import java.io.Serializable;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class Coletor implements Serializable{	
 	
@@ -49,6 +51,25 @@ public class Coletor implements Serializable{
 
 	public void setDataHoraColeta(String dataHoraColeta) {
 		this.dataHoraColeta = dataHoraColeta;
+	}
+
+
+	public static Coletor parceColetor(ResultSet rs) {
+		Coletor coletor = new Coletor();
+		if(rs != null) {
+			try {
+				coletor.setId( rs.getLong(1) );	
+				coletor.setEmpressaName( rs.getString(2) );
+				coletor.setNomeColetor( rs.getString(3) );
+				coletor.setDataHoraColeta( rs.getString(4) );
+				coletor.setEquipamento_id( rs.getLong(5) );		
+			
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return null;
+			} 
+		}
+		return coletor;
 	}
 
 

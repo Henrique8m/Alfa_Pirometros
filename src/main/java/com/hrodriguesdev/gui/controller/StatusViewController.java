@@ -59,8 +59,6 @@ public class StatusViewController implements Initializable{
 	private void update(int status) {		
 		try {
 			
-			if ( status == 4 && ( MainViewController.equipamento.getStatus() == 12 || MainViewController.equipamento.getStatus() == 13 ) || status == 5 && ( MainViewController.equipamento.getStatus() == 12 || MainViewController.equipamento.getStatus() == 13 ) )
-				status = 7;
 			controller.updatedeEquipamento( MainViewController.equipamento.getId(), status, MainViewController.equipamento );
 			try {
 				Stage stage = (Stage) cancelar.getScene().getWindow(); 

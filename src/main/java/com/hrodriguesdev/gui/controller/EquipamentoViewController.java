@@ -90,6 +90,7 @@ public class EquipamentoViewController {
 			obj.setNs( ns.getText() );
 			obj.setPat( pat.getText() );
 			obj.setUltimaCalib( ultimaCal.getText() );	
+			obj.setLaboratorio(true);
 			
 		}catch(NullPointerException e) {
 			e.printStackTrace();

@@ -28,6 +28,8 @@ public class Equipamento implements Serializable {
 	@SuppressWarnings("unused")
 	private String statusStr;
 	
+	private String relatorio;
+	
 
 	//@OneToOne(mappedBy = "motorista", fetch = FetchType.EAGER)
 //	private EstoqueEletronicos estoqueEletronicos;
@@ -198,6 +200,20 @@ public class Equipamento implements Serializable {
 
 	public void setColetor_id(Long coletor_id) {
 		this.coletor_id = coletor_id;
+	}
+
+
+
+
+	public String getRelatorio() {
+		return relatorio;
+	}
+
+
+
+
+	public void setRelatorio(String relatorio) {
+		this.relatorio = relatorio;
 	}	
 	
 }

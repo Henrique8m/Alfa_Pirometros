@@ -9,6 +9,10 @@ public class ColetorService {
 	public Long addColetor(Coletor coletor) {
 		return repository.addColetor(coletor);
 	}
+
+	public Coletor findColetor(Long coletor_id) {
+		return repository.findColetor(coletor_id);
+	}
 	
 	
 }

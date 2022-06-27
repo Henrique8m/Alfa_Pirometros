@@ -66,6 +66,10 @@ public class MainViewController implements Initializable{
 	@FXML
 	private TableColumn<Equipamento, String> pat;
 	@FXML
+	private TableColumn<Equipamento, String> ultimaCal;
+	@FXML
+	private TableColumn<Equipamento, String> relatorio;
+	@FXML
 	private TableView<Equipamento> tableFilaEquipamentos;
     public static ObservableList<Equipamento> obsListTableFilaEquipamentos = FXCollections.observableArrayList();
     
@@ -95,7 +99,7 @@ public class MainViewController implements Initializable{
     		    try {
 					obsListTableFilaEquipamentos = controller.getByLaboratorio(true);
 				} catch (DbException | SQLException e1) {
-					// TODO Auto-generated catch block
+					
 					e1.printStackTrace();
 				}
     			tableFilaEquipamentos.setItems(obsListTableFilaEquipamentos);
@@ -120,8 +124,8 @@ public class MainViewController implements Initializable{
     		}else if(tableFindEquipamentos.getSelectionModel().getSelectedItem() != null) 
     		{
     			try {
-    				equipamento = tableFilaEquipamentos.getSelectionModel().getSelectedItem();
-					orcamentoEdit = controller.getOrcamento( tableFilaEquipamentos.getSelectionModel().getSelectedItem().getOrcamento_id() );
+    				equipamento = tableFindEquipamentos.getSelectionModel().getSelectedItem();
+					orcamentoEdit = controller.getOrcamento( tableFindEquipamentos.getSelectionModel().getSelectedItem().getOrcamento_id() );
 					NewView.getNewViewModal("Edit Orcamento",  (Pane) NewView.loadFXML("orcamento", new EditOrcamentoViewController() ) , LoadViewController.getStage());
 				
     			} catch (SQLException e1) {
@@ -129,6 +133,31 @@ public class MainViewController implements Initializable{
 				}
 
     		}
+			tableFilaEquipamentos.setItems(obsListTableFilaEquipamentos);
+			oldObs = obsListTableFilaEquipamentos;
+			tableFilaEquipamentos.refresh();   		
+		
+    		
+    	}else if(e.getCode().toString() == "F12" ) {
+    		
+    		if(tableFilaEquipamentos.getSelectionModel().getSelectedItem() != null) 
+    		{
+				equipamento = tableFilaEquipamentos.getSelectionModel().getSelectedItem();
+				equipamento.setLaboratorio(true);
+				controller.updatedeEquipamento(equipamento.getId(), equipamento.getStatus(), equipamento);			
+
+    		}else if(tableFindEquipamentos.getSelectionModel().getSelectedItem() != null) {
+				equipamento = tableFindEquipamentos.getSelectionModel().getSelectedItem();
+				equipamento.setLaboratorio(true);
+				controller.updatedeEquipamento(equipamento.getId(), equipamento.getStatus(), equipamento);	
+
+    		}
+    		try {
+				obsListTableFilaEquipamentos = controller.getByLaboratorio(true);
+			} catch (DbException | SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			tableFilaEquipamentos.setItems(obsListTableFilaEquipamentos);
 			oldObs = obsListTableFilaEquipamentos;
 			tableFilaEquipamentos.refresh();   		
@@ -144,7 +173,7 @@ public class MainViewController implements Initializable{
     	    		    try {
     						obsListTableFilaEquipamentos = controller.getByLaboratorio(true);
     					} catch (DbException | SQLException e1) {
-    						// TODO Auto-generated catch block
+    						
     						e1.printStackTrace();
     					}
     	    			tableFilaEquipamentos.setItems(obsListTableFilaEquipamentos);
@@ -196,10 +225,6 @@ public class MainViewController implements Initializable{
 	   	
     }
 
-
-    
-    
-    @SuppressWarnings("unused")
 	@FXML
     private void addOrcamento(ActionEvent e) throws IOException {
 		if(tableFilaEquipamentos.getSelectionModel().getSelectedItem() != null) {			
@@ -249,17 +274,26 @@ public class MainViewController implements Initializable{
     			Alerts.showAlert("Orcamento" , "Status Orcamento", "Não consta orçamento para este equipamento" , AlertType.INFORMATION);
     		
     	}else showAlerts("Seleção ", "", "Nada Selecionado ", AlertType.INFORMATION );
-	        	
+	        
+		try {
+			obsListTableFilaEquipamentos = controller.getByLaboratorio(true);
+    		oldObs = obsListTableFilaEquipamentos;
+    		dbConection = true;
+    		tableFilaEquipamentos.setItems(obsListTableFilaEquipamentos);
+		} catch (DbException | SQLException e1) {
+		
+			e1.printStackTrace();
+		}
     }
           
  
      @FXML
     private void addColeta(ActionEvent e) throws IOException {
     	 if(tableFilaEquipamentos.getSelectionModel().getSelectedItem() != null) {
-     		equipamentoEdit = tableFilaEquipamentos.getSelectionModel().getSelectedItem();
+     		equipamentoEdit = tableFilaEquipamentos.getSelectionModel().getSelectedItem();     		
      		
-     		if(equipamentoEdit.getStatus() != 1 && equipamentoEdit.getColetor_id() != null) {
-     			if(equipamentoEdit.getColetor_id() != 0) {
+     		if(equipamentoEdit.getStatus() != 1 ) {
+     			if( equipamentoEdit.getColetor_id() == null || equipamentoEdit.getColetor_id() == 0) {
      				NewView.getNewViewModal("Saida de equipamento",  (Pane) NewView.loadFXML("saidaEquipamento", new SaidaEquipamentoViewController() ) , LoadViewController.getStage());
 	     			try {
 						obsListTableFilaEquipamentos = controller.getByLaboratorio(true);
@@ -267,12 +301,21 @@ public class MainViewController implements Initializable{
 			    		dbConection = true;
 			    		tableFilaEquipamentos.setItems(obsListTableFilaEquipamentos);
 					} catch (DbException | SQLException e1) {
-						// TODO Auto-generated catch block
+					
 						e1.printStackTrace();
 					}
-     			}		
-
-     			
+     			} else{
+     				NewView.getNewViewModal("Saida de equipamento",  (Pane) NewView.loadFXML("saidaEquipamento", new OpenSaidaEquipamentoViewController() ) , LoadViewController.getStage());
+	     			try {
+						obsListTableFilaEquipamentos = controller.getByLaboratorio(true);
+			    		oldObs = obsListTableFilaEquipamentos;
+			    		dbConection = true;
+			    		tableFilaEquipamentos.setItems(obsListTableFilaEquipamentos);
+					} catch (DbException | SQLException e1) {
+					
+						e1.printStackTrace();
+					}
+     			}
      		}else
      			Alerts.showAlert("Saida de Equipamento" , "Equipamento nao pode ser liberado por:", equipamentoEdit.getStatusStr() , AlertType.INFORMATION);
      		
@@ -329,9 +372,26 @@ public class MainViewController implements Initializable{
 	
 	@FXML
     private void gerarPDF(ActionEvent e) throws IOException {
-		
-    	
-    }
+	   	 if(tableFindEquipamentos.getSelectionModel().getSelectedItem() != null) {
+	  		equipamentoEdit = tableFindEquipamentos.getSelectionModel().getSelectedItem();   	
+	  		
+	  		if(equipamentoEdit.getStatus() != 1 ) {
+	  			if( equipamentoEdit.getColetor_id() != null || equipamentoEdit.getColetor_id() != 0) {
+	  				NewView.getNewViewModal("Saida de equipamento",  (Pane) NewView.loadFXML("saidaEquipamento", new OpenSaidaEquipamentoViewController() ) , LoadViewController.getStage());
+		     			try {
+							obsListTableFilaEquipamentos = controller.getByLaboratorio(true);
+				    		oldObs = obsListTableFilaEquipamentos;
+				    		dbConection = true;
+				    		tableFilaEquipamentos.setItems(obsListTableFilaEquipamentos);
+						} catch (DbException | SQLException e1) {
+						
+							e1.printStackTrace();
+						}
+	  			}
+	  		}
+	  		
+	  	}
+	 }
     
 	@FXML
 	private TableColumn<Equipamento, String> empressaFind;
@@ -376,7 +436,6 @@ public class MainViewController implements Initializable{
 		buscar1.setImage(image);
 		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-pdf.png").toString() );
 		pdf.setImage(image);
-		
 		beginTimer();
 		
 		
@@ -405,6 +464,8 @@ public class MainViewController implements Initializable{
 		modelo.setCellValueFactory(new PropertyValueFactory<Equipamento, String>("modelo"));
 		ns.setCellValueFactory(new PropertyValueFactory<Equipamento, String>("ns"));
 		pat.setCellValueFactory(new PropertyValueFactory<Equipamento, String>("pat"));
+		relatorio.setCellValueFactory(new PropertyValueFactory<Equipamento, String>("relatorio"));
+		ultimaCal.setCellValueFactory(new PropertyValueFactory<Equipamento, String>("ultimaCalib"));
 		tableFilaEquipamentos.setItems(obsListTableFilaEquipamentos);
 		
 		

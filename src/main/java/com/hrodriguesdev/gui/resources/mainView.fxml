@@ -37,12 +37,14 @@
                                       <columns>
                                           <TableColumn editable="false" maxWidth="-Infinity" minWidth="500.0" prefWidth="1500.0" text="Equipamentos em Laboratorio">
                                              <columns>
-                                              <TableColumn fx:id="empressa" editable="false" minWidth="200.0" prefWidth="500.0" text="Empresa" />
+                                              <TableColumn fx:id="empressa" editable="false" minWidth="160.0" prefWidth="350.0" text="Empresa" />
                                                 <TableColumn fx:id="status" editable="false" minWidth="120.0" prefWidth="300.0" text="Status" />
                                                 <TableColumn fx:id="dataChegada" editable="false" minWidth="40.0" prefWidth="150.0" text="Data Chegada" />
                                                 <TableColumn fx:id="modelo" editable="false" minWidth="40.0" prefWidth="150.0" text="Modelo" />
                                                 <TableColumn fx:id="ns" editable="false" minWidth="40.0" prefWidth="150.0" text="Numero de Serie" />
                                                 <TableColumn fx:id="pat" editable="false" minWidth="40.0" prefWidth="150.0" text="Patrimonio" />
+                                                <TableColumn fx:id="ultimaCal" editable="false" minWidth="40.0" prefWidth="75.0" text="Ultima Clibração" />
+                                                <TableColumn fx:id="relatorio" editable="false" minWidth="40.0" prefWidth="75.0" text="Relatório Nº" />
                                              </columns>
                                           </TableColumn>
                                       </columns>
@@ -142,78 +144,48 @@
             </Tab>
           <Tab text="Busca">
                <content>
-                  <AnchorPane minHeight="700.0" minWidth="1250.0" prefHeight="700.0" prefWidth="1250.0">
+                  <AnchorPane minHeight="300.0" minWidth="400.0" prefHeight="700.0" prefWidth="1250.0">
                      <children>
-                        <AnchorPane layoutX="790.0" layoutY="36.0" />
-                        <HBox prefHeight="697.0" prefWidth="1250.0">
+                        <HBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <VBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="697.0" prefWidth="288.0">
+                              <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="500.0" minWidth="390.0" prefHeight="1031.0" prefWidth="726.0" style="-fx-background-color: #c9c9c9; -fx-background-radius: 15;">
                                  <children>
-                                    <Button mnemonicParsing="false" onAction="#buscar" prefHeight="43.0" prefWidth="254.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Buscar">
-                                       <graphic>
-                                          <ImageView fx:id="buscar1" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" />
-                                       </graphic>
-                                       <font>
-                                          <Font size="15.0" />
-                                       </font>
-                                       <VBox.margin>
-                                          <Insets bottom="40.0" left="15.0" />
-                                       </VBox.margin>
-                                    </Button>
-                                    <Button mnemonicParsing="false" onAction="#gerarPDF" prefHeight="43.0" prefWidth="254.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Gerar Relatorio PDF">
-                                       <graphic>
-                                          <ImageView fx:id="pdf" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" />
-                                       </graphic>
-                                       <font>
-                                          <Font size="15.0" />
-                                       </font>
-                                       <VBox.margin>
-                                          <Insets left="15.0" />
-                                       </VBox.margin>
-                                    </Button>
-                                 </children>
-                                 <padding>
-                                    <Insets left="10.0" top="20.0" />
-                                 </padding>
-                              </VBox>
-                              <VBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="697.0" prefWidth="732.0" style="-fx-background-color: #c9c9c9; -fx-background-radius: 15;">
-                                 <children>
-                                    <AnchorPane prefHeight="42.0" prefWidth="522.0">
+                                    <HBox alignment="CENTER" minWidth="500.0" prefHeight="36.0" prefWidth="750.0">
                                        <children>
-                                          <Text layoutX="70.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="BUSCA DE EQUIPAMENTOS / EMPRESA ">
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="BUSCA DE EQUIPAMENTOS / EMPRESA " textAlignment="CENTER" wrappingWidth="403.27734375">
                                              <font>
                                                 <Font name="Comic Sans MS" size="20.0" />
                                              </font>
                                           </Text>
                                        </children>
-                                    </AnchorPane>
-                                    <HBox prefHeight="67.0" prefWidth="610.0" style="-fx-background-color: #c9c9c9;">
+                                    </HBox>
+                                    <HBox minHeight="50.0" minWidth="500.0" prefHeight="50.0" prefWidth="726.0">
                                        <children>
-                                          <VBox prefHeight="42.0" prefWidth="218.0" style="-fx-background-color: #c9c9c9;">
+                                          <VBox minWidth="225.0" prefHeight="67.0" prefWidth="300.0" style="-fx-background-color: #c9c9c9;">
                                              <children>
                                                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Empresa" wrappingWidth="154.13671875" />
-                                                <ComboBox fx:id="textEmpresa" editable="true" prefHeight="25.0" prefWidth="225.0" />
+                                                <ComboBox fx:id="textEmpresa" editable="true" minWidth="225.0" prefHeight="25.0" prefWidth="300.0" />
                                              </children>
                                           </VBox>
-                                          <VBox prefHeight="42.0" prefWidth="100.0">
+                                          <VBox minWidth="100.0" prefHeight="67.0" prefWidth="170.0">
                                              <children>
                                                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ns: Equipamento" wrappingWidth="110.13671875" />
-                                                <TextField fx:id="textNsEquip" onKeyReleased="#format" prefHeight="25.0" prefWidth="95.0" />
+                                                <TextField fx:id="textNsEquip" minWidth="95.0" onKeyReleased="#format" prefHeight="25.0" prefWidth="170.0" />
                                              </children>
                                              <HBox.margin>
                                                 <Insets left="20.0" />
                                              </HBox.margin>
                                           </VBox>
-                                          <VBox prefHeight="42.0" prefWidth="86.0">
+                                          <VBox minWidth="100.0" prefHeight="67.0" prefWidth="170.0">
                                              <children>
                                                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Pat Equipamento" wrappingWidth="91.13671875" />
-                                                <TextField fx:id="textPatEquip" onKeyReleased="#format" prefHeight="25.0" prefWidth="95.0" />
+                                                <TextField fx:id="textPatEquip" minWidth="86.0" onKeyReleased="#format" prefHeight="25.0" prefWidth="170.0" />
                                              </children>
                                              <opaqueInsets>
                                                 <Insets />
                                              </opaqueInsets>
                                              <HBox.margin>
-                                                <Insets left="20.0" />
+                                                <Insets left="20.0" right="10.0" />
                                              </HBox.margin>
                                           </VBox>
                                        </children>
@@ -227,17 +199,49 @@
                                           <Insets left="20.0" />
                                        </padding>
                                     </HBox>
-                                    <TableView fx:id="tableFindEquipamentos" maxHeight="-Infinity" maxWidth="-Infinity" onMouseClicked="#click" onKeyPressed="#updatedEquipamento" prefHeight="539.0" prefWidth="742.0" style="-fx-background-radius: 10;">
+                                    <HBox alignment="CENTER" minHeight="50.0" minWidth="500.0" prefHeight="50.0" prefWidth="726.0">
+                                       <children>
+                                          <Button mnemonicParsing="false" onAction="#buscar" prefHeight="35.0" prefWidth="135.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Buscar">
+                                             <graphic>
+                                                <ImageView fx:id="buscar1" fitHeight="23.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true" />
+                                             </graphic>
+                                             <HBox.margin>
+                                                <Insets right="30.0" />
+                                             </HBox.margin>
+                                          </Button>
+                                          <Button mnemonicParsing="false" onAction="#gerarPDF" prefHeight="35.0" prefWidth="207.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Gerar Relatorio PDF">
+                                             <graphic>
+                                                <ImageView fx:id="pdf" fitHeight="23.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true" />
+                                             </graphic>
+                                             <padding>
+                                                <Insets left="10.0" />
+                                             </padding>
+                                             <HBox.margin>
+                                                <Insets left="30.0" />
+                                             </HBox.margin>
+                                          </Button>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="10.0" />
+                                       </padding>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                    </HBox>
+                                    <TableView fx:id="tableFindEquipamentos" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="300.0" minWidth="500.0" onKeyPressed="#updatedEquipamento" onMouseClicked="#click" prefHeight="924.0" prefWidth="750.0" style="-fx-background-radius: 10;">
                                        <columns>
-                                          <TableColumn fx:id="empressaFind" prefWidth="258.0" text="Empresa" />
-                                          <TableColumn fx:id="nsFind" prefWidth="69.0" text="Ns" />
-                                          <TableColumn fx:id="patFind" prefWidth="95.0" text="Pat" />
-                                          <TableColumn fx:id="dataChegadaFind" prefWidth="151.0" text="Data Chegada" />
-                                          <TableColumn fx:id="dataSaidaFind" minWidth="1.0" prefWidth="156.0" text="Data Saída" />
+                                          <TableColumn fx:id="empressaFind" maxWidth="200.0" minWidth="150.0" prefWidth="200.0" text="Empresa" />
+                                          <TableColumn fx:id="nsFind" maxWidth="137.5" minWidth="87.5" prefWidth="137.5" text="Ns" />
+                                          <TableColumn fx:id="patFind" maxWidth="137.5" minWidth="87.5" prefWidth="137.5" text="Pat" />
+                                          <TableColumn fx:id="dataChegadaFind" maxWidth="137.5" minWidth="87.5" prefWidth="137.5" text="Data Chegada" />
+                                          <TableColumn fx:id="dataSaidaFind" maxWidth="137.5" minWidth="87.5" prefWidth="137.5" text="Data Saída" />
                                        </columns>
                                        <opaqueInsets>
                                           <Insets />
                                        </opaqueInsets>
+                                       <columnResizePolicy>
+                                          <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                       </columnResizePolicy>
                                     </TableView>
                                  </children>
                                  <opaqueInsets>

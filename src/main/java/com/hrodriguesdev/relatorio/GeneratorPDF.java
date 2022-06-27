@@ -138,8 +138,18 @@ public class GeneratorPDF {
 	}
 
 	private String equipamentoStr(Equipamento equipamento) {
-		return "MODELO: " + equipamento.getModelo() + "  NUMERO DE SERIE: " + equipamento.getNs()
-				+ "  NUMERO DE PATRIMONIO: " + equipamento.getPat() + "\n"
+		String patrimonio = "";
+		String ns = "";
+		if(equipamento.getPat() != null) {
+			patrimonio = "  NUMERO DE PATRIMONIO: " + equipamento.getPat();
+		}
+		if(equipamento.getNs() != null) {
+			ns = "  NUMERO DE SERIE: " + equipamento.getNs();
+		}
+		
+		
+		return "MODELO: " + equipamento.getModelo() + ns
+				+ patrimonio + "\n"
 				+ "DATA DA CHEGADDA: " + equipamento.getDataChegada() 
 				+ "  DATA DA SAÍDA: " + equipamento.getDataSaida()
 				;

@@ -127,6 +127,10 @@ public class Controller {
 		return orcamentoService.updatedeOrcamento( orcamento );
 	}
 
+	public Coletor findColetor(Long coletor_id) {
+		return coletorService.findColetor(coletor_id);
+	}
+
 
 
 

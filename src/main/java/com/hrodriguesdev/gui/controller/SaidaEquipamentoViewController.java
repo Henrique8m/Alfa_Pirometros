@@ -36,30 +36,34 @@ import javafx.stage.Stage;
 public class SaidaEquipamentoViewController implements Initializable {
 	
 	//@Autowired
-	private Controller controller = new Controller();
-	private Equipamento equipamento = MainViewController.equipamentoEdit;
+	protected Controller controller = new Controller();
+	protected Equipamento equipamento = MainViewController.equipamentoEdit;
 	
 	@FXML
-	private ImageView cancelarImg, salvarImg, addEmpressaImg;
+	protected ImageView cancelarImg;
+	@FXML
+	protected ImageView salvarImg;
+	@FXML
+	protected ImageView addEmpressaImg;
 	@FXML
 	private Text erro;
 	@FXML
 	public TextField data, ultimaCal, modelo, ns, pat, nomeEmpressa;
 	@FXML
-	private Button salvar, cancelar;
+	protected Button salvar, cancelar, addEmpressa;
 
 	//--------------
 	
 	@FXML
-	private ImageView pdf;
+	protected ImageView pdf;
 	@FXML
-	public TextField dataColeta, nomeColetor;
+	protected TextField dataColeta, nomeColetor;
 	@FXML
-	private ComboBox<String> coleta = new ComboBox<>();	
+	protected ComboBox<String> coleta = new ComboBox<>();	
 	public static ObservableList<String> obsString = FXCollections.observableArrayList();
 	
 	@FXML
-	public void gerarPDF(ActionEvent event) {
+	protected void gerarPDF(ActionEvent event) {
 		
 		if(coleta.getValue() != "" &&  nomeColetor.getText() != "" ) {
 			GeneratorPDF pdf = new GeneratorPDF();	
@@ -78,7 +82,7 @@ public class SaidaEquipamentoViewController implements Initializable {
 	
 	
 	@FXML
-	public void salvar(ActionEvent event) {
+	protected void salvar(ActionEvent event) {
 		getColetor();
 		updateEquipamento();
 		try {
@@ -102,7 +106,7 @@ public class SaidaEquipamentoViewController implements Initializable {
 	}
 
 
-	private void updateEquipamento() {
+	protected void updateEquipamento() {
 		try {
 			equipamento.setDataSaida( dataColeta.getText() );
 			switch ( equipamento.getStatus() ) {
@@ -126,7 +130,7 @@ public class SaidaEquipamentoViewController implements Initializable {
 	}
 
 
-	private Coletor getColetor() {
+	protected Coletor getColetor() {
 		Coletor coletor = new Coletor();
 		if(coleta.getValue()== "" ||  nomeColetor.getText()== "" ) {
 			error( "Campo nulo " ,"O campo nome da Empressa e nome do coletor, não pode estar vazio");
@@ -197,7 +201,7 @@ public class SaidaEquipamentoViewController implements Initializable {
 	}
 	
 	@FXML
-	private void addEmpressa(ActionEvent e) throws IOException {
+	protected void addEmpressa(ActionEvent e) throws IOException {
 		NewView.getNewViewModal("Adcionar Empressa", (Pane) NewView.loadFXML("newEmpressa", new AddEmpressaViewController()), LoadViewController.getStage());
 		obsString = controller.getEmpressas();
 		FilteredList<String> filteredList = new FilteredList<>(obsString);  

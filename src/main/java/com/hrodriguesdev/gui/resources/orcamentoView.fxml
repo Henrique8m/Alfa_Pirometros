@@ -129,6 +129,30 @@
                                                 <Font size="14.0" />
                                              </font>
                                           </Button>
+                                          <VBox alignment="CENTER" prefHeight="78.0" prefWidth="193.0">
+                                             <children>
+                                                <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="RELATORIO NUMERO">
+                                                   <font>
+                                                      <Font size="15.0" />
+                                                   </font>
+                                                </Text>
+                                                <TextField fx:id="relatorioN" />
+                                             </children>
+                                             <opaqueInsets>
+                                                <Insets />
+                                             </opaqueInsets>
+                                             <padding>
+                                                <Insets left="30.0" right="30.0" />
+                                             </padding>
+                                          </VBox>
+                                          <Button mnemonicParsing="false" onAction="#salvar" prefHeight="45.0" prefWidth="113.0" style="-fx-cursor: hand;" text="SALVAR">
+                                             <graphic>
+                                                <ImageView fx:id="salvarImg" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" />
+                                             </graphic>
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Button>
                                        </items>
                                        <padding>
                                           <Insets left="50.0" />

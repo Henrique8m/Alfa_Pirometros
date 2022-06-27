@@ -60,4 +60,29 @@ public class ColetorRepository {
 		return id;
 	}
 
+	public Coletor findColetor(Long coletor_id) {
+		Coletor coletor = null;
+		conn = DB.getConnection();					
+		try {
+			st = conn.createStatement();
+			rs = st.executeQuery("SELECT * FROM alfaestoque.tb_coletor;");
+			while (rs.next())  
+				if( rs.getLong(1)== coletor_id)
+					coletor = Coletor.parceColetor( rs );
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}			
+		finally {
+			DB.closeResultSet(rs);
+			DB.closeStatement(st);
+		}
+		conn = null;
+		st = null;
+		rs = null;
+	
+		
+		return coletor;
+	}
+
 }

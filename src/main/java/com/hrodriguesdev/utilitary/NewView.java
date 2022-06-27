@@ -21,7 +21,6 @@ public class NewView {
 	}
 	
 	public static void getNewViewModal(String title, Pane pane, Stage stageEvent){
-		System.out.println( stageEvent.isAlwaysOnTop() );
 		Stage stage = new Stage();
 		stage.setTitle(title);
 		stage.setScene(new Scene(pane));

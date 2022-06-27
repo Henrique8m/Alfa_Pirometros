@@ -133,6 +133,8 @@ public class EquipamentoRepository {
 			obj.setCertificado(rs.getString("certificado") );
 			obj.setValor( rs.getDouble("valor") );	
 			obj.setEmpressa( rs.getLong( "empresa_id" ) );
+			obj.setColetor_id( rs.getLong( "coletor_id" ) );
+			obj.setRelatorio( rs.getString( "relatorio" ));
 			//estoque 
 			//empresa
 		} catch (SQLException e) {
@@ -143,19 +145,38 @@ public class EquipamentoRepository {
 	}
 
 	public boolean updatedeEquipamento(Long id, int status,Equipamento equipamento) {
+		int statusEquip = equipamento.getStatus();
 		boolean ok = false;
+		if ( status == 4 ||	status == 5  ) {
+			if ( statusEquip == 12 || statusEquip == 13)			
+				status = 7;
+		}		
+		if (status == 7) {
+			equipamento.setLaboratorio(false);
+		}else {
+			equipamento.setLaboratorio(true);
+		}		
 		
 		try {
+			
+//			conn = DB.getConnection();
+//			pst = conn.prepareStatement("ALTER TABLE tb_equipamento ADD COLUMN relatorio VARCHAR(45) NULL AFTER coletor_id");			
+//			pst.executeUpdate();
+			
 			conn = DB.getConnection();
 			pst = conn.prepareStatement("UPDATE tb_equipamento "
 											+ "SET status = " 
-											+ status 
-											+ "laboratorio = ? "
-											+" WHERE "
-											+"(id = ?)");
+											+ status + ", "
+											+ "laboratorio = ?" + ", "
+											+ "relatorio = ? "
+											+ " WHERE "
+											+ "(id = ?)");
+			if(equipamento.getRelatorio() == null ) 
+				equipamento.setRelatorio("");
 			
 			pst.setBoolean( 1, equipamento.getLaboratorio() );
-			pst.setLong( 2, id );
+			pst.setString(2, equipamento.getRelatorio());			
+			pst.setLong( 3, id );
 			
 			int rowsAccepted = pst.executeUpdate();
 			if(rowsAccepted>0)
@@ -180,6 +201,8 @@ public class EquipamentoRepository {
 			conn = DB.getConnection();
 			pst = conn.prepareStatement("UPDATE tb_equipamento "
 											+ "SET orcamento_id = " + idOrcamento 
+											+ ", "
+											+ "status = 3"
 											+" WHERE "
 											+"(id = ?)");
 			

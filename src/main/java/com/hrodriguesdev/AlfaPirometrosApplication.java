@@ -2,6 +2,8 @@ package com.hrodriguesdev;
 
 import com.hrodriguesdev.gui.controller.LoadViewController;
 import com.hrodriguesdev.gui.controller.MainViewController;
+import com.hrodriguesdev.gui.controller.extend.ExtendsMainView;
+import com.hrodriguesdev.gui.controller.extend.ExtendsMainViewPag2;
 import com.hrodriguesdev.utilitary.NewView;
 
 import javafx.application.Application;
@@ -53,7 +55,7 @@ public class AlfaPirometrosApplication extends Application{
 	public static String diretorioStr1 = "\\AppData\\Local\\YggDrasil";
 	public static String diretorioStr2 = "\\AppData\\Local\\YggDrasil\\serial";
 	
-	public static MainViewController viewController = new MainViewController();
+	public static ExtendsMainViewPag2 viewController = new ExtendsMainViewPag2();
 	
 
 	//Carregando a view de Load
