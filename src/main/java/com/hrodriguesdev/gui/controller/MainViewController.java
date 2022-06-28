@@ -365,10 +365,6 @@ public class MainViewController implements Initializable{
 		
 	}
 	
-	@FXML
-	public void click(MouseEvent event) {
-		
-	}	
 	
 	@FXML
     private void gerarPDF(ActionEvent e) throws IOException {
@@ -404,7 +400,7 @@ public class MainViewController implements Initializable{
 	@FXML
 	private TableColumn<Equipamento, String> dataSaidaFind;
 	@FXML
-	private TableView<Equipamento> tableFindEquipamentos;
+	protected TableView<Equipamento> tableFindEquipamentos;
     public static ObservableList<Equipamento> obsListTableFindEquipamentos= FXCollections.observableArrayList();
 	
 	
