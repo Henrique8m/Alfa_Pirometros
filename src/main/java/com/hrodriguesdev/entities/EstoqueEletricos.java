@@ -10,16 +10,16 @@ public class EstoqueEletricos implements Serializable {
 	///@Id
 	//@GeneratedValue(strategy = GenerationType.IDENTITY)
 	
-	private Long id;
-	private int FontCarbIndic;
-	private int FontCarbDelta;
-	private int PinFemeAliFII;
-	private int PinFemeAliFIII;
-	private int BatFIIFIII;
-	private int BatDescartavel;
-	private int BatInditemp;
-	private int BatLitio;
-	private int CarrEcil;
-	private int CarrItalterm;
+//	private Long id;
+//	private int FontCarbIndic;
+//	private int FontCarbDelta;
+//	private int PinFemeAliFII;
+//	private int PinFemeAliFIII;
+//	private int BatFIIFIII;
+//	private int BatDescartavel;
+//	private int BatInditemp;
+//	private int BatLitio;
+//	private int CarrEcil;
+//	private int CarrItalterm;
 
 }

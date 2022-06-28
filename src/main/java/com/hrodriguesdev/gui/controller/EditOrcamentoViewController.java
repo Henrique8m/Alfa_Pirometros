@@ -37,7 +37,7 @@ public class EditOrcamentoViewController implements Initializable {
 //	private EstoqueEstetico estetico = new EstoqueEstetico();
 	private Controller controller = new Controller();
 	
-	private Long orcamentoId;
+//	private Long orcamentoId;
 	private String list = "Lista de Materiais Usados; \n";
 	private String nova = "";
 	

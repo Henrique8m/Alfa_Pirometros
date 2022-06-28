@@ -11,14 +11,14 @@ public class EstoqueEletronicos implements Serializable {
 	///@Id
 	//@GeneratedValue(strategy = GenerationType.IDENTITY)
 	
-	private Long id;
-	private int sirene;
-	private int PCIFIII;
-	private int PCIFKal;
-	private int DispFKal;
-	private int FIII;
-	private int Indicmax;
-	private int CIFII;
-	private int CIIndicmax;
+//	private Long id;
+//	private int sirene;
+//	private int PCIFIII;
+//	private int PCIFKal;
+//	private int DispFKal;
+//	private int FIII;
+//	private int Indicmax;
+//	private int CIFII;
+//	private int CIIndicmax;
 
 }

@@ -10,15 +10,15 @@ public class EstoqueEstetico implements Serializable {
 	///@Id
 	//@GeneratedValue(strategy = GenerationType.IDENTITY)
 	
-	private Long id;
-	private int MascaraFII;
-	private int MascaraFKal;
-	private int MascaraFIII;
-	private int MascaraCarbo;
-	private int MascaraIndic;
-	private int EtiqLatFII;
-	private int EtiqLatFIII;
-	private int EtiqTrasFII;
-	private int Punho;
+//	private Long id;
+//	private int MascaraFII;
+//	private int MascaraFKal;
+//	private int MascaraFIII;
+//	private int MascaraCarbo;
+//	private int MascaraIndic;
+//	private int EtiqLatFII;
+//	private int EtiqLatFIII;
+//	private int EtiqTrasFII;
+//	private int Punho;
 
 }

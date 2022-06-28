@@ -10,9 +10,9 @@ public class EstoqueConsumo implements Serializable {
 	///@Id
 	//@GeneratedValue(strategy = GenerationType.IDENTITY)
 	
-	private Long id;
-	private int BotaoLiga;
-	private int BoMeFIIFIIIIndicmax;
-	private int CaixaBat;
-
+//	private Long id;
+//	private int BotaoLiga;
+//	private int BoMeFIIFIIIIndicmax;
+//	private int CaixaBat;
+//
 }

@@ -3,7 +3,6 @@ package com.hrodriguesdev.utilitary;
 import java.io.IOException;
 
 import com.hrodriguesdev.AlfaPirometrosApplication;
-import com.hrodriguesdev.gui.controller.AddEmpressaViewController;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
