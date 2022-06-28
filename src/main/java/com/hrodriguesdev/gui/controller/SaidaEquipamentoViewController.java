@@ -202,7 +202,7 @@ public class SaidaEquipamentoViewController implements Initializable {
 	
 	@FXML
 	protected void addEmpressa(ActionEvent e) throws IOException {
-		NewView.getNewViewModal("Adcionar Empressa", (Pane) NewView.loadFXML("newEmpressa", new AddEmpressaViewController()), LoadViewController.getStage());
+		NewView.getNewView("Adcionar Empressa", "newEmpressa", new AddEmpressaViewController() );
 		obsString = controller.getEmpressas();
 		FilteredList<String> filteredList = new FilteredList<>(obsString);  
 		coleta.getEditor().textProperty().addListener(new InputFilter<String>( coleta, filteredList ) );

@@ -87,12 +87,12 @@ public class MainViewController implements Initializable{
     		if(tableFilaEquipamentos.getSelectionModel().getSelectedItem() != null) 
     		{
     			equipamentoEdit = tableFilaEquipamentos.getSelectionModel().getSelectedItem();
-    			NewView.getNewViewModal("Edit Equipamento",  (Pane) NewView.loadFXML("entradaEquipamento", new EditEquipamentoViewController() ) , LoadViewController.getStage());
+    			NewView.getNewView("Edit Equipamento", "entradaEquipamento", new EditEquipamentoViewController() );
 
     		}else if(tableFindEquipamentos.getSelectionModel().getSelectedItem() != null) 
     		{
     			equipamentoEdit = tableFindEquipamentos.getSelectionModel().getSelectedItem();
-    			NewView.getNewViewModal("Edit Equipamento",  (Pane) NewView.loadFXML("entradaEquipamento", new EditEquipamentoViewController() ) , LoadViewController.getStage());
+    			NewView.getNewView("Edit Equipamento", "entradaEquipamento", new EditEquipamentoViewController() );
 
     		}
     		
@@ -114,7 +114,7 @@ public class MainViewController implements Initializable{
     			try {
     				equipamento = tableFilaEquipamentos.getSelectionModel().getSelectedItem();
 					orcamentoEdit = controller.getOrcamento( tableFilaEquipamentos.getSelectionModel().getSelectedItem().getOrcamento_id() );
-					NewView.getNewViewModal("Edit Orcamento",  (Pane) NewView.loadFXML("orcamento", new EditOrcamentoViewController() ) , LoadViewController.getStage());
+					NewView.getNewView("Edit Orcamento", "orcamento", new EditOrcamentoViewController() );
 				
     			} catch (SQLException e1) {
 					e1.printStackTrace();
@@ -126,7 +126,7 @@ public class MainViewController implements Initializable{
     			try {
     				equipamento = tableFindEquipamentos.getSelectionModel().getSelectedItem();
 					orcamentoEdit = controller.getOrcamento( tableFindEquipamentos.getSelectionModel().getSelectedItem().getOrcamento_id() );
-					NewView.getNewViewModal("Edit Orcamento",  (Pane) NewView.loadFXML("orcamento", new EditOrcamentoViewController() ) , LoadViewController.getStage());
+					NewView.getNewView("Edit Orcamento", "orcamento", new EditOrcamentoViewController() );
 				
     			} catch (SQLException e1) {
 					e1.printStackTrace();
@@ -197,7 +197,7 @@ public class MainViewController implements Initializable{
     
     @FXML
     private void addEquipamento(ActionEvent e) throws IOException {
-    	NewView.getNewViewModal("Entrada Equipamento",  (Pane) NewView.loadFXML("entradaEquipamento", new AddEquipamentoViewController() ) , LoadViewController.getStage());
+    	NewView.getNewView("Entrada Equipamento", "entradaEquipamento", new AddEquipamentoViewController() );
 		tableFilaEquipamentos.setItems(obsListTableFilaEquipamentos);
 		oldObs = obsListTableFilaEquipamentos;
 		tableFilaEquipamentos.refresh();    	
@@ -207,7 +207,7 @@ public class MainViewController implements Initializable{
     private void updateStatus(ActionEvent e) throws IOException {
 		if(tableFilaEquipamentos.getSelectionModel().getSelectedItem() != null) {
 			equipamento = tableFilaEquipamentos.getSelectionModel().getSelectedItem();
-			NewView.getNewViewModal("Alterar Status", (Pane) NewView.loadFXML("status", new StatusViewController() ), LoadViewController.getStage());
+			NewView.getNewView("Alterar Status","status", new StatusViewController() );
 			try {
 				obsListTableFilaEquipamentos = controller.getByLaboratorio(true);
 				dbConection = true;
@@ -231,7 +231,7 @@ public class MainViewController implements Initializable{
 			equipamento = tableFilaEquipamentos.getSelectionModel().getSelectedItem();
 			if(tableFilaEquipamentos.getSelectionModel().getSelectedItem().getOrcamento_id()  == null || tableFilaEquipamentos.getSelectionModel().getSelectedItem().getOrcamento_id() == 0) 
 			{
-				NewView.getNewViewModal("Entrada Equipamento", (Pane) NewView.loadFXML("orcamento", new AddOrcamentoViewController() ), LoadViewController.getStage());
+				NewView.getNewView("Entrada Equipamento", "orcamento", new AddOrcamentoViewController() );
 				try {
 					obsListTableFilaEquipamentos = controller.getByLaboratorio(true);
 					dbConection = true;
@@ -269,7 +269,7 @@ public class MainViewController implements Initializable{
 				return;
 			}
     		if(orcamento != null) {
-    			NewView.getNewViewModal("Entrada Equipamento", (Pane) NewView.loadFXML("orcamentoView", new OrcamentoViewController() ), LoadViewController.getStage());
+    			NewView.getNewView("Entrada Equipamento", "orcamentoView", new OrcamentoViewController() );
     		}else
     			Alerts.showAlert("Orcamento" , "Status Orcamento", "Não consta orçamento para este equipamento" , AlertType.INFORMATION);
     		
@@ -294,7 +294,7 @@ public class MainViewController implements Initializable{
      		
      		if(equipamentoEdit.getStatus() != 1 ) {
      			if( equipamentoEdit.getColetor_id() == null || equipamentoEdit.getColetor_id() == 0) {
-     				NewView.getNewViewModal("Saida de equipamento",  (Pane) NewView.loadFXML("saidaEquipamento", new SaidaEquipamentoViewController() ) , LoadViewController.getStage());
+     				NewView.getNewView("Saida de equipamento", "saidaEquipamento", new SaidaEquipamentoViewController() );
 	     			try {
 						obsListTableFilaEquipamentos = controller.getByLaboratorio(true);
 			    		oldObs = obsListTableFilaEquipamentos;
@@ -305,7 +305,7 @@ public class MainViewController implements Initializable{
 						e1.printStackTrace();
 					}
      			} else{
-     				NewView.getNewViewModal("Saida de equipamento",  (Pane) NewView.loadFXML("saidaEquipamento", new OpenSaidaEquipamentoViewController() ) , LoadViewController.getStage());
+     				NewView.getNewView("Saida de equipamento", "saidaEquipamento", new OpenSaidaEquipamentoViewController());
 	     			try {
 						obsListTableFilaEquipamentos = controller.getByLaboratorio(true);
 			    		oldObs = obsListTableFilaEquipamentos;
@@ -373,7 +373,7 @@ public class MainViewController implements Initializable{
 	  		
 	  		if(equipamentoEdit.getStatus() != 1 ) {
 	  			if( equipamentoEdit.getColetor_id() != null || equipamentoEdit.getColetor_id() != 0) {
-	  				NewView.getNewViewModal("Saida de equipamento",  (Pane) NewView.loadFXML("saidaEquipamento", new OpenSaidaEquipamentoViewController() ) , LoadViewController.getStage());
+	  				NewView.getNewView("Saida de equipamento",  "saidaEquipamento", new OpenSaidaEquipamentoViewController() );
 		     			try {
 							obsListTableFilaEquipamentos = controller.getByLaboratorio(true);
 				    		oldObs = obsListTableFilaEquipamentos;

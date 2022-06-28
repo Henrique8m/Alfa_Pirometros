@@ -3,6 +3,7 @@ package com.hrodriguesdev.utilitary;
 import java.io.IOException;
 
 import com.hrodriguesdev.AlfaPirometrosApplication;
+import com.hrodriguesdev.gui.controller.AddEmpressaViewController;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -20,7 +21,7 @@ public class NewView {
 		return fxmlLoader.load();
 	}
 	
-	public static void getNewViewModal(String title, Pane pane, Stage stageEvent){
+	public static void getNewViewModall(String title, Pane pane, Stage stageEvent){
 		Stage stage = new Stage();
 		stage.setTitle(title);
 		stage.setScene(new Scene(pane));
@@ -31,6 +32,25 @@ public class NewView {
 		stage.initStyle(StageStyle.UTILITY);
 		stage.setAlwaysOnTop(true);						
 		stage.showAndWait();
+	}
+	
+	public static void getNewView(String title, String fxml, Object controller){		
+		try {
+			Pane Pane = (Pane) loadFXML(fxml, controller);
+			Scene scene = new Scene(Pane);
+			Stage stage = new Stage();
+			stage.setMaximized(false);
+			stage.setTitle(title);
+		    stage.getIcons().add(new Image(AlfaPirometrosApplication.class.getResource("gui/resources/" + "Yggdrasilicon.jpg").toString()));
+			stage.setScene(scene);
+			stage.show();
+			
+		} catch (IOException e) {			
+			e.printStackTrace();
+			return;
+			
+		}
+
 	}
 	
 	public static Stage getNewView(String title, Scene mainScene, Stage stage){
