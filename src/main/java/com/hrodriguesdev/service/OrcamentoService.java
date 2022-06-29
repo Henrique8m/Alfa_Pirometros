@@ -10,7 +10,7 @@ public class OrcamentoService {
 
 	public Long addOrcamento(Orcamento orcamento) {
 		
-		return repository.addOrcamento( orcamento );
+		return repository.add( orcamento );
 	}
 
 	public Orcamento getOrcamento(Long id) throws SQLException {
@@ -19,7 +19,7 @@ public class OrcamentoService {
 	}
 
 	public boolean updatedeOrcamento(Orcamento orcamento) {
-		return repository.updatedeOrcamento( orcamento );
+		return repository.updatede( orcamento );
 	}
 
 	
