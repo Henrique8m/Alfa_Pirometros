@@ -3,7 +3,7 @@ package com.hrodriguesdev.gui.controller;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import com.hrodriguesdev.controller.Controller;
+import com.hrodriguesdev.controller.EquipamentoController;
 import com.hrodriguesdev.db.DbException;
 import com.hrodriguesdev.gui.alert.Alerts;
 
@@ -15,7 +15,7 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 public class StatusViewController implements Initializable{
-	private Controller controller;
+	private EquipamentoController equipamentoController = MainViewController.equipamentoController;
 	@FXML
 	private Button cancelar;
 	
@@ -48,18 +48,11 @@ public class StatusViewController implements Initializable{
 	private void naoAprovado(ActionEvent e) {
 		update(6);
 	}
-	
-
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		controller = MainViewController.controller;
 		
-	}
-	
 	private void update(int status) {		
 		try {
 			
-			controller.updatedeEquipamento( MainViewController.equipamento.getId(), status, MainViewController.equipamento );
+			equipamentoController.updatedeEquipamento( MainViewController.equipamento.getId(), status, MainViewController.equipamento );
 			try {
 				Stage stage = (Stage) cancelar.getScene().getWindow(); 
 				stage.close();
@@ -71,6 +64,9 @@ public class StatusViewController implements Initializable{
 			Alerts.showAlert("DB exception ", "Erro na comunicação com banco de dados", e1.getMessage(), AlertType.ERROR);
 		}
 			}
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {}
 
 
 }

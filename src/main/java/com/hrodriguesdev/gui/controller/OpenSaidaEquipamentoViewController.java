@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.ResourceBundle;
 
 import com.hrodriguesdev.AlfaPirometrosApplication;
-import com.hrodriguesdev.controller.Controller;
 import com.hrodriguesdev.entities.Coletor;
 import com.hrodriguesdev.entities.Empressa;
 import com.hrodriguesdev.relatorio.GeneratorPDF;

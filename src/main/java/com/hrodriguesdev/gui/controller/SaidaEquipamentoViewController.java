@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 import com.hrodriguesdev.AlfaPirometrosApplication;
 import com.hrodriguesdev.controller.ColetorController;
 import com.hrodriguesdev.controller.Controller;
+import com.hrodriguesdev.controller.EquipamentoController;
 import com.hrodriguesdev.db.DbException;
 import com.hrodriguesdev.entities.Coletor;
 import com.hrodriguesdev.entities.Empressa;
@@ -36,7 +37,8 @@ import javafx.stage.Stage;
 public class SaidaEquipamentoViewController implements Initializable {
 	
 	//@Autowired
-	protected Controller controller = new Controller();
+	protected Controller controller = MainViewController.controller;
+	protected EquipamentoController equipamentoController = MainViewController.equipamentoController;
 	protected ColetorController coletorController = MainViewController.coletorController;
 	protected Equipamento equipamento = MainViewController.equipamentoEdit;
 	
@@ -70,7 +72,7 @@ public class SaidaEquipamentoViewController implements Initializable {
 			GeneratorPDF pdf = new GeneratorPDF();	
 			Coletor coletor = getColetor();
 			Empressa empressa = controller.findEmpresa( equipamento.getEmpressa() );			
-			if( controller.UpdatedEquipamento(equipamento) ) {
+			if( equipamentoController.UpdatedEquipamento(equipamento) ) {
 				pdf.newDocument(coletor, equipamento, empressa);
 				Stage stage = (Stage) salvar.getScene().getWindow();
 				stage.close();
@@ -88,7 +90,7 @@ public class SaidaEquipamentoViewController implements Initializable {
 		updateEquipamento();
 		try {
 			
-			if( controller.UpdatedEquipamento(equipamento) ) {
+			if( equipamentoController.UpdatedEquipamento(equipamento) ) {
 				Stage stage = (Stage) salvar.getScene().getWindow();
 				stage.close();
 				

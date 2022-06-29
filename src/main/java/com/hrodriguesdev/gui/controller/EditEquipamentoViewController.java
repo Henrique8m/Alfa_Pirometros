@@ -58,7 +58,7 @@ public class EditEquipamentoViewController extends EquipamentoViewController imp
 		}
 		try {
 			
-			if( controller.UpdatedEquipamento(equipamento) ) {
+			if( equipamentoController.UpdatedEquipamento(equipamento) ) {
 				Stage stage = (Stage) salvar.getScene().getWindow();
 				stage.close();
 				

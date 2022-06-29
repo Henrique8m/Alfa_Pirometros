@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 
 import com.hrodriguesdev.AlfaPirometrosApplication;
 import com.hrodriguesdev.controller.Controller;
+import com.hrodriguesdev.controller.EquipamentoController;
 import com.hrodriguesdev.db.DbException;
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.gui.alert.Alerts;
@@ -32,7 +33,8 @@ import javafx.stage.Stage;
 public class EquipamentoViewController {
 
 	protected Date date;
-	protected Controller controller = new Controller();
+	protected Controller controller = MainViewController.controller;
+	protected EquipamentoController equipamentoController = MainViewController.equipamentoController;
 	@FXML
 	protected ImageView cancelarImg;
 	@FXML
@@ -97,7 +99,7 @@ public class EquipamentoViewController {
 			return;
 		}
 		try {
-			obj.setId(controller.addEquipamento(obj));
+			obj.setId(equipamentoController.addEquipamento(obj));
 			if(obj.getId() != 0l) {
 				Stage stage = (Stage) salvar.getScene().getWindow();
 				MainViewController.obsListTableFilaEquipamentos.add(obj);
@@ -147,7 +149,7 @@ public class EquipamentoViewController {
 
 	@FXML
 	public void findNs(ActionEvent event) {
-		Equipamento obj = controller.findEquipamentoNs( ns.getText() );
+		Equipamento obj = equipamentoController.findEquipamentoNs( ns.getText() );
 		if( obj != null	) {
 			
 			nomeEmpressa.setValue( obj.getEmpressaName() );	
