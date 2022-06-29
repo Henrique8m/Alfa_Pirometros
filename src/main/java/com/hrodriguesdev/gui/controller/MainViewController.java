@@ -10,6 +10,7 @@ import com.hrodriguesdev.controller.ColetorController;
 import com.hrodriguesdev.controller.EmpressaController;
 import com.hrodriguesdev.controller.EquipamentoController;
 import com.hrodriguesdev.controller.OrcamentoController;
+import com.hrodriguesdev.dao.db.DB;
 import com.hrodriguesdev.dao.db.DbException;
 import com.hrodriguesdev.entities.Anotations;
 import com.hrodriguesdev.entities.Equipamento;
@@ -413,11 +414,22 @@ public class MainViewController implements Initializable{
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		obsString = empressaController.findAll();
+		try {
+			DB.getConnection();
+			dbConection = true;
+		}catch (DbException e) {
+			e.printStackTrace();
+			dbConection = false;
+		}finally {
+			DB.closeConnection();
+		}
+		if( dbConection ) {
+			obsString = empressaController.findAll();
+			
+		}
+		strartTable();
 		filteredList = new FilteredList<>(obsString); 		
 		textEmpresa.getEditor().textProperty().addListener(new InputFilter<String>( textEmpresa, filteredList ) );	
-		strartTable();
-		
 		Image image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/Yggdrasilicon.jpg").toString() );
 		logoYgg.setImage(image);
 		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-refresh.png").toString() );
@@ -438,22 +450,24 @@ public class MainViewController implements Initializable{
 		pdf.setImage(image);
 		beginTimer();
 		
+
+
 		
 }	 	
 	
 	
 	public void strartTable() {	
 		
-		//Table fila de Motorista descarregando
-	    try {
+		if( dbConection ) {
+			try {
 	    		obsListTableFilaEquipamentos = equipamentoController.findAllByLaboratorio(true);
 	    		oldObs = obsListTableFilaEquipamentos;
-	    		dbConection = true;
+	
+		    }catch(DbException | SQLException e) {
+		    	dbConection = false;
+		    } 
+		}
 
-	    }catch(DbException | SQLException e) {
-	    	showAlerts("DB exception ", "Erro na comunicação com banco de dados, reiniciar App", e.getMessage(), AlertType.ERROR );
-	    	dbConection = false;
-	    } 
 		
 	    tableFilaEquipamentos.setEditable(false);	 
 	    dataChegada.setSortType(TableColumn.SortType.DESCENDING);
@@ -509,6 +523,8 @@ public class MainViewController implements Initializable{
 				} catch (DbException | SQLException e) {
 					showAlerts("begin Timer ", "", e.getMessage(), AlertType.INFORMATION );
 				}			
+			}else {
+		    	showAlerts("DB exception ", "","Erro na comunicação com banco de dados, reiniciar App", AlertType.ERROR );
 			}
 		}));
 
