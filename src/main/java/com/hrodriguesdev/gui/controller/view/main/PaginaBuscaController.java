@@ -1,4 +1,4 @@
-package com.hrodriguesdev.gui.controller.view.entities;
+package com.hrodriguesdev.gui.controller.view.main;
 
 import java.sql.SQLException;
 
@@ -12,7 +12,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
-public class PaginaBuscaController extends ExtendsMainView{
+public class PaginaBuscaController extends OrcamentoViewController{
 
 	@FXML
 	private TextField nomeEmpressaClick, nsClick, patClick,
