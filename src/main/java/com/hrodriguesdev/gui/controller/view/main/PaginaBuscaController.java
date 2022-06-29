@@ -12,7 +12,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
-public class PaginaBuscaController extends OrcamentoViewController{
+public class PaginaBuscaController extends EquipamentoViewController{
 
 	@FXML
 	private TextField nomeEmpressaClick, nsClick, patClick,
@@ -33,7 +33,7 @@ public class PaginaBuscaController extends OrcamentoViewController{
 			}
 			if ( equipamento.getOrcamento_id() != null && equipamento.getOrcamento_id() != 0 ) {
 				try {
-					orcamento = MainViewController.controller.findById( equipamento.getOrcamento_id() );
+					orcamento = OrcamentoViewController.controller.findById( equipamento.getOrcamento_id() );
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

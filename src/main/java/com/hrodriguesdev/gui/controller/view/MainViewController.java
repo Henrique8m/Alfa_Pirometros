@@ -17,13 +17,11 @@ import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.entities.Orcamento;
 import com.hrodriguesdev.gui.alert.Alerts;
 import com.hrodriguesdev.gui.controller.OpenSaidaEquipamentoViewController;
-import com.hrodriguesdev.gui.controller.OrcamentoViewController;
 import com.hrodriguesdev.gui.controller.SaidaEquipamentoViewController;
 import com.hrodriguesdev.gui.controller.StatusViewController;
 import com.hrodriguesdev.gui.controller.view.insert.EquipamentoInsert;
 import com.hrodriguesdev.gui.controller.view.insert.OrcamentoInsert;
 import com.hrodriguesdev.gui.controller.view.updatede.EquipamentoUpdatede;
-import com.hrodriguesdev.gui.controller.view.updatede.OrcamentoUpdatede;
 import com.hrodriguesdev.utilitary.InputFilter;
 import com.hrodriguesdev.utilitary.NewView;
 
@@ -50,12 +48,12 @@ import javafx.scene.input.KeyEvent;
 public class MainViewController implements Initializable{
 		
 //	private GeneratorPDF generator = new GeneratorPDF();	
-	public static OrcamentoController controller = new OrcamentoController();
+	public static OrcamentoController orcamentoController = new OrcamentoController();
 	public static ColetorController coletorController = new ColetorController();
 	public static EquipamentoController equipamentoController = new EquipamentoController();
 	public static EmpressaController empressaController = new EmpressaController();
 	private Timeline timeline;
-	private Boolean dbConection;
+	protected Boolean dbConection;
 	
 	public static Equipamento equipamento;
 	public static Equipamento equipamentoEdit;
@@ -83,7 +81,7 @@ public class MainViewController implements Initializable{
 	@FXML
 	private TableColumn<Equipamento, String> relatorio;
 	@FXML
-	private TableView<Equipamento> tableFilaEquipamentos;
+	protected TableView<Equipamento> tableFilaEquipamentos;
     public static ObservableList<Equipamento> obsListTableFilaEquipamentos = FXCollections.observableArrayList();
     
     @FXML
@@ -94,118 +92,7 @@ public class MainViewController implements Initializable{
 	private TableView<Anotations> tabelaAnotacoes;
     public static ObservableList<Anotations> obsListTableAnotacoes = FXCollections.observableArrayList();
     
-    @FXML
-    private void updatedEquipamento(KeyEvent e) throws IOException {
-    	if(e.getCode().toString() == "F2" ) {
-    		if(tableFilaEquipamentos.getSelectionModel().getSelectedItem() != null) 
-    		{
-    			equipamentoEdit = tableFilaEquipamentos.getSelectionModel().getSelectedItem();
-    			NewView.getNewView("Edit Equipamento", "entradaEquipamento", new EquipamentoUpdatede() );
 
-    		}else if(tableFindEquipamentos.getSelectionModel().getSelectedItem() != null) 
-    		{
-    			equipamentoEdit = tableFindEquipamentos.getSelectionModel().getSelectedItem();
-    			NewView.getNewView("Edit Equipamento", "entradaEquipamento", new EquipamentoUpdatede() );
-
-    		}
-    		
-    		    try {
-					obsListTableFilaEquipamentos = equipamentoController.findAllByLaboratorio(true);
-				} catch (DbException | SQLException e1) {
-					
-					e1.printStackTrace();
-				}
-    			tableFilaEquipamentos.setItems(obsListTableFilaEquipamentos);
-    			oldObs = obsListTableFilaEquipamentos;
-    			tableFilaEquipamentos.refresh();   		
-    		
-    		
-    	}else if(e.getCode().toString() == "F3" ) {
-    		
-    		if(tableFilaEquipamentos.getSelectionModel().getSelectedItem() != null) 
-    		{
-    			try {
-    				equipamento = tableFilaEquipamentos.getSelectionModel().getSelectedItem();
-					orcamentoEdit = controller.findById( tableFilaEquipamentos.getSelectionModel().getSelectedItem().getOrcamento_id() );
-					NewView.getNewView("Edit Orcamento", "orcamento", new OrcamentoUpdatede() );
-				
-    			} catch (SQLException e1) {
-					e1.printStackTrace();
-				}
-    			
-
-    		}else if(tableFindEquipamentos.getSelectionModel().getSelectedItem() != null) 
-    		{
-    			try {
-    				equipamento = tableFindEquipamentos.getSelectionModel().getSelectedItem();
-					orcamentoEdit = controller.findById( tableFindEquipamentos.getSelectionModel().getSelectedItem().getOrcamento_id() );
-					NewView.getNewView("Edit Orcamento", "orcamento", new OrcamentoUpdatede() );
-				
-    			} catch (SQLException e1) {
-					e1.printStackTrace();
-				}
-
-    		}
-			tableFilaEquipamentos.setItems(obsListTableFilaEquipamentos);
-			oldObs = obsListTableFilaEquipamentos;
-			tableFilaEquipamentos.refresh();   		
-		
-    		
-    	}else if(e.getCode().toString() == "F12" ) {
-    		
-    		if(tableFilaEquipamentos.getSelectionModel().getSelectedItem() != null) 
-    		{
-				equipamento = tableFilaEquipamentos.getSelectionModel().getSelectedItem();
-				equipamento.setLaboratorio(true);
-				equipamentoController.updatede(equipamento.getId(), equipamento.getStatus(), equipamento);			
-
-    		}else if(tableFindEquipamentos.getSelectionModel().getSelectedItem() != null) {
-				equipamento = tableFindEquipamentos.getSelectionModel().getSelectedItem();
-				equipamento.setLaboratorio(true);
-				equipamentoController.updatede(equipamento.getId(), equipamento.getStatus(), equipamento);	
-
-    		}
-    		try {
-				obsListTableFilaEquipamentos = equipamentoController.findAllByLaboratorio(true);
-			} catch (DbException | SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			tableFilaEquipamentos.setItems(obsListTableFilaEquipamentos);
-			oldObs = obsListTableFilaEquipamentos;
-			tableFilaEquipamentos.refresh();   		
-		
-    		
-    	}
-    	else if(e.getCode().toString() == "DELETE" ) {    		
-    		if(tableFilaEquipamentos.getSelectionModel().getSelectedItem() != null) 
-    		{
-    			Equipamento equipament = tableFilaEquipamentos.getSelectionModel().getSelectedItem();
-    			if(equipament.getOrcamento_id() == null || equipament.getOrcamento_id() == 0l) {
-    				if (equipamentoController.delete( equipament.getId() ) ) {
-    	    		    try {
-    						obsListTableFilaEquipamentos = equipamentoController.findAllByLaboratorio(true);
-    					} catch (DbException | SQLException e1) {
-    						
-    						e1.printStackTrace();
-    					}
-    	    			tableFilaEquipamentos.setItems(obsListTableFilaEquipamentos);
-    	    			oldObs = obsListTableFilaEquipamentos;
-    	    			tableFilaEquipamentos.refresh();  
-    				}else {
-    					System.out.println("Nao deletado");
-    				}
-    					
-    			}else 
-    				System.out.println("orcamento id " + equipament.getOrcamento_id() );
-    		}
-    		
-    	}else {
-    		System.out.println(e.getCode().toString() );
-    	}
-    
-    	
-    }
    
     
     @FXML
@@ -216,124 +103,15 @@ public class MainViewController implements Initializable{
 		tableFilaEquipamentos.refresh();    	
     }
     
-    @FXML
-    private void updateStatus(ActionEvent e) throws IOException {
-		if(tableFilaEquipamentos.getSelectionModel().getSelectedItem() != null) {
-			equipamento = tableFilaEquipamentos.getSelectionModel().getSelectedItem();
-			NewView.getNewView("Alterar Status","status", new StatusViewController() );
-			try {
-				obsListTableFilaEquipamentos = equipamentoController.findAllByLaboratorio(true);
-				dbConection = true;
-			} catch (DbException | SQLException e1) {
-				showAlerts("DB exception ", "Erro na comunicação com banco de dados", e1.getMessage(), AlertType.ERROR );
-				dbConection = false;
-			}
-			tableFilaEquipamentos.setItems(obsListTableFilaEquipamentos);
-			oldObs = obsListTableFilaEquipamentos;
-			tableFilaEquipamentos.refresh();
-		}
-		else {
-			showAlerts("Seleção ", "", "Nada Selecionado ", AlertType.INFORMATION );
-		}
-	   	
-    }
 
-	@FXML
-    private void addOrcamento(ActionEvent e) throws IOException {
-		if(tableFilaEquipamentos.getSelectionModel().getSelectedItem() != null) {			
-			equipamento = tableFilaEquipamentos.getSelectionModel().getSelectedItem();
-			if(tableFilaEquipamentos.getSelectionModel().getSelectedItem().getOrcamento_id()  == null || tableFilaEquipamentos.getSelectionModel().getSelectedItem().getOrcamento_id() == 0) 
-			{
-				NewView.getNewView("Entrada Equipamento", "orcamento", new OrcamentoInsert() );
-				try {
-					obsListTableFilaEquipamentos = equipamentoController.findAllByLaboratorio(true);
-					dbConection = true;
-				} catch (DbException | SQLException e2) {
-					showAlerts("DB exception ", "Erro na comunicação com banco de dados", e2.getMessage(), AlertType.ERROR );
-					dbConection = false;
-				}
-				tableFilaEquipamentos.setItems(obsListTableFilaEquipamentos);
-				oldObs = obsListTableFilaEquipamentos;
-				tableFilaEquipamentos.refresh();
-			}
-			else
-			{
-				showAlerts("Orcamento ", "", "Ja consta orcamento para o equipamento selecionado ", AlertType.INFORMATION );
-			}
 
-		}
-		else {
-			showAlerts("Seleção ", "", "Nada Selecionado ", AlertType.INFORMATION );
-		}
-    	
-    }
+
 
     
-    @FXML
-    private void openOrcamento(ActionEvent e) throws IOException {
-    	if(tableFilaEquipamentos.getSelectionModel().getSelectedItem() != null) {
-    		equipamento = tableFilaEquipamentos.getSelectionModel().getSelectedItem();
-    		try {
-				orcamento = controller.findById( tableFilaEquipamentos.getSelectionModel().getSelectedItem().getOrcamento_id() );
-				dbConection = true;
-			} catch (SQLException e1) {
-				showAlerts("DB exception ", "Erro na comunicação com banco de dados", e1.getMessage(), AlertType.ERROR );
-				dbConection = false;
-				return;
-			}
-    		if(orcamento != null) {
-    			NewView.getNewView("Entrada Equipamento", "orcamentoView", new OrcamentoViewController() );
-    		}else
-    			Alerts.showAlert("Orcamento" , "Status Orcamento", "Não consta orçamento para este equipamento" , AlertType.INFORMATION);
-    		
-    	}else showAlerts("Seleção ", "", "Nada Selecionado ", AlertType.INFORMATION );
-	        
-		try {
-			obsListTableFilaEquipamentos = equipamentoController.findAllByLaboratorio(true);
-    		oldObs = obsListTableFilaEquipamentos;
-    		dbConection = true;
-    		tableFilaEquipamentos.setItems(obsListTableFilaEquipamentos);
-		} catch (DbException | SQLException e1) {
-		
-			e1.printStackTrace();
-		}
-    }
+
           
  
-     @FXML
-    private void addColeta(ActionEvent e) throws IOException {
-    	 if(tableFilaEquipamentos.getSelectionModel().getSelectedItem() != null) {
-     		equipamentoEdit = tableFilaEquipamentos.getSelectionModel().getSelectedItem();     		
-     		
-     		if(equipamentoEdit.getStatus() != 1 ) {
-     			if( equipamentoEdit.getColetor_id() == null || equipamentoEdit.getColetor_id() == 0) {
-     				NewView.getNewView("Saida de equipamento", "saidaEquipamento", new SaidaEquipamentoViewController() );
-	     			try {
-						obsListTableFilaEquipamentos = equipamentoController.findAllByLaboratorio(true);
-			    		oldObs = obsListTableFilaEquipamentos;
-			    		dbConection = true;
-			    		tableFilaEquipamentos.setItems(obsListTableFilaEquipamentos);
-					} catch (DbException | SQLException e1) {
-					
-						e1.printStackTrace();
-					}
-     			} else{
-     				NewView.getNewView("Saida de equipamento", "saidaEquipamento", new OpenSaidaEquipamentoViewController());
-	     			try {
-						obsListTableFilaEquipamentos = equipamentoController.findAllByLaboratorio(true);
-			    		oldObs = obsListTableFilaEquipamentos;
-			    		dbConection = true;
-			    		tableFilaEquipamentos.setItems(obsListTableFilaEquipamentos);
-					} catch (DbException | SQLException e1) {
-					
-						e1.printStackTrace();
-					}
-     			}
-     		}else
-     			Alerts.showAlert("Saida de Equipamento" , "Equipamento nao pode ser liberado por:", equipamentoEdit.getStatusStr() , AlertType.INFORMATION);
-     		
-     	}else showAlerts("Seleção ", "", "Nada Selecionado ", AlertType.INFORMATION );
-    }
+
 	
 	
 	
@@ -504,7 +282,7 @@ public class MainViewController implements Initializable{
 		
 	}
 	
-	private ObservableList<Equipamento> oldObs = FXCollections.observableArrayList();
+	protected ObservableList<Equipamento> oldObs = FXCollections.observableArrayList();
 	private void beginTimer() {
 		
 		timeline = new Timeline(new KeyFrame(javafx.util.Duration.seconds(60), ev -> {
@@ -542,7 +320,7 @@ public class MainViewController implements Initializable{
 	}
 	
 	
-	private void showAlerts(String title, String mensage, String error, AlertType alertType) {
+	protected void showAlerts(String title, String mensage, String error, AlertType alertType) {
 		Alerts.showAlert( title , mensage, error , alertType);
 	}
     	

@@ -36,7 +36,7 @@ import javafx.stage.Stage;
 public class EquipamentoViewController {
 
 	protected Date date;
-	protected OrcamentoController controller = MainViewController.controller;
+	protected OrcamentoController controller = MainViewController.orcamentoController;
 	protected EquipamentoController equipamentoController = MainViewController.equipamentoController;
 	protected EmpressaController empressaController = MainViewController.empressaController;
 	@FXML

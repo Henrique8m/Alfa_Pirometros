@@ -40,7 +40,7 @@ import javafx.stage.Stage;
 public class SaidaEquipamentoViewController implements Initializable {
 	
 	//@Autowired
-	protected OrcamentoController controller = MainViewController.controller;
+	protected OrcamentoController controller = MainViewController.orcamentoController;
 	protected EquipamentoController equipamentoController = MainViewController.equipamentoController;
 	protected ColetorController coletorController = MainViewController.coletorController;
 	protected EmpressaController empressaController = MainViewController.empressaController;
