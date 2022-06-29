@@ -20,7 +20,7 @@ public class OpenSaidaEquipamentoViewController extends SaidaEquipamentoViewCont
 	protected void gerarPDF(ActionEvent event) {
 		GeneratorPDF pdf = new GeneratorPDF();	
 		Coletor coletor = getColetor();
-		Empressa empressa = controller.findEmpresa( equipamento.getEmpressa() );			
+		Empressa empressa = empressaController.find( equipamento.getEmpressa() );			
 		
 		pdf.newDocument(coletor, equipamento, empressa);
 		Stage stage = (Stage) salvar.getScene().getWindow();

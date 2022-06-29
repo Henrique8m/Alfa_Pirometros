@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 
 import com.hrodriguesdev.AlfaPirometrosApplication;
 import com.hrodriguesdev.controller.Controller;
+import com.hrodriguesdev.controller.EmpressaController;
 import com.hrodriguesdev.controller.EquipamentoController;
 import com.hrodriguesdev.db.DbException;
 import com.hrodriguesdev.entities.Equipamento;
@@ -35,6 +36,7 @@ public class EquipamentoViewController {
 	protected Date date;
 	protected Controller controller = MainViewController.controller;
 	protected EquipamentoController equipamentoController = MainViewController.equipamentoController;
+	protected EmpressaController empressaController = MainViewController.empressaController;
 	@FXML
 	protected ImageView cancelarImg;
 	@FXML
@@ -74,7 +76,7 @@ public class EquipamentoViewController {
 			return;
 		}
 		try {
-			obj.setEmpressa( controller.findEmpresaId( nomeEmpressa.getValue() ) );
+			obj.setEmpressa( empressaController.findEmpresaId( nomeEmpressa.getValue() ) );
 			if ( obj.getEmpressa() == null ) {
 				throw new DbException("Empresa não existe");
 			}
@@ -162,7 +164,7 @@ public class EquipamentoViewController {
 
 	public void initialize(URL location, ResourceBundle resources) {		
 		
-		obsString = controller.getEmpressas();
+		obsString = empressaController.findAll();
 		FilteredList<String> filteredList = new FilteredList<>(obsString); 		
 		nomeEmpressa.getEditor().textProperty().addListener(new InputFilter<String>( nomeEmpressa, filteredList ) );		
 	

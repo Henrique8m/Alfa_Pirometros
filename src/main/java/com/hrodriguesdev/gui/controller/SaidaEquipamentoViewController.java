@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 import com.hrodriguesdev.AlfaPirometrosApplication;
 import com.hrodriguesdev.controller.ColetorController;
 import com.hrodriguesdev.controller.Controller;
+import com.hrodriguesdev.controller.EmpressaController;
 import com.hrodriguesdev.controller.EquipamentoController;
 import com.hrodriguesdev.db.DbException;
 import com.hrodriguesdev.entities.Coletor;
@@ -40,6 +41,7 @@ public class SaidaEquipamentoViewController implements Initializable {
 	protected Controller controller = MainViewController.controller;
 	protected EquipamentoController equipamentoController = MainViewController.equipamentoController;
 	protected ColetorController coletorController = MainViewController.coletorController;
+	protected EmpressaController empressaController = MainViewController.empressaController;
 	protected Equipamento equipamento = MainViewController.equipamentoEdit;
 	
 	@FXML
@@ -71,7 +73,7 @@ public class SaidaEquipamentoViewController implements Initializable {
 		if(coleta.getValue() != "" &&  nomeColetor.getText() != "" ) {
 			GeneratorPDF pdf = new GeneratorPDF();	
 			Coletor coletor = getColetor();
-			Empressa empressa = controller.findEmpresa( equipamento.getEmpressa() );			
+			Empressa empressa = empressaController.find( equipamento.getEmpressa() );			
 			if( equipamentoController.UpdatedEquipamento(equipamento) ) {
 				pdf.newDocument(coletor, equipamento, empressa);
 				Stage stage = (Stage) salvar.getScene().getWindow();
@@ -140,7 +142,7 @@ public class SaidaEquipamentoViewController implements Initializable {
 			return null;
 		}
 		try {	
-			if ( controller.findEmpresaId(coleta.getValue()) == null ) {
+			if ( empressaController.findEmpresaId(coleta.getValue()) == null ) {
 				throw new DbException("Empresa não existe");
 			}
 
@@ -179,7 +181,7 @@ public class SaidaEquipamentoViewController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		
 		
-		obsString = controller.getEmpressas();
+		obsString = empressaController.findAll();
 		FilteredList<String> filteredList = new FilteredList<>(obsString);  
 		coleta.getEditor().textProperty().addListener(new InputFilter<String>( coleta, filteredList ) );		
 	
@@ -206,7 +208,7 @@ public class SaidaEquipamentoViewController implements Initializable {
 	@FXML
 	protected void addEmpressa(ActionEvent e) throws IOException {
 		NewView.getNewView("Adcionar Empressa", "newEmpressa", new AddEmpressaViewController() );
-		obsString = controller.getEmpressas();
+		obsString = empressaController.findAll();
 		FilteredList<String> filteredList = new FilteredList<>(obsString);  
 		coleta.getEditor().textProperty().addListener(new InputFilter<String>( coleta, filteredList ) );
 		

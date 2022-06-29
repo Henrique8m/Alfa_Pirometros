@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 import com.hrodriguesdev.AlfaPirometrosApplication;
 import com.hrodriguesdev.controller.ColetorController;
 import com.hrodriguesdev.controller.Controller;
+import com.hrodriguesdev.controller.EmpressaController;
 import com.hrodriguesdev.controller.EquipamentoController;
 import com.hrodriguesdev.db.DbException;
 import com.hrodriguesdev.entities.Anotations;
@@ -43,6 +44,7 @@ public class MainViewController implements Initializable{
 	public static Controller controller = new Controller();
 	public static ColetorController coletorController = new ColetorController();
 	public static EquipamentoController equipamentoController = new EquipamentoController();
+	public static EmpressaController empressaController = new EmpressaController();
 	private Timeline timeline;
 	private Boolean dbConection;
 	
@@ -411,7 +413,7 @@ public class MainViewController implements Initializable{
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		obsString = controller.getEmpressas();
+		obsString = empressaController.findAll();
 		filteredList = new FilteredList<>(obsString); 		
 		textEmpresa.getEditor().textProperty().addListener(new InputFilter<String>( textEmpresa, filteredList ) );	
 		strartTable();
@@ -484,7 +486,7 @@ public class MainViewController implements Initializable{
 	private void beginTimer() {
 		
 		timeline = new Timeline(new KeyFrame(javafx.util.Duration.seconds(60), ev -> {
-			obsString = controller.getEmpressas();
+			obsString = empressaController.findAll();
 			filteredList = new FilteredList<>(obsString); 
 			if(dbConection) {
 				try {

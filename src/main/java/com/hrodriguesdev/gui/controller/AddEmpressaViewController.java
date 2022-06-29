@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 
 import com.hrodriguesdev.AlfaPirometrosApplication;
 import com.hrodriguesdev.controller.Controller;
+import com.hrodriguesdev.controller.EmpressaController;
 import com.hrodriguesdev.entities.Empressa;
 import com.hrodriguesdev.gui.alert.Alerts;
 import com.hrodriguesdev.utilitary.Format;
@@ -22,8 +23,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class AddEmpressaViewController implements Initializable {
-	
-	private Controller controller = new Controller();
+	private EmpressaController empressaController = MainViewController.empressaController;
 	
 	@FXML
 	private ImageView cancelarImg, salvarImg;
@@ -57,7 +57,7 @@ public class AddEmpressaViewController implements Initializable {
 			return;
 		}
 		try {
-			empressa.setId(controller.addEmpressa(empressa));
+			empressa.setId(empressaController.add(empressa));
 			if(empressa.getId() == 0l) {
 				erro.setText("ERRO");
 				return;
