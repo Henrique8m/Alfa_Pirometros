@@ -101,7 +101,7 @@ public class MainViewController implements Initializable{
     		}
     		
     		    try {
-					obsListTableFilaEquipamentos = equipamentoController.getByLaboratorio(true);
+					obsListTableFilaEquipamentos = equipamentoController.findAllByLaboratorio(true);
 				} catch (DbException | SQLException e1) {
 					
 					e1.printStackTrace();
@@ -148,16 +148,16 @@ public class MainViewController implements Initializable{
     		{
 				equipamento = tableFilaEquipamentos.getSelectionModel().getSelectedItem();
 				equipamento.setLaboratorio(true);
-				equipamentoController.updatedeEquipamento(equipamento.getId(), equipamento.getStatus(), equipamento);			
+				equipamentoController.updatede(equipamento.getId(), equipamento.getStatus(), equipamento);			
 
     		}else if(tableFindEquipamentos.getSelectionModel().getSelectedItem() != null) {
 				equipamento = tableFindEquipamentos.getSelectionModel().getSelectedItem();
 				equipamento.setLaboratorio(true);
-				equipamentoController.updatedeEquipamento(equipamento.getId(), equipamento.getStatus(), equipamento);	
+				equipamentoController.updatede(equipamento.getId(), equipamento.getStatus(), equipamento);	
 
     		}
     		try {
-				obsListTableFilaEquipamentos = equipamentoController.getByLaboratorio(true);
+				obsListTableFilaEquipamentos = equipamentoController.findAllByLaboratorio(true);
 			} catch (DbException | SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -173,9 +173,9 @@ public class MainViewController implements Initializable{
     		{
     			Equipamento equipament = tableFilaEquipamentos.getSelectionModel().getSelectedItem();
     			if(equipament.getOrcamento_id() == null || equipament.getOrcamento_id() == 0l) {
-    				if (equipamentoController.deleteEquipamento( equipament.getId() ) ) {
+    				if (equipamentoController.delete( equipament.getId() ) ) {
     	    		    try {
-    						obsListTableFilaEquipamentos = equipamentoController.getByLaboratorio(true);
+    						obsListTableFilaEquipamentos = equipamentoController.findAllByLaboratorio(true);
     					} catch (DbException | SQLException e1) {
     						
     						e1.printStackTrace();
@@ -213,7 +213,7 @@ public class MainViewController implements Initializable{
 			equipamento = tableFilaEquipamentos.getSelectionModel().getSelectedItem();
 			NewView.getNewView("Alterar Status","status", new StatusViewController() );
 			try {
-				obsListTableFilaEquipamentos = equipamentoController.getByLaboratorio(true);
+				obsListTableFilaEquipamentos = equipamentoController.findAllByLaboratorio(true);
 				dbConection = true;
 			} catch (DbException | SQLException e1) {
 				showAlerts("DB exception ", "Erro na comunicação com banco de dados", e1.getMessage(), AlertType.ERROR );
@@ -237,7 +237,7 @@ public class MainViewController implements Initializable{
 			{
 				NewView.getNewView("Entrada Equipamento", "orcamento", new AddOrcamentoViewController() );
 				try {
-					obsListTableFilaEquipamentos = equipamentoController.getByLaboratorio(true);
+					obsListTableFilaEquipamentos = equipamentoController.findAllByLaboratorio(true);
 					dbConection = true;
 				} catch (DbException | SQLException e2) {
 					showAlerts("DB exception ", "Erro na comunicação com banco de dados", e2.getMessage(), AlertType.ERROR );
@@ -280,7 +280,7 @@ public class MainViewController implements Initializable{
     	}else showAlerts("Seleção ", "", "Nada Selecionado ", AlertType.INFORMATION );
 	        
 		try {
-			obsListTableFilaEquipamentos = equipamentoController.getByLaboratorio(true);
+			obsListTableFilaEquipamentos = equipamentoController.findAllByLaboratorio(true);
     		oldObs = obsListTableFilaEquipamentos;
     		dbConection = true;
     		tableFilaEquipamentos.setItems(obsListTableFilaEquipamentos);
@@ -300,7 +300,7 @@ public class MainViewController implements Initializable{
      			if( equipamentoEdit.getColetor_id() == null || equipamentoEdit.getColetor_id() == 0) {
      				NewView.getNewView("Saida de equipamento", "saidaEquipamento", new SaidaEquipamentoViewController() );
 	     			try {
-						obsListTableFilaEquipamentos = equipamentoController.getByLaboratorio(true);
+						obsListTableFilaEquipamentos = equipamentoController.findAllByLaboratorio(true);
 			    		oldObs = obsListTableFilaEquipamentos;
 			    		dbConection = true;
 			    		tableFilaEquipamentos.setItems(obsListTableFilaEquipamentos);
@@ -311,7 +311,7 @@ public class MainViewController implements Initializable{
      			} else{
      				NewView.getNewView("Saida de equipamento", "saidaEquipamento", new OpenSaidaEquipamentoViewController());
 	     			try {
-						obsListTableFilaEquipamentos = equipamentoController.getByLaboratorio(true);
+						obsListTableFilaEquipamentos = equipamentoController.findAllByLaboratorio(true);
 			    		oldObs = obsListTableFilaEquipamentos;
 			    		dbConection = true;
 			    		tableFilaEquipamentos.setItems(obsListTableFilaEquipamentos);
@@ -359,7 +359,7 @@ public class MainViewController implements Initializable{
     		obsListTableFindEquipamentos = obs;    	
 ;
     	}else { 		
-    		obsListTableFindEquipamentos = equipamentoController.findPageable(); 		
+    		obsListTableFindEquipamentos = equipamentoController.findAll(); 		
     	}
     	tableFindEquipamentos.setItems(obsListTableFindEquipamentos);
     }
@@ -379,7 +379,7 @@ public class MainViewController implements Initializable{
 	  			if( equipamentoEdit.getColetor_id() != null || equipamentoEdit.getColetor_id() != 0) {
 	  				NewView.getNewView("Saida de equipamento",  "saidaEquipamento", new OpenSaidaEquipamentoViewController() );
 		     			try {
-							obsListTableFilaEquipamentos = equipamentoController.getByLaboratorio(true);
+							obsListTableFilaEquipamentos = equipamentoController.findAllByLaboratorio(true);
 				    		oldObs = obsListTableFilaEquipamentos;
 				    		dbConection = true;
 				    		tableFilaEquipamentos.setItems(obsListTableFilaEquipamentos);
@@ -446,7 +446,7 @@ public class MainViewController implements Initializable{
 		
 		//Table fila de Motorista descarregando
 	    try {
-	    		obsListTableFilaEquipamentos = equipamentoController.getByLaboratorio(true);
+	    		obsListTableFilaEquipamentos = equipamentoController.findAllByLaboratorio(true);
 	    		oldObs = obsListTableFilaEquipamentos;
 	    		dbConection = true;
 
@@ -490,7 +490,7 @@ public class MainViewController implements Initializable{
 			filteredList = new FilteredList<>(obsString); 
 			if(dbConection) {
 				try {
-					obsListTableFilaEquipamentos = equipamentoController.getByLaboratorio(true);
+					obsListTableFilaEquipamentos = equipamentoController.findAllByLaboratorio(true);
 					if(obsListTableFilaEquipamentos.size() > oldObs.size() ) {
 						showAlerts("Updatede Lista", "", "Equipamento da empressa " + obsListTableFilaEquipamentos.get(obsListTableFilaEquipamentos.size()-1).getEmpressaName() + " foi adcionado a lista de equipamentos ", AlertType.INFORMATION);
 						oldObs = obsListTableFilaEquipamentos;

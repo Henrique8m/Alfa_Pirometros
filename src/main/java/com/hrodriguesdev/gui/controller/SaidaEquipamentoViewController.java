@@ -74,7 +74,7 @@ public class SaidaEquipamentoViewController implements Initializable {
 			GeneratorPDF pdf = new GeneratorPDF();	
 			Coletor coletor = getColetor();
 			Empressa empressa = empressaController.find( equipamento.getEmpressa() );			
-			if( equipamentoController.UpdatedEquipamento(equipamento) ) {
+			if( equipamentoController.updated(equipamento) ) {
 				pdf.newDocument(coletor, equipamento, empressa);
 				Stage stage = (Stage) salvar.getScene().getWindow();
 				stage.close();
@@ -92,7 +92,7 @@ public class SaidaEquipamentoViewController implements Initializable {
 		updateEquipamento();
 		try {
 			
-			if( equipamentoController.UpdatedEquipamento(equipamento) ) {
+			if( equipamentoController.updated(equipamento) ) {
 				Stage stage = (Stage) salvar.getScene().getWindow();
 				stage.close();
 				

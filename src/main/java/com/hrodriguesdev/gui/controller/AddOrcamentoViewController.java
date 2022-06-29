@@ -162,8 +162,8 @@ public class AddOrcamentoViewController implements Initializable {
 			this.list = nova;
 			});
 			orcamentoId = controller.add( new Orcamento(nova, 0) );
-			if(equipamentoController.updatedeEquipamentoOrcamento(equipamento.getId() , orcamentoId)) {
-				equipamentoController.updatedeEquipamento(equipamento.getId(), 2, equipamento);
+			if(equipamentoController.updatede(equipamento.getId() , orcamentoId)) {
+				equipamentoController.updatede(equipamento.getId(), 2, equipamento);
 				try {
 					Stage stage = (Stage) cancelar.getScene().getWindow(); 
 					stage.close();

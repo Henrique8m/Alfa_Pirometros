@@ -101,7 +101,7 @@ public class EquipamentoViewController {
 			return;
 		}
 		try {
-			obj.setId(equipamentoController.addEquipamento(obj));
+			obj.setId(equipamentoController.add(obj));
 			if(obj.getId() != 0l) {
 				Stage stage = (Stage) salvar.getScene().getWindow();
 				MainViewController.obsListTableFilaEquipamentos.add(obj);
@@ -151,7 +151,7 @@ public class EquipamentoViewController {
 
 	@FXML
 	public void findNs(ActionEvent event) {
-		Equipamento obj = equipamentoController.findEquipamentoNs( ns.getText() );
+		Equipamento obj = equipamentoController.findByNs( ns.getText() );
 		if( obj != null	) {
 			
 			nomeEmpressa.setValue( obj.getEmpressaName() );	

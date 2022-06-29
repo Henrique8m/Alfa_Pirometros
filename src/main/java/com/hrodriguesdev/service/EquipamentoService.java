@@ -8,89 +8,90 @@ import com.hrodriguesdev.dao.db.DbException;
 import com.hrodriguesdev.dao.repository.EquipamentoRepository;
 import com.hrodriguesdev.entities.Equipamento;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 //@Service
 public class EquipamentoService {
 	private EquipamentoRepository repository = new EquipamentoRepository();
 	
-	public List<Equipamento> getByLaboratorio(boolean laboratorio) throws DbException, SQLException  {		
-		return repository.getByLaboratorio(laboratorio);
+	public ObservableList<Equipamento> findAllByLaboratorio(boolean laboratorio) throws DbException, SQLException  {		
+		ObservableList<Equipamento> obs = FXCollections.observableArrayList();
+		List<Equipamento> list = repository.findAllByLaboratorio(laboratorio);
+		if(list!=null) {
+			obs.addAll(list);
+			return obs;
+		}	
+		return null;
 	}	
 	
-	public Long addEquipamento(Equipamento equipamento) {		
-		return repository.addEquipamento(equipamento);
-	}
-	
-	
-		
-	public Equipamento getById(Long id) {
-		return new Equipamento();		
-	}
-
-	public Long addPesagem(Equipamento pesagem) {
-		return 0l;
-	}
-
-	public List<Equipamento> getPesagemByMotoristaId(Long id) {
-		return new ArrayList<>();
-	}
-
-	public boolean updatedeEquipamento(Long id, int status, Equipamento equipamento) {
-		return repository.updatedeEquipamento(id, status, equipamento);
-	}
-
-	public boolean updatedeEquipamentoOrcamento(Long id, Long idOrcamento) {
-		
-		return repository.updatedeEquipamentoOrcamento(id, idOrcamento);
-	}
-
-	public Equipamento findEquipamentoNs(String ns) {
-		return repository.findEquipamentoNs( ns );
-		
-	}
-
-	public boolean UpdatedEquipamento(Equipamento equipamento) {
-		// TODO Auto-generated method stub
-		return repository.updatedEquipamento(equipamento);
-	}
-
-	public List<Equipamento> findAll(Equipamento obj) {
+	public ObservableList<Equipamento> findAll(Equipamento equipamento) {
 		List<Equipamento> list = new ArrayList<>();
-//		&& obj.getNs()!= null &&  obj.getPat()!= null
-		if( obj.getEmpressaName()!= null) {
-			list =  repository.getByEmpressa(obj.getEmpressaName() );			
+		if( equipamento.getEmpressaName()!= null) {
+			list =  repository.findAll(equipamento.getEmpressaName() );			
 		}
-		if(obj.getNs()!= null) {
+		if(equipamento.getNs()!= null) {
 			if(list.size()>0) {
 				for(int i = 0; i<list.size(); i++) {
-					if( !list.get(i).getNs().equalsIgnoreCase( obj.getNs() ) )
+					if( !list.get(i).getNs().equalsIgnoreCase( equipamento.getNs() ) )
 						list.remove(i);
 				}
 			
-			}else list =  repository.getByNs(obj.getNs() );
+			}else list = repository.findAllNs(equipamento.getNs() );
 
 		}		
-		if(obj.getPat()!= null) {
+		if(equipamento.getPat()!= null) {
 			if(list.size()>0) {
 				for(int i = 0; i<list.size(); i++) {
-					if( !list.get(i).getPat().equalsIgnoreCase( obj.getPat() ) )
+					if( !list.get(i).getPat().equalsIgnoreCase( equipamento.getPat() ) )
 						list.remove(i);
 				}		
-			}else list =  repository.getByPat(obj.getPat() );
+			}else list =  repository.findAllPat(equipamento.getPat() );
 
 		}
 		
-
-		return list;
+		ObservableList<Equipamento> obs = FXCollections.observableArrayList();
+		if(list!=null) {
+			obs.addAll(list);
+			return obs;
+		}	
+		
+		return null;
 	}
 
-	public List<Equipamento> findAllFirst() {	
-		return repository.findAllFirst();
+	public ObservableList<Equipamento> findAll() {	
+		ObservableList<Equipamento> obs = FXCollections.observableArrayList();
+		List<Equipamento> list = repository.findAll() ;
+		if(list!=null) {
+			obs.addAll(list);
+			return obs;
+		}
+					
+		return null;
+	}
+	
+	public Equipamento findByNs(String ns) {
+		return repository.findByNs(ns);		
+	}	
+	
+	public Long add(Equipamento equipamento) {		
+		return repository.add(equipamento);
+	}	
+
+	public boolean updatede(Long id, int status, Equipamento equipamento) {
+		return repository.updatede(id, status, equipamento);
 	}
 
-	public Boolean deleteEquipamento(Long id) {
-
-		return repository.deleteEquipamento(id);
+	public boolean updatede(Long id, Long idOrcamento) {		
+		return repository.updatede(id, idOrcamento);
 	}
 
+	public boolean updatede(Equipamento equipamento) {
+		return repository.updatede(equipamento);
+	}
+
+	public Boolean delete(Long id) {
+		return repository.delete(id);
+	}
 
 }

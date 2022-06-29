@@ -52,7 +52,7 @@ public class StatusViewController implements Initializable{
 	private void update(int status) {		
 		try {
 			
-			equipamentoController.updatedeEquipamento( MainViewController.equipamento.getId(), status, MainViewController.equipamento );
+			equipamentoController.updatede( MainViewController.equipamento.getId(), status, MainViewController.equipamento );
 			try {
 				Stage stage = (Stage) cancelar.getScene().getWindow(); 
 				stage.close();

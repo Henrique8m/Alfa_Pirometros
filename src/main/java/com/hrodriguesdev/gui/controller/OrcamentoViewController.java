@@ -36,7 +36,7 @@ public class OrcamentoViewController implements Initializable {
 	private void salvar(ActionEvent event) {
 		if(relatorioN.getText() != null && relatorioN.getText() != "" ) {
 			equipamento.setRelatorio( relatorioN.getText() );
-			MainViewController.equipamentoController.updatedeEquipamento(equipamento.getId(), equipamento.getStatus() , equipamento);
+			MainViewController.equipamentoController.updatede(equipamento.getId(), equipamento.getStatus() , equipamento);
 		}
 		try {
 			Stage stage = (Stage) cancelar.getScene().getWindow(); 
