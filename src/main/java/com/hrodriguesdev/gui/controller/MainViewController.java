@@ -7,7 +7,7 @@ import java.util.ResourceBundle;
 
 import com.hrodriguesdev.AlfaPirometrosApplication;
 import com.hrodriguesdev.controller.ColetorController;
-import com.hrodriguesdev.controller.Controller;
+import com.hrodriguesdev.controller.OrcamentoController;
 import com.hrodriguesdev.controller.EmpressaController;
 import com.hrodriguesdev.controller.EquipamentoController;
 import com.hrodriguesdev.db.DbException;
@@ -41,7 +41,7 @@ import javafx.scene.input.KeyEvent;
 public class MainViewController implements Initializable{
 		
 //	private GeneratorPDF generator = new GeneratorPDF();	
-	public static Controller controller = new Controller();
+	public static OrcamentoController controller = new OrcamentoController();
 	public static ColetorController coletorController = new ColetorController();
 	public static EquipamentoController equipamentoController = new EquipamentoController();
 	public static EmpressaController empressaController = new EmpressaController();
@@ -117,7 +117,7 @@ public class MainViewController implements Initializable{
     		{
     			try {
     				equipamento = tableFilaEquipamentos.getSelectionModel().getSelectedItem();
-					orcamentoEdit = controller.getOrcamento( tableFilaEquipamentos.getSelectionModel().getSelectedItem().getOrcamento_id() );
+					orcamentoEdit = controller.findById( tableFilaEquipamentos.getSelectionModel().getSelectedItem().getOrcamento_id() );
 					NewView.getNewView("Edit Orcamento", "orcamento", new EditOrcamentoViewController() );
 				
     			} catch (SQLException e1) {
@@ -129,7 +129,7 @@ public class MainViewController implements Initializable{
     		{
     			try {
     				equipamento = tableFindEquipamentos.getSelectionModel().getSelectedItem();
-					orcamentoEdit = controller.getOrcamento( tableFindEquipamentos.getSelectionModel().getSelectedItem().getOrcamento_id() );
+					orcamentoEdit = controller.findById( tableFindEquipamentos.getSelectionModel().getSelectedItem().getOrcamento_id() );
 					NewView.getNewView("Edit Orcamento", "orcamento", new EditOrcamentoViewController() );
 				
     			} catch (SQLException e1) {
@@ -265,7 +265,7 @@ public class MainViewController implements Initializable{
     	if(tableFilaEquipamentos.getSelectionModel().getSelectedItem() != null) {
     		equipamento = tableFilaEquipamentos.getSelectionModel().getSelectedItem();
     		try {
-				orcamento = controller.getOrcamento( tableFilaEquipamentos.getSelectionModel().getSelectedItem().getOrcamento_id() );
+				orcamento = controller.findById( tableFilaEquipamentos.getSelectionModel().getSelectedItem().getOrcamento_id() );
 				dbConection = true;
 			} catch (SQLException e1) {
 				showAlerts("DB exception ", "Erro na comunicação com banco de dados", e1.getMessage(), AlertType.ERROR );

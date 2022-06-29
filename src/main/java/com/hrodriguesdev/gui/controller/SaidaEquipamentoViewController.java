@@ -7,7 +7,7 @@ import java.util.ResourceBundle;
 
 import com.hrodriguesdev.AlfaPirometrosApplication;
 import com.hrodriguesdev.controller.ColetorController;
-import com.hrodriguesdev.controller.Controller;
+import com.hrodriguesdev.controller.OrcamentoController;
 import com.hrodriguesdev.controller.EmpressaController;
 import com.hrodriguesdev.controller.EquipamentoController;
 import com.hrodriguesdev.db.DbException;
@@ -38,7 +38,7 @@ import javafx.stage.Stage;
 public class SaidaEquipamentoViewController implements Initializable {
 	
 	//@Autowired
-	protected Controller controller = MainViewController.controller;
+	protected OrcamentoController controller = MainViewController.controller;
 	protected EquipamentoController equipamentoController = MainViewController.equipamentoController;
 	protected ColetorController coletorController = MainViewController.coletorController;
 	protected EmpressaController empressaController = MainViewController.empressaController;
@@ -142,7 +142,7 @@ public class SaidaEquipamentoViewController implements Initializable {
 			return null;
 		}
 		try {	
-			if ( empressaController.findEmpresaId(coleta.getValue()) == null ) {
+			if ( empressaController.isExist(coleta.getValue()) == null ) {
 				throw new DbException("Empresa não existe");
 			}
 

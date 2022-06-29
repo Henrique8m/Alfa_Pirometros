@@ -30,7 +30,7 @@ public class EditEquipamentoViewController extends EquipamentoViewController imp
 			return;
 		}
 		try {
-			equipamento.setEmpressa( empressaController.findEmpresaId( nomeEmpressa.getValue() ) );
+			equipamento.setEmpressa( empressaController.isExist( nomeEmpressa.getValue() ) );
 			if ( equipamento.getEmpressa() == null ) {
 				throw new DbException("Empresa não existe");
 			}

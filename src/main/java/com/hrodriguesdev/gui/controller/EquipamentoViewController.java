@@ -6,7 +6,7 @@ import java.sql.Date;
 import java.util.ResourceBundle;
 
 import com.hrodriguesdev.AlfaPirometrosApplication;
-import com.hrodriguesdev.controller.Controller;
+import com.hrodriguesdev.controller.OrcamentoController;
 import com.hrodriguesdev.controller.EmpressaController;
 import com.hrodriguesdev.controller.EquipamentoController;
 import com.hrodriguesdev.db.DbException;
@@ -34,7 +34,7 @@ import javafx.stage.Stage;
 public class EquipamentoViewController {
 
 	protected Date date;
-	protected Controller controller = MainViewController.controller;
+	protected OrcamentoController controller = MainViewController.controller;
 	protected EquipamentoController equipamentoController = MainViewController.equipamentoController;
 	protected EmpressaController empressaController = MainViewController.empressaController;
 	@FXML
@@ -76,7 +76,7 @@ public class EquipamentoViewController {
 			return;
 		}
 		try {
-			obj.setEmpressa( empressaController.findEmpresaId( nomeEmpressa.getValue() ) );
+			obj.setEmpressa( empressaController.isExist( nomeEmpressa.getValue() ) );
 			if ( obj.getEmpressa() == null ) {
 				throw new DbException("Empresa não existe");
 			}

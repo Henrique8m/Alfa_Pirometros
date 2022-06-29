@@ -33,7 +33,7 @@ public class PaginaBuscaController extends ExtendsMainView{
 			}
 			if ( equipamento.getOrcamento_id() != null && equipamento.getOrcamento_id() != 0 ) {
 				try {
-					orcamento = MainViewController.controller.getOrcamento( equipamento.getOrcamento_id() );
+					orcamento = MainViewController.controller.findById( equipamento.getOrcamento_id() );
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

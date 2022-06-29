@@ -4,7 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.hrodriguesdev.AlfaPirometrosApplication;
-import com.hrodriguesdev.controller.Controller;
+import com.hrodriguesdev.controller.OrcamentoController;
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.entities.Orcamento;
 import com.hrodriguesdev.utilitary.InputFilter;
@@ -35,7 +35,7 @@ public class EditOrcamentoViewController implements Initializable {
 //	private EstoqueEletricos eletricos = new EstoqueEletricos();
 //	private EstoqueEletronicos eletronicos = new EstoqueEletronicos();
 //	private EstoqueEstetico estetico = new EstoqueEstetico();
-	private Controller controller = new Controller();
+	private OrcamentoController controller = new OrcamentoController();
 	
 //	private Long orcamentoId;
 	private String list = "Lista de Materiais Usados; \n";
@@ -173,7 +173,7 @@ public class EditOrcamentoViewController implements Initializable {
 			});
 			Orcamento orcamento = new Orcamento(nova, 0);
 			orcamento.setId( MainViewController.orcamentoEdit.getId() );
-			if( controller.updatedeOrcamento( orcamento ) ) {
+			if( controller.updatede( orcamento ) ) {
 				try {
 					Stage stage = (Stage) cancelar.getScene().getWindow(); 
 					stage.close();
