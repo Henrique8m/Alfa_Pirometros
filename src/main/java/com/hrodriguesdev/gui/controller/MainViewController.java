@@ -7,10 +7,10 @@ import java.util.ResourceBundle;
 
 import com.hrodriguesdev.AlfaPirometrosApplication;
 import com.hrodriguesdev.controller.ColetorController;
-import com.hrodriguesdev.controller.OrcamentoController;
-import com.hrodriguesdev.dao.db.DbException;
 import com.hrodriguesdev.controller.EmpressaController;
 import com.hrodriguesdev.controller.EquipamentoController;
+import com.hrodriguesdev.controller.OrcamentoController;
+import com.hrodriguesdev.dao.db.DbException;
 import com.hrodriguesdev.entities.Anotations;
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.entities.Orcamento;
@@ -342,19 +342,19 @@ public class MainViewController implements Initializable{
 	@FXML
     private void buscar(ActionEvent e) throws IOException {
 		
-		Equipamento obj = new Equipamento();
+		Equipamento equipamento = new Equipamento();
 		if(textEmpresa.getValue()!= null)
 			if( !textEmpresa.getValue().isEmpty() ) {
-	    		obj.setEmpressaName(textEmpresa.getValue());
+	    		equipamento.setEmpressaName(textEmpresa.getValue());
 	    	}
     	if( !textNsEquip.getText().isEmpty() ) {
-    		obj.setNs(textNsEquip.getText());
+    		equipamento.setNs(textNsEquip.getText());
     	}    	  
     	if( !textPatEquip.getText().isEmpty() ) {
-    		obj.setPat(textPatEquip.getText());
+    		equipamento.setPat(textPatEquip.getText());
     	}    	
     	
-    	ObservableList<Equipamento> obs = equipamentoController.findAll(obj);
+    	ObservableList<Equipamento> obs = equipamentoController.findAll(equipamento);
     	if(obs.size()>0 ) {
     		obsListTableFindEquipamentos = obs;    	
 ;

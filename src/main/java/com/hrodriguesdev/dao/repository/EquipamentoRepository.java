@@ -20,8 +20,8 @@ public class EquipamentoRepository {
 	
 	public List<Equipamento> findAllByLaboratorio(boolean laboratorio) throws DbException, SQLException{
 		List<Equipamento> list = new ArrayList<>();		
-		
-			conn = DB.getConnection();			
+		try {
+			conn = DB.getConnection();	
 			st = conn.createStatement();			
 			rs = st.executeQuery("SELECT * FROM alfaestoque.tb_equipamento;");			
 			
@@ -29,17 +29,17 @@ public class EquipamentoRepository {
 				if( rs.getBoolean("laboratorio")== true)
 					list.add(parseEquipamento(rs));	
 			
-	
-		
+		}catch(DbException | SQLException e) {
+			e.printStackTrace();
+			throw new DbException(e.getMessage());
+		}finally{
 			DB.closeResultSet(rs);
 			DB.closeStatement(st);
-
-			conn = null;
-			st = null;
-			rs = null;
-		
-
+			DB.closeConnection();
+			
+		}
 		return list;
+		
 	}
 	
 	public List<Equipamento> findAll(String empressaName) {
@@ -60,12 +60,9 @@ public class EquipamentoRepository {
 		finally {
 			DB.closeResultSet(rs);
 			DB.closeStatement(st);
+			DB.closeConnection();
+			
 		}
-		conn = null;
-		st = null;
-		rs = null;
-	
-		
 		return list;
 
 	}
@@ -88,12 +85,9 @@ public class EquipamentoRepository {
 		finally {
 			DB.closeResultSet(rs);
 			DB.closeStatement(st);
+			DB.closeConnection();
 		}
-		conn = null;
-		st = null;
-		rs = null;
-	
-		
+
 		return list;
 
 	}
@@ -116,12 +110,9 @@ public class EquipamentoRepository {
 		finally {
 			DB.closeResultSet(rs);
 			DB.closeStatement(st);
+			DB.closeConnection();
+			
 		}
-		conn = null;
-		st = null;
-		rs = null;
-	
-		
 		return list;
 
 	}
@@ -141,20 +132,16 @@ public class EquipamentoRepository {
 						list.add(parseEquipamento(rs));
 //					}				
 				}	
-			}catch (SQLException e) {	
-				e.printStackTrace();
-				return null;
-			}
-			finally {
-				DB.closeResultSet(rs);
-				DB.closeStatement(st);
-			}
-	
-			conn = null;
-			st = null;
-			rs = null;
-		
-	
+		}catch (SQLException e) {	
+			e.printStackTrace();
+			return null;
+		}
+		finally {
+			DB.closeResultSet(rs);
+			DB.closeStatement(st);
+			DB.closeConnection();
+			
+		}	
 		return list;
 	}
 
@@ -175,12 +162,9 @@ public class EquipamentoRepository {
 		finally {
 			DB.closeResultSet(rs);
 			DB.closeStatement(st);
+			DB.closeConnection();
+			
 		}
-		conn = null;
-		st = null;
-		rs = null;
-	
-		
 		return equipamento;
 	}
 	
@@ -230,8 +214,9 @@ public class EquipamentoRepository {
 		finally {
 			DB.closeResultSet(rs);
 			DB.closeStatement(pst);
+			DB.closeConnection();
 
-		}
+		}		
 		return id;
 	}
 	
@@ -272,8 +257,9 @@ public class EquipamentoRepository {
 		}
 		finally {
 			DB.closeStatement(pst);
+			DB.closeConnection();
 			
-		}
+		}		
 		return ok;
 
 	}
@@ -302,8 +288,9 @@ public class EquipamentoRepository {
 		}
 		finally {
 			DB.closeStatement(pst);
+			DB.closeConnection();
 			
-		}
+		}		
 		return ok;
 
 	}
@@ -350,6 +337,7 @@ public class EquipamentoRepository {
 		}
 		finally {
 			DB.closeStatement(pst);
+			DB.closeConnection();
 			
 		}
 		return ok;
@@ -372,6 +360,7 @@ public class EquipamentoRepository {
 		}
 		finally {
 			DB.closeStatement(pst);
+			DB.closeConnection();
 			
 		}
 		return ok;

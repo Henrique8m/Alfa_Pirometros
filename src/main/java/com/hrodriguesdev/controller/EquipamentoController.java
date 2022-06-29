@@ -16,9 +16,7 @@ public class EquipamentoController {
 	}
 	
 	public ObservableList<Equipamento> findAll(Equipamento equipamento) {	
-		if(equipamento.getEmpressa() != null || equipamento.getNs() != null || equipamento.getPat() != null)
-			return equipamentoService.findAll(equipamento);
-		throw new IllegalArgumentException();
+		return equipamentoService.findAll(equipamento);
 	}	
 	
 	public ObservableList<Equipamento> findAll() {		
