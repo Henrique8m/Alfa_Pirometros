@@ -269,6 +269,7 @@ public class EquipamentoRepository {
 		
 		try {
 			conn = DB.getConnection();
+			conn.setAutoCommit(false);
 			pst = conn.prepareStatement("UPDATE tb_equipamento "
 											+ "SET orcamento_id = " + idOrcamento 
 											+ ", "
@@ -276,15 +277,23 @@ public class EquipamentoRepository {
 											+" WHERE "
 											+"(id = ?)");
 			
-			pst.setLong( 1, id );
+			pst.setLong( 1, id );			
 			
 			int rowsAccepted = pst.executeUpdate();
+			conn.commit();
+			
 			if(rowsAccepted>0)
 				ok=true;
 		
-		}catch (SQLException e) {
+		}catch (DbException | SQLException e) {
 			ok=false;
-		System.out.println(e.getMessage());	
+			e.printStackTrace();
+			try {
+				conn.rollback();
+				throw new DbException("Transaction rolled back! Caused by: " + e.getMessage() );
+			}catch (SQLException e1) {
+				throw new DbException("Error trying to rollback! Caused by: \" + e1.getMessage()");
+			}
 		}
 		finally {
 			DB.closeStatement(pst);
@@ -300,6 +309,7 @@ public class EquipamentoRepository {
 		
 		try {
 			conn = DB.getConnection();
+			conn.setAutoCommit(false);
 			pst = conn.prepareStatement("UPDATE tb_equipamento "
 											+ "SET empressaName = ? , "
 											+ "modelo = ? ,"
@@ -328,12 +338,20 @@ public class EquipamentoRepository {
 			pst.setLong( 12, equipamento.getId() );
 			
 			int rowsAccepted = pst.executeUpdate();
+			conn.commit();
+			
 			if(rowsAccepted>0)
 				ok=true;
 		
-		}catch (SQLException e) {
+		}catch (DbException | SQLException e) {
 			ok=false;
-		System.out.println(e.getMessage());	
+			e.printStackTrace();
+			try {
+				conn.rollback();
+				throw new DbException("Transaction rolled back! Caused by: " + e.getMessage() );
+			}catch (SQLException e1) {
+				throw new DbException("Error trying to rollback! Caused by: \" + e1.getMessage()");
+			}
 		}
 		finally {
 			DB.closeStatement(pst);
@@ -348,15 +366,24 @@ public class EquipamentoRepository {
 		boolean ok = false;		
 		try {
 			conn = DB.getConnection();
+			conn.setAutoCommit(false);
 			pst = conn.prepareStatement("DELETE FROM tb_equipamento WHERE (id = "+ id +" )");	
 			
 			int rowsAccepted = pst.executeUpdate();
+			conn.commit();
+			
 			if(rowsAccepted>0)
 				ok=true;
 		
 		}catch (SQLException e) {
 			ok=false;
-		System.out.println(e.getMessage());	
+			e.printStackTrace();
+			try {
+				conn.rollback();
+				throw new DbException("Transaction rolled back! Caused by: " + e.getMessage() );
+			}catch (SQLException e1) {
+				throw new DbException("Error trying to rollback! Caused by: \" + e1.getMessage()");
+			}
 		}
 		finally {
 			DB.closeStatement(pst);
