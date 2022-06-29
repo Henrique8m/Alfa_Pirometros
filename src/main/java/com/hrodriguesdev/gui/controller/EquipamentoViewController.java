@@ -12,6 +12,7 @@ import com.hrodriguesdev.controller.EmpressaController;
 import com.hrodriguesdev.controller.EquipamentoController;
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.gui.alert.Alerts;
+import com.hrodriguesdev.gui.controller.insert.EmpressaInsert;
 import com.hrodriguesdev.utilitary.Format;
 import com.hrodriguesdev.utilitary.InputFilter;
 import com.hrodriguesdev.utilitary.NewView;
@@ -62,7 +63,7 @@ public class EquipamentoViewController {
 	@FXML
 	protected ComboBox<String> nomeEmpressa = new ComboBox<>();
 	
-	protected static ObservableList<String> obsString = FXCollections.observableArrayList();
+	public static ObservableList<String> obsString = FXCollections.observableArrayList();
 
 	public EquipamentoViewController() {
 		super();
@@ -182,7 +183,7 @@ public class EquipamentoViewController {
 
 	@FXML
 	private void addEmpressa(ActionEvent e) throws IOException {
-		NewView.getNewView("Adcionar Empressa", "newEmpressa", new AddEmpressaViewController());
+		NewView.getNewView("Adcionar Empressa", "newEmpressa", new EmpressaInsert());
 //		NewView.getNewView("Adcionar Empressa", (Pane) NewView.loadFXML("newEmpressa", new AddEmpressaViewController()), LoadViewController.getStage());
 		
 	}

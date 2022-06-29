@@ -15,6 +15,7 @@ import com.hrodriguesdev.entities.Coletor;
 import com.hrodriguesdev.entities.Empressa;
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.gui.alert.Alerts;
+import com.hrodriguesdev.gui.controller.insert.EmpressaInsert;
 import com.hrodriguesdev.relatorio.GeneratorPDF;
 import com.hrodriguesdev.utilitary.Format;
 import com.hrodriguesdev.utilitary.InputFilter;
@@ -207,7 +208,7 @@ public class SaidaEquipamentoViewController implements Initializable {
 	
 	@FXML
 	protected void addEmpressa(ActionEvent e) throws IOException {
-		NewView.getNewView("Adcionar Empressa", "newEmpressa", new AddEmpressaViewController() );
+		NewView.getNewView("Adcionar Empressa", "newEmpressa", new EmpressaInsert() );
 		obsString = empressaController.findAll();
 		FilteredList<String> filteredList = new FilteredList<>(obsString);  
 		coleta.getEditor().textProperty().addListener(new InputFilter<String>( coleta, filteredList ) );

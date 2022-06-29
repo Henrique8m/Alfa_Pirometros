@@ -16,6 +16,8 @@ import com.hrodriguesdev.entities.Anotations;
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.entities.Orcamento;
 import com.hrodriguesdev.gui.alert.Alerts;
+import com.hrodriguesdev.gui.controller.insert.EquipamentoInsert;
+import com.hrodriguesdev.gui.controller.insert.OrcamentoInsert;
 import com.hrodriguesdev.utilitary.InputFilter;
 import com.hrodriguesdev.utilitary.NewView;
 
@@ -202,7 +204,7 @@ public class MainViewController implements Initializable{
     
     @FXML
     private void addEquipamento(ActionEvent e) throws IOException {
-    	NewView.getNewView("Entrada Equipamento", "entradaEquipamento", new AddEquipamentoViewController() );
+    	NewView.getNewView("Entrada Equipamento", "entradaEquipamento", new EquipamentoInsert() );
 		tableFilaEquipamentos.setItems(obsListTableFilaEquipamentos);
 		oldObs = obsListTableFilaEquipamentos;
 		tableFilaEquipamentos.refresh();    	
@@ -236,7 +238,7 @@ public class MainViewController implements Initializable{
 			equipamento = tableFilaEquipamentos.getSelectionModel().getSelectedItem();
 			if(tableFilaEquipamentos.getSelectionModel().getSelectedItem().getOrcamento_id()  == null || tableFilaEquipamentos.getSelectionModel().getSelectedItem().getOrcamento_id() == 0) 
 			{
-				NewView.getNewView("Entrada Equipamento", "orcamento", new AddOrcamentoViewController() );
+				NewView.getNewView("Entrada Equipamento", "orcamento", new OrcamentoInsert() );
 				try {
 					obsListTableFilaEquipamentos = equipamentoController.findAllByLaboratorio(true);
 					dbConection = true;

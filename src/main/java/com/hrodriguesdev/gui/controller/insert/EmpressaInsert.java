@@ -1,4 +1,4 @@
-package com.hrodriguesdev.gui.controller;
+package com.hrodriguesdev.gui.controller.insert;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -7,6 +7,8 @@ import com.hrodriguesdev.AlfaPirometrosApplication;
 import com.hrodriguesdev.controller.EmpressaController;
 import com.hrodriguesdev.entities.Empressa;
 import com.hrodriguesdev.gui.alert.Alerts;
+import com.hrodriguesdev.gui.controller.EquipamentoViewController;
+import com.hrodriguesdev.gui.controller.MainViewController;
 import com.hrodriguesdev.utilitary.Format;
 
 import javafx.event.ActionEvent;
@@ -21,7 +23,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class AddEmpressaViewController implements Initializable {
+public class EmpressaInsert implements Initializable {
 	private EmpressaController empressaController = MainViewController.empressaController;
 	
 	@FXML
