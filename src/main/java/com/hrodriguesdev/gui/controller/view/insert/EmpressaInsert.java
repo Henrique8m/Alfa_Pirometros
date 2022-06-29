@@ -1,4 +1,4 @@
-package com.hrodriguesdev.gui.controller.insert;
+package com.hrodriguesdev.gui.controller.view.insert;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -8,7 +8,7 @@ import com.hrodriguesdev.controller.EmpressaController;
 import com.hrodriguesdev.entities.Empressa;
 import com.hrodriguesdev.gui.alert.Alerts;
 import com.hrodriguesdev.gui.controller.EquipamentoViewController;
-import com.hrodriguesdev.gui.controller.MainViewController;
+import com.hrodriguesdev.gui.controller.view.MainViewController;
 import com.hrodriguesdev.utilitary.Format;
 
 import javafx.event.ActionEvent;

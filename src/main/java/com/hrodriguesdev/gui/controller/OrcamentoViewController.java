@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 import com.hrodriguesdev.AlfaPirometrosApplication;
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.entities.Orcamento;
+import com.hrodriguesdev.gui.controller.view.MainViewController;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

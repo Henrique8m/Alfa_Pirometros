@@ -1,7 +1,7 @@
 package com.hrodriguesdev;
 
-import com.hrodriguesdev.gui.controller.LoadViewController;
-import com.hrodriguesdev.gui.controller.extend.PaginaBuscaController;
+import com.hrodriguesdev.gui.controller.view.LoadViewController;
+import com.hrodriguesdev.gui.controller.view.entities.PaginaBuscaController;
 import com.hrodriguesdev.utilitary.NewView;
 
 import javafx.application.Application;

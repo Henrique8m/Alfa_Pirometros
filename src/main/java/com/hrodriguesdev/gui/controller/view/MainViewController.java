@@ -1,4 +1,4 @@
-package com.hrodriguesdev.gui.controller;
+package com.hrodriguesdev.gui.controller.view;
 
 import java.io.IOException;
 import java.net.URL;
@@ -16,10 +16,14 @@ import com.hrodriguesdev.entities.Anotations;
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.entities.Orcamento;
 import com.hrodriguesdev.gui.alert.Alerts;
-import com.hrodriguesdev.gui.controller.insert.EquipamentoInsert;
-import com.hrodriguesdev.gui.controller.insert.OrcamentoInsert;
-import com.hrodriguesdev.gui.controller.updatede.EquipamentoUpdatede;
-import com.hrodriguesdev.gui.controller.updatede.OrcamentoUpdatede;
+import com.hrodriguesdev.gui.controller.OpenSaidaEquipamentoViewController;
+import com.hrodriguesdev.gui.controller.OrcamentoViewController;
+import com.hrodriguesdev.gui.controller.SaidaEquipamentoViewController;
+import com.hrodriguesdev.gui.controller.StatusViewController;
+import com.hrodriguesdev.gui.controller.view.insert.EquipamentoInsert;
+import com.hrodriguesdev.gui.controller.view.insert.OrcamentoInsert;
+import com.hrodriguesdev.gui.controller.view.updatede.EquipamentoUpdatede;
+import com.hrodriguesdev.gui.controller.view.updatede.OrcamentoUpdatede;
 import com.hrodriguesdev.utilitary.InputFilter;
 import com.hrodriguesdev.utilitary.NewView;
 

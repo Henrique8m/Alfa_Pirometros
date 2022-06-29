@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 import com.hrodriguesdev.controller.EquipamentoController;
 import com.hrodriguesdev.dao.db.DbException;
 import com.hrodriguesdev.gui.alert.Alerts;
+import com.hrodriguesdev.gui.controller.view.MainViewController;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

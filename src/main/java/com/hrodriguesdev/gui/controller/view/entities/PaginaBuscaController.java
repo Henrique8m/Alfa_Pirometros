@@ -1,11 +1,11 @@
-package com.hrodriguesdev.gui.controller.extend;
+package com.hrodriguesdev.gui.controller.view.entities;
 
 import java.sql.SQLException;
 
 import com.hrodriguesdev.entities.Coletor;
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.entities.Orcamento;
-import com.hrodriguesdev.gui.controller.MainViewController;
+import com.hrodriguesdev.gui.controller.view.MainViewController;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
