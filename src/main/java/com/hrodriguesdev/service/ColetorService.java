@@ -1,6 +1,6 @@
 package com.hrodriguesdev.service;
 
-import com.hrodriguesdev.db.ColetorRepository;
+import com.hrodriguesdev.dao.repository.ColetorRepository;
 import com.hrodriguesdev.entities.Coletor;
 
 public class ColetorService {

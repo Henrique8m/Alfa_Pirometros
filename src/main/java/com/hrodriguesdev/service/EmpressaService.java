@@ -2,7 +2,7 @@ package com.hrodriguesdev.service;
 
 import java.util.List;
 
-import com.hrodriguesdev.db.EmpressaRepository;
+import com.hrodriguesdev.dao.repository.EmpressaRepository;
 import com.hrodriguesdev.entities.Empressa;
 
 //@Service

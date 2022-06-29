@@ -4,8 +4,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.hrodriguesdev.dao.repository.EquipamentoRepository;
 import com.hrodriguesdev.db.DbException;
-import com.hrodriguesdev.db.EquipamentoRepository;
 import com.hrodriguesdev.entities.Equipamento;
 
 //@Service

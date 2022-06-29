@@ -1,4 +1,4 @@
-package com.hrodriguesdev.db;
+package com.hrodriguesdev.dao.repository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import com.hrodriguesdev.db.DB;
+import com.hrodriguesdev.db.DbException;
 import com.hrodriguesdev.entities.Coletor;
 
 public class ColetorRepository {

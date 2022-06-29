@@ -2,7 +2,7 @@ package com.hrodriguesdev.service;
 
 import java.sql.SQLException;
 
-import com.hrodriguesdev.db.OrcamentoRepository;
+import com.hrodriguesdev.dao.repository.OrcamentoRepository;
 import com.hrodriguesdev.entities.Orcamento;
 
 public class OrcamentoService {

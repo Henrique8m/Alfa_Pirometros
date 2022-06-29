@@ -1,4 +1,4 @@
-package com.hrodriguesdev.db;
+package com.hrodriguesdev.dao.repository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,6 +8,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.hrodriguesdev.db.DB;
+import com.hrodriguesdev.db.DbException;
 import com.hrodriguesdev.entities.Equipamento;
 
 public class EquipamentoRepository {
