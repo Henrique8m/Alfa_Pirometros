@@ -1,4 +1,4 @@
-package com.hrodriguesdev.gui.controller;
+package com.hrodriguesdev.gui.controller.updatede;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -7,6 +7,7 @@ import com.hrodriguesdev.AlfaPirometrosApplication;
 import com.hrodriguesdev.controller.OrcamentoController;
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.entities.Orcamento;
+import com.hrodriguesdev.gui.controller.MainViewController;
 import com.hrodriguesdev.utilitary.InputFilter;
 
 import javafx.collections.FXCollections;
@@ -27,7 +28,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class EditOrcamentoViewController implements Initializable {
+public class OrcamentoUpdatede implements Initializable {
 	
 	private Equipamento equipamento;
 //	private Orcamento orcamento;

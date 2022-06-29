@@ -18,6 +18,8 @@ import com.hrodriguesdev.entities.Orcamento;
 import com.hrodriguesdev.gui.alert.Alerts;
 import com.hrodriguesdev.gui.controller.insert.EquipamentoInsert;
 import com.hrodriguesdev.gui.controller.insert.OrcamentoInsert;
+import com.hrodriguesdev.gui.controller.updatede.EquipamentoUpdatede;
+import com.hrodriguesdev.gui.controller.updatede.OrcamentoUpdatede;
 import com.hrodriguesdev.utilitary.InputFilter;
 import com.hrodriguesdev.utilitary.NewView;
 
@@ -94,12 +96,12 @@ public class MainViewController implements Initializable{
     		if(tableFilaEquipamentos.getSelectionModel().getSelectedItem() != null) 
     		{
     			equipamentoEdit = tableFilaEquipamentos.getSelectionModel().getSelectedItem();
-    			NewView.getNewView("Edit Equipamento", "entradaEquipamento", new EditEquipamentoViewController() );
+    			NewView.getNewView("Edit Equipamento", "entradaEquipamento", new EquipamentoUpdatede() );
 
     		}else if(tableFindEquipamentos.getSelectionModel().getSelectedItem() != null) 
     		{
     			equipamentoEdit = tableFindEquipamentos.getSelectionModel().getSelectedItem();
-    			NewView.getNewView("Edit Equipamento", "entradaEquipamento", new EditEquipamentoViewController() );
+    			NewView.getNewView("Edit Equipamento", "entradaEquipamento", new EquipamentoUpdatede() );
 
     		}
     		
@@ -121,7 +123,7 @@ public class MainViewController implements Initializable{
     			try {
     				equipamento = tableFilaEquipamentos.getSelectionModel().getSelectedItem();
 					orcamentoEdit = controller.findById( tableFilaEquipamentos.getSelectionModel().getSelectedItem().getOrcamento_id() );
-					NewView.getNewView("Edit Orcamento", "orcamento", new EditOrcamentoViewController() );
+					NewView.getNewView("Edit Orcamento", "orcamento", new OrcamentoUpdatede() );
 				
     			} catch (SQLException e1) {
 					e1.printStackTrace();
@@ -133,7 +135,7 @@ public class MainViewController implements Initializable{
     			try {
     				equipamento = tableFindEquipamentos.getSelectionModel().getSelectedItem();
 					orcamentoEdit = controller.findById( tableFindEquipamentos.getSelectionModel().getSelectedItem().getOrcamento_id() );
-					NewView.getNewView("Edit Orcamento", "orcamento", new EditOrcamentoViewController() );
+					NewView.getNewView("Edit Orcamento", "orcamento", new OrcamentoUpdatede() );
 				
     			} catch (SQLException e1) {
 					e1.printStackTrace();

@@ -1,4 +1,4 @@
-package com.hrodriguesdev.gui.controller;
+package com.hrodriguesdev.gui.controller.updatede;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -6,6 +6,8 @@ import java.util.ResourceBundle;
 import com.hrodriguesdev.AlfaPirometrosApplication;
 import com.hrodriguesdev.dao.db.DbException;
 import com.hrodriguesdev.entities.Equipamento;
+import com.hrodriguesdev.gui.controller.EquipamentoViewController;
+import com.hrodriguesdev.gui.controller.MainViewController;
 import com.hrodriguesdev.utilitary.Format;
 import com.hrodriguesdev.utilitary.InputFilter;
 
@@ -18,7 +20,7 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
-public class EditEquipamentoViewController extends EquipamentoViewController implements Initializable{
+public class EquipamentoUpdatede extends EquipamentoViewController implements Initializable{
 	
 	private Equipamento equipamento = MainViewController.equipamentoEdit;
 
