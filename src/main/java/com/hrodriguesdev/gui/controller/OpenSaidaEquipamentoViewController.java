@@ -54,8 +54,7 @@ public class OpenSaidaEquipamentoViewController extends SaidaEquipamentoViewCont
 	    
 		
 		dataColeta.setText( MainViewController.equipamentoEdit.getDataSaida() );
-		Controller controller = MainViewController.controller;
-		Coletor coletor = controller.findColetor( MainViewController.equipamentoEdit.getColetor_id() );
+		Coletor coletor = coletorController.findById( MainViewController.equipamentoEdit.getColetor_id() );
 		nomeColetor.setText( coletor.getNomeColetor() );
 		coleta.setValue(  coletor.getEmpressaName() );
 		

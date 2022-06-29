@@ -19,6 +19,6 @@ public class EstoqueSinal implements Serializable {
 //	private int PlugFK;
 //	private int PlugMS;
 //	private int PlugMK;
-	private int TomadaS;
+//	private int TomadaS;
 
 }

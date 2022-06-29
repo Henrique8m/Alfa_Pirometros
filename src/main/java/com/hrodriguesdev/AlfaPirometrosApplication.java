@@ -1,8 +1,6 @@
 package com.hrodriguesdev;
 
 import com.hrodriguesdev.gui.controller.LoadViewController;
-import com.hrodriguesdev.gui.controller.MainViewController;
-import com.hrodriguesdev.gui.controller.extend.ExtendsMainView;
 import com.hrodriguesdev.gui.controller.extend.PaginaBuscaController;
 import com.hrodriguesdev.utilitary.NewView;
 

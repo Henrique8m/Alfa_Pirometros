@@ -29,7 +29,7 @@ public class PaginaBuscaController extends ExtendsMainView{
 			Coletor coletor = new Coletor();
 			Orcamento orcamento = new Orcamento();
 			if( equipamento.getColetor_id() != null && equipamento.getColetor_id() != 0 ) {
-				coletor = MainViewController.controller.findColetor( equipamento.getColetor_id() );
+				coletor = MainViewController.coletorController.findById( equipamento.getColetor_id() );
 			}
 			if ( equipamento.getOrcamento_id() != null && equipamento.getOrcamento_id() != 0 ) {
 				try {

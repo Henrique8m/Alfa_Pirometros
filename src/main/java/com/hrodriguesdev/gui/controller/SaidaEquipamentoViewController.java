@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.ResourceBundle;
 
 import com.hrodriguesdev.AlfaPirometrosApplication;
+import com.hrodriguesdev.controller.ColetorController;
 import com.hrodriguesdev.controller.Controller;
 import com.hrodriguesdev.db.DbException;
 import com.hrodriguesdev.entities.Coletor;
@@ -36,6 +37,7 @@ public class SaidaEquipamentoViewController implements Initializable {
 	
 	//@Autowired
 	protected Controller controller = new Controller();
+	protected ColetorController coletorController = MainViewController.coletorController;
 	protected Equipamento equipamento = MainViewController.equipamentoEdit;
 	
 	@FXML
@@ -144,7 +146,7 @@ public class SaidaEquipamentoViewController implements Initializable {
 			coletor.setEmpressaName(coleta.getValue());
 			coletor.setNomeColetor(nomeColetor.getText());
 			coletor.setDataHoraColeta( dataColeta.getText() );
-			equipamento.setColetor_id( controller.addColetor(coletor) );
+			equipamento.setColetor_id( coletorController.add(coletor) );
 			
 		}catch(DbException e2) {
 			error( "Find Empresa" ,"Empresa Não Encontrada");

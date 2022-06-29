@@ -21,7 +21,7 @@ public class Controller {
 	private EquipamentoService equipamentoService = new EquipamentoService();
 	private EmpressaService empresaService = new EmpressaService();
 	private OrcamentoService orcamentoService = new OrcamentoService();
-	private ColetorService coletorService = new ColetorService();
+
 	
 		
 	
@@ -34,10 +34,10 @@ public class Controller {
 		}
 		return null;
 	}
+
 	
 	public Long addEquipamento(Equipamento equipamento) {
 		return equipamentoService.addEquipamento(equipamento);
-		
 	}
 	
 	public Long addEmpressa(Empressa empressa) {
@@ -74,9 +74,7 @@ public class Controller {
 		return 	orcamentoService.addOrcamento(orcamento);
 	}
 	
-	public Long addColetor(Coletor coletor) {		
-		return coletorService.addColetor(coletor);
-	}
+
 	public Orcamento getOrcamento(Long id) throws SQLException {
 		return orcamentoService.getOrcamento(id);
 	}
@@ -127,79 +125,7 @@ public class Controller {
 		return orcamentoService.updatedeOrcamento( orcamento );
 	}
 
-	public Coletor findColetor(Long coletor_id) {
-		return coletorService.findColetor(coletor_id);
-	}
 
 
-
-
-	/*
-	 		
-
-			
-			
-	public ObservableList<Equipamento> getByFila(Boolean fila){
-		ObservableList<Motorista> obs = FXCollections.observableArrayList();		
-		List<Motorista> list = motoristaService.getByFila(true);
-		if(list!=null) {
-			obs.addAll(list);
-			return obs;
-		}
-		return obs;
-	}
-	
-	public ObservableList<Motorista> findAll(Motorista obj) {
-		ObservableList<Motorista> obs = FXCollections.observableArrayList();
-		List<Motorista> list = motoristaService.findAll(obj);
-		if(list!=null) {
-			obs.addAll(list);
-			return obs;
-		}
-		return null;			
-	}
-
-	public ObservableList<Motorista> findPageable() {
-		ObservableList<Motorista> obs = FXCollections.observableArrayList();
-		List<Motorista> list = motoristaService.findAllFirst();
-		if(list!=null) {
-			obs.addAll(list);
-			return obs;
-		}
-		return null;	
-	}
-	
-	
-
-	
-	public ObservableList<Pesagem> getPesagemByMotoristaId(long id) {
-		ObservableList<Pesagem> obs = FXCollections.observableArrayList();
-		List<Pesagem> list = equipamentoService.getPesagemByMotoristaId( id );
-		if(list!=null) {
-			obs.addAll(list);
-			return obs;
-		}
-		return null;
-	}
-
-	public Motorista getMotoristaById(Long id) {
-		return motoristaService.getMotoristaById(id);		
-	}
-	
-
-	
-	public Long addPesagem(Pesagem pesagem) {
-		return equipamentoService.addPesagem(pesagem);
-	
-	}
-	
-	public Boolean updateMotorista( Long idMotorista ) {
-		return motoristaService.updateMotorista(idMotorista);
-	}
-	
-	public Boolean editMotoristaDaPesagem(Long idPesagem, Long idMotorista) {
-		return equipamentoService.updatePesagem(idPesagem, idMotorista);
-		
-	}*/
 
 }

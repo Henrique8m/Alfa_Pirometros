@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import com.hrodriguesdev.AlfaPirometrosApplication;
+import com.hrodriguesdev.controller.ColetorController;
 import com.hrodriguesdev.controller.Controller;
 import com.hrodriguesdev.db.DbException;
 import com.hrodriguesdev.entities.Anotations;
@@ -39,6 +40,7 @@ public class MainViewController implements Initializable{
 		
 //	private GeneratorPDF generator = new GeneratorPDF();	
 	public static Controller controller = new Controller();
+	public static ColetorController coletorController = new ColetorController();
 	private Timeline timeline;
 	private Boolean dbConection;
 	
