@@ -1,4 +1,4 @@
-package com.hrodriguesdev.db;
+package com.hrodriguesdev.dao.db;
 
 import java.io.FileInputStream;
 import java.io.IOException;

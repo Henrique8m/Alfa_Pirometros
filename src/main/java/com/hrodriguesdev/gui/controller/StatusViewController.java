@@ -4,7 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.hrodriguesdev.controller.EquipamentoController;
-import com.hrodriguesdev.db.DbException;
+import com.hrodriguesdev.dao.db.DbException;
 import com.hrodriguesdev.gui.alert.Alerts;
 
 import javafx.event.ActionEvent;

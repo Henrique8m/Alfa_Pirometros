@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import com.hrodriguesdev.db.DB;
+import com.hrodriguesdev.dao.db.DB;
 import com.hrodriguesdev.entities.Orcamento;
 
 public class OrcamentoRepository {

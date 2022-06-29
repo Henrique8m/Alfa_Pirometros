@@ -6,8 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import com.hrodriguesdev.db.DB;
-import com.hrodriguesdev.db.DbException;
+import com.hrodriguesdev.dao.db.DB;
+import com.hrodriguesdev.dao.db.DbException;
 import com.hrodriguesdev.entities.Coletor;
 
 public class ColetorRepository {

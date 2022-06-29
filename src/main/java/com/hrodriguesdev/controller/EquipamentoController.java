@@ -3,7 +3,7 @@ package com.hrodriguesdev.controller;
 import java.sql.SQLException;
 import java.util.List;
 
-import com.hrodriguesdev.db.DbException;
+import com.hrodriguesdev.dao.db.DbException;
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.service.EquipamentoService;
 

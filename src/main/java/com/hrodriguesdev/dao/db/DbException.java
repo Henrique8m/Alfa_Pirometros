@@ -1,4 +1,4 @@
-package com.hrodriguesdev.db;
+package com.hrodriguesdev.dao.db;
 
 public class DbException extends RuntimeException{
 

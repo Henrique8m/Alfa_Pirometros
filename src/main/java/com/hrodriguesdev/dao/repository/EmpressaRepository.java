@@ -8,8 +8,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.hrodriguesdev.db.DB;
-import com.hrodriguesdev.db.DbException;
+import com.hrodriguesdev.dao.db.DB;
+import com.hrodriguesdev.dao.db.DbException;
 import com.hrodriguesdev.entities.Empressa;
 import com.hrodriguesdev.entities.Equipamento;
 
