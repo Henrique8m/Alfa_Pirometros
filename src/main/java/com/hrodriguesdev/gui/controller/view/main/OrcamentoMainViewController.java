@@ -4,9 +4,9 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import com.hrodriguesdev.controller.OrcamentoController;
-import com.hrodriguesdev.dao.db.DbException;
 import com.hrodriguesdev.gui.alert.Alerts;
-import com.hrodriguesdev.gui.controller.view.MainViewController;
+import com.hrodriguesdev.gui.controller.OrcamentoViewController;
+import com.hrodriguesdev.gui.controller.view.table.TableViewController;
 import com.hrodriguesdev.gui.controller.view.updatede.OrcamentoUpdatede;
 import com.hrodriguesdev.utilitary.NewView;
 
@@ -15,7 +15,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.KeyEvent;
 
-public class OrcamentoViewController extends MainViewController{
+public class OrcamentoMainViewController extends TableViewController{
 	
 	public static OrcamentoController controller = new OrcamentoController();
 	
@@ -74,16 +74,5 @@ public class OrcamentoViewController extends MainViewController{
 	    }
     }
     
-    protected void refreshTable() {
-    	try {
-			obsListTableFilaEquipamentos = equipamentoController.findAllByLaboratorio(true);
-    		oldObs = obsListTableFilaEquipamentos;
-    		dbConection = true;
-    		tableFilaEquipamentos.setItems(obsListTableFilaEquipamentos);
-    		tableFilaEquipamentos.refresh();  
-		} catch (DbException | SQLException e1) {
-			dbConection = false;
-			e1.printStackTrace();
-		}
-    }
+
 }

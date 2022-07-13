@@ -188,7 +188,7 @@ public class OrcamentoUpdatede implements Initializable {
 			erro.setText("Erro");
 		}
 		
-	
+		AlfaPirometrosApplication.viewController.refreshTable();
 	}	
 	
 	@FXML

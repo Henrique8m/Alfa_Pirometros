@@ -175,6 +175,7 @@ public class OrcamentoInsert implements Initializable {
 				erro.setText("Erro");
 			}
 		}
+		AlfaPirometrosApplication.viewController.refreshTable();
 	
 	}	
 	

@@ -18,6 +18,7 @@ public class EquipamentoService {
 	public ObservableList<Equipamento> findAllByLaboratorio(boolean laboratorio) throws DbException, SQLException  {		
 		ObservableList<Equipamento> obs = FXCollections.observableArrayList();
 		List<Equipamento> list = repository.findAllByLaboratorio(laboratorio);
+		list.sort( (a, b) -> a.getEmpressaName().compareTo(b.getEmpressaName()));
 		if(list!=null) {
 			obs.addAll(list);
 			return obs;

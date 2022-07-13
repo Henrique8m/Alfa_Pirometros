@@ -17,11 +17,7 @@ import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.entities.Orcamento;
 import com.hrodriguesdev.gui.alert.Alerts;
 import com.hrodriguesdev.gui.controller.OpenSaidaEquipamentoViewController;
-import com.hrodriguesdev.gui.controller.SaidaEquipamentoViewController;
-import com.hrodriguesdev.gui.controller.StatusViewController;
 import com.hrodriguesdev.gui.controller.view.insert.EquipamentoInsert;
-import com.hrodriguesdev.gui.controller.view.insert.OrcamentoInsert;
-import com.hrodriguesdev.gui.controller.view.updatede.EquipamentoUpdatede;
 import com.hrodriguesdev.utilitary.InputFilter;
 import com.hrodriguesdev.utilitary.NewView;
 
@@ -53,7 +49,7 @@ public class MainViewController implements Initializable{
 	public static EquipamentoController equipamentoController = new EquipamentoController();
 	public static EmpressaController empressaController = new EmpressaController();
 	private Timeline timeline;
-	protected Boolean dbConection;
+	protected static Boolean dbConection;
 	
 	public static Equipamento equipamento;
 	public static Equipamento equipamentoEdit;
@@ -65,9 +61,9 @@ public class MainViewController implements Initializable{
 	//Tabela fila de motoristas
 
 	@FXML
-	private TableColumn<Equipamento, String> empressa;
+	protected TableColumn<Equipamento, String> empressa;
 	@FXML
-	private TableColumn<Equipamento, String> status;
+	protected TableColumn<Equipamento, String> status;
 	@FXML
 	private TableColumn<Equipamento, String> dataChegada;
 	@FXML
@@ -81,7 +77,7 @@ public class MainViewController implements Initializable{
 	@FXML
 	private TableColumn<Equipamento, String> relatorio;
 	@FXML
-	protected TableView<Equipamento> tableFilaEquipamentos;
+	public TableView<Equipamento> tableFilaEquipamentos;
     public static ObservableList<Equipamento> obsListTableFilaEquipamentos = FXCollections.observableArrayList();
     
     @FXML
@@ -97,23 +93,10 @@ public class MainViewController implements Initializable{
     
     @FXML
     private void addEquipamento(ActionEvent e) throws IOException {
-    	NewView.getNewView("Entrada Equipamento", "entradaEquipamento", new EquipamentoInsert() );
-		tableFilaEquipamentos.setItems(obsListTableFilaEquipamentos);
-		oldObs = obsListTableFilaEquipamentos;
-		tableFilaEquipamentos.refresh();    	
+    	NewView.getNewView("Entrada Equipamento", "entradaEquipamento", new EquipamentoInsert() );    	
     }
     
 
-
-
-
-    
-
-          
- 
-
-	
-	
 	
 	//------------------------------------- Página de Busca --------------------------------------------------------
 	
@@ -234,12 +217,10 @@ public class MainViewController implements Initializable{
 		buscar1.setImage(image);
 		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-pdf.png").toString() );
 		pdf.setImage(image);
+		
 		beginTimer();
 		
-
-
-		
-}	 	
+	}	 	
 	
 	
 	public void strartTable() {	
@@ -253,10 +234,8 @@ public class MainViewController implements Initializable{
 		    	dbConection = false;
 		    } 
 		}
-
-		
+				
 	    tableFilaEquipamentos.setEditable(false);	 
-	    dataChegada.setSortType(TableColumn.SortType.DESCENDING);
 	    
 	    empressa.setCellValueFactory(new PropertyValueFactory<Equipamento, String>("empressaName"));
 	    status.setCellValueFactory(new PropertyValueFactory<Equipamento, String>("statusStr"));
@@ -266,12 +245,9 @@ public class MainViewController implements Initializable{
 		pat.setCellValueFactory(new PropertyValueFactory<Equipamento, String>("pat"));
 		relatorio.setCellValueFactory(new PropertyValueFactory<Equipamento, String>("relatorio"));
 		ultimaCal.setCellValueFactory(new PropertyValueFactory<Equipamento, String>("ultimaCalib"));
-		tableFilaEquipamentos.setItems(obsListTableFilaEquipamentos);
+		tableFilaEquipamentos.setItems(obsListTableFilaEquipamentos);		
 		
-		
-		tableFindEquipamentos.setEditable(false);	 
-	    dataChegada.setSortType(TableColumn.SortType.DESCENDING);
-	    
+		tableFindEquipamentos.setEditable(false);	 	    
 	    empressaFind.setCellValueFactory(new PropertyValueFactory<Equipamento, String>("empressaName"));
 	    nsFind.setCellValueFactory(new PropertyValueFactory<Equipamento, String>("ns"));
 	    patFind.setCellValueFactory(new PropertyValueFactory<Equipamento, String>("pat"));

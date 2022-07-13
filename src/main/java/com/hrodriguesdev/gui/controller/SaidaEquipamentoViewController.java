@@ -7,10 +7,10 @@ import java.util.ResourceBundle;
 
 import com.hrodriguesdev.AlfaPirometrosApplication;
 import com.hrodriguesdev.controller.ColetorController;
-import com.hrodriguesdev.controller.OrcamentoController;
-import com.hrodriguesdev.dao.db.DbException;
 import com.hrodriguesdev.controller.EmpressaController;
 import com.hrodriguesdev.controller.EquipamentoController;
+import com.hrodriguesdev.controller.OrcamentoController;
+import com.hrodriguesdev.dao.db.DbException;
 import com.hrodriguesdev.entities.Coletor;
 import com.hrodriguesdev.entities.Empressa;
 import com.hrodriguesdev.entities.Equipamento;
@@ -108,7 +108,7 @@ public class SaidaEquipamentoViewController implements Initializable {
 			erro.setText("ERRO");
 			
 		}
-		
+		AlfaPirometrosApplication.viewController.refreshTable();;
 		
 	}
 

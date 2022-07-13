@@ -19,12 +19,15 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.KeyEvent;
 
-public class EquipamentoViewController extends OrcamentoViewController {
+public class EquipamentoViewController extends OrcamentoMainViewController {
 	public static EquipamentoController equipamentoController = new EquipamentoController();
 	
 	@FXML
     protected void updatedEquipamento(KeyEvent keyEvent) throws IOException {
 		super.updatedEquipamento(keyEvent);
+		if(keyEvent.getCode().toString() == "F5" )
+			refreshTable();
+			
     	if(keyEvent.getCode().toString() == "F2" ) {
     		if(tableFilaEquipamentos.getSelectionModel().getSelectedItem() != null) 
     		{
@@ -37,16 +40,7 @@ public class EquipamentoViewController extends OrcamentoViewController {
     			NewView.getNewView("Edit Equipamento", "entradaEquipamento", new EquipamentoUpdatede() );
 
     		}
-    		
-    		    try {
-					obsListTableFilaEquipamentos = equipamentoController.findAllByLaboratorio(true);
-				} catch (DbException | SQLException e1) {
-					
-					e1.printStackTrace();
-				}
-    			tableFilaEquipamentos.setItems(obsListTableFilaEquipamentos);
-    			oldObs = obsListTableFilaEquipamentos;
-    			tableFilaEquipamentos.refresh();   		
+    		 		
     		
     		
     	}else if(keyEvent.getCode().toString() == "F12" ) {
@@ -114,16 +108,7 @@ public class EquipamentoViewController extends OrcamentoViewController {
 			if(tableFilaEquipamentos.getSelectionModel().getSelectedItem().getOrcamento_id()  == null || tableFilaEquipamentos.getSelectionModel().getSelectedItem().getOrcamento_id() == 0) 
 			{
 				NewView.getNewView("Entrada Equipamento", "orcamento", new OrcamentoInsert() );
-				try {
-					obsListTableFilaEquipamentos = equipamentoController.findAllByLaboratorio(true);
-					dbConection = true;
-				} catch (DbException | SQLException e2) {
-					showAlerts("DB exception ", "Erro na comunicação com banco de dados", e2.getMessage(), AlertType.ERROR );
-					dbConection = false;
-				}
-				tableFilaEquipamentos.setItems(obsListTableFilaEquipamentos);
-				oldObs = obsListTableFilaEquipamentos;
-				tableFilaEquipamentos.refresh();
+
 			}
 			else
 			{

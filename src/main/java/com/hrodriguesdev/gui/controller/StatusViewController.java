@@ -3,6 +3,7 @@ package com.hrodriguesdev.gui.controller;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import com.hrodriguesdev.AlfaPirometrosApplication;
 import com.hrodriguesdev.controller.EquipamentoController;
 import com.hrodriguesdev.dao.db.DbException;
 import com.hrodriguesdev.gui.alert.Alerts;
@@ -49,6 +50,16 @@ public class StatusViewController implements Initializable{
 	private void naoAprovado(ActionEvent e) {
 		update(6);
 	}
+	
+	@FXML
+	private void aguardandoReparoSemOrc(ActionEvent e) {
+		update(8);
+	}
+	
+	@FXML
+	private void liberadoSemOrcamento(ActionEvent e) {
+		update(9);
+	}
 		
 	private void update(int status) {		
 		try {
@@ -64,7 +75,9 @@ public class StatusViewController implements Initializable{
 		} catch (DbException e1) {
 			Alerts.showAlert("DB exception ", "Erro na comunicação com banco de dados", e1.getMessage(), AlertType.ERROR);
 		}
-			}
+		
+		AlfaPirometrosApplication.viewController.refreshTable();
+	}	
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {}

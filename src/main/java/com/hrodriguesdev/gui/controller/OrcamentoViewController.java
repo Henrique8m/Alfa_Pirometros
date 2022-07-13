@@ -45,6 +45,7 @@ public class OrcamentoViewController implements Initializable {
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
 		}
+		AlfaPirometrosApplication.viewController.refreshTable();;
 
 	}
 		

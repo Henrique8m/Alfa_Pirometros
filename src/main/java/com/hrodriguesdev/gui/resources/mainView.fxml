@@ -37,7 +37,7 @@
                                  <children>
                                     <TableView fx:id="tableFilaEquipamentos" cache="true" depthTest="DISABLE" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="200.0" minWidth="844.0" onKeyPressed="#updatedEquipamento" prefHeight="700.0" prefWidth="1500.0" style="-fx-background-radius: 10;" tableMenuButtonVisible="true">
                                       <columns>
-                                          <TableColumn editable="false" maxWidth="-Infinity" minWidth="500.0" prefWidth="1500.0" text="Equipamentos em Laboratorio">
+                                          <TableColumn editable="false" maxWidth="-Infinity" minWidth="500.0" prefWidth="1500.0" sortable="false" text="Equipamentos em Laboratorio">
                                              <columns>
                                               <TableColumn fx:id="empressa" editable="false" minWidth="160.0" prefWidth="350.0" text="Empresa" />
                                                 <TableColumn fx:id="status" editable="false" minWidth="120.0" prefWidth="300.0" text="Status" />

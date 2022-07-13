@@ -75,6 +75,8 @@ public class EquipamentoUpdatede extends EquipamentoViewController implements In
 			
 		}
 		
+		AlfaPirometrosApplication.viewController.refreshTable();
+		
 	}	
 		
 	@Override

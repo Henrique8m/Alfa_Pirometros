@@ -171,8 +171,12 @@ public class Equipamento implements Serializable {
 			case 5: return "Liberado, aquardando Coleta!";
 			case 6: return "Não Aprovado, aquardando coleta!";
 			case 7: return "Coletado";
+			case 8: return "Aprovado sem orcamento, aquardando reparo!";
+			case 9: return "Liberado sem orcamento, aquardando coleta!";
 			case 12:return "Coletado, enviar Orçamento";
 			case 13: return "Coletado, aguardando Aprovação";
+			
+			
 			default: return "";
 		}
 		

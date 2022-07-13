@@ -6,10 +6,10 @@ import java.sql.Date;
 import java.util.ResourceBundle;
 
 import com.hrodriguesdev.AlfaPirometrosApplication;
-import com.hrodriguesdev.controller.OrcamentoController;
-import com.hrodriguesdev.dao.db.DbException;
 import com.hrodriguesdev.controller.EmpressaController;
 import com.hrodriguesdev.controller.EquipamentoController;
+import com.hrodriguesdev.controller.OrcamentoController;
+import com.hrodriguesdev.dao.db.DbException;
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.gui.alert.Alerts;
 import com.hrodriguesdev.gui.controller.view.MainViewController;
@@ -119,6 +119,7 @@ public class EquipamentoViewController {
 			erro.setText("ERRO");
 			
 		}
+		AlfaPirometrosApplication.viewController.refreshTable();
 		
 	}
 
