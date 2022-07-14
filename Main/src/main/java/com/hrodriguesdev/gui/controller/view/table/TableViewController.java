@@ -13,7 +13,7 @@ public class TableViewController extends MainViewController{
     public void refreshTable() {
     	try{
 			obsListTableFilaEquipamentos = equipamentoController.findAllByLaboratorio(true);
-    		oldObs = obsListTableFilaEquipamentos;
+//    		oldObs = obsListTableFilaEquipamentos;
 			tableFilaEquipamentos.setItems(obsListTableFilaEquipamentos);			
     		dbConection = true;  
     		tableFilaEquipamentos.refresh();

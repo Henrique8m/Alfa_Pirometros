@@ -10,6 +10,7 @@ import com.hrodriguesdev.gui.alert.Alerts;
 import com.hrodriguesdev.gui.controller.OpenSaidaEquipamentoViewController;
 import com.hrodriguesdev.gui.controller.SaidaEquipamentoViewController;
 import com.hrodriguesdev.gui.controller.StatusViewController;
+import com.hrodriguesdev.gui.controller.view.insert.EquipamentoInsert;
 import com.hrodriguesdev.gui.controller.view.insert.OrcamentoInsert;
 import com.hrodriguesdev.gui.controller.view.updatede.EquipamentoUpdatede;
 import com.hrodriguesdev.utilitary.NewView;
@@ -21,6 +22,12 @@ import javafx.scene.input.KeyEvent;
 
 public class EquipamentoViewController extends OrcamentoMainViewController {
 	public static EquipamentoController equipamentoController = new EquipamentoController();
+	
+    
+    @FXML
+    private void addEquipamento(ActionEvent e) throws IOException {
+    	NewView.getNewView("Entrada Equipamento", "entradaEquipamento", new EquipamentoInsert() );    	
+    }
 	
 	@FXML
     protected void updatedEquipamento(KeyEvent keyEvent) throws IOException {

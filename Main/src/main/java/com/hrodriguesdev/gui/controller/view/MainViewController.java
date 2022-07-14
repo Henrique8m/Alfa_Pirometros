@@ -3,7 +3,9 @@ package com.hrodriguesdev.gui.controller.view;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 import com.hrodriguesdev.AlfaPirometrosApplication;
 import com.hrodriguesdev.controller.ColetorController;
@@ -17,7 +19,6 @@ import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.entities.Orcamento;
 import com.hrodriguesdev.gui.alert.Alerts;
 import com.hrodriguesdev.gui.controller.OpenSaidaEquipamentoViewController;
-import com.hrodriguesdev.gui.controller.view.insert.EquipamentoInsert;
 import com.hrodriguesdev.utilitary.InputFilter;
 import com.hrodriguesdev.utilitary.NewView;
 
@@ -89,16 +90,7 @@ public class MainViewController implements Initializable{
     public static ObservableList<Anotations> obsListTableAnotacoes = FXCollections.observableArrayList();
     
 
-   
-    
-    @FXML
-    private void addEquipamento(ActionEvent e) throws IOException {
-    	NewView.getNewView("Entrada Equipamento", "entradaEquipamento", new EquipamentoInsert() );    	
-    }
-    
-
-	
-	//------------------------------------- Página de Busca --------------------------------------------------------
+    //------------------------------------- Página de Busca --------------------------------------------------------
 	
 	
     @FXML
@@ -261,14 +253,23 @@ public class MainViewController implements Initializable{
 	protected ObservableList<Equipamento> oldObs = FXCollections.observableArrayList();
 	private void beginTimer() {
 		
-		timeline = new Timeline(new KeyFrame(javafx.util.Duration.seconds(60), ev -> {
+		timeline = new Timeline(new KeyFrame(javafx.util.Duration.seconds(10), ev -> {
 			obsString = empressaController.findAll();
 			filteredList = new FilteredList<>(obsString); 
 			if(dbConection) {
 				try {
 					obsListTableFilaEquipamentos = equipamentoController.findAllByLaboratorio(true);
-					if(obsListTableFilaEquipamentos.size() > oldObs.size() ) {
-						showAlerts("Updatede Lista", "", "Equipamento da empressa " + obsListTableFilaEquipamentos.get(obsListTableFilaEquipamentos.size()-1).getEmpressaName() + " foi adcionado a lista de equipamentos ", AlertType.INFORMATION);
+					if(obsListTableFilaEquipamentos.size() > oldObs.size() ) {						
+						List<Equipamento> list1 = obsListTableFilaEquipamentos.stream().filter(item1 -> {
+							return oldObs.stream().filter(item2 -> item2.equals(item1) ).findAny().isPresent();
+						}).collect( Collectors.toList() );
+						obsListTableFilaEquipamentos.addAll(list1);
+						
+//					        List<Integer> interseccao = lista1.stream().filter(item1 -> {
+//					            return lista2.stream().filter(item2 -> new Integer(item2).equals(item1)).findAny().isPresent();
+//					        }).collect(Collectors.toList());
+
+						showAlerts("Updatede Lista", "", "Equipamento da empressa " + obsListTableFilaEquipamentos.get(obsListTableFilaEquipamentos.size()-1).getEmpressaName() + " foi adcionado equipamento na lista ", AlertType.INFORMATION);
 						oldObs = obsListTableFilaEquipamentos;
 						return;
 					}

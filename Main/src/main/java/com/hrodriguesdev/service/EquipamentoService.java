@@ -19,11 +19,8 @@ public class EquipamentoService {
 		ObservableList<Equipamento> obs = FXCollections.observableArrayList();
 		List<Equipamento> list = repository.findAllByLaboratorio(laboratorio);
 		list.sort( (a, b) -> a.getEmpressaName().compareTo(b.getEmpressaName()));
-		if(list!=null) {
-			obs.addAll(list);
-			return obs;
-		}	
-		return null;
+		obs.addAll(list);
+		return obs;
 	}	
 	
 	public ObservableList<Equipamento> findAll(Equipamento equipamento) {
