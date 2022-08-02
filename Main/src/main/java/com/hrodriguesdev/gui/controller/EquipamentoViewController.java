@@ -61,7 +61,7 @@ public class EquipamentoViewController {
 	@FXML
 	private Button cancelar;
 	@FXML
-	protected ComboBox<String> nomeEmpressa = new ComboBox<>();
+	protected ComboBox<String> nomeEmpressa;
 	
 	public static ObservableList<String> obsString = FXCollections.observableArrayList();	
 	private FilteredList<String> filteredList;

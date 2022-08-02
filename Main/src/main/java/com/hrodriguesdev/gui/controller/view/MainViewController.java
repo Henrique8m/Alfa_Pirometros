@@ -233,7 +233,7 @@ public class MainViewController implements Initializable{
 //					            return lista2.stream().filter(item2 -> new Integer(item2).equals(item1)).findAny().isPresent();
 //					        }).collect(Collectors.toList());
 
-						showAlerts("Updatede Lista", "", "Equipamento da empressa " + obsListTableFilaEquipamentos.get(obsListTableFilaEquipamentos.size()-1).getEmpressaName() + " foi adcionado equipamento na lista ", AlertType.INFORMATION);
+//						showAlerts("Updatede Lista", "", "Equipamento da empressa " + obsListTableFilaEquipamentos.get(obsListTableFilaEquipamentos.size()-1).getEmpressaName() + " foi adcionado equipamento na lista ", AlertType.INFORMATION);
 						oldObs = obsListTableFilaEquipamentos;
 						return;
 					}
@@ -243,12 +243,12 @@ public class MainViewController implements Initializable{
 					}
 					for(int i =0; i< oldObs.size(); i++) {
 						if( obsListTableFilaEquipamentos.get(i).getStatus() != oldObs.get(i).getStatus() ) {
-							showAlerts("Updatede Lista", "", "Equipamento da empressa " + obsListTableFilaEquipamentos.get(obsListTableFilaEquipamentos.size()-1).getEmpressaName() + " teve o status alterado ", AlertType.ERROR);
+//							showAlerts("Updatede Lista", "", "Equipamento da empressa " + obsListTableFilaEquipamentos.get(obsListTableFilaEquipamentos.size()-1).getEmpressaName() + " teve o status alterado ", AlertType.ERROR);
 						}
 					}
 					oldObs = obsListTableFilaEquipamentos;
 				} catch (DbException | SQLException e) {
-					showAlerts("begin Timer ", "", e.getMessage(), AlertType.INFORMATION );
+//					showAlerts("begin Timer ", "", e.getMessage(), AlertType.INFORMATION );
 				}			
 			}else {
 		    	showAlerts("DB exception ", "","Erro na comunicação com banco de dados, reiniciar App", AlertType.ERROR );
