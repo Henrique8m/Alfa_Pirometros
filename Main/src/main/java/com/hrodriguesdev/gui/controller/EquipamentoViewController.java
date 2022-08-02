@@ -6,7 +6,6 @@ import java.sql.Date;
 import java.util.ResourceBundle;
 
 import com.hrodriguesdev.AlfaPirometrosApplication;
-import com.hrodriguesdev.controller.EmpressaController;
 import com.hrodriguesdev.controller.EquipamentoController;
 import com.hrodriguesdev.controller.OrcamentoController;
 import com.hrodriguesdev.dao.db.DbException;
@@ -38,7 +37,7 @@ public class EquipamentoViewController {
 	protected Date date;
 	protected OrcamentoController controller = MainViewController.orcamentoController;
 	protected EquipamentoController equipamentoController = MainViewController.equipamentoController;
-	protected EmpressaController empressaController = MainViewController.empressaController;
+
 	@FXML
 	protected ImageView cancelarImg;
 	@FXML
@@ -64,8 +63,10 @@ public class EquipamentoViewController {
 	@FXML
 	protected ComboBox<String> nomeEmpressa = new ComboBox<>();
 	
-	public static ObservableList<String> obsString = FXCollections.observableArrayList();
-
+	public static ObservableList<String> obsString = FXCollections.observableArrayList();	
+	private FilteredList<String> filteredList;
+	private InputFilter<String> inputFilter;
+	
 	public EquipamentoViewController() {
 		super();
 	}
@@ -78,7 +79,7 @@ public class EquipamentoViewController {
 			return;
 		}
 		try {
-			obj.setEmpressa( empressaController.isExist( nomeEmpressa.getValue() ) );
+			obj.setEmpressa( MainViewController.empressaController.isExist( nomeEmpressa.getValue() ) );
 			if ( obj.getEmpressa() == null ) {
 				throw new DbException("Empresa não existe");
 			}
@@ -165,11 +166,8 @@ public class EquipamentoViewController {
 		
 	}
 
-	public void initialize(URL location, ResourceBundle resources) {		
-		
-		obsString = empressaController.findAll();
-		FilteredList<String> filteredList = new FilteredList<>(obsString); 		
-		nomeEmpressa.getEditor().textProperty().addListener(new InputFilter<String>( nomeEmpressa, filteredList ) );		
+	public void initialize(URL location, ResourceBundle resources) {
+		addListener();
 	
 		Image image =  new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-adicionar.png").toString() );
 		salvarImg.setImage(image);
@@ -182,12 +180,26 @@ public class EquipamentoViewController {
 	    data.setText(Format.formatData.format(date));
 	    
 	}
-
+	
 	@FXML
-	private void addEmpressa(ActionEvent e) throws IOException {
-		NewView.getNewView("Adcionar Empressa", "newEmpressa", new EmpressaInsert());
-//		NewView.getNewView("Adcionar Empressa", (Pane) NewView.loadFXML("newEmpressa", new AddEmpressaViewController()), LoadViewController.getStage());
+	protected void addEmpressa(ActionEvent e) throws IOException {
+		removeListener();
+		NewView.getNewView("Adcionar Empressa", "newEmpressa", new EmpressaInsert() );
 		
 	}
+	
+	public void addListener() {
+		obsString =  MainViewController.empressaController.findAll();
+		filteredList = new FilteredList<>(obsString);  
+		inputFilter = new InputFilter<String>( nomeEmpressa, filteredList );
+		nomeEmpressa.getEditor().textProperty().addListener(inputFilter);	
+		
+	}
+	
+	private void removeListener() {
+		nomeEmpressa.getEditor().textProperty().removeListener(inputFilter);
+		nomeEmpressa.setValue("");
+	}
+
 
 }

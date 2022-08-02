@@ -18,10 +18,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
-public class OrcamentoViewController implements Initializable {
+public class OrcamentoViewController extends StatusViewController implements Initializable {
 	
 	@FXML
-	private Button cancelar;
+	private Button cancelar, orcamentoEnviado, aprovado, aprovadoSemOrca, liberado, naoAprovado, liberadoSemOrcamento;
 	
 	@FXML
 	private ImageView cancelarImg, salvarImg;
@@ -56,6 +56,7 @@ public class OrcamentoViewController implements Initializable {
 		if( equipamento.getRelatorio() != null && relatorioN.getText() != "" ) {
 			relatorioN.setText( equipamento.getRelatorio() );
 		}
+		switchStatus(equipamento.getStatus());		
 		nomeEmpressa.setText(equipamento.getEmpressaName());
 		data.setText(equipamento.getDataChegada());
 		modelo.setText(equipamento.getModelo());
@@ -70,6 +71,28 @@ public class OrcamentoViewController implements Initializable {
 	}	
 
 	
+	private void switchStatus(int status) {
+		switch (status) {
+		case 3:
+			aprovado.setVisible(true);
+			break;
+		case 13:
+			aprovado.setVisible(true);
+			break;
+		case 4:
+			liberado.setVisible(true);
+			break;
+		case 8:
+			liberadoSemOrcamento.setVisible(true);
+			break;
+		default:
+			orcamentoEnviado.setVisible(true);
+			aprovadoSemOrca.setVisible(true);
+			break;
+		}
+		
+	}
+
 	@FXML
 	public void cancelar(ActionEvent event) {
 		try {

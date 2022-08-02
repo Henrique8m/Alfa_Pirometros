@@ -10,7 +10,7 @@ import com.hrodriguesdev.gui.alert.Alerts;
 import com.hrodriguesdev.gui.controller.OpenSaidaEquipamentoViewController;
 import com.hrodriguesdev.gui.controller.SaidaEquipamentoViewController;
 import com.hrodriguesdev.gui.controller.StatusViewController;
-import com.hrodriguesdev.gui.controller.view.insert.EquipamentoInsert;
+import com.hrodriguesdev.gui.controller.view.MainViewController;
 import com.hrodriguesdev.gui.controller.view.insert.OrcamentoInsert;
 import com.hrodriguesdev.gui.controller.view.updatede.EquipamentoUpdatede;
 import com.hrodriguesdev.utilitary.NewView;
@@ -19,14 +19,15 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 
-public class EquipamentoViewController extends OrcamentoMainViewController {
+public class EquipamentoMainView extends LogoutMainView {
 	public static EquipamentoController equipamentoController = new EquipamentoController();
 	
     
     @FXML
     private void addEquipamento(ActionEvent e) throws IOException {
-    	NewView.getNewView("Entrada Equipamento", "entradaEquipamento", new EquipamentoInsert() );    	
+    	NewView.getNewView("Entrada Equipamento", "entradaEquipamento", MainViewController.equipamentoInsert );    	
     }
 	
 	@FXML
@@ -163,4 +164,24 @@ public class EquipamentoViewController extends OrcamentoMainViewController {
      		
      	}else showAlerts("Seleção ", "", "Nada Selecionado ", AlertType.INFORMATION );
     }
+	
+	
+	@FXML
+	public void tableFilaEquipamentoClick(MouseEvent event) throws IOException {
+		if(event.getClickCount() >= 2) {
+			if(tableFilaEquipamentos.getSelectionModel().getSelectedItem() != null) {
+				Equipamento equipSelected = tableFilaEquipamentos.getSelectionModel().getSelectedItem();
+				int status = equipSelected.getStatus();
+				if(equipSelected.getOrcamento_id() == 0) 
+					addOrcamento(new ActionEvent());
+
+				else if(status == 2 || status == 3 || status == 4 || status == 8 || status == 12 || status == 13) 
+					super.openOrcamento(new ActionEvent());
+				else if( status == 5 || status == 6 || status == 9)
+					addColeta(new ActionEvent());
+			}
+				
+		}
+	
+}
 }

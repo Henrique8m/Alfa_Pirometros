@@ -1,15 +1,13 @@
-package com.hrodriguesdev.gui.controller.view.table;
+package com.hrodriguesdev.gui.controller.view.main;
 
 import java.sql.SQLException;
 
 import com.hrodriguesdev.dao.db.DbException;
 import com.hrodriguesdev.gui.controller.view.MainViewController;
 
-import javafx.fxml.FXML;
-
-public class TableViewController extends MainViewController{
+public class TableMainView extends MainViewController{
 	
-	@FXML
+
     public void refreshTable() {
     	try{
 			obsListTableFilaEquipamentos = equipamentoController.findAllByLaboratorio(true);

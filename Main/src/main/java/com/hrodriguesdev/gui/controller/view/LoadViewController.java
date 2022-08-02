@@ -18,7 +18,7 @@ public class LoadViewController implements Initializable {
 	
 	private Timeline timeline;
 	private static Stage stage;	
-	
+	private static Scene scene;	
 
 
 	@Override
@@ -34,7 +34,8 @@ public class LoadViewController implements Initializable {
 				//System.out.println("spring Start true ");
 				try {
 					AnchorPane anchorPane = (AnchorPane) NewView.loadFXML("mainView", AlfaPirometrosApplication.viewController);
-					NewView.getNewView("Controle de Estoque", new Scene(anchorPane), stage);
+					scene = new Scene(anchorPane);
+					NewView.getNewView("Controle de Estoque", scene, stage);
 				} catch (IOException e) {
 					e.printStackTrace();
 					System.exit(1);
@@ -49,8 +50,8 @@ public class LoadViewController implements Initializable {
 
 	}
 	
-	public static Stage getStage() {
-		return stage;
+	public static Scene getScene() {
+		return scene;
 	}
 	
 }

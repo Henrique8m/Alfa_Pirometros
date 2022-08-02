@@ -35,7 +35,7 @@
                            <children>
                               <VBox>
                                  <children>
-                                    <TableView fx:id="tableFilaEquipamentos" cache="true" depthTest="DISABLE" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="200.0" minWidth="844.0" onKeyPressed="#updatedEquipamento" prefHeight="700.0" prefWidth="1500.0" style="-fx-background-radius: 10;" tableMenuButtonVisible="true">
+                                    <TableView fx:id="tableFilaEquipamentos" cache="true" depthTest="DISABLE" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="200.0" minWidth="844.0" onKeyPressed="#updatedEquipamento" onMouseClicked="#tableFilaEquipamentoClick" prefHeight="700.0" prefWidth="1500.0" style="-fx-background-radius: 10;" tableMenuButtonVisible="true">
                                       <columns>
                                           <TableColumn editable="false" maxWidth="-Infinity" minWidth="500.0" prefWidth="1500.0" sortable="false" text="Equipamentos em Laboratorio">
                                              <columns>
@@ -85,6 +85,7 @@
                                           <RowConstraints maxHeight="110.0" minHeight="60.0" prefHeight="80.0" vgrow="SOMETIMES" />
                                           <RowConstraints maxHeight="110.0" minHeight="60.0" prefHeight="80.0" vgrow="SOMETIMES" />
                                           <RowConstraints maxHeight="500.0" minHeight="244.0" prefHeight="300.0" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="60.0" minHeight="60.0" prefHeight="60.0" vgrow="SOMETIMES" />
                                       </rowConstraints>
                                        <children>
                                           <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#addEquipamento" prefHeight="45.0" prefWidth="185.0" style="-fx-background-radius: 10; -fx-cursor: hand;" text="Cadastrar Chegada">
@@ -124,6 +125,11 @@
                                              <font>
                                                 <Font size="15.0" />
                                              </font>
+                                          </Button>
+                                          <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#logout" prefHeight="45.0" prefWidth="185.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Logout" GridPane.rowIndex="6">
+                                             <graphic>
+                                                <ImageView fx:id="logout" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" />
+                                             </graphic>
                                           </Button>
                                        </children>
                                        <VBox.margin>
@@ -166,7 +172,7 @@
                                           <VBox minWidth="225.0" prefHeight="67.0" prefWidth="300.0" style="-fx-background-color: #c9c9c9;">
                                              <children>
                                                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Empresa" wrappingWidth="154.13671875" />
-                                                <ComboBox fx:id="textEmpresa" editable="true" minWidth="225.0" prefHeight="25.0" prefWidth="300.0" />
+                                                <ComboBox fx:id="textEmpresa" editable="true" minWidth="225.0" onKeyPressed="#enter" prefHeight="25.0" prefWidth="300.0" />
                                              </children>
                                           </VBox>
                                           <VBox minWidth="100.0" prefHeight="67.0" prefWidth="170.0">
@@ -230,7 +236,7 @@
                                           <Insets />
                                        </VBox.margin>
                                     </HBox>
-                                    <TableView fx:id="tableFindEquipamentos" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="300.0" minWidth="500.0" onKeyPressed="#updatedEquipamento" onMouseClicked="#click" prefHeight="924.0" prefWidth="750.0" style="-fx-background-radius: 10;">
+                                    <TableView fx:id="tableFindEquipamentos" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="300.0" minWidth="500.0" onKeyPressed="#updatedEquipamento" onMousePressed="#click" prefHeight="924.0" prefWidth="750.0" style="-fx-background-radius: 10;">
                                        <columns>
                                           <TableColumn fx:id="empressaFind" maxWidth="200.0" minWidth="150.0" prefWidth="200.0" text="Empresa" />
                                           <TableColumn fx:id="nsFind" maxWidth="137.5" minWidth="87.5" prefWidth="137.5" text="Ns" />

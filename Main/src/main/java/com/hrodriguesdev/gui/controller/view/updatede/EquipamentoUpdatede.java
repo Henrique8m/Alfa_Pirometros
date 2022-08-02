@@ -32,7 +32,7 @@ public class EquipamentoUpdatede extends EquipamentoViewController implements In
 			return;
 		}
 		try {
-			equipamento.setEmpressa( empressaController.isExist( nomeEmpressa.getValue() ) );
+			equipamento.setEmpressa( MainViewController.empressaController.isExist( nomeEmpressa.getValue() ) );
 			if ( equipamento.getEmpressa() == null ) {
 				throw new DbException("Empresa não existe");
 			}
@@ -101,7 +101,7 @@ public class EquipamentoUpdatede extends EquipamentoViewController implements In
 	public void initialize(URL location, ResourceBundle resources) {
 		
 		ObservableList<String> obsString = FXCollections.observableArrayList();
-		obsString = empressaController.findAll();
+		obsString = MainViewController.empressaController.findAll();
 		FilteredList<String> filteredList = new FilteredList<>(obsString);  
 		nomeEmpressa.getEditor().textProperty().addListener(new InputFilter<String>( nomeEmpressa, filteredList ) );		
 	

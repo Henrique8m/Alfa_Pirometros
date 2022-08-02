@@ -35,7 +35,7 @@ public class AlfaPirometrosApplication extends Application{
 	
 	
 	
-	public static ObservableList<String> obsPecasEstoque = FXCollections.observableArrayList(
+	public static ObservableList<String> obsPecasEstoque = FXCollections.observableArrayList("Calibracao", "Cabo miolo de lanca",
 			"BotaoLiga", "BoMeFIIFIIIIndicmax", "CaixaBat",
 			"FontCarbIndic", "FontCarbDelta", "PinFemeAliFII", "PinFemeAliFIII", "BatFIIFIII", "BatDescartavel", "BatInditemp", "BatLitio", "CarrEcil", "CarrItalterm",
 			"PCIFIII", "PCIFKal", "DispFKal", "FIII", "Indicmax", "CIFII", "CIIndicmax", "sirene", 
@@ -50,8 +50,7 @@ public class AlfaPirometrosApplication extends Application{
 	public static String caminhoDbProperties = "C:\\Program Files\\Java\\resources\\dbAlfa.properties";
 	public static String caminhoDbProperties2 = "C:\\Program Files (x86)\\Java\\resources\\dbAlfa.properties";
 	public static String properties = "Properties.properties";
-	public static String diretorioStr1 = "\\AppData\\Local\\YggDrasil";
-	public static String diretorioStr2 = "\\AppData\\Local\\YggDrasil\\serial";
+	public static String strDiretorioYggDrasil = "\\AppData\\Local\\YggDrasil";
 	
 	public static PaginaBuscaController viewController = new PaginaBuscaController();
 	

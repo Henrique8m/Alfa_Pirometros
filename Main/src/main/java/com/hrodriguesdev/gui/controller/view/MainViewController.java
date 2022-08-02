@@ -19,7 +19,7 @@ import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.entities.Orcamento;
 import com.hrodriguesdev.gui.alert.Alerts;
 import com.hrodriguesdev.gui.controller.OpenSaidaEquipamentoViewController;
-import com.hrodriguesdev.utilitary.InputFilter;
+import com.hrodriguesdev.gui.controller.view.insert.EquipamentoInsert;
 import com.hrodriguesdev.utilitary.NewView;
 
 import javafx.animation.Animation;
@@ -27,15 +27,12 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -49,6 +46,7 @@ public class MainViewController implements Initializable{
 	public static ColetorController coletorController = new ColetorController();
 	public static EquipamentoController equipamentoController = new EquipamentoController();
 	public static EmpressaController empressaController = new EmpressaController();
+	public static EquipamentoInsert equipamentoInsert = new EquipamentoInsert();
 	private Timeline timeline;
 	protected static Boolean dbConection;
 	
@@ -56,9 +54,9 @@ public class MainViewController implements Initializable{
 	public static Equipamento equipamentoEdit;
 	public static Orcamento orcamentoEdit;
 	public static Orcamento orcamento;
-		
+	
 	@FXML
-	private ImageView logoYgg, cadastrar, refresh, abrir, cadastrar2, inserirColeta, home, buscar, buscar1, pdf;
+	private ImageView logoYgg, cadastrar, refresh, abrir, cadastrar2, inserirColeta, home, buscar, buscar1, pdf, logout;
 	//Tabela fila de motoristas
 
 	@FXML
@@ -93,42 +91,12 @@ public class MainViewController implements Initializable{
     //------------------------------------- Página de Busca --------------------------------------------------------
 	
 	
-    @FXML
-    private TextField textNsEquip, textPatEquip;
-    @FXML
-    private ComboBox<String> textEmpresa;
+
     
-    private static ObservableList<String> obsString = FXCollections.observableArrayList();
-    private FilteredList<String> filteredList;
-    
-	@FXML
-    private void buscar(ActionEvent e) throws IOException {
-		
-		Equipamento equipamento = new Equipamento();
-		if(textEmpresa.getValue()!= null)
-			if( !textEmpresa.getValue().isEmpty() ) {
-	    		equipamento.setEmpressaName(textEmpresa.getValue());
-	    	}
-    	if( !textNsEquip.getText().isEmpty() ) {
-    		equipamento.setNs(textNsEquip.getText());
-    	}    	  
-    	if( !textPatEquip.getText().isEmpty() ) {
-    		equipamento.setPat(textPatEquip.getText());
-    	}    	
-    	
-    	ObservableList<Equipamento> obs = equipamentoController.findAll(equipamento);
-    	if(obs.size()>0 ) {
-    		obsListTableFindEquipamentos = obs;    	
-;
-    	}else { 		
-    		obsListTableFindEquipamentos = equipamentoController.findAll(); 		
-    	}
-    	tableFindEquipamentos.setItems(obsListTableFindEquipamentos);
-    }
+
     
 	@FXML
 	public void format(KeyEvent event) {
-		
 	}
 	
 	
@@ -184,13 +152,11 @@ public class MainViewController implements Initializable{
 		}finally {
 			DB.closeConnection();
 		}
-		if( dbConection ) {
-			obsString = empressaController.findAll();
-			
-		}
+
 		strartTable();
-		filteredList = new FilteredList<>(obsString); 		
-		textEmpresa.getEditor().textProperty().addListener(new InputFilter<String>( textEmpresa, filteredList ) );	
+
+		
+		
 		Image image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/Yggdrasilicon.jpg").toString() );
 		logoYgg.setImage(image);
 		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-refresh.png").toString() );
@@ -254,8 +220,6 @@ public class MainViewController implements Initializable{
 	private void beginTimer() {
 		
 		timeline = new Timeline(new KeyFrame(javafx.util.Duration.seconds(10), ev -> {
-			obsString = empressaController.findAll();
-			filteredList = new FilteredList<>(obsString); 
 			if(dbConection) {
 				try {
 					obsListTableFilaEquipamentos = equipamentoController.findAllByLaboratorio(true);
@@ -300,6 +264,5 @@ public class MainViewController implements Initializable{
 	protected void showAlerts(String title, String mensage, String error, AlertType alertType) {
 		Alerts.showAlert( title , mensage, error , alertType);
 	}
-    	
 
 }

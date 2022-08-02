@@ -14,13 +14,13 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="481.0" prefWidth="574.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="651.0" prefWidth="574.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <AnchorPane prefHeight="481.0" prefWidth="574.0">
+      <AnchorPane prefHeight="651.0" prefWidth="574.0">
          <children>
-            <SplitPane dividerPositions="0.38611713665943603" orientation="VERTICAL" prefHeight="481.0" prefWidth="574.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <SplitPane dividerPositions="0.2579034941763727" orientation="VERTICAL" prefHeight="481.0" prefWidth="574.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <items>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="143.0" prefWidth="572.0" style="-fx-background-radius: 20;">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="161.0" prefWidth="572.0" style="-fx-background-radius: 20;">
                      <children>
                         <VBox layoutY="-8.0" prefHeight="156.0" prefWidth="566.0" style="-fx-background-color: #c9c9c9; -fx-background-radius: 10;" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="-8.0">
                            <children>
@@ -100,9 +100,9 @@
                         </VBox>
                      </children>
                   </AnchorPane>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="284.0" prefWidth="572.0">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="486.0" prefWidth="572.0">
                      <children>
-                        <SplitPane dividerPositions="0.7075812274368231" orientation="VERTICAL" prefHeight="279.0" prefWidth="574.0">
+                        <SplitPane dividerPositions="0.3890020366598778" orientation="VERTICAL" prefHeight="493.0" prefWidth="574.0">
                           <items>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="281.0" prefWidth="572.0">
                                  <children>
@@ -117,9 +117,57 @@
                                     </SplitPane>
                                  </children>
                               </AnchorPane>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="83.0" prefWidth="572.0">
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="196.0" prefWidth="572.0">
                                  <children>
-                                    <ToolBar nodeOrientation="LEFT_TO_RIGHT" prefHeight="67.0" prefWidth="572.0" style="-fx-background-color: #696969; -fx-background-radius: 10;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <ToolBar nodeOrientation="LEFT_TO_RIGHT" prefHeight="178.0" prefWidth="572.0" style="-fx-background-color: #696969; -fx-background-radius: 10;">
+                                       <items>
+                                          <VBox alignment="CENTER" prefHeight="200.0" prefWidth="224.0">
+                                             <children>
+                                                <Button fx:id="orcamentoEnviado" alignment="CENTER" mnemonicParsing="false" onAction="#aguardandoAprovacao" prefHeight="53.0" prefWidth="192.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Orçamento enviado,&#10;Aguardando Aprovação" textAlignment="CENTER" visible="false">
+                                                   <font>
+                                                      <Font size="15.0" />
+                                                   </font>
+                                                </Button>
+                                                <Button fx:id="liberado" alignment="CENTER" mnemonicParsing="false" onAction="#liberado" prefHeight="51.0" prefWidth="193.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Liberado, &#10;aquardando Coleta!" textAlignment="CENTER" visible="false">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Button>
+                                                <Button fx:id="naoAprovado" alignment="CENTER" mnemonicParsing="false" onAction="#naoAprovado" prefHeight="52.0" prefWidth="194.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Não Aprovado, &#10;aquardando coleta!" textAlignment="CENTER" visible="false">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Button>
+                                             </children>
+                                          </VBox>
+                                          <VBox alignment="CENTER" prefHeight="200.0" prefWidth="226.0">
+                                             <children>
+                                                <Button fx:id="aprovadoSemOrca" alignment="CENTER" mnemonicParsing="false" onAction="#aguardandoReparo" prefHeight="53.0" prefWidth="191.0" style="-fx-cursor: hand; -fx-background-radius: 10; -fx-background-color: #cdbbbb;" text="Aprovado sem orcamento, &#10;aquardando Reparo!" textAlignment="CENTER" visible="false">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Button>
+                                                <Button fx:id="aprovado" alignment="CENTER" mnemonicParsing="false" onAction="#aguardandoReparo" prefHeight="52.0" prefWidth="191.0" style="-fx-cursor: hand; -fx-background-radius: 10; -fx-background-color: #cdbbbb;" text="Aprovado, &#10;aquardando Reparo!" textAlignment="CENTER" visible="false">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Button>
+                                                <Button fx:id="liberadoSemOrcamento" alignment="CENTER" mnemonicParsing="false" onAction="#liberadoSemOrcamento" prefHeight="56.0" prefWidth="195.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Liberado sem orcamento,&#10; aquardando coleta!" textAlignment="CENTER" visible="false">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Button>
+                                             </children>
+                                             <opaqueInsets>
+                                                <Insets />
+                                             </opaqueInsets>
+                                          </VBox>
+                                       </items>
+                                       <padding>
+                                          <Insets left="50.0" />
+                                       </padding>
+                                    </ToolBar>
+                                    <ToolBar layoutY="190.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="105.0" prefWidth="572.0" style="-fx-background-color: #696969; -fx-background-radius: 10;" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="190.0">
                                        <items>
                                           <Button fx:id="cancelar" mnemonicParsing="false" onAction="#cancelar" prefHeight="45.0" prefWidth="113.0" style="-fx-cursor: hand;" text="FECHAR">
                                              <graphic>

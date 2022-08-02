@@ -126,7 +126,7 @@ public class EquipamentoRepository {
 
 			int i=0;			
 			while ( rs.next() ) {}			
-			while (rs.previous() && i<10) {				
+			while (rs.previous() && i<100) {				
 //					if(rs.getBoolean("fila") == false){
 						i++;
 						list.add(parseEquipamento(rs));

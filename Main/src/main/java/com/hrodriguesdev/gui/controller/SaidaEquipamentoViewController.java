@@ -67,7 +67,29 @@ public class SaidaEquipamentoViewController implements Initializable {
 	protected TextField dataColeta, nomeColetor;
 	@FXML
 	protected ComboBox<String> coleta = new ComboBox<>();	
-	public static ObservableList<String> obsString = FXCollections.observableArrayList();
+	private ObservableList<String> obsString = FXCollections.observableArrayList();	
+	
+	private FilteredList<String> filteredList;
+	private InputFilter<String> inputFilter;
+		
+	public void addListener() {
+		obsString =  MainViewController.empressaController.findAll();
+		filteredList = new FilteredList<>(obsString);  
+		inputFilter = new InputFilter<String>( coleta, filteredList );
+		coleta.getEditor().textProperty().addListener(inputFilter);	
+	}
+	
+	private void removeListener() {
+		coleta.getEditor().textProperty().removeListener(inputFilter);
+		coleta.setValue("");
+	}
+	
+	@FXML
+	protected void addEmpressa(ActionEvent e) throws IOException {
+		removeListener();
+		NewView.getNewView("Adcionar Empressa", "newEmpressa", new EmpressaInsert(this) );
+		
+	}
 	
 	@FXML
 	protected void gerarPDF(ActionEvent event) {
@@ -91,9 +113,9 @@ public class SaidaEquipamentoViewController implements Initializable {
 	@FXML
 	protected void salvar(ActionEvent event) {
 		getColetor();
-		updateEquipamento();
+		
 		try {
-			
+			updateEquipamento();
 			if( equipamentoController.updated(equipamento) ) {
 				Stage stage = (Stage) salvar.getScene().getWindow();
 				stage.close();
@@ -101,22 +123,26 @@ public class SaidaEquipamentoViewController implements Initializable {
 			}else {
 				error( "SQL Exeption " ,"Error ao Salvar, id não teve retorno");		
 				return;
+				
 			}
 			
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
 			erro.setText("ERRO");
 			
-		}
+		}catch(NullPointerException e) {
+			e.printStackTrace();
+			error( "Null Pointer " ,"Null Pointer Exeption");	
+			
+		}		
 		AlfaPirometrosApplication.viewController.refreshTable();;
 		
 	}
 
+	protected void updateEquipamento() throws NullPointerException{
 
-	protected void updateEquipamento() {
-		try {
-			equipamento.setDataSaida( dataColeta.getText() );
-			switch ( equipamento.getStatus() ) {
+		equipamento.setDataSaida( dataColeta.getText() );
+		switch ( equipamento.getStatus() ) {
 			case 2:
 				equipamento.setStatus( 12 );
 				equipamento.setLaboratorio(true);
@@ -129,13 +155,10 @@ public class SaidaEquipamentoViewController implements Initializable {
 				equipamento.setLaboratorio(false);
 				equipamento.setStatus( 7 );
 				break;
-			}
-		}catch(NullPointerException e) {
-			e.printStackTrace();
-			error( "Null Pointer " ,"Null Pointer Exeption");			
+				
 		}
+		
 	}
-
 
 	protected Coletor getColetor() {
 		Coletor coletor = new Coletor();
@@ -180,21 +203,9 @@ public class SaidaEquipamentoViewController implements Initializable {
 	
 	
 	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		
-		
-		obsString = empressaController.findAll();
-		FilteredList<String> filteredList = new FilteredList<>(obsString);  
-		coleta.getEditor().textProperty().addListener(new InputFilter<String>( coleta, filteredList ) );		
-	
-		Image image =  new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-adicionar.png").toString() );
-		salvarImg.setImage(image);
-		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-excluir.png").toString() );
-		cancelarImg.setImage(image);
-		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-adicionar.png").toString() );
-		addEmpressaImg.setImage(image);
-		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-pdf.png").toString() );
-		pdf.setImage(image);
+	public void initialize(URL location, ResourceBundle resources) {	
+		addListener();
+		imageInit();
 		
 		nomeEmpressa.setText(equipamento.getEmpressaName());
 	    data.setText(equipamento.getDataChegada());
@@ -204,16 +215,17 @@ public class SaidaEquipamentoViewController implements Initializable {
 		pat.setText(equipamento.getPat());
 		dataColeta.setText(Format.formataDateTimeString.format(new Date(System.currentTimeMillis() ) ) );
 	    
-	    
 	}
 	
-	@FXML
-	protected void addEmpressa(ActionEvent e) throws IOException {
-		NewView.getNewView("Adcionar Empressa", "newEmpressa", new EmpressaInsert() );
-		obsString = empressaController.findAll();
-		FilteredList<String> filteredList = new FilteredList<>(obsString);  
-		coleta.getEditor().textProperty().addListener(new InputFilter<String>( coleta, filteredList ) );
-		
+	protected void imageInit() {
+		Image image =  new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-adicionar.png").toString() );
+		salvarImg.setImage(image);
+		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-excluir.png").toString() );
+		cancelarImg.setImage(image);
+		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-adicionar.png").toString() );
+		addEmpressaImg.setImage(image);
+		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-pdf.png").toString() );
+		pdf.setImage(image);
 	}
 
 }

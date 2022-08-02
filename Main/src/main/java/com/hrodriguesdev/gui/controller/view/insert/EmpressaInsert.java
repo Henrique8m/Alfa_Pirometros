@@ -7,7 +7,7 @@ import com.hrodriguesdev.AlfaPirometrosApplication;
 import com.hrodriguesdev.controller.EmpressaController;
 import com.hrodriguesdev.entities.Empressa;
 import com.hrodriguesdev.gui.alert.Alerts;
-import com.hrodriguesdev.gui.controller.EquipamentoViewController;
+import com.hrodriguesdev.gui.controller.SaidaEquipamentoViewController;
 import com.hrodriguesdev.gui.controller.view.MainViewController;
 import com.hrodriguesdev.utilitary.Format;
 
@@ -25,6 +25,7 @@ import javafx.stage.Stage;
 
 public class EmpressaInsert implements Initializable {
 	private EmpressaController empressaController = MainViewController.empressaController;
+	private SaidaEquipamentoViewController saidaView;
 	
 	@FXML
 	private ImageView cancelarImg, salvarImg;
@@ -35,6 +36,11 @@ public class EmpressaInsert implements Initializable {
 	@FXML
 	private Button salvar, cancelar;
 	
+	public EmpressaInsert(SaidaEquipamentoViewController saidaView) {
+		this.saidaView = saidaView;
+	}
+	
+	public EmpressaInsert() {}
 	
 	@FXML
 	public void salvar(ActionEvent event) {
@@ -64,6 +70,7 @@ public class EmpressaInsert implements Initializable {
 				return;
 			}else {
 				Stage stage = (Stage) cancelar.getScene().getWindow(); 
+				listner();
 				stage.close();
 			}
 			
@@ -72,14 +79,23 @@ public class EmpressaInsert implements Initializable {
 			erro.setText("ERRO");
 			
 		}
-		EquipamentoViewController.obsString.add( empressa.getName() );
+		
 		
 	}	
+	
+	private void listner() {
+		if(saidaView!= null) {
+			saidaView.addListener();
+			saidaView = null;
+		}					
+		else MainViewController.equipamentoInsert.addListener();
+	}
 	
 	@FXML
 	public void cancelar(ActionEvent event) {
 		try {
 			Stage stage = (Stage) cancelar.getScene().getWindow(); 
+			listner();
 			stage.close();
 		} catch (NumberFormatException e) {
 			e.printStackTrace();

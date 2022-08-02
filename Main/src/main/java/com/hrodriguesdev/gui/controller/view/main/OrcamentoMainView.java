@@ -6,7 +6,6 @@ import java.sql.SQLException;
 import com.hrodriguesdev.controller.OrcamentoController;
 import com.hrodriguesdev.gui.alert.Alerts;
 import com.hrodriguesdev.gui.controller.OrcamentoViewController;
-import com.hrodriguesdev.gui.controller.view.table.TableViewController;
 import com.hrodriguesdev.gui.controller.view.updatede.OrcamentoUpdatede;
 import com.hrodriguesdev.utilitary.NewView;
 
@@ -15,12 +14,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.KeyEvent;
 
-public class OrcamentoMainViewController extends TableViewController{
+public class OrcamentoMainView extends TableMainView{
 	
 	public static OrcamentoController controller = new OrcamentoController();
 	
     @FXML
-    private void openOrcamento(ActionEvent e) throws IOException {
+    protected void openOrcamento(ActionEvent e) throws IOException {
     	if(tableFilaEquipamentos.getSelectionModel().getSelectedItem() != null) {
     		equipamento = tableFilaEquipamentos.getSelectionModel().getSelectedItem();
     		try {
