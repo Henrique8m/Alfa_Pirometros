@@ -3,9 +3,7 @@ package com.hrodriguesdev.gui.controller.view;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.List;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 
 import com.hrodriguesdev.AlfaPirometrosApplication;
 import com.hrodriguesdev.controller.ColetorController;
@@ -222,31 +220,37 @@ public class MainViewController implements Initializable{
 		timeline = new Timeline(new KeyFrame(javafx.util.Duration.seconds(10), ev -> {
 			if(dbConection) {
 				try {
-					obsListTableFilaEquipamentos = equipamentoController.findAllByLaboratorio(true);
-					if(obsListTableFilaEquipamentos.size() > oldObs.size() ) {						
-						List<Equipamento> list1 = obsListTableFilaEquipamentos.stream().filter(item1 -> {
-							return oldObs.stream().filter(item2 -> item2.equals(item1) ).findAny().isPresent();
-						}).collect( Collectors.toList() );
-						obsListTableFilaEquipamentos.addAll(list1);
-						
-//					        List<Integer> interseccao = lista1.stream().filter(item1 -> {
-//					            return lista2.stream().filter(item2 -> new Integer(item2).equals(item1)).findAny().isPresent();
-//					        }).collect(Collectors.toList());
-
-//						showAlerts("Updatede Lista", "", "Equipamento da empressa " + obsListTableFilaEquipamentos.get(obsListTableFilaEquipamentos.size()-1).getEmpressaName() + " foi adcionado equipamento na lista ", AlertType.INFORMATION);
-						oldObs = obsListTableFilaEquipamentos;
-						return;
-					}
-					if(obsListTableFilaEquipamentos.size() < oldObs.size() ) {
-						oldObs = obsListTableFilaEquipamentos;
-						return;
-					}
-					for(int i =0; i< oldObs.size(); i++) {
-						if( obsListTableFilaEquipamentos.get(i).getStatus() != oldObs.get(i).getStatus() ) {
-//							showAlerts("Updatede Lista", "", "Equipamento da empressa " + obsListTableFilaEquipamentos.get(obsListTableFilaEquipamentos.size()-1).getEmpressaName() + " teve o status alterado ", AlertType.ERROR);
-						}
-					}
-					oldObs = obsListTableFilaEquipamentos;
+				obsListTableFilaEquipamentos = equipamentoController.findAllByLaboratorio(true);
+	    		oldObs = obsListTableFilaEquipamentos;
+				tableFilaEquipamentos.setItems(obsListTableFilaEquipamentos);			
+	    		dbConection = true;  
+	    		tableFilaEquipamentos.refresh();
+	    		
+//					obsListTableFilaEquipamentos = equipamentoController.findAllByLaboratorio(true);
+//					if(obsListTableFilaEquipamentos.size() > oldObs.size() ) {						
+//						List<Equipamento> list1 = obsListTableFilaEquipamentos.stream().filter(item1 -> {
+//							return oldObs.stream().filter(item2 -> item2.equals(item1) ).findAny().isPresent();
+//						}).collect( Collectors.toList() );
+//						obsListTableFilaEquipamentos.addAll(list1);
+//						
+////					        List<Integer> interseccao = lista1.stream().filter(item1 -> {
+////					            return lista2.stream().filter(item2 -> new Integer(item2).equals(item1)).findAny().isPresent();
+////					        }).collect(Collectors.toList());
+//
+////						showAlerts("Updatede Lista", "", "Equipamento da empressa " + obsListTableFilaEquipamentos.get(obsListTableFilaEquipamentos.size()-1).getEmpressaName() + " foi adcionado equipamento na lista ", AlertType.INFORMATION);
+//						oldObs = obsListTableFilaEquipamentos;
+//						return;
+//					}
+//					if(obsListTableFilaEquipamentos.size() < oldObs.size() ) {
+//						oldObs = obsListTableFilaEquipamentos;
+//						return;
+//					}
+//					for(int i =0; i< oldObs.size(); i++) {
+//						if( obsListTableFilaEquipamentos.get(i).getStatus() != oldObs.get(i).getStatus() ) {
+////							showAlerts("Updatede Lista", "", "Equipamento da empressa " + obsListTableFilaEquipamentos.get(obsListTableFilaEquipamentos.size()-1).getEmpressaName() + " teve o status alterado ", AlertType.ERROR);
+//						}
+//					}
+//					oldObs = obsListTableFilaEquipamentos;
 				} catch (DbException | SQLException e) {
 //					showAlerts("begin Timer ", "", e.getMessage(), AlertType.INFORMATION );
 				}			
