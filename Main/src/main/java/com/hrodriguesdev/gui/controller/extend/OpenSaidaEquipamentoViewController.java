@@ -1,4 +1,4 @@
-package com.hrodriguesdev.gui.controller;
+package com.hrodriguesdev.gui.controller.extend;
 
 import java.net.URL;
 import java.util.Date;
@@ -6,7 +6,8 @@ import java.util.ResourceBundle;
 
 import com.hrodriguesdev.entities.Coletor;
 import com.hrodriguesdev.entities.Empressa;
-import com.hrodriguesdev.gui.controller.view.MainViewController;
+import com.hrodriguesdev.gui.controller.MainViewController;
+import com.hrodriguesdev.gui.controller.SaidaEquipamentoViewController;
 import com.hrodriguesdev.relatorio.GeneratorPDF;
 import com.hrodriguesdev.utilitary.Format;
 

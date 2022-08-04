@@ -1,4 +1,4 @@
-package com.hrodriguesdev.gui.controller.view;
+package com.hrodriguesdev.gui.controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;

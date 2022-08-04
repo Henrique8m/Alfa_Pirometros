@@ -1,4 +1,4 @@
-package com.hrodriguesdev.gui.controller.view;
+package com.hrodriguesdev.gui.controller;
 
 import java.io.IOException;
 import java.net.URL;

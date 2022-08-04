@@ -3,7 +3,7 @@ package com.hrodriguesdev.gui.controller.view.main;
 import java.sql.SQLException;
 
 import com.hrodriguesdev.dao.db.DbException;
-import com.hrodriguesdev.gui.controller.view.MainViewController;
+import com.hrodriguesdev.gui.controller.MainViewController;
 
 public class TableMainView extends MainViewController{
 	

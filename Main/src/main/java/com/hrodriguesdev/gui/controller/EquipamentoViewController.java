@@ -11,7 +11,6 @@ import com.hrodriguesdev.controller.OrcamentoController;
 import com.hrodriguesdev.dao.db.DbException;
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.gui.alert.Alerts;
-import com.hrodriguesdev.gui.controller.view.MainViewController;
 import com.hrodriguesdev.gui.controller.view.insert.EmpressaInsert;
 import com.hrodriguesdev.utilitary.Format;
 import com.hrodriguesdev.utilitary.InputFilter;

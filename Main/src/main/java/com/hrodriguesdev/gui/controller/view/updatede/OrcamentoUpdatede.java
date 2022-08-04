@@ -7,7 +7,7 @@ import com.hrodriguesdev.AlfaPirometrosApplication;
 import com.hrodriguesdev.controller.OrcamentoController;
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.entities.Orcamento;
-import com.hrodriguesdev.gui.controller.view.MainViewController;
+import com.hrodriguesdev.gui.controller.MainViewController;
 import com.hrodriguesdev.utilitary.InputFilter;
 
 import javafx.collections.FXCollections;

@@ -7,7 +7,7 @@ import com.hrodriguesdev.AlfaPirometrosApplication;
 import com.hrodriguesdev.dao.db.DbException;
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.gui.controller.EquipamentoViewController;
-import com.hrodriguesdev.gui.controller.view.MainViewController;
+import com.hrodriguesdev.gui.controller.MainViewController;
 import com.hrodriguesdev.utilitary.Format;
 import com.hrodriguesdev.utilitary.InputFilter;
 

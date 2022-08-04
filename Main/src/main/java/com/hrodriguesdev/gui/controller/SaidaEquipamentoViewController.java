@@ -15,7 +15,6 @@ import com.hrodriguesdev.entities.Coletor;
 import com.hrodriguesdev.entities.Empressa;
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.gui.alert.Alerts;
-import com.hrodriguesdev.gui.controller.view.MainViewController;
 import com.hrodriguesdev.gui.controller.view.insert.EmpressaInsert;
 import com.hrodriguesdev.relatorio.GeneratorPDF;
 import com.hrodriguesdev.utilitary.Format;
