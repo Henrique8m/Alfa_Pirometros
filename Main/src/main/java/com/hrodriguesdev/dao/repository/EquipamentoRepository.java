@@ -27,7 +27,7 @@ public class EquipamentoRepository {
 			
 			while (rs.next())  
 				if( rs.getBoolean("laboratorio")== true)
-					list.add(parseEquipamento(rs));	
+					list.add(Equipamento.parseEquipamento(rs));	
 			
 		}catch(DbException | SQLException e) {
 			e.printStackTrace();
@@ -51,7 +51,7 @@ public class EquipamentoRepository {
 			while (rs.next())  
 				if( rs.getString(2)!=null )
 					if( rs.getString(2).equalsIgnoreCase(empressaName) )
-						list.add( parseEquipamento( rs ) );	
+						list.add( Equipamento.parseEquipamento( rs ) );	
 		
 		} catch (SQLException e) {			
 			e.printStackTrace();
@@ -76,7 +76,7 @@ public class EquipamentoRepository {
 			while (rs.next())  
 				if( rs.getString(7)!=null )
 					if( rs.getString(7).equalsIgnoreCase(ns) )
-						list.add( parseEquipamento( rs ) );	
+						list.add( Equipamento.parseEquipamento( rs ) );	
 		
 		} catch (SQLException e) {			
 			e.printStackTrace();
@@ -101,7 +101,7 @@ public class EquipamentoRepository {
 			while (rs.next())  
 				if( rs.getString(8)!=null )
 					if( rs.getString(8).equalsIgnoreCase(pat) )
-						list.add( parseEquipamento( rs ) );	
+						list.add( Equipamento.parseEquipamento( rs ) );	
 		
 		} catch (SQLException e) {			
 			e.printStackTrace();
@@ -129,7 +129,7 @@ public class EquipamentoRepository {
 			while (rs.previous() && i<100) {				
 //					if(rs.getBoolean("fila") == false){
 						i++;
-						list.add(parseEquipamento(rs));
+						list.add(Equipamento.parseEquipamento(rs));
 //					}				
 				}	
 		}catch (SQLException e) {	
@@ -154,7 +154,7 @@ public class EquipamentoRepository {
 			while (rs.next())  
 				if( rs.getString(7)!=null )
 					if( rs.getString("ns").equalsIgnoreCase(ns) )
-						equipamento = parseEquipamento( rs );	
+						equipamento = Equipamento.parseEquipamento( rs );	
 		
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -393,34 +393,6 @@ public class EquipamentoRepository {
 		}
 		return ok;
 	}
-
-	//Vai para a Entidade na proxima atualização
-	public Equipamento parseEquipamento(ResultSet rs) {
-		Equipamento obj = new Equipamento();
-		try {
-			obj.setOrcamento_id( rs.getLong("orcamento_id"));
-			obj.setId( rs.getLong("Id") );	
-			obj.setEmpressaName( rs.getString("empressaName") );				
-			obj.setModelo( rs.getString("modelo") );  
-			obj.setStatus( rs.getInt("status") );
-			obj.setDataChegada( rs.getString("dataChegada") );
-			obj.setDataSaida( rs.getString("dataSaida") );
-			obj.setNs(rs.getString("ns"));
-			obj.setPat(rs.getString("pat"));
-			obj.setUltimaCalib(rs.getString("ultimaCalib"));	
-			obj.setCertificado(rs.getString("certificado") );
-			obj.setValor( rs.getDouble("valor") );	
-			obj.setEmpressa( rs.getLong( "empresa_id" ) );
-			obj.setColetor_id( rs.getLong( "coletor_id" ) );
-			obj.setRelatorio( rs.getString( "relatorio" ));
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return null;
-		}
-		return obj;		
-	}
-
 
 
 }

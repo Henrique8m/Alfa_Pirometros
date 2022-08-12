@@ -2,6 +2,8 @@ package com.hrodriguesdev.entities;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 //@Entity
 //@Table(name = "tb_equipamento")
@@ -192,65 +194,67 @@ public class Equipamento implements Serializable {
 		return dataCal;
 	}
 
-
 	public void setDataCal(String dataCal) {
 		this.dataCal = dataCal;
 	}
-
-
-
 
 	public Long getColetor_id() {
 		return coletor_id;
 	}
 
-
-
-
 	public void setColetor_id(Long coletor_id) {
 		this.coletor_id = coletor_id;
 	}
-
-
-
 
 	public String getRelatorio() {
 		return relatorio;
 	}
 
-
-
-
 	public void setRelatorio(String relatorio) {
 		this.relatorio = relatorio;
 	}
-
-
-
 
 	public Date getDateChegada() {
 		return dateChegada;
 	}
 
-
-
-
 	public void setDateChegada(Date dateChegada) {
 		this.dateChegada = dateChegada;
 	}
-
-
-
 
 	public Date getDateSaida() {
 		return dateSaida;
 	}
 
-
-
-
 	public void setDateSaida(Date dateSaida) {
 		this.dateSaida = dateSaida;
 	}	
+	
+	public static Equipamento parseEquipamento(ResultSet rs) {
+		Equipamento obj = new Equipamento();
+		try {
+			obj.setOrcamento_id( rs.getLong("orcamento_id"));
+			obj.setId( rs.getLong("Id") );	
+			obj.setEmpressaName( rs.getString("empressaName") );				
+			obj.setModelo( rs.getString("modelo") );  
+			obj.setStatus( rs.getInt("status") );
+			obj.setDataChegada( rs.getString("dataChegada") );
+			obj.setDataSaida( rs.getString("dataSaida") );
+			obj.setNs(rs.getString("ns"));
+			obj.setPat(rs.getString("pat"));
+			obj.setUltimaCalib(rs.getString("ultimaCalib"));	
+			obj.setCertificado(rs.getString("certificado") );
+			obj.setValor( rs.getDouble("valor") );	
+			obj.setEmpressa( rs.getLong( "empresa_id" ) );
+			obj.setColetor_id( rs.getLong( "coletor_id" ) );
+			obj.setRelatorio( rs.getString( "relatorio" ));
+			obj.setDateChegada(rs.getDate("dateChegada"));
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+		return obj;		
+	}
 	
 }

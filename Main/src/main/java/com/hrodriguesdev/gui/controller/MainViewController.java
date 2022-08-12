@@ -65,6 +65,8 @@ public class MainViewController implements Initializable{
 	@FXML
 	private TableColumn<Equipamento, String> dataChegada;
 	@FXML
+	private TableColumn<Equipamento, Date> dateChegada;
+	@FXML
 	private TableColumn<Equipamento, String> modelo;
 	@FXML
 	private TableColumn<Equipamento, String> ns;
@@ -153,14 +155,6 @@ public class MainViewController implements Initializable{
 		}
 
 		strartTable();
-
-		Date date = new Date(System.currentTimeMillis());
-		System.out.println(date);
-		date = new Date(2022,8,12);
-		
-//		dade - 1900
-		
-		System.out.println(date);
 		
 		Image image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/Yggdrasilicon.jpg").toString() );
 		logoYgg.setImage(image);
@@ -202,7 +196,14 @@ public class MainViewController implements Initializable{
 	    
 	    empressa.setCellValueFactory(new PropertyValueFactory<Equipamento, String>("empressaName"));
 	    status.setCellValueFactory(new PropertyValueFactory<Equipamento, String>("statusStr"));
+	    
 		dataChegada.setCellValueFactory( new PropertyValueFactory<Equipamento, String>("dataChegada"));
+		
+		dateChegada.setCellValueFactory( new PropertyValueFactory<Equipamento, Date>("dateChegada"));
+		
+		Date data = new Date(System.currentTimeMillis());
+		
+		
 		modelo.setCellValueFactory(new PropertyValueFactory<Equipamento, String>("modelo"));
 		ns.setCellValueFactory(new PropertyValueFactory<Equipamento, String>("ns"));
 		pat.setCellValueFactory(new PropertyValueFactory<Equipamento, String>("pat"));

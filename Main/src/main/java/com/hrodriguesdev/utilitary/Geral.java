@@ -12,7 +12,6 @@ public class Geral {
 		month -= 1;
 		int year = Integer.parseInt(split[2]);
 		year -= 1900;
-		
 		return new Date(year, month, day);
 	}
 

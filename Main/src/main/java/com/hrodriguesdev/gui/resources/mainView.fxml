@@ -41,6 +41,7 @@
                                              <columns>
                                               <TableColumn fx:id="empressa" editable="false" minWidth="160.0" prefWidth="350.0" text="Empresa" />
                                                 <TableColumn fx:id="status" editable="false" minWidth="120.0" prefWidth="300.0" text="Status" />
+                                                <TableColumn fx:id="dateChegada" prefWidth="75.0" text="Column X" />
                                                 <TableColumn fx:id="dataChegada" editable="false" minWidth="40.0" prefWidth="150.0" text="Data Chegada" />
                                                 <TableColumn fx:id="modelo" editable="false" minWidth="40.0" prefWidth="150.0" text="Modelo" />
                                                 <TableColumn fx:id="ns" editable="false" minWidth="40.0" prefWidth="150.0" text="Numero de Serie" />
