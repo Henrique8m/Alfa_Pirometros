@@ -1,6 +1,7 @@
 package com.hrodriguesdev.entities;
 
 import java.io.Serializable;
+import java.sql.Date;
 
 //@Entity
 //@Table(name = "tb_equipamento")
@@ -29,6 +30,10 @@ public class Equipamento implements Serializable {
 	private String statusStr;
 	
 	private String relatorio;
+	
+	private Date dateChegada;
+	private Date dateSaida;
+	
 	
 
 	//@OneToOne(mappedBy = "motorista", fetch = FetchType.EAGER)
@@ -218,6 +223,34 @@ public class Equipamento implements Serializable {
 
 	public void setRelatorio(String relatorio) {
 		this.relatorio = relatorio;
+	}
+
+
+
+
+	public Date getDateChegada() {
+		return dateChegada;
+	}
+
+
+
+
+	public void setDateChegada(Date dateChegada) {
+		this.dateChegada = dateChegada;
+	}
+
+
+
+
+	public Date getDateSaida() {
+		return dateSaida;
+	}
+
+
+
+
+	public void setDateSaida(Date dateSaida) {
+		this.dateSaida = dateSaida;
 	}	
 	
 }

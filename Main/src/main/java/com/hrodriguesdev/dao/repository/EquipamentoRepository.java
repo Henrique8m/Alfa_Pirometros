@@ -174,9 +174,9 @@ public class EquipamentoRepository {
 			conn = DB.getConnection();
 			conn.setAutoCommit(false);
 			pst = conn.prepareStatement("INSERT INTO tb_equipamento "
-					+ "(empressaName, modelo, status, dataChegada, ns, pat, ultimaCalib, laboratorio, empresa_id) "
+					+ "(empressaName, modelo, status, dataChegada, ns, pat, ultimaCalib, laboratorio, empresa_id, dateChegada) "
 					+ "VALUES "
-					+ "(?, ?, ?, ?, ?, ?, ?, ?, ?)",
+					+ "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
 					Statement.RETURN_GENERATED_KEYS);			
 			
 			pst.setString(1, equipamento.getEmpressaName());
@@ -188,6 +188,7 @@ public class EquipamentoRepository {
 			pst.setString(7, equipamento.getUltimaCalib());
 			pst.setBoolean(8, true);	
 			pst.setLong(9, equipamento.getEmpressa());
+			pst.setDate(10, equipamento.getDateChegada());
 			
 			int rowsAffected = pst.executeUpdate();
 			conn.commit();

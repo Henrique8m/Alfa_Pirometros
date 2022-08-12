@@ -13,6 +13,7 @@ import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.gui.alert.Alerts;
 import com.hrodriguesdev.gui.controller.view.insert.EmpressaInsert;
 import com.hrodriguesdev.utilitary.Format;
+import com.hrodriguesdev.utilitary.Geral;
 import com.hrodriguesdev.utilitary.InputFilter;
 import com.hrodriguesdev.utilitary.NewView;
 
@@ -96,6 +97,9 @@ public class EquipamentoViewController {
 			obj.setPat( pat.getText() );
 			obj.setUltimaCalib( ultimaCal.getText() );	
 			obj.setLaboratorio(true);
+			if (data.getText().length() == 10 ) {
+				obj.setDateChegada( Geral.dateParceString( data.getText() ) );
+			}
 			
 		}catch(NullPointerException e) {
 			e.printStackTrace();

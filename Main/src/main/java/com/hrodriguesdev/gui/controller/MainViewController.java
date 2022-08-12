@@ -2,6 +2,7 @@ package com.hrodriguesdev.gui.controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
@@ -153,7 +154,13 @@ public class MainViewController implements Initializable{
 
 		strartTable();
 
+		Date date = new Date(System.currentTimeMillis());
+		System.out.println(date);
+		date = new Date(2022,8,12);
 		
+//		dade - 1900
+		
+		System.out.println(date);
 		
 		Image image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/Yggdrasilicon.jpg").toString() );
 		logoYgg.setImage(image);
