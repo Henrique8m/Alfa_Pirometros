@@ -421,6 +421,118 @@
                   <ImageView fx:id="buscar" fitHeight="22.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true" />
                </graphic>
             </Tab>
+            <Tab text="Certificados">
+              <content>
+                <AnchorPane minHeight="300.0" minWidth="400.0" prefHeight="700.0" prefWidth="1250.0">
+                     <children>
+                        <HBox prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="500.0" minWidth="500.0" prefHeight="1031.0" prefWidth="726.0" style="-fx-background-color: #c9c9c9; -fx-background-radius: 15;">
+                                 <children>
+                                    <HBox alignment="CENTER" minWidth="500.0" prefHeight="36.0" prefWidth="750.0">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="BUSCA DE EQUIPAMENTOS / EMPRESA " textAlignment="CENTER" wrappingWidth="403.27734375">
+                                             <font>
+                                                <Font name="Comic Sans MS" size="20.0" />
+                                             </font>
+                                          </Text>
+                                       </children>
+                                    </HBox>
+                                    <HBox minHeight="50.0" minWidth="500.0" prefHeight="50.0" prefWidth="726.0">
+                                       <children>
+                                          <VBox minWidth="225.0" prefHeight="67.0" prefWidth="300.0" style="-fx-background-color: #c9c9c9;">
+                                             <children>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Empresa" wrappingWidth="154.13671875" />
+                                                <ComboBox fx:id="textEmpresaCertificado" editable="true" minWidth="225.0" onKeyPressed="#enter" prefHeight="25.0" prefWidth="300.0" />
+                                             </children>
+                                          </VBox>
+                                          <VBox minWidth="100.0" prefHeight="67.0" prefWidth="170.0">
+                                             <children>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ns: Equipamento" wrappingWidth="110.13671875" />
+                                                <TextField fx:id="textNsEquipCertificado" minWidth="95.0" onKeyReleased="#format" prefHeight="25.0" prefWidth="170.0" />
+                                             </children>
+                                             <HBox.margin>
+                                                <Insets left="20.0" />
+                                             </HBox.margin>
+                                          </VBox>
+                                          <VBox minWidth="100.0" prefHeight="67.0" prefWidth="170.0">
+                                             <children>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Pat Equipamento" wrappingWidth="91.13671875" />
+                                                <TextField fx:id="textPatEquipCertificado" minWidth="86.0" onKeyReleased="#format" prefHeight="25.0" prefWidth="170.0" />
+                                             </children>
+                                             <opaqueInsets>
+                                                <Insets />
+                                             </opaqueInsets>
+                                             <HBox.margin>
+                                                <Insets left="20.0" right="10.0" />
+                                             </HBox.margin>
+                                          </VBox>
+                                       </children>
+                                       <opaqueInsets>
+                                          <Insets />
+                                       </opaqueInsets>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                       <padding>
+                                          <Insets left="20.0" />
+                                       </padding>
+                                    </HBox>
+                                    <HBox alignment="CENTER" minHeight="50.0" minWidth="500.0" prefHeight="50.0" prefWidth="726.0">
+                                       <children>
+                                          <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="135.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Buscar">
+                                             <graphic>
+                                                <ImageView fx:id="buscar11" fitHeight="23.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true" />
+                                             </graphic>
+                                             <HBox.margin>
+                                                <Insets right="30.0" />
+                                             </HBox.margin>
+                                          </Button>
+                                          <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="207.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Gerar Relatorio PDF">
+                                             <graphic>
+                                                <ImageView fx:id="pdf1" fitHeight="23.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true" />
+                                             </graphic>
+                                             <padding>
+                                                <Insets left="10.0" />
+                                             </padding>
+                                             <HBox.margin>
+                                                <Insets left="30.0" />
+                                             </HBox.margin>
+                                          </Button>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="10.0" />
+                                       </padding>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                    </HBox>
+                                    <TableView fx:id="tableCertificados" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="300.0" minWidth="500.0" onKeyPressed="#updatedEquipamento" onMousePressed="#click" prefHeight="924.0" prefWidth="750.0" style="-fx-background-radius: 10;">
+                                       <columns>
+                                          <TableColumn fx:id="empressaFind1" maxWidth="200.0" minWidth="150.0" prefWidth="200.0" text="Empresa" />
+                                          <TableColumn fx:id="nsFind1" maxWidth="137.5" minWidth="87.5" prefWidth="137.5" text="Ns" />
+                                          <TableColumn fx:id="patFind1" maxWidth="137.5" minWidth="87.5" prefWidth="137.5" text="Pat" />
+                                          <TableColumn fx:id="dateChegadaFind1" maxWidth="137.5" minWidth="87.5" prefWidth="137.5" text="Data Chegada" />
+                                          <TableColumn fx:id="dataSaidaFind1" maxWidth="137.5" minWidth="87.5" prefWidth="137.5" text="Data Saída" />
+                                       </columns>
+                                       <opaqueInsets>
+                                          <Insets />
+                                       </opaqueInsets>
+                                       <columnResizePolicy>
+                                          <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                       </columnResizePolicy>
+                                    </TableView>
+                                 </children>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                              </VBox>
+                           </children>
+                        </HBox>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
         </tabs>
       </TabPane>
    </children>

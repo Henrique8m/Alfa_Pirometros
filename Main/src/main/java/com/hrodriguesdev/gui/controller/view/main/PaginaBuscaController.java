@@ -92,7 +92,7 @@ public class PaginaBuscaController extends EquipamentoMainView implements Initia
 				date.setDate(day);
 				dataSaidaClick.setText( Format.formatData.format(date) );
 			}
-			if( coletor!= null) {
+			if( equipamento.getColetor_id() != null && equipamento.getColetor_id() != 0) {
 				empressaColetaClick.setText(coletor.getEmpressaName() );
 				Date date = new Date(coletor.getDate().getTime() );
 				int day = date.getDate() + 1;

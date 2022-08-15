@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import com.hrodriguesdev.dao.db.DbException;
 import com.hrodriguesdev.gui.controller.MainViewController;
 
-public class TableMainView extends MainViewController{
+public class TableMainView extends CertificadoPaginaController{
 	
 
     public void refreshTable() {
