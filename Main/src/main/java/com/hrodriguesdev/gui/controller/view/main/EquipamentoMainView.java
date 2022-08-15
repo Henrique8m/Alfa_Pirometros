@@ -32,6 +32,8 @@ public class EquipamentoMainView extends LogoutMainView {
 	@FXML
 	private void clear(ActionEvent e) {
 		filtro.setText("");
+		FILTER = true;
+		refreshTable();
 	}
     
     @FXML
@@ -46,7 +48,7 @@ public class EquipamentoMainView extends LogoutMainView {
 		if(keyEvent.getTarget() == filtro) {
 			if(keyEvent.getCode().toString() == "ENTER") {
 				clear(new ActionEvent());
-				FILTER = true;
+				
 		    }else if( filtro.getText() != "" ){
 		    	FILTER = false;
 			
