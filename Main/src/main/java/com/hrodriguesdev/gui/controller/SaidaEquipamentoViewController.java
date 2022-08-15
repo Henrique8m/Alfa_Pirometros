@@ -141,6 +141,7 @@ public class SaidaEquipamentoViewController implements Initializable {
 	protected void updateEquipamento() throws NullPointerException{
 
 		equipamento.setDataSaida( dataColeta.getText() );
+		equipamento.setDateSaida(new java.sql.Date(System.currentTimeMillis()));
 		switch ( equipamento.getStatus() ) {
 			case 2:
 				equipamento.setStatus( 12 );
@@ -175,6 +176,7 @@ public class SaidaEquipamentoViewController implements Initializable {
 			coletor.setNomeColetor(nomeColetor.getText());
 			coletor.setDataHoraColeta( dataColeta.getText() );
 			coletor.setDate(new java.sql.Date(System.currentTimeMillis()));
+			coletor.setHoraColeta( Integer.parseInt( Format.formataTimeInt.format(new Date(System.currentTimeMillis() )  ) ) );
 			equipamento.setColetor_id( coletorController.add(coletor) );
 			
 		}catch(DbException e2) {

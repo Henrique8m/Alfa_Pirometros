@@ -35,6 +35,7 @@ public class Equipamento implements Serializable {
 	
 	private Date dateChegada;
 	private Date dateSaida;
+	private Date ultimaCalibDate;
 	
 	
 
@@ -250,12 +251,28 @@ public class Equipamento implements Serializable {
 			obj.setRelatorio( rs.getString( "relatorio" ));
 			obj.setDateChegada(rs.getDate("dateChegada"));
 			obj.setDateSaida(rs.getDate("dateSaida"));
+			obj.setUltimaCalibDate(rs.getDate("ultimaCalibDate")) ;
+			
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
 		}
 		return obj;		
+	}
+
+
+
+
+	public Date getUltimaCalibDate() {
+		return ultimaCalibDate;
+	}
+
+
+
+
+	public void setUltimaCalibDate(Date ultimaCalibDate) {
+		this.ultimaCalibDate = ultimaCalibDate ;
 	}
 	
 }

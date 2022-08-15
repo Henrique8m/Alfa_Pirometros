@@ -14,6 +14,7 @@ public class Coletor implements Serializable{
 	private String nomeColetor;
 	private String dataHoraColeta;
 	private Date date;
+	private int horaColeta;
 		
 	public Coletor(){}
 	
@@ -61,11 +62,12 @@ public class Coletor implements Serializable{
 		if(rs != null) {
 			try {
 				coletor.setId( rs.getLong(1) );	
-				coletor.setEmpressaName( rs.getString(2) );
-				coletor.setNomeColetor( rs.getString(3) );
-				coletor.setDataHoraColeta( rs.getString(4) );
-				coletor.setEquipamento_id( rs.getLong(5) );	
-				coletor.setDate(rs.getDate("date"));
+				coletor.setEmpressaName( rs.getString("empressaName") );
+				coletor.setNomeColetor( rs.getString("nomeColetor") );
+				coletor.setDataHoraColeta( rs.getString( "dataHoraColeta" ) );
+				coletor.setEquipamento_id( rs.getLong("equipamento_id") );	
+				coletor.setDate(rs.getDate("dateColeta"));
+				coletor.setHoraColeta(rs.getInt("horaColeta") );
 			
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -83,6 +85,16 @@ public class Coletor implements Serializable{
 
 	public void setDate(Date date) {
 		this.date = date;
+	}
+
+
+	public int getHoraColeta() {
+		return horaColeta;
+	}
+
+
+	public void setHoraColeta(int horaColeta) {
+		this.horaColeta = horaColeta;
 	}
 
 

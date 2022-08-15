@@ -178,7 +178,7 @@ public class MainViewController implements Initializable{
 		pdf.setImage(image);
 		
 		beginTimer();
-//		EquipamentoRepository repo = new EquipamentoRepository();
+//		ColetorRepository repo = new ColetorRepository();
 //		repo.updatedeAllDate();
 	}	 	
 	

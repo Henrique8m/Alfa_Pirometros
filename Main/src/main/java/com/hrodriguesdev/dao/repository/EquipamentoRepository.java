@@ -235,7 +235,7 @@ public class EquipamentoRepository {
 											+ " ns = ? , pat = ? ,"
 											+ " ultimaCalib = ? ,"
 											+ " empresa_id = ?,"
-											+ " dataSaida = ?,"
+											+ " dateSaida = ?,"
 											+ " coletor_id = ?,"
 											+ " laboratorio = ? "											
 											+ " WHERE "
@@ -249,7 +249,7 @@ public class EquipamentoRepository {
 			pst.setString(6, equipamento.getPat());
 			pst.setString(7, equipamento.getUltimaCalib());
 			pst.setLong(8, equipamento.getEmpressa() );				
-			pst.setString(9, equipamento.getDataSaida() );
+			pst.setDate(9, equipamento.getDateSaida() );
 			pst.setLong(10, equipamento.getColetor_id() );
 			pst.setBoolean(11, equipamento.getLaboratorio());
 			pst.setLong( 12, equipamento.getId() );
@@ -340,30 +340,50 @@ public class EquipamentoRepository {
 		}
 
 		try {
-			for(Equipamento equipamento: list) {				
-			if(equipamento.getDataSaida() != null) {
-				pst = conn.prepareStatement("UPDATE tb_equipamento "
-												+ "SET dateChegada = ?" + ", "
-												+ "dateSaida = ?"
-												+ " WHERE "
-												+ "(id = ?)");
-				
-				pst.setDate( 1, Geral.dateParceString(equipamento.getDataChegada() ) );
-				pst.setDate(2, Geral.dateParceString( equipamento.getDataSaida() ) );			
-				pst.setLong( 3, equipamento.getId() );
-			}else {
-				pst = conn.prepareStatement("UPDATE tb_equipamento "
-						+ "SET dateChegada = ?"
-						+ " WHERE "
-						+ "(id = ?)");
-				
-				pst.setDate( 1, Geral.dateParceString(equipamento.getDataChegada() ) );			
-				pst.setLong( 2, equipamento.getId() );
-			}
-
+			for(Equipamento equipamento: list) {
+				if(equipamento.getUltimaCalib() != null && equipamento.getUltimaCalib() != " ") {
+					if(Geral.dateParceString(equipamento.getUltimaCalib() ) != null){
+						
+						pst = conn.prepareStatement("UPDATE tb_equipamento "
+														+ "SET ultimaCalibDate = ?"
+														+ " WHERE "
+														+ "(id = ?)");
+						
+						pst.setDate( 1, Geral.dateParceString(equipamento.getUltimaCalib() ) );
+						pst.setLong( 2, equipamento.getId() );
+						pst.executeUpdate();
+					}		
+					
+				}
+	
 			
-			pst.executeUpdate();
 			}
+		
+//		try {
+//			for(Equipamento equipamento: list) {				
+//			if(equipamento.getDataSaida() != null) {
+//				pst = conn.prepareStatement("UPDATE tb_equipamento "
+//												+ "SET dateChegada = ?" + ", "
+//												+ "dateSaida = ?"
+//												+ " WHERE "
+//												+ "(id = ?)");
+//				
+//				pst.setDate( 1, Geral.dateParceString(equipamento.getDataChegada() ) );
+//				pst.setDate(2, Geral.dateParceString( equipamento.getDataSaida() ) );			
+//				pst.setLong( 3, equipamento.getId() );
+//			}else {
+//				pst = conn.prepareStatement("UPDATE tb_equipamento "
+//						+ "SET dateChegada = ?"
+//						+ " WHERE "
+//						+ "(id = ?)");
+//				
+//				pst.setDate( 1, Geral.dateParceString(equipamento.getDataChegada() ) );			
+//				pst.setLong( 2, equipamento.getId() );
+//			}
+//
+//			
+//			pst.executeUpdate();
+//			}
 		
 		}catch (SQLException e) {
 		System.out.println(e.getMessage());	

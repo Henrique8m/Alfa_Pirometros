@@ -3,12 +3,14 @@ package com.hrodriguesdev.gui.controller.view.main;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 import com.hrodriguesdev.entities.Coletor;
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.entities.Orcamento;
 import com.hrodriguesdev.gui.controller.MainViewController;
+import com.hrodriguesdev.utilitary.Format;
 import com.hrodriguesdev.utilitary.InputFilter;
 
 import javafx.collections.FXCollections;
@@ -49,6 +51,7 @@ public class PaginaBuscaController extends EquipamentoMainView implements Initia
 		addListener();
 	}
 	
+	@SuppressWarnings("deprecation")
 	@FXML
 	public void click(MouseEvent event) {
 		if(tableFindEquipamentos.getSelectionModel().getSelectedItem() != null) {
@@ -70,13 +73,31 @@ public class PaginaBuscaController extends EquipamentoMainView implements Initia
 			if( equipamento.getNs()!= null ) nsClick.setText(equipamento.getNs() );
 			if( equipamento.getPat()!= null ) patClick.setText(equipamento.getPat() );
 			if( equipamento.getModelo()!= null ) modeloClick.setText( equipamento.getModelo() );
-			if( equipamento.getDataChegada()!= null ) dataChegadaClick.setText( equipamento.getDataChegada() ); 
+			if( equipamento.getDateChegada()!= null ) {
+				Date date = new Date( equipamento.getDateChegada().getTime() );
+				int day = date.getDate() + 1;
+				date.setDate(day);
+				dataChegadaClick.setText( Format.formatData.format(date) ); 
+			}
 			if( equipamento.getRelatorio() != null ) relatorioClick.setText(equipamento.getRelatorio() );
-			if( equipamento.getUltimaCalib() != null ) ultimaCalClick.setText( equipamento.getUltimaCalib() );
-			if( equipamento.getDataSaida() != null ) dataSaidaClick.setText( equipamento.getDataSaida() );
+			if( equipamento.getUltimaCalibDate() != null ) {
+				Date date = new Date( equipamento.getUltimaCalibDate().getTime() );
+				int day = date.getDate() + 1;
+				date.setDate(day);
+				ultimaCalClick.setText( Format.formatData.format(date) );
+			}
+			if( equipamento.getDateSaida() != null ) {
+				Date date = new Date( equipamento.getDateSaida().getTime() );
+				int day = date.getDate() + 1;
+				date.setDate(day);
+				dataSaidaClick.setText( Format.formatData.format(date) );
+			}
 			if( coletor!= null) {
 				empressaColetaClick.setText(coletor.getEmpressaName() );
-				dataColetaClick.setText( coletor.getDataHoraColeta() );
+				Date date = new Date(coletor.getDate().getTime() );
+				int day = date.getDate() + 1;
+				date.setDate(day);				
+				dataColetaClick.setText( Format.formatData.format(date));
 				nomeColetorClick.setText( coletor.getNomeColetor() );
 			}
 			if( orcamento.getItem() != null ) itensOrcamentoClick.setText(orcamento.getItem());

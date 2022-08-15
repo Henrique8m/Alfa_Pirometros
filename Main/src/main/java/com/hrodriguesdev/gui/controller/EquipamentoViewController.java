@@ -95,7 +95,10 @@ public class EquipamentoViewController {
 			obj.setDataChegada( data.getText() );			
 			obj.setNs( ns.getText() );
 			obj.setPat( pat.getText() );
-			obj.setUltimaCalib( ultimaCal.getText() );	
+			if (ultimaCal.getText().length() == 10 ) {
+				obj.setUltimaCalibDate( Geral.dateParceString( ultimaCal.getText() ) );
+			}
+			obj.setDataChegada(null);
 			obj.setLaboratorio(true);
 			if (data.getText().length() == 10 ) {
 				obj.setDateChegada( Geral.dateParceString( data.getText() ) );
