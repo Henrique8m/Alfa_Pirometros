@@ -6,6 +6,10 @@ public class Geral {
 	
 	@SuppressWarnings("deprecation")
 	public static Date dateParceString(String dateStr){		
+		StringBuilder stringBuilder = new StringBuilder(dateStr);
+		while(dateStr.length() > 10) {
+			dateStr = stringBuilder.replace(dateStr.length()-1, dateStr.length(), "").toString();
+		}
 		String[] split = dateStr.split("/");
 		int day = Integer.parseInt(split[0]);
 		int month = Integer.parseInt(split[1]);

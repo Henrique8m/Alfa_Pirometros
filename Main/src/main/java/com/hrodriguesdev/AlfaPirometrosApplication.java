@@ -30,6 +30,8 @@ public class AlfaPirometrosApplication extends Application{
 	public static boolean springStart = false;
 	
 	
+	public static int UPDATETIME = 60; //em segundos
+	
 	
 	public static String caminhoPDF = "\\Desktop\\Relatorios";
 	

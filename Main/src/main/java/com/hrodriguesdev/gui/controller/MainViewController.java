@@ -62,8 +62,8 @@ public class MainViewController implements Initializable{
 	protected TableColumn<Equipamento, String> empressa;
 	@FXML
 	protected TableColumn<Equipamento, String> status;
-	@FXML
-	private TableColumn<Equipamento, String> dataChegada;
+//	@FXML
+//	private TableColumn<Equipamento, String> dataChegada;
 	@FXML
 	private TableColumn<Equipamento, Date> dateChegada;
 	@FXML
@@ -130,8 +130,10 @@ public class MainViewController implements Initializable{
 	private TableColumn<Equipamento, String> nsFind;
 	@FXML
 	private TableColumn<Equipamento, String> patFind;
+//	@FXML
+//	private TableColumn<Equipamento, String> dataChegadaFind;
 	@FXML
-	private TableColumn<Equipamento, String> dataChegadaFind;
+	private TableColumn<Equipamento, Date> dateChegadaFind;
 	@FXML
 	private TableColumn<Equipamento, String> dataSaidaFind;
 	@FXML
@@ -176,7 +178,8 @@ public class MainViewController implements Initializable{
 		pdf.setImage(image);
 		
 		beginTimer();
-		
+//		EquipamentoRepository repo = new EquipamentoRepository();
+//		repo.updatedeAllDate();
 	}	 	
 	
 	
@@ -195,13 +198,9 @@ public class MainViewController implements Initializable{
 	    tableFilaEquipamentos.setEditable(false);	 
 	    
 	    empressa.setCellValueFactory(new PropertyValueFactory<Equipamento, String>("empressaName"));
-	    status.setCellValueFactory(new PropertyValueFactory<Equipamento, String>("statusStr"));
-	    
-		dataChegada.setCellValueFactory( new PropertyValueFactory<Equipamento, String>("dataChegada"));
-		
+	    status.setCellValueFactory(new PropertyValueFactory<Equipamento, String>("statusStr"));	    
+//		dataChegada.setCellValueFactory( new PropertyValueFactory<Equipamento, String>("dataChegada"));		
 		dateChegada.setCellValueFactory( new PropertyValueFactory<Equipamento, Date>("dateChegada"));
-		
-		Date data = new Date(System.currentTimeMillis());
 		
 		
 		modelo.setCellValueFactory(new PropertyValueFactory<Equipamento, String>("modelo"));
@@ -215,7 +214,11 @@ public class MainViewController implements Initializable{
 	    empressaFind.setCellValueFactory(new PropertyValueFactory<Equipamento, String>("empressaName"));
 	    nsFind.setCellValueFactory(new PropertyValueFactory<Equipamento, String>("ns"));
 	    patFind.setCellValueFactory(new PropertyValueFactory<Equipamento, String>("pat"));
-	    dataChegadaFind.setCellValueFactory( new PropertyValueFactory<Equipamento, String>("dataChegada"));	    
+	    
+//	    dataChegadaFind.setCellValueFactory( new PropertyValueFactory<Equipamento, String>("dataChegada"));	
+	    
+	    dateChegadaFind.setCellValueFactory( new PropertyValueFactory<Equipamento, Date>("dateChegada"));	
+	    
 	    dataSaidaFind.setCellValueFactory(new PropertyValueFactory<Equipamento, String>("dataSaida"));	
 		
 	    tableFindEquipamentos.setItems(obsListTableFindEquipamentos);	
@@ -225,7 +228,7 @@ public class MainViewController implements Initializable{
 	protected ObservableList<Equipamento> oldObs = FXCollections.observableArrayList();
 	private void beginTimer() {
 		
-		timeline = new Timeline(new KeyFrame(javafx.util.Duration.seconds(10), ev -> {
+		timeline = new Timeline(new KeyFrame(javafx.util.Duration.seconds(AlfaPirometrosApplication.UPDATETIME), ev -> {
 			if(dbConection) {
 				try {
 				obsListTableFilaEquipamentos = equipamentoController.findAllByLaboratorio(true);

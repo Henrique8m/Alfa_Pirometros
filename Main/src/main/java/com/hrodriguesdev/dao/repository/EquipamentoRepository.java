@@ -11,6 +11,7 @@ import java.util.List;
 import com.hrodriguesdev.dao.db.DB;
 import com.hrodriguesdev.dao.db.DbException;
 import com.hrodriguesdev.entities.Equipamento;
+import com.hrodriguesdev.utilitary.Geral;
 
 public class EquipamentoRepository {
 	Connection conn = null;
@@ -174,21 +175,20 @@ public class EquipamentoRepository {
 			conn = DB.getConnection();
 			conn.setAutoCommit(false);
 			pst = conn.prepareStatement("INSERT INTO tb_equipamento "
-					+ "(empressaName, modelo, status, dataChegada, ns, pat, ultimaCalib, laboratorio, empresa_id, dateChegada) "
+					+ "(empressaName, modelo, status, ns, pat, ultimaCalib, laboratorio, empresa_id, dateChegada) "
 					+ "VALUES "
-					+ "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+					+ "(?, ?, ?, ?, ?, ?, ?, ?, ?)",
 					Statement.RETURN_GENERATED_KEYS);			
 			
 			pst.setString(1, equipamento.getEmpressaName());
 			pst.setString(2, equipamento.getModelo());
-			pst.setInt(3, equipamento.getStatus());
-			pst.setString(4, equipamento.getDataChegada());			
-			pst.setString(5, equipamento.getNs());
-			pst.setString(6, equipamento.getPat());
-			pst.setString(7, equipamento.getUltimaCalib());
-			pst.setBoolean(8, true);	
-			pst.setLong(9, equipamento.getEmpressa());
-			pst.setDate(10, equipamento.getDateChegada());
+			pst.setInt(3, equipamento.getStatus());	
+			pst.setString(4, equipamento.getNs());
+			pst.setString(5, equipamento.getPat());
+			pst.setString(6, equipamento.getUltimaCalib());
+			pst.setBoolean(7, true);	
+			pst.setLong(8, equipamento.getEmpressa());
+			pst.setDate(9, equipamento.getDateChegada());
 			
 			int rowsAffected = pst.executeUpdate();
 			conn.commit();
@@ -219,6 +219,64 @@ public class EquipamentoRepository {
 
 		}		
 		return id;
+	}
+	
+	public boolean updatede(Equipamento equipamento) {
+		boolean ok = false;
+		
+		try {
+			conn = DB.getConnection();
+			conn.setAutoCommit(false);
+			pst = conn.prepareStatement("UPDATE tb_equipamento "
+											+ "SET empressaName = ? , "
+											+ "modelo = ? ,"
+											+ " status = ? ,"
+											+ " dateChegada = ? ,"
+											+ " ns = ? , pat = ? ,"
+											+ " ultimaCalib = ? ,"
+											+ " empresa_id = ?,"
+											+ " dataSaida = ?,"
+											+ " coletor_id = ?,"
+											+ " laboratorio = ? "											
+											+ " WHERE "
+											+"(id = ? )");		
+	
+			pst.setString(1, equipamento.getEmpressaName());			
+			pst.setString(2, equipamento.getModelo());
+			pst.setInt(3, equipamento.getStatus());
+			pst.setDate(4, equipamento.getDateChegada());			
+			pst.setString(5, equipamento.getNs());
+			pst.setString(6, equipamento.getPat());
+			pst.setString(7, equipamento.getUltimaCalib());
+			pst.setLong(8, equipamento.getEmpressa() );				
+			pst.setString(9, equipamento.getDataSaida() );
+			pst.setLong(10, equipamento.getColetor_id() );
+			pst.setBoolean(11, equipamento.getLaboratorio());
+			pst.setLong( 12, equipamento.getId() );
+			
+			int rowsAccepted = pst.executeUpdate();
+			conn.commit();
+			
+			if(rowsAccepted>0)
+				ok=true;
+		
+		}catch (DbException | SQLException e) {
+			ok=false;
+			e.printStackTrace();
+			try {
+				conn.rollback();
+				throw new DbException("Transaction rolled back! Caused by: " + e.getMessage() );
+			}catch (SQLException e1) {
+				throw new DbException("Error trying to rollback! Caused by: \" + e1.getMessage()");
+			}
+		}
+		finally {
+			DB.closeStatement(pst);
+			DB.closeConnection();
+			
+		}
+		return ok;
+
 	}
 	
 	public boolean updatede(Long id, int status, Equipamento equipamento) {
@@ -264,7 +322,61 @@ public class EquipamentoRepository {
 		return ok;
 
 	}
+	
 
+	public void updatedeAllDate() {
+		List<Equipamento> list = new ArrayList<>();		
+		try {
+			conn = DB.getConnection();			
+			st = conn.createStatement();			
+			rs = st.executeQuery("SELECT * FROM alfaestoque.tb_equipamento;");			
+			
+			while ( rs.next() ) {
+				list.add(Equipamento.parseEquipamento(rs));
+			}
+			
+		}catch (SQLException e) {	
+			e.printStackTrace();
+		}
+
+		try {
+			for(Equipamento equipamento: list) {				
+			if(equipamento.getDataSaida() != null) {
+				pst = conn.prepareStatement("UPDATE tb_equipamento "
+												+ "SET dateChegada = ?" + ", "
+												+ "dateSaida = ?"
+												+ " WHERE "
+												+ "(id = ?)");
+				
+				pst.setDate( 1, Geral.dateParceString(equipamento.getDataChegada() ) );
+				pst.setDate(2, Geral.dateParceString( equipamento.getDataSaida() ) );			
+				pst.setLong( 3, equipamento.getId() );
+			}else {
+				pst = conn.prepareStatement("UPDATE tb_equipamento "
+						+ "SET dateChegada = ?"
+						+ " WHERE "
+						+ "(id = ?)");
+				
+				pst.setDate( 1, Geral.dateParceString(equipamento.getDataChegada() ) );			
+				pst.setLong( 2, equipamento.getId() );
+			}
+
+			
+			pst.executeUpdate();
+			}
+		
+		}catch (SQLException e) {
+		System.out.println(e.getMessage());	
+		}
+		finally {
+			DB.closeStatement(pst);
+			DB.closeConnection();
+			
+		}		
+
+
+	}
+	
 	public boolean updatede(Long id, Long idOrcamento) {
 		boolean ok = false;
 		
@@ -305,63 +417,7 @@ public class EquipamentoRepository {
 
 	}
 
-	public boolean updatede(Equipamento equipamento) {
-		boolean ok = false;
-		
-		try {
-			conn = DB.getConnection();
-			conn.setAutoCommit(false);
-			pst = conn.prepareStatement("UPDATE tb_equipamento "
-											+ "SET empressaName = ? , "
-											+ "modelo = ? ,"
-											+ " status = ? ,"
-											+ " dataChegada = ? ,"
-											+ " ns = ? , pat = ? ,"
-											+ " ultimaCalib = ? ,"
-											+ " empresa_id = ?,"
-											+ " dataSaida = ?,"
-											+ " coletor_id = ?,"
-											+ " laboratorio = ? "											
-											+ " WHERE "
-											+"(id = ? )");		
 	
-			pst.setString(1, equipamento.getEmpressaName());			
-			pst.setString(2, equipamento.getModelo());
-			pst.setInt(3, equipamento.getStatus());
-			pst.setString(4, equipamento.getDataChegada());			
-			pst.setString(5, equipamento.getNs());
-			pst.setString(6, equipamento.getPat());
-			pst.setString(7, equipamento.getUltimaCalib());
-			pst.setLong(8, equipamento.getEmpressa() );				
-			pst.setString(9, equipamento.getDataSaida() );
-			pst.setLong(10, equipamento.getColetor_id() );
-			pst.setBoolean(11, equipamento.getLaboratorio());
-			pst.setLong( 12, equipamento.getId() );
-			
-			int rowsAccepted = pst.executeUpdate();
-			conn.commit();
-			
-			if(rowsAccepted>0)
-				ok=true;
-		
-		}catch (DbException | SQLException e) {
-			ok=false;
-			e.printStackTrace();
-			try {
-				conn.rollback();
-				throw new DbException("Transaction rolled back! Caused by: " + e.getMessage() );
-			}catch (SQLException e1) {
-				throw new DbException("Error trying to rollback! Caused by: \" + e1.getMessage()");
-			}
-		}
-		finally {
-			DB.closeStatement(pst);
-			DB.closeConnection();
-			
-		}
-		return ok;
-
-	}
 	
 	public Boolean delete(Long id) {
 		boolean ok = false;		

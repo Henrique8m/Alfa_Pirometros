@@ -22,15 +22,16 @@ public class ColetorRepository {
 			conn = DB.getConnection();
 			conn.setAutoCommit(false);
 			pst = conn.prepareStatement("INSERT INTO tb_coletor "
-					+ "(empressaName, nomeColetor, dataHoraColeta, equipamento_id) "
+					+ "(empressaName, nomeColetor, dataHoraColeta, equipamento_id, date) "
 					+ "VALUES "
-					+ "(?, ?, ?, ?)",
+					+ "(?, ?, ?, ?, ?)",
 					Statement.RETURN_GENERATED_KEYS);			
 			
 			pst.setString(1, coletor.getEmpressaName());
 			pst.setString(2, coletor.getNomeColetor() );
 			pst.setString(3, coletor.getDataHoraColeta());
-			pst.setLong(4, coletor.getEquipamento_id() );			
+			pst.setLong(4, coletor.getEquipamento_id() );		
+			pst.setDate(5, coletor.getDate());
 			
 			int rowsAffected = pst.executeUpdate();
 			conn.commit();

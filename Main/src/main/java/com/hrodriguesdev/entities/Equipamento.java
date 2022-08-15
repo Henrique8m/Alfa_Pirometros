@@ -238,8 +238,8 @@ public class Equipamento implements Serializable {
 			obj.setEmpressaName( rs.getString("empressaName") );				
 			obj.setModelo( rs.getString("modelo") );  
 			obj.setStatus( rs.getInt("status") );
-			obj.setDataChegada( rs.getString("dataChegada") );
-			obj.setDataSaida( rs.getString("dataSaida") );
+//			obj.setDataChegada( rs.getString("dataChegada") );
+//			obj.setDataSaida( rs.getString("dataSaida") );
 			obj.setNs(rs.getString("ns"));
 			obj.setPat(rs.getString("pat"));
 			obj.setUltimaCalib(rs.getString("ultimaCalib"));	
@@ -249,6 +249,7 @@ public class Equipamento implements Serializable {
 			obj.setColetor_id( rs.getLong( "coletor_id" ) );
 			obj.setRelatorio( rs.getString( "relatorio" ));
 			obj.setDateChegada(rs.getDate("dateChegada"));
+			obj.setDateSaida(rs.getDate("dateSaida"));
 			
 		} catch (SQLException e) {
 			e.printStackTrace();

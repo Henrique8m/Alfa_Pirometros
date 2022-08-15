@@ -41,8 +41,7 @@
                                              <columns>
                                               <TableColumn fx:id="empressa" editable="false" minWidth="160.0" prefWidth="350.0" text="Empresa" />
                                                 <TableColumn fx:id="status" editable="false" minWidth="120.0" prefWidth="300.0" text="Status" />
-                                                <TableColumn fx:id="dateChegada" prefWidth="75.0" text="Column X" />
-                                                <TableColumn fx:id="dataChegada" editable="false" minWidth="40.0" prefWidth="150.0" text="Data Chegada" />
+                                                <TableColumn fx:id="dateChegada" editable="false" minWidth="40.0" prefWidth="150.0" text="Data Chegada" />
                                                 <TableColumn fx:id="modelo" editable="false" minWidth="40.0" prefWidth="150.0" text="Modelo" />
                                                 <TableColumn fx:id="ns" editable="false" minWidth="40.0" prefWidth="150.0" text="Numero de Serie" />
                                                 <TableColumn fx:id="pat" editable="false" minWidth="40.0" prefWidth="150.0" text="Patrimonio" />
@@ -242,7 +241,7 @@
                                           <TableColumn fx:id="empressaFind" maxWidth="200.0" minWidth="150.0" prefWidth="200.0" text="Empresa" />
                                           <TableColumn fx:id="nsFind" maxWidth="137.5" minWidth="87.5" prefWidth="137.5" text="Ns" />
                                           <TableColumn fx:id="patFind" maxWidth="137.5" minWidth="87.5" prefWidth="137.5" text="Pat" />
-                                          <TableColumn fx:id="dataChegadaFind" maxWidth="137.5" minWidth="87.5" prefWidth="137.5" text="Data Chegada" />
+                                          <TableColumn fx:id="dateChegadaFind" maxWidth="137.5" minWidth="87.5" prefWidth="137.5" text="Data Chegada" />
                                           <TableColumn fx:id="dataSaidaFind" maxWidth="137.5" minWidth="87.5" prefWidth="137.5" text="Data Saída" />
                                        </columns>
                                        <opaqueInsets>

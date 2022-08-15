@@ -1,6 +1,7 @@
 package com.hrodriguesdev.entities;
 
 import java.io.Serializable;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -12,6 +13,7 @@ public class Coletor implements Serializable{
 	private Long equipamento_id;
 	private String nomeColetor;
 	private String dataHoraColeta;
+	private Date date;
 		
 	public Coletor(){}
 	
@@ -62,7 +64,8 @@ public class Coletor implements Serializable{
 				coletor.setEmpressaName( rs.getString(2) );
 				coletor.setNomeColetor( rs.getString(3) );
 				coletor.setDataHoraColeta( rs.getString(4) );
-				coletor.setEquipamento_id( rs.getLong(5) );		
+				coletor.setEquipamento_id( rs.getLong(5) );	
+				coletor.setDate(rs.getDate("date"));
 			
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -70,6 +73,16 @@ public class Coletor implements Serializable{
 			} 
 		}
 		return coletor;
+	}
+
+
+	public Date getDate() {
+		return date;
+	}
+
+
+	public void setDate(Date date) {
+		this.date = date;
 	}
 
 
