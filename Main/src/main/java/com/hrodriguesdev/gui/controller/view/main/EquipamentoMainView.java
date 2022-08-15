@@ -18,12 +18,21 @@ import com.hrodriguesdev.utilitary.NewView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
 public class EquipamentoMainView extends LogoutMainView {
 	public static EquipamentoController equipamentoController = new EquipamentoController();
 	
+	@FXML
+	private TextField filtro;
+	
+
+	@FXML
+	private void clear(ActionEvent e) {
+		filtro.setText("");
+	}
     
     @FXML
     private void addEquipamento(ActionEvent e) throws IOException {
@@ -33,6 +42,32 @@ public class EquipamentoMainView extends LogoutMainView {
 	@FXML
     protected void updatedEquipamento(KeyEvent keyEvent) throws IOException {
 		super.updatedEquipamento(keyEvent);
+		
+		if(keyEvent.getTarget() == filtro) {
+			if(keyEvent.getCode().toString() == "ENTER") {
+				clear(new ActionEvent());
+				FILTER = true;
+		    }else if( filtro.getText() != "" ){
+		    	FILTER = false;
+			
+		    	try{
+					obsListTableFilaEquipamentos = equipamentoController.findByName( filtro.getText() );
+		    		oldObs = obsListTableFilaEquipamentos;
+					tableFilaEquipamentos.setItems(obsListTableFilaEquipamentos);			
+		    		dbConection = true;  
+		    		tableFilaEquipamentos.refresh();
+		    		
+				} catch (DbException | SQLException e1) {
+					dbConection = false;
+					e1.printStackTrace();
+				}
+			
+		    }else if(filtro.getText() == "") {
+		    	FILTER = true;
+		    }
+
+		}
+		
 		if(keyEvent.getCode().toString() == "F5" )
 			refreshTable();
 			

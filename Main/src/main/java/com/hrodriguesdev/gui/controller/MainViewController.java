@@ -53,6 +53,7 @@ public class MainViewController implements Initializable{
 	public static Equipamento equipamentoEdit;
 	public static Orcamento orcamentoEdit;
 	public static Orcamento orcamento;
+	public static Boolean FILTER = true;
 	
 	@FXML
 	private ImageView logoYgg, cadastrar, refresh, abrir, cadastrar2, inserirColeta, home, buscar, buscar1, pdf, logout;
@@ -230,41 +231,43 @@ public class MainViewController implements Initializable{
 		
 		timeline = new Timeline(new KeyFrame(javafx.util.Duration.seconds(AlfaPirometrosApplication.UPDATETIME), ev -> {
 			if(dbConection) {
-				try {
-				obsListTableFilaEquipamentos = equipamentoController.findAllByLaboratorio(true);
-	    		oldObs = obsListTableFilaEquipamentos;
-				tableFilaEquipamentos.setItems(obsListTableFilaEquipamentos);			
-	    		dbConection = true;  
-	    		tableFilaEquipamentos.refresh();
-	    		
-//					obsListTableFilaEquipamentos = equipamentoController.findAllByLaboratorio(true);
-//					if(obsListTableFilaEquipamentos.size() > oldObs.size() ) {						
-//						List<Equipamento> list1 = obsListTableFilaEquipamentos.stream().filter(item1 -> {
-//							return oldObs.stream().filter(item2 -> item2.equals(item1) ).findAny().isPresent();
-//						}).collect( Collectors.toList() );
-//						obsListTableFilaEquipamentos.addAll(list1);
-//						
-////					        List<Integer> interseccao = lista1.stream().filter(item1 -> {
-////					            return lista2.stream().filter(item2 -> new Integer(item2).equals(item1)).findAny().isPresent();
-////					        }).collect(Collectors.toList());
-//
-////						showAlerts("Updatede Lista", "", "Equipamento da empressa " + obsListTableFilaEquipamentos.get(obsListTableFilaEquipamentos.size()-1).getEmpressaName() + " foi adcionado equipamento na lista ", AlertType.INFORMATION);
-//						oldObs = obsListTableFilaEquipamentos;
-//						return;
-//					}
-//					if(obsListTableFilaEquipamentos.size() < oldObs.size() ) {
-//						oldObs = obsListTableFilaEquipamentos;
-//						return;
-//					}
-//					for(int i =0; i< oldObs.size(); i++) {
-//						if( obsListTableFilaEquipamentos.get(i).getStatus() != oldObs.get(i).getStatus() ) {
-////							showAlerts("Updatede Lista", "", "Equipamento da empressa " + obsListTableFilaEquipamentos.get(obsListTableFilaEquipamentos.size()-1).getEmpressaName() + " teve o status alterado ", AlertType.ERROR);
-//						}
-//					}
-//					oldObs = obsListTableFilaEquipamentos;
-				} catch (DbException | SQLException e) {
-//					showAlerts("begin Timer ", "", e.getMessage(), AlertType.INFORMATION );
-				}			
+				if(FILTER) {
+					try {
+					obsListTableFilaEquipamentos = equipamentoController.findAllByLaboratorio(true);
+		    		oldObs = obsListTableFilaEquipamentos;
+					tableFilaEquipamentos.setItems(obsListTableFilaEquipamentos);			
+		    		dbConection = true;  
+		    		tableFilaEquipamentos.refresh();
+		    		
+	//					obsListTableFilaEquipamentos = equipamentoController.findAllByLaboratorio(true);
+	//					if(obsListTableFilaEquipamentos.size() > oldObs.size() ) {						
+	//						List<Equipamento> list1 = obsListTableFilaEquipamentos.stream().filter(item1 -> {
+	//							return oldObs.stream().filter(item2 -> item2.equals(item1) ).findAny().isPresent();
+	//						}).collect( Collectors.toList() );
+	//						obsListTableFilaEquipamentos.addAll(list1);
+	//						
+	////					        List<Integer> interseccao = lista1.stream().filter(item1 -> {
+	////					            return lista2.stream().filter(item2 -> new Integer(item2).equals(item1)).findAny().isPresent();
+	////					        }).collect(Collectors.toList());
+	//
+	////						showAlerts("Updatede Lista", "", "Equipamento da empressa " + obsListTableFilaEquipamentos.get(obsListTableFilaEquipamentos.size()-1).getEmpressaName() + " foi adcionado equipamento na lista ", AlertType.INFORMATION);
+	//						oldObs = obsListTableFilaEquipamentos;
+	//						return;
+	//					}
+	//					if(obsListTableFilaEquipamentos.size() < oldObs.size() ) {
+	//						oldObs = obsListTableFilaEquipamentos;
+	//						return;
+	//					}
+	//					for(int i =0; i< oldObs.size(); i++) {
+	//						if( obsListTableFilaEquipamentos.get(i).getStatus() != oldObs.get(i).getStatus() ) {
+	////							showAlerts("Updatede Lista", "", "Equipamento da empressa " + obsListTableFilaEquipamentos.get(obsListTableFilaEquipamentos.size()-1).getEmpressaName() + " teve o status alterado ", AlertType.ERROR);
+	//						}
+	//					}
+	//					oldObs = obsListTableFilaEquipamentos;
+					} catch (DbException | SQLException e) {
+	//					showAlerts("begin Timer ", "", e.getMessage(), AlertType.INFORMATION );
+					}			
+				}
 			}else {
 		    	showAlerts("DB exception ", "","Erro na comunicação com banco de dados, reiniciar App", AlertType.ERROR );
 			}

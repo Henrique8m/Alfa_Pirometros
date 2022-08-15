@@ -68,6 +68,34 @@ public class EquipamentoRepository {
 
 	}
 
+	public List<Equipamento> findByName(String name) {
+		List<Equipamento> list = new ArrayList<>();
+		conn = DB.getConnection();					
+		try {
+			st = conn.createStatement();
+			rs = st.executeQuery("SELECT * FROM alfaestoque.tb_equipamento;");
+			while (rs.next())  
+				if( rs.getString(2)!= null ) {
+					String nameEmpresa = rs.getString(2).toUpperCase();
+					if( nameEmpresa.contains(name.toUpperCase()) && rs.getBoolean("laboratorio") == true) 
+						list.add( Equipamento.parseEquipamento( rs ) );	
+				}
+
+		
+		} catch (SQLException e) {			
+			e.printStackTrace();
+			return null;
+		}			
+		finally {
+			DB.closeResultSet(rs);
+			DB.closeStatement(st);
+			DB.closeConnection();
+		}
+
+		return list;
+	}
+
+
 	public List<Equipamento> findAllNs(String ns) {
 		List<Equipamento> list = new ArrayList<>();
 		conn = DB.getConnection();					
@@ -75,8 +103,8 @@ public class EquipamentoRepository {
 			st = conn.createStatement();
 			rs = st.executeQuery("SELECT * FROM alfaestoque.tb_equipamento;");
 			while (rs.next())  
-				if( rs.getString(7)!=null )
-					if( rs.getString(7).equalsIgnoreCase(ns) )
+				if( rs.getString("ns")!=null )
+					if( rs.getString("ns").equalsIgnoreCase(ns) )
 						list.add( Equipamento.parseEquipamento( rs ) );	
 		
 		} catch (SQLException e) {			
@@ -469,7 +497,6 @@ public class EquipamentoRepository {
 		}
 		return ok;
 	}
-
 
 }
 		

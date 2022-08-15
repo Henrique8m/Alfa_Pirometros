@@ -35,6 +35,31 @@
                            <children>
                               <VBox>
                                  <children>
+                                    <AnchorPane minHeight="-Infinity" minWidth="844.0" prefHeight="33.0" prefWidth="1500.0">
+                                       <children>
+                                          <HBox alignment="CENTER_LEFT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <children>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Filtro por nome da empresa">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets right="10.0" />
+                                                   </HBox.margin>
+                                                </Text>
+                                                <TextField fx:id="filtro" onKeyReleased="#updatedEquipamento" prefHeight="25.0" prefWidth="215.0">
+                                                   <HBox.margin>
+                                                      <Insets right="20.0" />
+                                                   </HBox.margin>
+                                                </TextField>
+                                                <Button mnemonicParsing="false" onAction="#clear" text="Clear" />
+                                             </children>
+                                             <padding>
+                                                <Insets left="40.0" />
+                                             </padding>
+                                          </HBox>
+                                       </children>
+                                    </AnchorPane>
                                     <TableView fx:id="tableFilaEquipamentos" cache="true" depthTest="DISABLE" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="200.0" minWidth="844.0" onKeyPressed="#updatedEquipamento" onMouseClicked="#tableFilaEquipamentoClick" prefHeight="700.0" prefWidth="1500.0" style="-fx-background-radius: 10;" tableMenuButtonVisible="true">
                                       <columns>
                                           <TableColumn editable="false" maxWidth="-Infinity" minWidth="500.0" prefWidth="1500.0" sortable="false" text="Equipamentos em Laboratorio">

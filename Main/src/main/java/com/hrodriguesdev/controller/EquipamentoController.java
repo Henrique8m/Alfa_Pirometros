@@ -10,8 +10,11 @@ import javafx.collections.ObservableList;
 
 public class EquipamentoController {
 	private EquipamentoService equipamentoService = new EquipamentoService();
-	
-	public ObservableList<Equipamento> findAllByLaboratorio(boolean laboratorio) throws DbException, SQLException {
+
+	public ObservableList<Equipamento> findByName(String name) throws DbException, SQLException {
+		return equipamentoService.findByName(name);
+	}
+		public ObservableList<Equipamento> findAllByLaboratorio(boolean laboratorio) throws DbException, SQLException {
 		return equipamentoService.findAllByLaboratorio(laboratorio);
 	}
 	
