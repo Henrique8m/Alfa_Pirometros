@@ -74,7 +74,7 @@ public class MainViewController implements Initializable{
 	@FXML
 	private TableColumn<Equipamento, String> pat;
 	@FXML
-	private TableColumn<Equipamento, String> ultimaCal;
+	private TableColumn<Equipamento, Date> ultimaCal;
 	@FXML
 	private TableColumn<Equipamento, String> relatorio;
 	@FXML
@@ -136,7 +136,7 @@ public class MainViewController implements Initializable{
 	@FXML
 	private TableColumn<Equipamento, Date> dateChegadaFind;
 	@FXML
-	private TableColumn<Equipamento, String> dataSaidaFind;
+	private TableColumn<Equipamento, Date> dataSaidaFind;
 	@FXML
 	protected TableView<Equipamento> tableFindEquipamentos;
     public static ObservableList<Equipamento> obsListTableFindEquipamentos= FXCollections.observableArrayList();
@@ -208,7 +208,7 @@ public class MainViewController implements Initializable{
 		ns.setCellValueFactory(new PropertyValueFactory<Equipamento, String>("ns"));
 		pat.setCellValueFactory(new PropertyValueFactory<Equipamento, String>("pat"));
 		relatorio.setCellValueFactory(new PropertyValueFactory<Equipamento, String>("relatorio"));
-		ultimaCal.setCellValueFactory(new PropertyValueFactory<Equipamento, String>("ultimaCalib"));
+		ultimaCal.setCellValueFactory(new PropertyValueFactory<Equipamento, Date>("ultimaCalibDate"));
 		tableFilaEquipamentos.setItems(obsListTableFilaEquipamentos);		
 		
 		tableFindEquipamentos.setEditable(false);	 	    
@@ -220,7 +220,7 @@ public class MainViewController implements Initializable{
 	    
 	    dateChegadaFind.setCellValueFactory( new PropertyValueFactory<Equipamento, Date>("dateChegada"));	
 	    
-	    dataSaidaFind.setCellValueFactory(new PropertyValueFactory<Equipamento, String>("dataSaida"));	
+	    dataSaidaFind.setCellValueFactory(new PropertyValueFactory<Equipamento, Date>("dateSaida"));	
 		
 	    tableFindEquipamentos.setItems(obsListTableFindEquipamentos);	
 		
