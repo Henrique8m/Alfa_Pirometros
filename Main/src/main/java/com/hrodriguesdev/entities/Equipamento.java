@@ -37,8 +37,6 @@ public class Equipamento implements Serializable {
 	private Date dateSaida;
 	private Date ultimaCalibDate;
 	
-	
-
 	//@OneToOne(mappedBy = "motorista", fetch = FetchType.EAGER)
 //	private EstoqueEletronicos estoqueEletronicos;
 //	private EstoqueEletricos estoqueempressa;
@@ -51,9 +49,6 @@ public class Equipamento implements Serializable {
 	
 	public Equipamento() {}
 		
-
-	
-	
 	public Long getId() {
 		return id;
 	}
@@ -190,7 +185,6 @@ public class Equipamento implements Serializable {
 		
 	}
 
-
 	public String getDataCal() {
 		return dataCal;
 	}
@@ -219,7 +213,10 @@ public class Equipamento implements Serializable {
 		return dateChegada;
 	}
 
+	@SuppressWarnings("deprecation")
 	public void setDateChegada(Date dateChegada) {
+		int date = dateChegada.getDate() + 1;
+		dateChegada.setDate(date);
 		this.dateChegada = dateChegada;
 	}
 
@@ -227,9 +224,23 @@ public class Equipamento implements Serializable {
 		return dateSaida;
 	}
 
+	@SuppressWarnings("deprecation")
 	public void setDateSaida(Date dateSaida) {
+		int date = dateSaida.getDate() + 1;
+		dateSaida.setDate(date);
 		this.dateSaida = dateSaida;
 	}	
+	
+	public Date getUltimaCalibDate() {
+		return ultimaCalibDate;
+	}
+
+	@SuppressWarnings("deprecation")
+	public void setUltimaCalibDate(Date ultimaCalibDate) {
+		int date = ultimaCalibDate.getDate() + 1;
+		ultimaCalibDate.setDate(date);
+		this.ultimaCalibDate = ultimaCalibDate ;
+	}
 	
 	public static Equipamento parseEquipamento(ResultSet rs) {
 		Equipamento obj = new Equipamento();
@@ -259,20 +270,6 @@ public class Equipamento implements Serializable {
 			return null;
 		}
 		return obj;		
-	}
-
-
-
-
-	public Date getUltimaCalibDate() {
-		return ultimaCalibDate;
-	}
-
-
-
-
-	public void setUltimaCalibDate(Date ultimaCalibDate) {
-		this.ultimaCalibDate = ultimaCalibDate ;
 	}
 	
 }

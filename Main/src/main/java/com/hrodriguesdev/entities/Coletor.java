@@ -83,7 +83,10 @@ public class Coletor implements Serializable{
 	}
 
 
+	@SuppressWarnings("deprecation")
 	public void setDate(Date date) {
+		int datee = date.getDate() + 1;
+		date.setDate(datee);
 		this.date = date;
 	}
 
