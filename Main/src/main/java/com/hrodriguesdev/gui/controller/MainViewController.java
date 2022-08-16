@@ -19,6 +19,7 @@ import com.hrodriguesdev.entities.Orcamento;
 import com.hrodriguesdev.gui.alert.Alerts;
 import com.hrodriguesdev.gui.controller.extend.OpenSaidaEquipamentoViewController;
 import com.hrodriguesdev.gui.controller.view.insert.EquipamentoInsert;
+import com.hrodriguesdev.utilitary.Format;
 import com.hrodriguesdev.utilitary.NewView;
 
 import javafx.animation.Animation;
@@ -30,6 +31,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -200,15 +202,54 @@ public class MainViewController implements Initializable{
 	    
 	    empressa.setCellValueFactory(new PropertyValueFactory<Equipamento, String>("empressaName"));
 	    status.setCellValueFactory(new PropertyValueFactory<Equipamento, String>("statusStr"));	    
-//		dataChegada.setCellValueFactory( new PropertyValueFactory<Equipamento, String>("dataChegada"));		
-		dateChegada.setCellValueFactory( new PropertyValueFactory<Equipamento, Date>("dateChegada"));
-		
+//		dataChegada.setCellValueFactory( new PropertyValueFactory<Equipamento, String>("dataChegada"));	
+	    
+		dateChegada.setCellValueFactory( new PropertyValueFactory<>("dateChegada"));		
+		dateChegada.setCellFactory( cell -> {
+            return new TableCell<Equipamento, Date>() {
+				@Override
+                protected void updateItem( Date item, boolean empty) {
+                   super.updateItem(item, empty);
+                   if( !empty ) {
+                	   try {
+                		   setText( Format.formatData.format(item) );
+                	   }catch(NullPointerException e){
+                           setText("");
+                           setGraphic(null);
+                	   }
+                   }else {
+                      setText("");
+                      setGraphic(null);
+                   }
+                }
+            };        
+         } );		
 		
 		modelo.setCellValueFactory(new PropertyValueFactory<Equipamento, String>("modelo"));
 		ns.setCellValueFactory(new PropertyValueFactory<Equipamento, String>("ns"));
 		pat.setCellValueFactory(new PropertyValueFactory<Equipamento, String>("pat"));
 		relatorio.setCellValueFactory(new PropertyValueFactory<Equipamento, String>("relatorio"));
-		ultimaCal.setCellValueFactory(new PropertyValueFactory<Equipamento, Date>("ultimaCalibDate"));
+		ultimaCal.setCellValueFactory(new PropertyValueFactory<>("ultimaCalibDate"));
+		ultimaCal.setCellFactory( cell -> {
+            return new TableCell<Equipamento, Date>() {
+                @Override
+                protected void updateItem( Date item, boolean empty) {
+                   super.updateItem(item, empty);
+                   if( !empty ) {
+                	   try {
+                		   setText( Format.formatData.format(item) );
+                	   }catch(NullPointerException e){
+                           setText("");
+                           setGraphic(null);
+                	   }
+                      
+                   }else {
+                      setText("");
+                      setGraphic(null);
+                   }
+                }
+            };        
+         } );		
 		tableFilaEquipamentos.setItems(obsListTableFilaEquipamentos);		
 		
 		tableFindEquipamentos.setEditable(false);	 	    
@@ -218,9 +259,47 @@ public class MainViewController implements Initializable{
 	    
 //	    dataChegadaFind.setCellValueFactory( new PropertyValueFactory<Equipamento, String>("dataChegada"));	
 	    
-	    dateChegadaFind.setCellValueFactory( new PropertyValueFactory<Equipamento, Date>("dateChegada"));	
+	    dateChegadaFind.setCellValueFactory( new PropertyValueFactory<>("dateChegada"));
+	    dateChegadaFind.setCellFactory( cell -> {
+            return new TableCell<Equipamento, Date>() {
+                @Override
+                protected void updateItem( Date item, boolean empty) {
+                   super.updateItem(item, empty);
+                   if( !empty ) {
+                	   try {
+                		   setText( Format.formatData.format(item) );
+                	   }catch(NullPointerException e){
+                           setText("");
+                           setGraphic(null);
+                	   }
+                   }else {
+                      setText("");
+                      setGraphic(null);
+                   }
+                }
+            };        
+         } );	
 	    
-	    dataSaidaFind.setCellValueFactory(new PropertyValueFactory<Equipamento, Date>("dateSaida"));	
+	    dataSaidaFind.setCellValueFactory(new PropertyValueFactory<>("dateSaida"));	
+	    dataSaidaFind.setCellFactory( cell -> {
+            return new TableCell<Equipamento, Date>() {
+                @Override
+                protected void updateItem( Date item, boolean empty) {
+                   super.updateItem(item, empty);
+                   if( !empty ) {
+                	   try {
+                		   setText( Format.formatData.format(item) );
+                	   }catch(NullPointerException e){
+                           setText("");
+                           setGraphic(null);
+                	   }
+                   }else {
+                      setText("");
+                      setGraphic(null);
+                   }
+                }
+            };        
+         } );	
 		
 	    tableFindEquipamentos.setItems(obsListTableFindEquipamentos);	
 		
