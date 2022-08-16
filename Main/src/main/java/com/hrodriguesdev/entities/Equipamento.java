@@ -245,6 +245,7 @@ public class Equipamento implements Serializable {
 	public static Equipamento parseEquipamento(ResultSet rs) {
 		Equipamento obj = new Equipamento();
 		try {
+			Date date;
 			obj.setOrcamento_id( rs.getLong("orcamento_id"));
 			obj.setId( rs.getLong("Id") );	
 			obj.setEmpressaName( rs.getString("empressaName") );				
@@ -260,9 +261,15 @@ public class Equipamento implements Serializable {
 			obj.setEmpressa( rs.getLong( "empresa_id" ) );
 			obj.setColetor_id( rs.getLong( "coletor_id" ) );
 			obj.setRelatorio( rs.getString( "relatorio" ));
-			obj.setDateChegada(rs.getDate("dateChegada"));
-			obj.setDateSaida(rs.getDate("dateSaida"));
-			obj.setUltimaCalibDate(rs.getDate("ultimaCalibDate")) ;
+			
+			date = rs.getDate("dateChegada");
+			if(date != null)obj.setDateChegada(date);
+			
+			date = rs.getDate("dateSaida");
+			if(date != null)obj.setDateSaida(date);
+			
+			date = rs.getDate("ultimaCalibDate");
+			if(date != null)obj.setUltimaCalibDate(date);
 			
 			
 		} catch (SQLException e) {

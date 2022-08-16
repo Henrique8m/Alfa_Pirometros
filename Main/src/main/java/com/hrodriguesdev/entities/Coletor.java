@@ -66,7 +66,10 @@ public class Coletor implements Serializable{
 				coletor.setNomeColetor( rs.getString("nomeColetor") );
 				coletor.setDataHoraColeta( rs.getString( "dataHoraColeta" ) );
 				coletor.setEquipamento_id( rs.getLong("equipamento_id") );	
-				coletor.setDate(rs.getDate("dateColeta"));
+				
+				Date date = rs.getDate("dateColeta");
+				if(date != null)coletor.setDate(date);
+
 				coletor.setHoraColeta(rs.getInt("horaColeta") );
 			
 			} catch (SQLException e) {

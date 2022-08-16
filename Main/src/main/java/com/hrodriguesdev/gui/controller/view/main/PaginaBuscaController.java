@@ -51,7 +51,6 @@ public class PaginaBuscaController extends EquipamentoMainView implements Initia
 		addListener();
 	}
 	
-	@SuppressWarnings("deprecation")
 	@FXML
 	public void click(MouseEvent event) {
 		if(tableFindEquipamentos.getSelectionModel().getSelectedItem() != null) {
@@ -75,28 +74,20 @@ public class PaginaBuscaController extends EquipamentoMainView implements Initia
 			if( equipamento.getModelo()!= null ) modeloClick.setText( equipamento.getModelo() );
 			if( equipamento.getDateChegada()!= null ) {
 				Date date = new Date( equipamento.getDateChegada().getTime() );
-				int day = date.getDate() + 1;
-				date.setDate(day);
 				dataChegadaClick.setText( Format.formatData.format(date) ); 
 			}
 			if( equipamento.getRelatorio() != null ) relatorioClick.setText(equipamento.getRelatorio() );
 			if( equipamento.getUltimaCalibDate() != null ) {
 				Date date = new Date( equipamento.getUltimaCalibDate().getTime() );
-				int day = date.getDate() + 1;
-				date.setDate(day);
 				ultimaCalClick.setText( Format.formatData.format(date) );
 			}
 			if( equipamento.getDateSaida() != null ) {
 				Date date = new Date( equipamento.getDateSaida().getTime() );
-				int day = date.getDate() + 1;
-				date.setDate(day);
 				dataSaidaClick.setText( Format.formatData.format(date) );
 			}
 			if( equipamento.getColetor_id() != null && equipamento.getColetor_id() != 0) {
 				empressaColetaClick.setText(coletor.getEmpressaName() );
-				Date date = new Date(coletor.getDate().getTime() );
-				int day = date.getDate() + 1;
-				date.setDate(day);				
+				Date date = new Date(coletor.getDate().getTime() );		
 				dataColetaClick.setText( Format.formatData.format(date));
 				nomeColetorClick.setText( coletor.getNomeColetor() );
 			}
