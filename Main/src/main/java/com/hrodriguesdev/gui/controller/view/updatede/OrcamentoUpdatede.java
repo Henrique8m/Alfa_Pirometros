@@ -8,6 +8,7 @@ import com.hrodriguesdev.controller.OrcamentoController;
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.entities.Orcamento;
 import com.hrodriguesdev.gui.controller.MainViewController;
+import com.hrodriguesdev.utilitary.Format;
 import com.hrodriguesdev.utilitary.InputFilter;
 
 import javafx.collections.FXCollections;
@@ -230,12 +231,14 @@ public class OrcamentoUpdatede implements Initializable {
 	
 	private void textFildInserts() {
 		equipamento = MainViewController.equipamento;
-		nomeEmpressa.setText(equipamento.getEmpressaName());
-		data.setText(equipamento.getDataChegada());
+		nomeEmpressa.setText(equipamento.getEmpressaName());		
 		modelo.setText(equipamento.getModelo());
 		ns.setText(equipamento.getNs());
 		pat.setText(equipamento.getPat());
-		ultimaCal.setText(equipamento.getUltimaCalib());	
+		
+		data.setText(Format.formatData.format(equipamento.getDateChegada()));
+		
+		ultimaCal.setText(Format.formatData.format(equipamento.getUltimaCalibDate()));	
 	}
 
 }

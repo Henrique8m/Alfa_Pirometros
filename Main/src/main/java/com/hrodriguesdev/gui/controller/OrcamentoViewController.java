@@ -1,11 +1,15 @@
 package com.hrodriguesdev.gui.controller;
 
 import java.net.URL;
+import java.sql.Date;
 import java.util.ResourceBundle;
 
 import com.hrodriguesdev.AlfaPirometrosApplication;
+import com.hrodriguesdev.dao.db.DbException;
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.entities.Orcamento;
+import com.hrodriguesdev.gui.alert.Alerts;
+import com.hrodriguesdev.utilitary.Format;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,6 +17,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
@@ -57,11 +62,15 @@ public class OrcamentoViewController extends StatusViewController implements Ini
 		}
 		switchStatus(equipamento.getStatus());		
 		nomeEmpressa.setText(equipamento.getEmpressaName());
-		data.setText(equipamento.getDataChegada());
+		data.setText(Format.formatData.format(equipamento.getDateChegada()));
+		
 		modelo.setText(equipamento.getModelo());
 		ns.setText(equipamento.getNs());
 		pat.setText(equipamento.getPat());
-		ultimaCal.setText(equipamento.getUltimaCalib());	
+		
+		Date date = equipamento.getUltimaCalibDate();
+		if(date != null) ultimaCal.setText(Format.formatData.format(date));	
+		
 		obs.setText(orcamento.getItem());
 		Image image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-excluir.png").toString() );
 		cancelarImg.setImage(image);
@@ -91,7 +100,26 @@ public class OrcamentoViewController extends StatusViewController implements Ini
 		}
 		
 	}
+	
+	@FXML
+	@Override
+	protected void liberado(ActionEvent e) {
+		update(5);
+	}
 
+	@Override
+	protected void update(int status) {		
+		try {
+			
+			equipamentoController.updatede( MainViewController.equipamento.getId(), status, MainViewController.equipamento );
+			Alerts.showAlert("Status ", "Status Alterado com sucesso", "Equipamento da Empressa " + MainViewController.equipamento.getEmpressaName() , AlertType.INFORMATION);
+		} catch (DbException e1) {
+			Alerts.showAlert("DB exception ", "Erro na comunicação com banco de dados", e1.getMessage(), AlertType.ERROR);
+		}
+		
+		AlfaPirometrosApplication.viewController.refreshTable();
+	}
+	
 	@FXML
 	public void cancelar(ActionEvent event) {
 		try {

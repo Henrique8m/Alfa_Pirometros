@@ -16,7 +16,7 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 public class StatusViewController implements Initializable{
-	private EquipamentoController equipamentoController = MainViewController.equipamentoController;
+	protected EquipamentoController equipamentoController = MainViewController.equipamentoController;
 	@FXML
 	private Button cancelar;
 	
@@ -41,7 +41,7 @@ public class StatusViewController implements Initializable{
 	}
 	
 	@FXML
-	private void liberado(ActionEvent e) {
+	protected void liberado(ActionEvent e) {
 		update(5);
 	}
 	
@@ -60,7 +60,7 @@ public class StatusViewController implements Initializable{
 		update(9);
 	}
 		
-	private void update(int status) {		
+	protected void update(int status) {		
 		try {
 			
 			equipamentoController.updatede( MainViewController.equipamento.getId(), status, MainViewController.equipamento );
