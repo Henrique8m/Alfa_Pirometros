@@ -35,10 +35,16 @@ public class EquipamentoMainView extends LogoutMainView {
 		refreshTable();
 	}
     
+	
+	//////////////////////////////////////////////////////
+	
     @FXML
     private void addEquipamento(ActionEvent e) throws IOException {
-    	NewView.getNewView("Entrada Equipamento", "entradaEquipamento", MainViewController.equipamentoInsert );    	
+    	NewView.getNewView("Entrada Equipamento", "entradaEquipamentoDois", MainViewController.OrcamentoViewControllerDois );    	
     }
+    
+    
+    ////////////////////////////////////////////
 	
 	@FXML
     protected void updatedEquipamento(KeyEvent keyEvent) throws IOException {

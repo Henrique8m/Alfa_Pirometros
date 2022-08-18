@@ -17,6 +17,7 @@ import com.hrodriguesdev.entities.Anotations;
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.entities.Orcamento;
 import com.hrodriguesdev.gui.alert.Alerts;
+import com.hrodriguesdev.gui.controller.OrcamentoViewControllerDois;
 import com.hrodriguesdev.gui.controller.view.insert.EquipamentoInsert;
 import com.hrodriguesdev.gui.controller.view.saida.equipemento.OpenSaidaEquipamentoViewController;
 import com.hrodriguesdev.utilitary.Format;
@@ -48,6 +49,7 @@ public class MainViewController implements Initializable{
 	public static EquipamentoController equipamentoController = new EquipamentoController();
 	public static EmpressaController empressaController = new EmpressaController();
 	public static EquipamentoInsert equipamentoInsert = new EquipamentoInsert();
+	public static OrcamentoViewControllerDois OrcamentoViewControllerDois = new OrcamentoViewControllerDois();
 	private Timeline timeline;
 	protected static Boolean dbConection;
 	
