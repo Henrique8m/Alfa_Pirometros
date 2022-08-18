@@ -6,8 +6,8 @@ import java.util.ResourceBundle;
 
 import com.hrodriguesdev.entities.Coletor;
 import com.hrodriguesdev.entities.Empressa;
-import com.hrodriguesdev.gui.controller.MainViewController;
 import com.hrodriguesdev.gui.controller.SaidaEquipamentoViewController;
+import com.hrodriguesdev.gui.controller.view.main.MainViewController;
 import com.hrodriguesdev.relatorio.GeneratorPDF;
 import com.hrodriguesdev.utilitary.Format;
 

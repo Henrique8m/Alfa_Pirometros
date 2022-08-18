@@ -7,8 +7,8 @@ import com.hrodriguesdev.AlfaPirometrosApplication;
 import com.hrodriguesdev.controller.EmpressaController;
 import com.hrodriguesdev.entities.Empressa;
 import com.hrodriguesdev.gui.alert.Alerts;
-import com.hrodriguesdev.gui.controller.MainViewController;
 import com.hrodriguesdev.gui.controller.SaidaEquipamentoViewController;
+import com.hrodriguesdev.gui.controller.view.main.MainViewController;
 import com.hrodriguesdev.utilitary.Format;
 
 import javafx.event.ActionEvent;

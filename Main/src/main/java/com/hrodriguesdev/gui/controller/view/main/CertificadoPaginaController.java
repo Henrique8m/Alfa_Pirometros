@@ -1,7 +1,6 @@
 package com.hrodriguesdev.gui.controller.view.main;
 
 import com.hrodriguesdev.entities.Equipamento;
-import com.hrodriguesdev.gui.controller.MainViewController;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;

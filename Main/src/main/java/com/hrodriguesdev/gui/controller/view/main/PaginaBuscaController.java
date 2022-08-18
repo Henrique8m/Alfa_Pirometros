@@ -9,7 +9,6 @@ import java.util.ResourceBundle;
 import com.hrodriguesdev.entities.Coletor;
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.entities.Orcamento;
-import com.hrodriguesdev.gui.controller.MainViewController;
 import com.hrodriguesdev.utilitary.Format;
 import com.hrodriguesdev.utilitary.InputFilter;
 
