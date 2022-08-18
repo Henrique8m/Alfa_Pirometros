@@ -17,8 +17,8 @@ import com.hrodriguesdev.entities.Anotations;
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.entities.Orcamento;
 import com.hrodriguesdev.gui.alert.Alerts;
-import com.hrodriguesdev.gui.controller.extend.OpenSaidaEquipamentoViewController;
 import com.hrodriguesdev.gui.controller.view.insert.EquipamentoInsert;
+import com.hrodriguesdev.gui.controller.view.saida.equipemento.OpenSaidaEquipamentoViewController;
 import com.hrodriguesdev.utilitary.Format;
 import com.hrodriguesdev.utilitary.NewView;
 

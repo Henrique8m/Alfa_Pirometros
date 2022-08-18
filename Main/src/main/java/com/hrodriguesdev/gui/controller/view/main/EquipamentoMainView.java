@@ -7,10 +7,10 @@ import com.hrodriguesdev.controller.EquipamentoController;
 import com.hrodriguesdev.dao.db.DbException;
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.gui.alert.Alerts;
-import com.hrodriguesdev.gui.controller.SaidaEquipamentoViewController;
 import com.hrodriguesdev.gui.controller.StatusViewController;
-import com.hrodriguesdev.gui.controller.extend.OpenSaidaEquipamentoViewController;
 import com.hrodriguesdev.gui.controller.view.insert.OrcamentoInsert;
+import com.hrodriguesdev.gui.controller.view.saida.equipemento.OpenSaidaEquipamentoViewController;
+import com.hrodriguesdev.gui.controller.view.saida.equipemento.SaidaEquipamentoViewController;
 import com.hrodriguesdev.gui.controller.view.updatede.EquipamentoUpdatede;
 import com.hrodriguesdev.utilitary.NewView;
 
