@@ -5,14 +5,21 @@ import java.io.IOException;
 import com.hrodriguesdev.AlfaPirometrosApplication;
 
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Point2D;
+import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 public class NewView {	
+	
+	public static Scene scene;
+	public static TabPane TABPANE;
 	
 	public static synchronized <T> Object loadFXML(String fxml, Object controller) throws IOException {
 		FXMLLoader fxmlLoader = new FXMLLoader(AlfaPirometrosApplication.class.getResource("gui/resources/" + fxml + ".fxml"));
@@ -60,5 +67,52 @@ public class NewView {
 		stage.show();
 		return stage;
 	}
+	
+	public static void pag(String title, String fxml, Object controller, Scene scene){		
+		try {
+			Pane Pane = (Pane) loadFXML(fxml, controller);
+			scene = new Scene(Pane);
+			Stage stage = new Stage();
+			stage.setMaximized(false);
+			stage.setTitle(title);
+		    stage.getIcons().add(new Image(AlfaPirometrosApplication.class.getResource("gui/resources/" + "Yggdrasilicon.jpg").toString()));
+			stage.setScene(scene);
+			stage.show();
+			
+		} catch (IOException e) {			
+			e.printStackTrace();
+			return;
+			
+		}
+
+	}
+
+	public static void fecharView() {
+		try {
+	    	AnchorPane pane = (AnchorPane) NewView.scene.getRoot();
+	    	pane.getChildren().remove(0);
+	    	pane.getChildren().add(NewView.TABPANE);
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@SuppressWarnings("static-access")
+	public static void addChildren(Node node) {
+    	AnchorPane pane = (AnchorPane) NewView.scene.getRoot();
+    	
+	   	pane.getChildren().clear(); 
+    	pane.getChildren().add(node);
+    	pane.setBottomAnchor(pane.getChildren().get(0), (double) 0);
+    	pane.setTopAnchor(pane.getChildren().get(0), (double) 0);
+    	pane.setLeftAnchor(pane.getChildren().get(0), (double) 0);
+    	pane.setRightAnchor(pane.getChildren().get(0), (double) 0);
+//    	pane.getChildren().get(0).layoutBoundsProperty().
+    	
+//    	pane.getChildren().get(0).getLayoutBounds().contains(0, 0, 0, 0);
+
+
+	}
+	
 
 }

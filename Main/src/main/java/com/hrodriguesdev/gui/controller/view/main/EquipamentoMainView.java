@@ -16,6 +16,7 @@ import com.hrodriguesdev.utilitary.NewView;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
@@ -40,7 +41,7 @@ public class EquipamentoMainView extends LogoutMainView {
 	
     @FXML
     private void addEquipamento(ActionEvent e) throws IOException {
-    	NewView.getNewView("Entrada Equipamento", "entradaEquipamentoDois", MainViewController.OrcamentoViewControllerDois );    	
+    	NewView.addChildren((Node) NewView.loadFXML("entradaEquipamentoDois" , MainViewController.OrcamentoViewControllerDois));
     }
     
     

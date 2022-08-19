@@ -1,5 +1,6 @@
 package com.hrodriguesdev.gui.controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -12,6 +13,7 @@ import com.hrodriguesdev.gui.alert.Alerts;
 import com.hrodriguesdev.gui.controller.view.main.MainViewController;
 import com.hrodriguesdev.utilitary.Format;
 import com.hrodriguesdev.utilitary.InputFilter;
+import com.hrodriguesdev.utilitary.NewView;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,6 +21,7 @@ import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -36,7 +39,7 @@ import javafx.stage.Stage;
 
 public class OrcamentoViewControllerDois implements Initializable{
 	@FXML
-	protected ImageView cancelarImg, salvarImg;;
+	protected ImageView cancelarImg, salvarImg, addEmpressaImg, addEquipamento, logoYgg;
 	@FXML
 	protected Button salvar, cancelar, buscar;
 	@FXML
@@ -78,6 +81,9 @@ public class OrcamentoViewControllerDois implements Initializable{
 		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-excluir.png").toString() );
 		cancelarImg.setImage(image);
 		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-adicionar.png").toString() );
+		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-adicionar.png").toString() );
+		addEmpressaImg.setImage(image);
+		addEquipamento.setImage(image);
 		
 	    data.setText(Format.formatData.format(new Date(System.currentTimeMillis())));
 	}
@@ -111,13 +117,22 @@ public class OrcamentoViewControllerDois implements Initializable{
 	
 	@FXML
 	public void cancelar(ActionEvent event) {
+		NewView.fecharView();
+	}
+		
+	@FXML
+	public void addEquipamento(ActionEvent event) {
 		try {
-			Stage stage = (Stage) cancelar.getScene().getWindow(); 
-			stage.close();
-		} catch (NumberFormatException e) {
+			NewView.addChildren((Node) NewView.loadFXML("cadastroEquipamento", new EquipamentoViewControllerDois() ) );
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
+	}	
+	
+	@FXML
+	public void addEmpressa(ActionEvent event) {
+		
+	}	
 	
 	@FXML
 	private void equipamentoClick(MouseEvent e) {

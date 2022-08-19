@@ -19,7 +19,7 @@ public class AlfaPirometrosApplication extends Application{
 	public static Stage stage;
 	private ImageView starting;
 	private Image icon;
-	
+		
 // 1: return "Aguardando Orçamento";
 // 2: return "Enviar Orçamento";
 // 3: return "Aguardando Aprovação";

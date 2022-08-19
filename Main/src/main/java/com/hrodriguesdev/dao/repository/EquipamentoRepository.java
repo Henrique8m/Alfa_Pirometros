@@ -11,7 +11,6 @@ import java.util.List;
 import com.hrodriguesdev.dao.db.DB;
 import com.hrodriguesdev.dao.db.DbException;
 import com.hrodriguesdev.entities.Equipamento;
-import com.hrodriguesdev.utilitary.Geral;
 
 public class EquipamentoRepository {
 	Connection conn = null;
@@ -369,23 +368,43 @@ public class EquipamentoRepository {
 
 		try {
 			for(Equipamento equipamento: list) {
-				if(equipamento.getUltimaCalib() != null && equipamento.getUltimaCalib() != " ") {
-					if(Geral.dateParceString(equipamento.getUltimaCalib() ) != null){
-						
-						pst = conn.prepareStatement("UPDATE tb_equipamento "
-														+ "SET ultimaCalibDate = ?"
+				
+				if(equipamento.getOrcamento_id() != null && equipamento.getDateChegada() != null && equipamento.getDateSaida() != null) {
+
+						pst = conn.prepareStatement("UPDATE tb_orcamento "
+														+ "SET equipamento_id = ?"
+														+ ", data_chegada = ?"
+														+ ", data_saida = ?"
+														+ ", laboratorio = ?"
 														+ " WHERE "
 														+ "(id = ?)");
 						
-						pst.setDate( 1, Geral.dateParceString(equipamento.getUltimaCalib() ) );
-						pst.setLong( 2, equipamento.getId() );
+						pst.setLong( 1, equipamento.getId() );
+						pst.setDate(2, equipamento.getDateChegada());
+						pst.setDate(3, equipamento.getDateSaida() );
+						pst.setBoolean(4, equipamento.getLaboratorio());
+						pst.setLong( 5, equipamento.getOrcamento_id() );
 						pst.executeUpdate();
 					}		
+				else if(equipamento.getOrcamento_id() != null && equipamento.getDateChegada() != null) {
+
+					pst = conn.prepareStatement("UPDATE tb_orcamento "
+													+ "SET equipamento_id = ?"
+													+ ", data_chegada = ?"
+													+ ", laboratorio = ?"
+													+ " WHERE "
+													+ "(id = ?)");
 					
+					pst.setLong( 1, equipamento.getId() );
+					pst.setDate(2, equipamento.getDateChegada());
+					pst.setBoolean(3, equipamento.getLaboratorio());
+					pst.setLong( 4, equipamento.getOrcamento_id() );
+					pst.executeUpdate();
+				}		
 				}
 	
 			
-			}
+			
 		
 //		try {
 //			for(Equipamento equipamento: list) {				

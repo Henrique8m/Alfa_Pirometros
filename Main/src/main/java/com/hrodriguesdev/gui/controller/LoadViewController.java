@@ -11,14 +11,14 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class LoadViewController implements Initializable {
 	
 	private Timeline timeline;
-	private static Stage stage;	
-	private static Scene scene;	
+	public static Stage stage;	
 
 
 	@Override
@@ -34,8 +34,9 @@ public class LoadViewController implements Initializable {
 				//System.out.println("spring Start true ");
 				try {
 					AnchorPane anchorPane = (AnchorPane) NewView.loadFXML("mainView", AlfaPirometrosApplication.viewController);
-					scene = new Scene(anchorPane);
-					NewView.getNewView("Controle de Estoque", scene, stage);
+					NewView.scene = new Scene(anchorPane);
+					NewView.getNewView("Controle de Estoque", NewView.scene, stage);
+					NewView.TABPANE = (TabPane) anchorPane.getChildren().get(0);
 				} catch (IOException e) {
 					e.printStackTrace();
 					System.exit(1);
@@ -49,9 +50,5 @@ public class LoadViewController implements Initializable {
 	timeline.play();
 
 	}
-	
-	public static Scene getScene() {
-		return scene;
-	}
-	
+		
 }
