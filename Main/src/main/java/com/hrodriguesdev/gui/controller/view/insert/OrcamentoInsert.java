@@ -167,8 +167,7 @@ public class OrcamentoInsert implements Initializable {
 			if(equipamentoController.updatede(equipamento.getId() , orcamentoId)) {
 				equipamentoController.updatede(equipamento.getId(), 2, equipamento);
 				try {
-					Stage stage = (Stage) cancelar.getScene().getWindow(); 
-					stage.close();
+					NewView.fecharView();
 				} catch (NumberFormatException e) {
 					e.printStackTrace();
 				}

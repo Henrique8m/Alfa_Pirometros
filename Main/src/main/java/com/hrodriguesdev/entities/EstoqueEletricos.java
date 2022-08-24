@@ -10,16 +10,102 @@ public class EstoqueEletricos implements Serializable {
 	///@Id
 	//@GeneratedValue(strategy = GenerationType.IDENTITY)
 	
-//	private Long id;
-//	private int FontCarbIndic;
-//	private int FontCarbDelta;
-//	private int PinFemeAliFII;
-//	private int PinFemeAliFIII;
-//	private int BatFIIFIII;
-//	private int BatDescartavel;
-//	private int BatInditemp;
-//	private int BatLitio;
-//	private int CarrEcil;
-//	private int CarrItalterm;
+	private Long id;
+	private Long orcamento_id;
+	private Boolean saida;
+	private int nfe;
+	private int FontCarbIndic;
+	private int FontCarbDelta;
+	private int PinFemeAliFII;
+	private int PinFemeAliFIII;
+	private int BatFIIFIII;
+	private int BatDescartavel;
+	private int BatInditemp;
+	private int BatLitio;
+	private int CarrEcil;
+	private int CarrItalterm;
+	
+	public Long getOrcamento_id() {
+		return orcamento_id;
+	}
+	public void setOrcamento_id(Long orcamento_id) {
+		this.orcamento_id = orcamento_id;
+	}
+	public Boolean getSaida() {
+		return saida;
+	}
+	public void setSaida(Boolean saida) {
+		this.saida = saida;
+	}
+	public int getNfe() {
+		return nfe;
+	}
+	public void setNfe(int nfe) {
+		this.nfe = nfe;
+	}
+	public int getFontCarbIndic() {
+		return FontCarbIndic;
+	}
+	public void setFontCarbIndic(int fontCarbIndic) {
+		FontCarbIndic = fontCarbIndic;
+	}
+	public int getFontCarbDelta() {
+		return FontCarbDelta;
+	}
+	public void setFontCarbDelta(int fontCarbDelta) {
+		FontCarbDelta = fontCarbDelta;
+	}
+	public int getPinFemeAliFII() {
+		return PinFemeAliFII;
+	}
+	public void setPinFemeAliFII(int pinFemeAliFII) {
+		PinFemeAliFII = pinFemeAliFII;
+	}
+	public int getPinFemeAliFIII() {
+		return PinFemeAliFIII;
+	}
+	public void setPinFemeAliFIII(int pinFemeAliFIII) {
+		PinFemeAliFIII = pinFemeAliFIII;
+	}
+	public int getBatFIIFIII() {
+		return BatFIIFIII;
+	}
+	public void setBatFIIFIII(int batFIIFIII) {
+		BatFIIFIII = batFIIFIII;
+	}
+	public int getBatDescartavel() {
+		return BatDescartavel;
+	}
+	public void setBatDescartavel(int batDescartavel) {
+		BatDescartavel = batDescartavel;
+	}
+	public int getBatInditemp() {
+		return BatInditemp;
+	}
+	public void setBatInditemp(int batInditemp) {
+		BatInditemp = batInditemp;
+	}
+	public int getBatLitio() {
+		return BatLitio;
+	}
+	public void setBatLitio(int batLitio) {
+		BatLitio = batLitio;
+	}
+	public int getCarrEcil() {
+		return CarrEcil;
+	}
+	public void setCarrEcil(int carrEcil) {
+		CarrEcil = carrEcil;
+	}
+	public int getCarrItalterm() {
+		return CarrItalterm;
+	}
+	public void setCarrItalterm(int carrItalterm) {
+		CarrItalterm = carrItalterm;
+	}
+	public Long getId() {
+		return id;
+	}
 
+	
 }
