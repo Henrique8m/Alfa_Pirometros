@@ -6,11 +6,13 @@ import java.sql.SQLException;
 import com.hrodriguesdev.controller.OrcamentoController;
 import com.hrodriguesdev.gui.alert.Alerts;
 import com.hrodriguesdev.gui.controller.OrcamentoViewController;
+import com.hrodriguesdev.gui.controller.view.insert.OrcamentoInsert;
 import com.hrodriguesdev.gui.controller.view.updatede.OrcamentoUpdatede;
 import com.hrodriguesdev.utilitary.NewView;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.KeyEvent;
 
@@ -31,7 +33,8 @@ public class OrcamentoMainView extends TableMainView{
 				return;
 			}
     		if(orcamento != null) {
-    			NewView.getNewView("Entrada Equipamento", "orcamentoView", new OrcamentoViewController() );
+//    			NewView.getNewView("Entrada Equipamento", "orcamentoView", new OrcamentoViewController() );
+    			NewView.addChildren((Node) NewView.loadFXML("orcamentoViewDois" , new OrcamentoViewController() ));
     		}else
     			Alerts.showAlert("Orcamento" , "Status Orcamento", "Não consta orçamento para este equipamento" , AlertType.INFORMATION);
     		
@@ -40,6 +43,25 @@ public class OrcamentoMainView extends TableMainView{
     	refreshTable();
 
     }
+    
+    @FXML
+	protected void addOrcamento(ActionEvent e) throws IOException, SQLException {
+		if(tableFilaEquipamentos.getSelectionModel().getSelectedItem() != null) {			
+			equipamento = tableFilaEquipamentos.getSelectionModel().getSelectedItem();
+			if(tableFilaEquipamentos.getSelectionModel().getSelectedItem().getOrcamento_id()  == null || tableFilaEquipamentos.getSelectionModel().getSelectedItem().getOrcamento_id() == 0) 
+			{
+				orcamento = controller.findById( tableFilaEquipamentos.getSelectionModel().getSelectedItem().getOrcamento_id() );
+//				NewView.getNewView("Entrada Equipamento", "orcamentoDois", new OrcamentoInsert() );
+				NewView.addChildren((Node) NewView.loadFXML("orcamentoDois" , new OrcamentoInsert() ));
+
+			}else openOrcamento(new ActionEvent());
+
+		}
+		else {
+			showAlerts("Seleção ", "", "Nada Selecionado ", AlertType.INFORMATION );
+		}
+    	
+    }   
     
 	protected void updatedEquipamento(KeyEvent keyEvent) throws IOException {
 	    if(keyEvent.getCode().toString() == "F3" ) {			

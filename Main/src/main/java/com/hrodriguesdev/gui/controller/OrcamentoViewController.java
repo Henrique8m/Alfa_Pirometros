@@ -1,7 +1,6 @@
 package com.hrodriguesdev.gui.controller;
 
 import java.net.URL;
-import java.sql.Date;
 import java.util.ResourceBundle;
 
 import com.hrodriguesdev.AlfaPirometrosApplication;
@@ -15,10 +14,10 @@ import com.hrodriguesdev.utilitary.Format;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
@@ -63,14 +62,14 @@ public class OrcamentoViewController extends StatusViewController implements Ini
 		}
 		switchStatus(equipamento.getStatus());		
 		nomeEmpressa.setText(equipamento.getEmpressaName());
-		data.setText(Format.formatData.format(equipamento.getDateChegada()));
+		data.setText(Format.formatData.format(orcamento.getData_chegada()));
 		
 		modelo.setText(equipamento.getModelo());
 		ns.setText(equipamento.getNs());
 		pat.setText(equipamento.getPat());
 		
-		Date date = equipamento.getUltimaCalibDate();
-		if(date != null) ultimaCal.setText(Format.formatData.format(date));	
+//		Date date = equipamento.getUltimaCalibDate();
+//		if(date != null) ultimaCal.setText(Format.formatData.format(date));	
 		
 		obs.setText(orcamento.getItem());
 		Image image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-excluir.png").toString() );

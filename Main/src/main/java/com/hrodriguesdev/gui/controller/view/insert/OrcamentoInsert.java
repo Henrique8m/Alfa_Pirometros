@@ -9,7 +9,9 @@ import com.hrodriguesdev.controller.OrcamentoController;
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.entities.Orcamento;
 import com.hrodriguesdev.gui.controller.view.main.MainViewController;
+import com.hrodriguesdev.utilitary.Format;
 import com.hrodriguesdev.utilitary.InputFilter;
+import com.hrodriguesdev.utilitary.NewView;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -27,7 +29,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 
 public class OrcamentoInsert implements Initializable {
 	
@@ -155,38 +156,33 @@ public class OrcamentoInsert implements Initializable {
 
 	@FXML
 	public void salvar(ActionEvent event) {
-//
-//		if(obsMateriais.size()>0) {
-//			obsMateriais.forEach((orcamento)-> {	
-//			String itemStr = orcamento.getItem();
-//			this.nova = this.list + itemStr  + "\n";
-//			this.list = nova;
-//			});
-//			orcamentoId = controller.add( new Orcamento(nova, 0) );
-////			if(equipamentoController.updatede(equipamento.getId() , orcamentoId)) {
-//				equipamentoController.updatede(equipamento.getId(), 2, equipamento);
-//				try {
-//					Stage stage = (Stage) cancelar.getScene().getWindow(); 
-//					stage.close();
-//				} catch (NumberFormatException e) {
-//					e.printStackTrace();
-//				}
-//			}else {
-//				erro.setText("Erro");
-//			}
-//		}
-//		AlfaPirometrosApplication.viewController.refreshTable();
+
+		if(obsMateriais.size()>0) {
+			obsMateriais.forEach((orcamento)-> {	
+			String itemStr = orcamento.getItem();
+			this.nova = this.list + itemStr  + "\n";
+			this.list = nova;
+			});
+			orcamentoId = controller.add( new Orcamento(nova, 0) );
+			if(equipamentoController.updatede(equipamento.getId() , orcamentoId)) {
+				equipamentoController.updatede(equipamento.getId(), 2, equipamento);
+				try {
+					Stage stage = (Stage) cancelar.getScene().getWindow(); 
+					stage.close();
+				} catch (NumberFormatException e) {
+					e.printStackTrace();
+				}
+			}else {
+				erro.setText("Erro");
+			}
+		}
+		AlfaPirometrosApplication.viewController.refreshTable();
 	
 	}	
 	
 	@FXML
 	public void cancelar(ActionEvent event) {
-		try {
-			Stage stage = (Stage) cancelar.getScene().getWindow(); 
-			stage.close();
-		} catch (NumberFormatException e) {
-			e.printStackTrace();
-		}
+		NewView.fecharView();
 	}
 
 	
@@ -220,12 +216,13 @@ public class OrcamentoInsert implements Initializable {
 	
 	private void textFildInserts() {
 		equipamento = MainViewController.equipamento;
+		Orcamento orcamento = MainViewController.orcamento;
 		nomeEmpressa.setText(equipamento.getEmpressaName());
-		data.setText(equipamento.getDataChegada());
+		data.setText( Format.formatData.format(orcamento.getData_chegada()) );
 		modelo.setText(equipamento.getModelo());
 		ns.setText(equipamento.getNs());
 		pat.setText(equipamento.getPat());
-		ultimaCal.setText(equipamento.getUltimaCalib());	
+//		ultimaCal.setText(equipamento.getUltimaCalib());	
 	}
 		
 //	private boolean listManutencao(String value, int intValue) {

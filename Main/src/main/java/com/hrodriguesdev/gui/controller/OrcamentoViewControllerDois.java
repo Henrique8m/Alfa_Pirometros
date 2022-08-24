@@ -155,8 +155,9 @@ public class OrcamentoViewControllerDois implements Initializable{
 						Geral.dateParceString(data.getText() ) , 
 						true					
 						);
-				if( MainViewController.orcamentoController.add(orcamento) != null)
-					MainViewController.equipamentoController.updatede(tableEquipamentos.getSelectionModel().getSelectedItem().getId(), true);
+				Long orcamento_id = MainViewController.orcamentoController.add(orcamento);
+				if(orcamento_id != null)
+					MainViewController.equipamentoController.updatede(tableEquipamentos.getSelectionModel().getSelectedItem().getId(), true, orcamento_id);
 					NewView.fecharView();		
 			}	
 		}catch(NullPointerException e) {

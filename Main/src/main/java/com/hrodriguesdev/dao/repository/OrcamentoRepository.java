@@ -100,6 +100,7 @@ public class OrcamentoRepository {
 				if( rs.getLong("id") == id) {
 					orcamento = new Orcamento(rs.getString("Item"), Integer.parseInt( rs.getString("quantidade") ) );
 					orcamento.setId(id);
+					orcamento.setData_chegada(rs.getDate("data_chegada"));
 				}
 						
 		}catch(DbException | SQLException e) {

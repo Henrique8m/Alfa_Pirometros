@@ -185,7 +185,7 @@ public class EquipamentoRepository {
 			while (rs.next())  		
 				for(Long id: equipamento_id)
 					if(rs.getLong("id") == id ) 
-						list.add( Equipamento.parseEquipamento( rs ) );							
+						list.add( Equipamento.parseEquipamentoDois( rs ) );							
 
 		
 		} catch (SQLException e) {			
@@ -464,7 +464,7 @@ public class EquipamentoRepository {
 
 	}
 	
-	public boolean updatede(Long id, Boolean laboratorioo) {
+	public boolean updatede(Long id, Boolean laboratorioo, Long orcamento_id) {
 		boolean ok = false;
 		
 		try {
@@ -472,10 +472,12 @@ public class EquipamentoRepository {
 			conn.setAutoCommit(false);
 			pst = conn.prepareStatement("UPDATE tb_equipamento "
 											+ "SET laboratorio = " + laboratorioo 
+											+ "orcamento_id = ?"
 											+" WHERE "
 											+"(id = ?)");
 			
-			pst.setLong( 1, id );			
+			pst.setLong(1, orcamento_id);
+			pst.setLong( 2, id );			
 			
 			int rowsAccepted = pst.executeUpdate();
 			conn.commit();

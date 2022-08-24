@@ -299,6 +299,7 @@ public class Equipamento implements Serializable {
 			obj.setPat(rs.getString("pat"));
 			obj.setEmpressa( rs.getLong( "empresa_id" ) );
 			obj.setLaboratorio( rs.getBoolean( "laboratorio" ));
+			obj.setOrcamento_id( rs.getLong("orcamento_id"));
 			
 		} catch (SQLException e) {
 			e.printStackTrace();

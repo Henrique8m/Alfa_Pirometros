@@ -9,7 +9,6 @@ import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.gui.alert.Alerts;
 import com.hrodriguesdev.gui.controller.OrcamentoViewControllerDois;
 import com.hrodriguesdev.gui.controller.StatusViewController;
-import com.hrodriguesdev.gui.controller.view.insert.OrcamentoInsert;
 import com.hrodriguesdev.gui.controller.view.saida.equipemento.OpenSaidaEquipamentoViewController;
 import com.hrodriguesdev.gui.controller.view.saida.equipemento.SaidaEquipamentoViewController;
 import com.hrodriguesdev.gui.controller.view.updatede.EquipamentoUpdatede;
@@ -37,16 +36,11 @@ public class EquipamentoMainView extends LogoutMainView {
 		refreshTable();
 	}
     
-	
-	//////////////////////////////////////////////////////
-	
     @FXML
     private void addEquipamento(ActionEvent e) throws IOException {
     	NewView.addChildren((Node) NewView.loadFXML("entradaEquipamentoDois" , new OrcamentoViewControllerDois() ));
     }
     
-    
-    ////////////////////////////////////////////
 	
 	@FXML
     protected void updatedEquipamento(KeyEvent keyEvent) throws IOException {
@@ -153,27 +147,7 @@ public class EquipamentoMainView extends LogoutMainView {
 	   	
     }
 	
-	@FXML
-    private void addOrcamento(ActionEvent e) throws IOException {
-		if(tableFilaEquipamentos.getSelectionModel().getSelectedItem() != null) {			
-			equipamento = tableFilaEquipamentos.getSelectionModel().getSelectedItem();
-			if(tableFilaEquipamentos.getSelectionModel().getSelectedItem().getOrcamento_id()  == null || tableFilaEquipamentos.getSelectionModel().getSelectedItem().getOrcamento_id() == 0) 
-			{
-				NewView.getNewView("Entrada Equipamento", "orcamento", new OrcamentoInsert() );
-
-			}
-			else
-			{
-				showAlerts("Orcamento ", "", "Ja consta orcamento para o equipamento selecionado ", AlertType.INFORMATION );
-			}
-
-		}
-		else {
-			showAlerts("Seleção ", "", "Nada Selecionado ", AlertType.INFORMATION );
-		}
-    	
-    }   
-	
+		
 	@FXML
     private void addColeta(ActionEvent e) throws IOException {
     	 if(tableFilaEquipamentos.getSelectionModel().getSelectedItem() != null) {
@@ -211,7 +185,7 @@ public class EquipamentoMainView extends LogoutMainView {
 	
 	
 	@FXML
-	public void tableFilaEquipamentoClick(MouseEvent event) throws IOException {
+	public void tableFilaEquipamentoClick(MouseEvent event) throws IOException, SQLException {
 		if(event.getClickCount() >= 2) {
 			if(tableFilaEquipamentos.getSelectionModel().getSelectedItem() != null) {
 				Equipamento equipSelected = tableFilaEquipamentos.getSelectionModel().getSelectedItem();

@@ -52,8 +52,8 @@ public class EquipamentoController {
 		return equipamentoService.updatede(id, status, equipamento);		
 	}
 	
-	public boolean updatede(Long id, Boolean laboratorio) {
-		return equipamentoService.updatede(id, laboratorio);		
+	public boolean updatede(Long id, Boolean laboratorio, Long orcamento_id) {
+		return equipamentoService.updatede(id, laboratorio, orcamento_id);		
 	}
 	
 	public boolean updated(Equipamento equipamento) {		
