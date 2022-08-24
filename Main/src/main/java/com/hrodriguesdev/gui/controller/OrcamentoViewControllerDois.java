@@ -9,9 +9,11 @@ import java.util.ResourceBundle;
 import com.hrodriguesdev.AlfaPirometrosApplication;
 import com.hrodriguesdev.dao.db.DbException;
 import com.hrodriguesdev.entities.Equipamento;
+import com.hrodriguesdev.entities.Orcamento;
 import com.hrodriguesdev.gui.alert.Alerts;
 import com.hrodriguesdev.gui.controller.view.main.MainViewController;
 import com.hrodriguesdev.utilitary.Format;
+import com.hrodriguesdev.utilitary.Geral;
 import com.hrodriguesdev.utilitary.InputFilter;
 import com.hrodriguesdev.utilitary.NewView;
 
@@ -35,9 +37,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 
 public class OrcamentoViewControllerDois implements Initializable{
+	private String empressa;
 	@FXML
 	protected ImageView cancelarImg, salvarImg, addEmpressaImg, addEquipamento, logoYgg;
 	@FXML
@@ -65,10 +67,20 @@ public class OrcamentoViewControllerDois implements Initializable{
 	private TableColumn<Equipamento, Date> ultimaCal;
     private  ObservableList<Equipamento> obsListEquipamentos = FXCollections.observableArrayList();
     
+    public OrcamentoViewControllerDois() {}
+    
+    public OrcamentoViewControllerDois(String nomeEmpressa) {
+    	this.empressa = nomeEmpressa;
+    }
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		addListener();
+		if(empressa != null) {
+			nomeEmpressa.setValue(empressa);
+			buscar(new ActionEvent());
+		}
+		
 		try {
 			startTable();
 		} catch (DbException e) {
@@ -92,14 +104,13 @@ public class OrcamentoViewControllerDois implements Initializable{
 	private void keyEventCombobox(KeyEvent event){
 		if(event.getTarget() == nomeEmpressa) {
 			
-			System.out.println(event.getCode().toString());
-			
 			if(event.getCode().toString() == "ESCAPE") {
 				removeListener();
 				addListener();
 				
 			}
 			if(event.getCode().toString() == "ENTER") {
+				buscar(new ActionEvent());
 				removeListener();
 				addListener();
 				
@@ -110,16 +121,55 @@ public class OrcamentoViewControllerDois implements Initializable{
 	}
 	
 	@FXML
-	private void buscar(ActionEvent event) {}
+	private void buscar(ActionEvent event) {
+		if(nomeEmpressa.getValue()== "") {
+			error( "Campo nulo " ,"O campo nome da Empressa não pode ser nulo");
+			erro.setVisible(true);
+			erro.setText("Empressa nulo");
+			return;
+		}
+		try {
+			Long empressa_id = MainViewController.empressaController.isExist( nomeEmpressa.getValue()  );
+			if ( empressa_id == null ) {
+				erro.setVisible(true);
+				erro.setText("Empressa não existe");
+				throw new DbException("Empresa não existe");
+			}else {
+				obsListEquipamentos = MainViewController.equipamentoController.findByIdEmpressa( empressa_id, true);
+				tableEquipamentos.setItems(obsListEquipamentos);
+				tableEquipamentos.refresh();
+			}
+			
+		}catch(DbException | SQLException e2) {
+			error( "Find Empresa" ,"Empresa Não Encontrada");
+			return;
+		}
+	}
 	
 	@FXML
-	public void salvar(ActionEvent event) {}	
+	public void salvar(ActionEvent event) {	
+		try {			
+			if( tableEquipamentos.getSelectionModel().getSelectedItem().getId() != null && tableEquipamentos.getSelectionModel().getSelectedItem().getLaboratorio() != true) {
+				Orcamento orcamento = new Orcamento(
+						tableEquipamentos.getSelectionModel().getSelectedItem().getId(), 
+						Geral.dateParceString(data.getText() ) , 
+						true					
+						);
+				if( MainViewController.orcamentoController.add(orcamento) != null)
+					MainViewController.equipamentoController.updatede(tableEquipamentos.getSelectionModel().getSelectedItem().getId(), true);
+					NewView.fecharView();		
+			}	
+		}catch(NullPointerException e) {
+			error("Selection", "Nada selecionado");		
+		}
+	}	
 	
 	@FXML
 	public void cancelar(ActionEvent event) {
 		NewView.fecharView();
 	}
-		
+	
+	
 	@FXML
 	public void addEquipamento(ActionEvent event) {
 		try {
@@ -135,20 +185,19 @@ public class OrcamentoViewControllerDois implements Initializable{
 	}	
 	
 	@FXML
-	private void equipamentoClick(MouseEvent e) {
+	private void equipamentoClick(MouseEvent event) {
+		if(event.getClickCount() >= 2) 
+			salvar(new ActionEvent());
 		
 	}
 	
 	protected void error(String titulo, String mensagem) {
 		Alerts.showAlert(titulo, "", mensagem, AlertType.ERROR);
-		Stage stage = (Stage) cancelar.getScene().getWindow(); 
-		stage.close();
+		NewView.fecharView();
 	}
 	
 	private void startTable() throws DbException, SQLException {
-
-		obsListEquipamentos = MainViewController.equipamentoController.findAllByLaboratorio(true);
-				
+		
 		tableEquipamentos.setEditable(false); 
 		modelo.setCellValueFactory(new PropertyValueFactory<Equipamento, String>("modelo"));
 		ns.setCellValueFactory(new PropertyValueFactory<Equipamento, String>("ns"));

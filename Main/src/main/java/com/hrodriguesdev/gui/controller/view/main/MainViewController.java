@@ -3,7 +3,6 @@ package com.hrodriguesdev.gui.controller.view.main;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import com.hrodriguesdev.AlfaPirometrosApplication;
@@ -13,6 +12,7 @@ import com.hrodriguesdev.controller.EquipamentoController;
 import com.hrodriguesdev.controller.OrcamentoController;
 import com.hrodriguesdev.dao.db.DB;
 import com.hrodriguesdev.dao.db.DbException;
+import com.hrodriguesdev.dao.repository.EquipamentoRepository;
 import com.hrodriguesdev.entities.Anotations;
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.entities.Orcamento;
@@ -49,7 +49,7 @@ public class MainViewController implements Initializable{
 	public static EquipamentoController equipamentoController = new EquipamentoController();
 	public static EmpressaController empressaController = new EmpressaController();
 	public static EquipamentoInsert equipamentoInsert = new EquipamentoInsert();
-	public static OrcamentoViewControllerDois OrcamentoViewControllerDois = new OrcamentoViewControllerDois();
+//	public static OrcamentoViewControllerDois OrcamentoViewControllerDois = new OrcamentoViewControllerDois();
 	private Timeline timeline;
 	protected static Boolean dbConection;
 	
@@ -115,11 +115,11 @@ public class MainViewController implements Initializable{
 	  			if( equipamentoEdit.getColetor_id() != null || equipamentoEdit.getColetor_id() != 0) {
 	  				NewView.getNewView("Saida de equipamento",  "saidaEquipamento", new OpenSaidaEquipamentoViewController() );
 		     			try {
-							obsListTableFilaEquipamentos = equipamentoController.findAllByLaboratorio(true);
+		    				obsListTableFilaEquipamentos = orcamentoController.findAllLaboratorio(true);
 				    		oldObs = obsListTableFilaEquipamentos;
 				    		dbConection = true;
 				    		tableFilaEquipamentos.setItems(obsListTableFilaEquipamentos);
-						} catch (DbException | SQLException e1) {
+						} catch (DbException e1) {
 						
 							e1.printStackTrace();
 						}
@@ -192,10 +192,11 @@ public class MainViewController implements Initializable{
 		
 		if( dbConection ) {
 			try {
-	    		obsListTableFilaEquipamentos = equipamentoController.findAllByLaboratorio(true);
+//	    		obsListTableFilaEquipamentos = equipamentoController.findAllByLaboratorio(true);
+				obsListTableFilaEquipamentos = orcamentoController.findAllLaboratorio(true);
 	    		oldObs = obsListTableFilaEquipamentos;
 	
-		    }catch(DbException | SQLException e) {
+		    }catch(DbException e) {
 		    	dbConection = false;
 		    } 
 		}
@@ -314,7 +315,7 @@ public class MainViewController implements Initializable{
 			if(dbConection) {
 				if(FILTER) {
 					try {
-					obsListTableFilaEquipamentos = equipamentoController.findAllByLaboratorio(true);
+						obsListTableFilaEquipamentos = orcamentoController.findAllLaboratorio(true);
 		    		oldObs = obsListTableFilaEquipamentos;
 					tableFilaEquipamentos.setItems(obsListTableFilaEquipamentos);			
 		    		dbConection = true;  
@@ -345,7 +346,7 @@ public class MainViewController implements Initializable{
 	//						}
 	//					}
 	//					oldObs = obsListTableFilaEquipamentos;
-					} catch (DbException | SQLException e) {
+					} catch (DbException e) {
 	//					showAlerts("begin Timer ", "", e.getMessage(), AlertType.INFORMATION );
 					}			
 				}

@@ -7,6 +7,7 @@ import com.hrodriguesdev.controller.EquipamentoController;
 import com.hrodriguesdev.dao.db.DbException;
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.gui.alert.Alerts;
+import com.hrodriguesdev.gui.controller.OrcamentoViewControllerDois;
 import com.hrodriguesdev.gui.controller.StatusViewController;
 import com.hrodriguesdev.gui.controller.view.insert.OrcamentoInsert;
 import com.hrodriguesdev.gui.controller.view.saida.equipemento.OpenSaidaEquipamentoViewController;
@@ -41,7 +42,7 @@ public class EquipamentoMainView extends LogoutMainView {
 	
     @FXML
     private void addEquipamento(ActionEvent e) throws IOException {
-    	NewView.addChildren((Node) NewView.loadFXML("entradaEquipamentoDois" , MainViewController.OrcamentoViewControllerDois));
+    	NewView.addChildren((Node) NewView.loadFXML("entradaEquipamentoDois" , new OrcamentoViewControllerDois() ));
     }
     
     
@@ -136,9 +137,9 @@ public class EquipamentoMainView extends LogoutMainView {
 			equipamento = tableFilaEquipamentos.getSelectionModel().getSelectedItem();
 			NewView.getNewView("Alterar Status","status", new StatusViewController() );
 			try {
-				obsListTableFilaEquipamentos = equipamentoController.findAllByLaboratorio(true);
+				obsListTableFilaEquipamentos = orcamentoController.findAllLaboratorio(true);
 				dbConection = true;
-			} catch (DbException | SQLException e1) {
+			} catch (DbException e1) {
 				showAlerts("DB exception ", "Erro na comunicação com banco de dados", e1.getMessage(), AlertType.ERROR );
 				dbConection = false;
 			}
@@ -182,22 +183,22 @@ public class EquipamentoMainView extends LogoutMainView {
      			if( equipamentoEdit.getColetor_id() == null || equipamentoEdit.getColetor_id() == 0) {
      				NewView.getNewView("Saida de equipamento", "saidaEquipamento", new SaidaEquipamentoViewController() );
 	     			try {
-						obsListTableFilaEquipamentos = equipamentoController.findAllByLaboratorio(true);
+	    				obsListTableFilaEquipamentos = orcamentoController.findAllLaboratorio(true);
 			    		oldObs = obsListTableFilaEquipamentos;
 			    		dbConection = true;
 			    		tableFilaEquipamentos.setItems(obsListTableFilaEquipamentos);
-					} catch (DbException | SQLException e1) {
+					} catch (DbException e1) {
 					
 						e1.printStackTrace();
 					}
      			} else{
      				NewView.getNewView("Saida de equipamento", "saidaEquipamento", new OpenSaidaEquipamentoViewController());
 	     			try {
-						obsListTableFilaEquipamentos = equipamentoController.findAllByLaboratorio(true);
+	    				obsListTableFilaEquipamentos = orcamentoController.findAllLaboratorio(true);
 			    		oldObs = obsListTableFilaEquipamentos;
 			    		dbConection = true;
 			    		tableFilaEquipamentos.setItems(obsListTableFilaEquipamentos);
-					} catch (DbException | SQLException e1) {
+					} catch (DbException e1) {
 					
 						e1.printStackTrace();
 					}

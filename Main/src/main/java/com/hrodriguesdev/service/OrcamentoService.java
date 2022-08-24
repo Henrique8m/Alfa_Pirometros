@@ -1,12 +1,14 @@
 package com.hrodriguesdev.service;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import com.hrodriguesdev.dao.repository.OrcamentoRepository;
 import com.hrodriguesdev.entities.Orcamento;
 
 public class OrcamentoService {
 	private OrcamentoRepository repository = new OrcamentoRepository();
+	
 
 	public Long addOrcamento(Orcamento orcamento) {
 		
@@ -22,5 +24,13 @@ public class OrcamentoService {
 		return repository.updatede( orcamento );
 	}
 
+	public List<Long> findAllLaboratorio(boolean laboratorio) {	
+		return repository.findAllLaboratorio(laboratorio);	
+		
+	}
+
+	public boolean existOrcamento(Long equipamento_id) {
+		return repository.existOrcamento(equipamento_id);
+	}
 	
 }

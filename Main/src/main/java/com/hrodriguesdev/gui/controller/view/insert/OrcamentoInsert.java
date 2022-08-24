@@ -4,8 +4,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.hrodriguesdev.AlfaPirometrosApplication;
-import com.hrodriguesdev.controller.OrcamentoController;
 import com.hrodriguesdev.controller.EquipamentoController;
+import com.hrodriguesdev.controller.OrcamentoController;
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.entities.Orcamento;
 import com.hrodriguesdev.gui.controller.view.main.MainViewController;
@@ -155,27 +155,27 @@ public class OrcamentoInsert implements Initializable {
 
 	@FXML
 	public void salvar(ActionEvent event) {
-
-		if(obsMateriais.size()>0) {
-			obsMateriais.forEach((orcamento)-> {	
-			String itemStr = orcamento.getItem();
-			this.nova = this.list + itemStr  + "\n";
-			this.list = nova;
-			});
-			orcamentoId = controller.add( new Orcamento(nova, 0) );
-			if(equipamentoController.updatede(equipamento.getId() , orcamentoId)) {
-				equipamentoController.updatede(equipamento.getId(), 2, equipamento);
-				try {
-					Stage stage = (Stage) cancelar.getScene().getWindow(); 
-					stage.close();
-				} catch (NumberFormatException e) {
-					e.printStackTrace();
-				}
-			}else {
-				erro.setText("Erro");
-			}
-		}
-		AlfaPirometrosApplication.viewController.refreshTable();
+//
+//		if(obsMateriais.size()>0) {
+//			obsMateriais.forEach((orcamento)-> {	
+//			String itemStr = orcamento.getItem();
+//			this.nova = this.list + itemStr  + "\n";
+//			this.list = nova;
+//			});
+//			orcamentoId = controller.add( new Orcamento(nova, 0) );
+////			if(equipamentoController.updatede(equipamento.getId() , orcamentoId)) {
+//				equipamentoController.updatede(equipamento.getId(), 2, equipamento);
+//				try {
+//					Stage stage = (Stage) cancelar.getScene().getWindow(); 
+//					stage.close();
+//				} catch (NumberFormatException e) {
+//					e.printStackTrace();
+//				}
+//			}else {
+//				erro.setText("Erro");
+//			}
+//		}
+//		AlfaPirometrosApplication.viewController.refreshTable();
 	
 	}	
 	

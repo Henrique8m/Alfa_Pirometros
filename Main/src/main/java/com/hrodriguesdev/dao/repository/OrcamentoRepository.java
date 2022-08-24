@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.hrodriguesdev.dao.db.DB;
 import com.hrodriguesdev.dao.db.DbException;
@@ -22,13 +24,14 @@ public class OrcamentoRepository {
 			conn = DB.getConnection();
 			conn.setAutoCommit(false);
 			pst = conn.prepareStatement("INSERT INTO tb_orcamento "
-					+ "(Item, quantidade) "
+					+ "(equipamento_id, data_chegada, laboratorio) "
 					+ "VALUES "
-					+ "(?, ?)",
+					+ "(?, ?, ?)",
 					Statement.RETURN_GENERATED_KEYS);			
 			
-			pst.setString(1, orcamento.getItem());
-			pst.setInt(2, orcamento.getQuantidade());	
+			pst.setLong(1, orcamento.getEquipamento_id());
+			pst.setDate(2, orcamento.getData_chegada());	
+			pst.setBoolean(3, orcamento.getLaboratorio());
 			
 			int rowsAffected = pst.executeUpdate();
 			conn.commit();
@@ -59,6 +62,31 @@ public class OrcamentoRepository {
 			
 		}
 		return id;
+	}
+	
+	public List<Long> findAllLaboratorio(boolean laboratorio) {
+		List<Long> list = new ArrayList<>();
+		try {
+			conn = DB.getConnection();			
+			st = conn.createStatement();			
+			rs = st.executeQuery("SELECT * FROM alfaestoque.tb_orcamento;");			
+			
+			while (rs.next())  
+				if( rs.getBoolean("laboratorio") == true) {
+					list.add(rs.getLong("equipamento_id"));
+				}
+						
+		}catch(DbException | SQLException e) {
+			e.printStackTrace();
+			throw new DbException(e.getMessage());
+
+		}finally {
+			DB.closeResultSet(rs);
+			DB.closeStatement(st);
+			DB.closeConnection();
+			
+		}
+		return list;
 	}
 
 	public Orcamento getOrcamento(Long id) throws DbException {	
@@ -121,6 +149,29 @@ public class OrcamentoRepository {
 			
 		}
 		return ok;
+	}
+
+	public boolean existOrcamento(Long equipamento_id) {
+		try {
+			conn = DB.getConnection();			
+			st = conn.createStatement();			
+			rs = st.executeQuery("SELECT * FROM alfaestoque.tb_orcamento;");			
+			
+			while (rs.next())  
+				if( rs.getLong("equipamento_id") == equipamento_id)					
+					return true;
+						
+		}catch(DbException | SQLException e) {
+			e.printStackTrace();
+			throw new DbException(e.getMessage());
+
+		}finally {
+			DB.closeResultSet(rs);
+			DB.closeStatement(st);
+			DB.closeConnection();
+			
+		}
+		return false;
 	}
 
 }

@@ -1,6 +1,7 @@
 package com.hrodriguesdev.controller;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import com.hrodriguesdev.dao.db.DbException;
 import com.hrodriguesdev.entities.Equipamento;
@@ -14,9 +15,14 @@ public class EquipamentoController {
 	public ObservableList<Equipamento> findByName(String name) throws DbException, SQLException {
 		return equipamentoService.findByName(name);
 	}
-		public ObservableList<Equipamento> findAllByLaboratorio(boolean laboratorio) throws DbException, SQLException {
-		return equipamentoService.findAllByLaboratorio(laboratorio);
+	
+	public ObservableList<Equipamento> findByIdEmpressa(Long id, Boolean laboratorio) throws DbException, SQLException {
+		return equipamentoService.findByIdEmpressa(id, laboratorio);
 	}
+		
+//		public ObservableList<Equipamento> findAllByLaboratorio(boolean laboratorio) throws DbException, SQLException {
+//		return equipamentoService.findAllByLaboratorio(laboratorio);
+//	}
 	
 	public ObservableList<Equipamento> findAll(Equipamento equipamento) {	
 		return equipamentoService.findAll(equipamento);
@@ -24,6 +30,10 @@ public class EquipamentoController {
 	
 	public ObservableList<Equipamento> findAll() {		
 		return equipamentoService.findAll();	
+	}
+
+	public ObservableList<Equipamento> findById(List<Long> equipamento_id) {
+		return equipamentoService.findById(equipamento_id);
 	}
 	
 	public Equipamento findByNs(String ns) {
@@ -42,8 +52,8 @@ public class EquipamentoController {
 		return equipamentoService.updatede(id, status, equipamento);		
 	}
 	
-	public boolean updatede(Long id, Long idOrcamento) {
-		return equipamentoService.updatede(id, idOrcamento);		
+	public boolean updatede(Long id, Boolean laboratorio) {
+		return equipamentoService.updatede(id, laboratorio);		
 	}
 	
 	public boolean updated(Equipamento equipamento) {		
@@ -53,4 +63,6 @@ public class EquipamentoController {
 	public Boolean delete(Long id) {
 		return equipamentoService.delete(id);		
 	}
+
+
 }

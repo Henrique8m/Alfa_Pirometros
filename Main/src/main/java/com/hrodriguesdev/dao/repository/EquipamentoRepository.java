@@ -11,6 +11,7 @@ import java.util.List;
 import com.hrodriguesdev.dao.db.DB;
 import com.hrodriguesdev.dao.db.DbException;
 import com.hrodriguesdev.entities.Equipamento;
+import com.hrodriguesdev.entities.Orcamento;
 
 public class EquipamentoRepository {
 	Connection conn = null;
@@ -94,6 +95,36 @@ public class EquipamentoRepository {
 		return list;
 	}
 
+	public List<Equipamento> findByIdEmpressa(Long id, Boolean laboratorio) {
+		List<Equipamento> list = new ArrayList<>();
+		conn = DB.getConnection();					
+		try {
+			st = conn.createStatement();
+			rs = st.executeQuery("SELECT * FROM alfaestoque.tb_equipamento;");
+			while (rs.next())  
+				if( rs.getString("empresa_id")!= null ) {					
+					if(rs.getLong("empresa_id") == id ) 
+						if(laboratorio) {
+								if(!rs.getBoolean( "laboratorio" ))
+									list.add( Equipamento.parseEquipamento( rs ) );
+						}else 
+							list.add( Equipamento.parseEquipamento( rs ) );
+						
+				}
+
+		
+		} catch (SQLException e) {			
+			e.printStackTrace();
+			return null;
+		}			
+		finally {
+			DB.closeResultSet(rs);
+			DB.closeStatement(st);
+			DB.closeConnection();
+		}
+
+		return list;
+	}
 
 	public List<Equipamento> findAllNs(String ns) {
 		List<Equipamento> list = new ArrayList<>();
@@ -144,7 +175,32 @@ public class EquipamentoRepository {
 		return list;
 
 	}
+	
+	public List<Equipamento> findById(List<Long> equipamento_id) {
+		List<Equipamento> list = new ArrayList<>();
+		conn = DB.getConnection();					
+		try {
+			st = conn.createStatement();
+			rs = st.executeQuery("SELECT * FROM alfaestoque.tb_equipamento;");
+			while (rs.next())  		
+				for(Long id: equipamento_id)
+					if(rs.getLong("id") == id ) 
+						list.add( Equipamento.parseEquipamento( rs ) );							
 
+		
+		} catch (SQLException e) {			
+			e.printStackTrace();
+			return null;
+		}			
+		finally {
+			DB.closeResultSet(rs);
+			DB.closeStatement(st);
+			DB.closeConnection();
+		}
+
+		return list;
+	}
+	
 	public List<Equipamento> findAll() {
 		List<Equipamento> list = new ArrayList<>();		
 		try {
@@ -202,20 +258,17 @@ public class EquipamentoRepository {
 			conn = DB.getConnection();
 			conn.setAutoCommit(false);
 			pst = conn.prepareStatement("INSERT INTO tb_equipamento "
-					+ "(empressaName, modelo, status, ns, pat, ultimaCalib, laboratorio, empresa_id, dateChegada) "
+					+ "(empressaName, modelo, ns, pat, empresa_id, laboratorio) "
 					+ "VALUES "
-					+ "(?, ?, ?, ?, ?, ?, ?, ?, ?)",
+					+ "(?, ?, ?, ?, ?, ?)",
 					Statement.RETURN_GENERATED_KEYS);			
 			
 			pst.setString(1, equipamento.getEmpressaName());
 			pst.setString(2, equipamento.getModelo());
-			pst.setInt(3, equipamento.getStatus());	
-			pst.setString(4, equipamento.getNs());
-			pst.setString(5, equipamento.getPat());
-			pst.setString(6, equipamento.getUltimaCalib());
-			pst.setBoolean(7, true);	
-			pst.setLong(8, equipamento.getEmpressa());
-			pst.setDate(9, equipamento.getDateChegada());
+			pst.setString(3, equipamento.getNs());
+			pst.setString(4, equipamento.getPat());
+			pst.setLong(5, equipamento.getEmpressa());
+			pst.setBoolean(6, false);
 			
 			int rowsAffected = pst.executeUpdate();
 			conn.commit();
@@ -257,29 +310,17 @@ public class EquipamentoRepository {
 			pst = conn.prepareStatement("UPDATE tb_equipamento "
 											+ "SET empressaName = ? , "
 											+ "modelo = ? ,"
-											+ " status = ? ,"
-											+ " dateChegada = ? ,"
 											+ " ns = ? , pat = ? ,"
-											+ " ultimaCalib = ? ,"
-											+ " empresa_id = ?,"
-											+ " dateSaida = ?,"
-											+ " coletor_id = ?,"
-											+ " laboratorio = ? "											
+											+ " empresa_id = ?,"										
 											+ " WHERE "
-											+"(id = ? )");		
+											+"(id = ?)");		
 	
-			pst.setString(1, equipamento.getEmpressaName());			
+			pst.setString(1, equipamento.getEmpressaName());
 			pst.setString(2, equipamento.getModelo());
-			pst.setInt(3, equipamento.getStatus());
-			pst.setDate(4, equipamento.getDateChegada());			
-			pst.setString(5, equipamento.getNs());
-			pst.setString(6, equipamento.getPat());
-			pst.setString(7, equipamento.getUltimaCalib());
-			pst.setLong(8, equipamento.getEmpressa() );				
-			pst.setDate(9, equipamento.getDateSaida() );
-			pst.setLong(10, equipamento.getColetor_id() );
-			pst.setBoolean(11, equipamento.getLaboratorio());
-			pst.setLong( 12, equipamento.getId() );
+			pst.setString(3, equipamento.getNs());
+			pst.setString(4, equipamento.getPat());
+			pst.setLong(5, equipamento.getEmpressa());
+			pst.setLong( 6, equipamento.getId() );
 			
 			int rowsAccepted = pst.executeUpdate();
 			conn.commit();
@@ -366,44 +407,23 @@ public class EquipamentoRepository {
 			e.printStackTrace();
 		}
 
-		try {
+//		try {
+			OrcamentoRepository repo = new OrcamentoRepository();
+			Orcamento or;
 			for(Equipamento equipamento: list) {
 				
-				if(equipamento.getOrcamento_id() != null && equipamento.getDateChegada() != null && equipamento.getDateSaida() != null) {
-
-						pst = conn.prepareStatement("UPDATE tb_orcamento "
-														+ "SET equipamento_id = ?"
-														+ ", data_chegada = ?"
-														+ ", data_saida = ?"
-														+ ", laboratorio = ?"
-														+ " WHERE "
-														+ "(id = ?)");
-						
-						pst.setLong( 1, equipamento.getId() );
-						pst.setDate(2, equipamento.getDateChegada());
-						pst.setDate(3, equipamento.getDateSaida() );
-						pst.setBoolean(4, equipamento.getLaboratorio());
-						pst.setLong( 5, equipamento.getOrcamento_id() );
-						pst.executeUpdate();
-					}		
-				else if(equipamento.getOrcamento_id() != null && equipamento.getDateChegada() != null) {
-
-					pst = conn.prepareStatement("UPDATE tb_orcamento "
-													+ "SET equipamento_id = ?"
-													+ ", data_chegada = ?"
-													+ ", laboratorio = ?"
-													+ " WHERE "
-													+ "(id = ?)");
+				if(equipamento.getOrcamento_id() == null || equipamento.getOrcamento_id() == 0) {
+					or = new Orcamento();
+					or.setItem("Item");
+					or.setEquipamento_id(equipamento.getId());
+					or.setData_chegada(equipamento.getDateChegada());
+					or.setLaboratorio(equipamento.getLaboratorio() );
 					
-					pst.setLong( 1, equipamento.getId() );
-					pst.setDate(2, equipamento.getDateChegada());
-					pst.setBoolean(3, equipamento.getLaboratorio());
-					pst.setLong( 4, equipamento.getOrcamento_id() );
-					pst.executeUpdate();
-				}		
-				}
-	
-			
+					repo.add(or);
+					
+					}	
+				
+			}			
 			
 		
 //		try {
@@ -432,28 +452,26 @@ public class EquipamentoRepository {
 //			pst.executeUpdate();
 //			}
 		
-		}catch (SQLException e) {
-		System.out.println(e.getMessage());	
-		}
-		finally {
+//		}catch (SQLException e) {
+//		System.out.println(e.getMessage());	
+//		}
+//		finally {
 			DB.closeStatement(pst);
 			DB.closeConnection();
-			
-		}		
+//			
+//		}		
 
 
 	}
 	
-	public boolean updatede(Long id, Long idOrcamento) {
+	public boolean updatede(Long id, Boolean laboratorioo) {
 		boolean ok = false;
 		
 		try {
 			conn = DB.getConnection();
 			conn.setAutoCommit(false);
 			pst = conn.prepareStatement("UPDATE tb_equipamento "
-											+ "SET orcamento_id = " + idOrcamento 
-											+ ", "
-											+ "status = 3"
+											+ "SET laboratorio = " + laboratorioo 
 											+" WHERE "
 											+"(id = ?)");
 			
@@ -516,6 +534,8 @@ public class EquipamentoRepository {
 		}
 		return ok;
 	}
+
+
 
 }
 		

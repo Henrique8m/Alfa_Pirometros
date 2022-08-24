@@ -78,6 +78,25 @@ public class EquipamentoService {
 		return null;
 	}	
 	
+	public ObservableList<Equipamento> findByIdEmpressa(Long id, Boolean laboratorio) {		
+		ObservableList<Equipamento> obs = FXCollections.observableArrayList();
+		List<Equipamento> list = repository.findByIdEmpressa(id, laboratorio) ;
+		if(list!=null) {
+			obs.addAll(list);
+			return obs;
+		}
+		return null;
+	}	
+	
+	public ObservableList<Equipamento> findById(List<Long> equipamento_id) {
+		ObservableList<Equipamento> obs = FXCollections.observableArrayList();
+		List<Equipamento> list = repository.findById(equipamento_id) ;
+		list.sort( (a, b) -> a.getEmpressaName().compareTo(b.getEmpressaName()));
+		obs.addAll(list);
+		return obs;
+		
+	}
+	
 	public Equipamento findByNs(String ns) {
 		return repository.findByNs(ns);		
 	}	
@@ -90,8 +109,8 @@ public class EquipamentoService {
 		return repository.updatede(id, status, equipamento);
 	}
 
-	public boolean updatede(Long id, Long idOrcamento) {		
-		return repository.updatede(id, idOrcamento);
+	public boolean updatede(Long id, Boolean laboratorioo) {		
+		return repository.updatede(id, laboratorioo);
 	}
 
 	public boolean updatede(Equipamento equipamento) {
@@ -101,5 +120,7 @@ public class EquipamentoService {
 	public Boolean delete(Long id) {
 		return repository.delete(id);
 	}
+
+
 
 }

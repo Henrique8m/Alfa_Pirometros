@@ -1,11 +1,28 @@
 package com.hrodriguesdev.entities;
 
+import java.sql.Date;
+
 public class Orcamento {
+	
+	private Long id;
+	private String Item;
+	private Integer quantidade;
+	private Long equipamento_id;
+	private Date data_chegada;
+	private Date data_saida;
+	private Boolean laboratorio;
+	
+	public Orcamento(Long equipamento_id, Date data_chegada, Boolean laboratorio) {
+		this.setEquipamento_id(equipamento_id);
+		this.setData_chegada(data_chegada);
+		this.setLaboratorio(laboratorio);
+	}
+	
+	
 	public Long getId() {
 		return id;
 	}
 	
-
 	public void setId(Long id) {
 		this.id = id;
 	}
@@ -138,14 +155,51 @@ public class Orcamento {
 	public void setQuantidade(Integer quantidade) {
 		this.quantidade = quantidade;
 	}
-	private Long id;
-	private String Item;
-	private Integer quantidade;
 	
 	public Orcamento(String item, Integer quantidade) {
 		Item = item;
 		this.quantidade = quantidade;
 	}
 	public Orcamento() {}
+
+
+	public Long getEquipamento_id() {
+		return equipamento_id;
+	}
+
+
+	public void setEquipamento_id(Long equipamento_id) {
+		this.equipamento_id = equipamento_id;
+	}
+
+
+	public Date getData_chegada() {
+		return data_chegada;
+	}
+
+
+	public void setData_chegada(Date data_chegada) {
+		this.data_chegada = data_chegada;
+	}
+
+
+	public Date getData_saida() {
+		return data_saida;
+	}
+
+
+	public void setData_saida(Date data_saida) {
+		this.data_saida = data_saida;
+	}
+
+
+	public Boolean getLaboratorio() {
+		return laboratorio;
+	}
+
+
+	public void setLaboratorio(Boolean laboratorio) {
+		this.laboratorio = laboratorio;
+	}
 
 }

@@ -15,24 +15,33 @@ public class Equipamento implements Serializable {
 	//@GeneratedValue(strategy = GenerationType.IDENTITY)
 	
 	private Long id;
+	public Equipamento(String empressaName, String modelo, String ns, String pat, Long empressa) {
+		super();
+		this.empressaName = empressaName;
+		this.modelo = modelo;
+		this.ns = ns;
+		this.pat = pat;
+		this.empressa = empressa;
+	}
+
 	private String empressaName;
 	private String modelo;
-
+	private String ns;
+	private String pat;
+	private Long empressa;	
+	
+	
 	private int status;
 	private String dataChegada;
 	private String dataSaida;	
-	private String ns;
-	private String pat;
 	private String ultimaCalib;
 	private String certificado;
 	private double valor;
 	private boolean laboratorio;
 	private String dataCal;
 	@SuppressWarnings("unused")
-	private String statusStr;
-	
-	private String relatorio;
-	
+	private String statusStr;	
+	private String relatorio;	
 	private Date dateChegada;
 	private Date dateSaida;
 	private Date ultimaCalibDate;
@@ -42,7 +51,7 @@ public class Equipamento implements Serializable {
 //	private EstoqueEletricos estoqueempressa;
 //	private EstoqueEstetico estoqueEstetico;
 //	private EstoqueSinal estoqueSinal;
-	private Long empressa;
+
 	
 	private Long orcamento_id;
 	private Long coletor_id;
@@ -261,6 +270,7 @@ public class Equipamento implements Serializable {
 			obj.setEmpressa( rs.getLong( "empresa_id" ) );
 			obj.setColetor_id( rs.getLong( "coletor_id" ) );
 			obj.setRelatorio( rs.getString( "relatorio" ));
+			obj.setLaboratorio( rs.getBoolean( "laboratorio" ));
 			
 			date = rs.getDate("dateChegada");
 			if(date != null)obj.setDateChegada(date);
@@ -271,6 +281,24 @@ public class Equipamento implements Serializable {
 			date = rs.getDate("ultimaCalibDate");
 			if(date != null)obj.setUltimaCalibDate(date);
 			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+		return obj;		
+	}
+	
+	public static Equipamento parseEquipamentoDois(ResultSet rs) {
+		Equipamento obj = new Equipamento();
+		try {
+			obj.setId( rs.getLong("Id") );	
+			obj.setEmpressaName( rs.getString("empressaName") );				
+			obj.setModelo( rs.getString("modelo") );  
+			obj.setNs(rs.getString("ns"));
+			obj.setPat(rs.getString("pat"));
+			obj.setEmpressa( rs.getLong( "empresa_id" ) );
+			obj.setLaboratorio( rs.getBoolean( "laboratorio" ));
 			
 		} catch (SQLException e) {
 			e.printStackTrace();

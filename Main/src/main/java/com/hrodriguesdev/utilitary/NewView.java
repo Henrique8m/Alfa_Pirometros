@@ -5,7 +5,6 @@ import java.io.IOException;
 import com.hrodriguesdev.AlfaPirometrosApplication;
 
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.TabPane;

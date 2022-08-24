@@ -1,7 +1,9 @@
 package com.hrodriguesdev.gui.controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import com.hrodriguesdev.AlfaPirometrosApplication;
@@ -11,28 +13,33 @@ import com.hrodriguesdev.dao.db.DbException;
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.gui.alert.Alerts;
 import com.hrodriguesdev.gui.controller.view.main.MainViewController;
+import com.hrodriguesdev.gui.controller.view.updatede.EquipamentoUpdatede;
+import com.hrodriguesdev.gui.controller.view.updatede.OrcamentoUpdatede;
 import com.hrodriguesdev.utilitary.Format;
-import com.hrodriguesdev.utilitary.Geral;
 import com.hrodriguesdev.utilitary.InputFilter;
+import com.hrodriguesdev.utilitary.NewView;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 
-public class EquipamentoViewControllerDois {
+public class EquipamentoViewControllerDois implements Initializable{
 
 	protected Date date;
 	protected OrcamentoController controller = MainViewController.orcamentoController;
@@ -40,15 +47,11 @@ public class EquipamentoViewControllerDois {
 	
 	
 	@FXML
-	protected ImageView cancelarImg, salvarImg, salvarImg1, logoYgg;
+	protected ImageView cancelarImg, salvarImg, logoYgg;
 	@FXML
-	protected Button salvar;
-	@FXML
-	protected TextField data;
+	protected Button voltar;
 	@FXML
 	protected Text erro;
-	@FXML
-	protected TextField ultimaCalTxt;
 	@FXML
 	protected TextField modeloTxt;
 	@FXML
@@ -80,17 +83,69 @@ public class EquipamentoViewControllerDois {
 	public EquipamentoViewControllerDois() {
 		super();
 	}
-
+	
+	@FXML
+	private void keyEventCombobox(KeyEvent event){
+		if(event.getTarget() == nomeEmpressa) {
+			
+			if(event.getCode().toString() == "ESCAPE") {
+				removeListener();
+				addListener();
+				
+			}
+			if(event.getCode().toString() == "ENTER") {
+				buscar();
+				removeListener();
+				addListener();
+				
+			}
+			
+		}				
+		
+	}
+	
+	private void buscar() {
+		if(nomeEmpressa.getValue()== "") {
+			error( "Campo nulo " ,"O campo nome da Empressa não pode ser nulo");
+			erro.setVisible(true);
+			erro.setText("Empressa nulo");
+			return;
+		}
+		try {
+			Long empressa_id = MainViewController.empressaController.isExist( nomeEmpressa.getValue()  );
+			if ( empressa_id == null ) {
+				erro.setVisible(true);
+				erro.setText("Empressa não existe");
+				throw new DbException("Empresa não existe");
+			}else {
+				obsListEquipamentos = MainViewController.equipamentoController.findByIdEmpressa( empressa_id , true);
+				tableEquipamentos.setItems(obsListEquipamentos);
+				tableEquipamentos.refresh();
+			}
+			
+		}catch(DbException | SQLException e2) {
+			error( "Find Empresa" ,"Empresa Não Encontrada");
+			return;
+		}
+	}
+	
 	@FXML
 	public void adcionar(ActionEvent event) {
-		Equipamento obj = new Equipamento();
+		Long id;
+		String empressaName;
+		String modelo;
+		String ns;
+		String pat;
+		Long empressa;
+		
+		
 		if(nomeEmpressa.getValue()== "" ||  modeloTxt.getText()== "" ) {
 			error( "Campo nulo " ,"O campo nome da Empressa e Modelo, não pode ser nulo");
 			return;
 		}
 		try {
-			obj.setEmpressa( MainViewController.empressaController.isExist( nomeEmpressa.getValue() ) );
-			if ( obj.getEmpressa() == null ) {
+			empressa = ( MainViewController.empressaController.isExist( nomeEmpressa.getValue() ) );
+			if ( empressa == null ) {
 				throw new DbException("Empresa não existe");
 			}
 			
@@ -99,20 +154,11 @@ public class EquipamentoViewControllerDois {
 			return;
 		}
 		try {
-			obj.setEmpressaName( nomeEmpressa.getValue() );	
-			obj.setModelo( modeloTxt.getText() );  
-			obj.setStatus( 1 );
-			obj.setDataChegada( data.getText() );			
-			obj.setNs( nsTxt.getText() );
-			obj.setPat( patTxt.getText() );
-			if (ultimaCalTxt.getText().length() == 10 ) {
-				obj.setUltimaCalibDate( Geral.dateParceString( ultimaCalTxt.getText() ) );
-			}
-			obj.setDataChegada(null);
-			obj.setLaboratorio(true);
-			if (data.getText().length() == 10 ) {
-				obj.setDateChegada( Geral.dateParceString( data.getText() ) );
-			}
+			empressaName = nomeEmpressa.getValue();	
+			modelo = modeloTxt.getText();  		
+			ns = nsTxt.getText();
+			pat = patTxt.getText();
+			
 			
 		}catch(NullPointerException e) {
 			e.printStackTrace();
@@ -120,12 +166,9 @@ public class EquipamentoViewControllerDois {
 			return;
 		}
 		try {
-			obj.setId(equipamentoController.add(obj));
-			if(obj.getId() != 0l) {
-				Stage stage = (Stage) salvar.getScene().getWindow();
-				MainViewController.obsListTableFilaEquipamentos.add(obj);
-				stage.close();
-				
+			id = equipamentoController.add(new Equipamento(empressaName, modelo, ns, pat, empressa));
+			if(id != 0l) {
+				NewView.fecharView();
 			}else {
 				error( "SQL Exeption " ,"Error ao Salvar, id não teve retorno");		
 				return;
@@ -136,64 +179,43 @@ public class EquipamentoViewControllerDois {
 			erro.setText("ERRO");
 			
 		}
-		AlfaPirometrosApplication.viewController.refreshTable();
+		try {
+			NewView.addChildren((Node) NewView.loadFXML("entradaEquipamentoDois" , new OrcamentoViewControllerDois( nomeEmpressa.getValue() ) ));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
 	}
 
 	protected void error(String titulo, String mensagem) {
 		Alerts.showAlert(titulo, "", mensagem, AlertType.ERROR);
-		Stage stage = (Stage) salvar.getScene().getWindow(); 
-		stage.close();
+		erro.setText(mensagem);
 	}
 
 	@FXML
 	public void sair(ActionEvent event) {
 		removeListener();
-		try {
-			Stage stage = (Stage) salvar.getScene().getWindow(); 
-			stage.close();
-		} catch (NumberFormatException e) {
-			e.printStackTrace();
-		}
+		NewView.fecharView();
 	}
 
 	@FXML
 	public void format(KeyEvent event) {
-		if(event.getCode().toString() != "BACK_SPACE" ) {
-				
-			 if(event.getTarget().equals(ultimaCalTxt)){
-				 ultimaCalTxt.setText(Format.replaceData( ultimaCalTxt.getText() ) );
-				 ultimaCalTxt.end();
-			 }
-	
-		}
-		
+
 	}
 
-	@FXML
-	public void findNs(ActionEvent event) {
-		Equipamento obj = equipamentoController.findByNs( nsTxt.getText() );
-		if( obj != null	) {
-			
-			nomeEmpressa.setValue( obj.getEmpressaName() );	
-			modeloTxt.setText( obj.getModelo() );  
-			patTxt.setText( obj.getPat() );
-			ultimaCalTxt.setText( obj.getDataCal() );	
-		}		
-		
-	}
 
+	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		addListener();
-	
+		try {
+			startTable();
+		} catch (DbException | SQLException e) {
+			e.printStackTrace();
+		}
 		Image image =  new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-adicionar.png").toString() );
 		salvarImg.setImage(image);
-		salvarImg1.setImage(image);
 		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-excluir.png").toString() );
 		cancelarImg.setImage(image);
-		
-		date = new Date(System.currentTimeMillis());
-	    data.setText(Format.formatData.format(date));
 	    
 	}
 
@@ -208,8 +230,71 @@ public class EquipamentoViewControllerDois {
 	
 	private void removeListener() {
 		nomeEmpressa.getEditor().textProperty().removeListener(inputFilter);
-		nomeEmpressa.setValue("");
 	}
+	
+	private void startTable() throws DbException, SQLException {
+		
+		tableEquipamentos.setEditable(false); 
+		modelo.setCellValueFactory(new PropertyValueFactory<Equipamento, String>("modelo"));
+		ns.setCellValueFactory(new PropertyValueFactory<Equipamento, String>("ns"));
+		pat.setCellValueFactory(new PropertyValueFactory<Equipamento, String>("pat"));
+		ultimaCal.setCellValueFactory(new PropertyValueFactory<>("ultimaCalibDate"));
+		ultimaCal.setCellFactory( cell -> {
+            return new TableCell<Equipamento, Date>() {
+                @Override
+                protected void updateItem( Date item, boolean empty) {
+                   super.updateItem(item, empty);
+                   if( !empty ) {
+                	   try {
+                		   setText( Format.formatData.format(item) );
+                	   }catch(NullPointerException e){
+                           setText("");
+                           setGraphic(null);
+                	   }
+                      
+                   }else {
+                      setText("");
+                      setGraphic(null);
+                   }
+                }
+            };        
+         } );		
+		
+		tableEquipamentos.setItems(obsListEquipamentos);
+		
+	}
+	
+	@FXML
+	private void keyTable(KeyEvent keyEvent) {
+		if(keyEvent.getCode().toString() == "DELETE" ) {    		
+    		if(tableEquipamentos.getSelectionModel().getSelectedItem() != null){
+    			Equipamento equipament = tableEquipamentos.getSelectionModel().getSelectedItem();
+    			
+    			if( !controller.existOrcamento(equipament.getId()) ) {
+    				if (equipamentoController.delete( equipament.getId() ) ) {
+    					buscar();
+    				}else {
+    					error("Fail delete", "Erro desconhecido");
+    				}
+    					
+    			}else 
+    				error("Fail delete", "Existe orçamento para este equipamento");
+    		}
+    		
+    	} 
+		else if(keyEvent.getCode().toString() == "F2" ) {    		
+    		if(tableEquipamentos.getSelectionModel().getSelectedItem() != null){
+        		{
+        			MainViewController.equipamentoEdit = tableEquipamentos.getSelectionModel().getSelectedItem();
+        			NewView.getNewView("Edit Equipamento", "entradaEquipamento", new EquipamentoUpdatede() );
 
+        		}
+	
+    		}
+    		
+    	} 
+		
+	}
+	
 
 }
