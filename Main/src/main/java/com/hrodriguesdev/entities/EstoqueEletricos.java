@@ -1,6 +1,8 @@
 package com.hrodriguesdev.entities;
 
 import java.io.Serializable;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 //@Entity
 //@Table(name = "tb_eletricos")
@@ -43,7 +45,35 @@ public class EstoqueEletricos implements Serializable {
 		CarrEcil = carrEcil;
 		CarrItalterm = carrItalterm;
 	}
+	
+	public EstoqueEletricos(ResultSet rs) {
+		try {			
+			this.id = rs.getLong("id");
+			this.orcamento_id = rs.getLong("orcamento_id");	
+			this.saida = rs.getBoolean("saida");
+			this.nfe = rs.getInt("nfe");
+			FontCarbIndic = rs.getInt("font_carb_indic");
+			FontCarbDelta = rs.getInt("font_carb_delta");
+			PinFemeAliFII = rs.getInt("pin_femea_ali_fii");	
+			PinFemeAliFIII = rs.getInt("pin_femea_ali_fiii");
+			BatFIIFIII = rs.getInt("bat_fii_fiii");	
+			BatDescartavel = rs.getInt("bat_descartavel");
+			BatInditemp = rs.getInt("bat_inditemp");	
+			BatLitio = rs.getInt("bat_litio");	
+			CarrEcil = rs.getInt("carr_ecil");	
+			CarrItalterm = rs.getInt("carr_italterm");	
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+		}
+
+	}
 		
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	public Long getOrcamento_id() {
 		return orcamento_id;
 	}

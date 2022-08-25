@@ -1,6 +1,8 @@
 package com.hrodriguesdev.entities;
 
 import java.io.Serializable;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 //@Entity
 //@Table(name = "tb_sinal")
@@ -11,6 +13,7 @@ public class EstoqueSinal implements Serializable {
 	//@GeneratedValue(strategy = GenerationType.IDENTITY)
 	
 	private Long id;
+
 	private Long orcamento_id;
 	private Boolean saida;
 	private int nfe;
@@ -23,7 +26,6 @@ public class EstoqueSinal implements Serializable {
 	private int PlugMS;
 	private int PlugMK;
 	private int TomadaS;
-	
 	
 	
 	public EstoqueSinal(Long orcamento_id, Boolean saida, int nfe, int receptaculoS, int receptaculoSU,
@@ -43,6 +45,33 @@ public class EstoqueSinal implements Serializable {
 		TomadaS = tomadaS;
 	}
 	
+	public EstoqueSinal(ResultSet rs) {
+		try {			
+			this.id = rs.getLong("id");
+			this.orcamento_id = rs.getLong("orcamento_id");	
+			this.saida = rs.getBoolean("saida");
+			this.nfe = rs.getInt("nfe");
+			ReceptaculoS = rs.getInt("receptaculo_s");
+			ReceptaculoSU = rs.getInt("receptaculo_su");
+			ReceptaculoEcil = rs.getInt("receptaculo_ecil");	
+			ReceptaculoK = rs.getInt("receptaculo_k");
+			PlugFS = rs.getInt("plug_fs");
+			PlugFK = 0;
+			PlugMS = rs.getInt("plug_ms");
+			PlugMK = rs.getInt("plug_mk");
+			TomadaS = rs.getInt("tomada_s");
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+		}
+
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	public Long getOrcamento_id() {
 		return orcamento_id;
 	}

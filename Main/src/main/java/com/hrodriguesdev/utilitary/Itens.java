@@ -1,10 +1,14 @@
 package com.hrodriguesdev.utilitary;
 
+import com.hrodriguesdev.dao.db.DbException;
+import com.hrodriguesdev.dao.repository.ItensRepository;
+import com.hrodriguesdev.dao.repository.OrcamentoRepository;
 import com.hrodriguesdev.entities.EstoqueConsumo;
 import com.hrodriguesdev.entities.EstoqueEletricos;
 import com.hrodriguesdev.entities.EstoqueEletronicos;
 import com.hrodriguesdev.entities.EstoqueEstetico;
 import com.hrodriguesdev.entities.EstoqueSinal;
+import com.hrodriguesdev.entities.Orcamento;
 
 public class Itens {
 
@@ -13,13 +17,7 @@ public class Itens {
 	private EstoqueConsumo consumo;
 	private EstoqueEstetico estetico;
 	private EstoqueSinal sinal;
-	
-	private boolean eletricosCreatede = false;
-	private boolean eletronicosCreatede = false;
-	private boolean consumoCreatede = false;
-	private boolean esteticoCreatede = false;
-	private boolean sinalCreatede = false;
-	
+		
 	public Itens(Long orcamento_id, boolean saida, int nfe) {
 		eletricos(orcamento_id, saida, nfe);
 		eletronicos(orcamento_id, saida, nfe);
@@ -27,11 +25,7 @@ public class Itens {
 		estetico(orcamento_id, saida, nfe);
 		sinal(orcamento_id, saida, nfe);
 	}
-	
-	public boolean createdItensOrcamento() {
-		return true;
-	}
-	
+
 	public boolean addItem(String item, int quantidade) {
 		if(item != null) {
 			
@@ -41,111 +35,108 @@ public class Itens {
 			
 			case "BotaoLiga":
 				consumo.setBotaoLiga(quantidade);	
-				consumoCreatede = true;
 				return true;
 	
 			case "BoMeFIIFIIIIndicmax":
 				consumo.setBoMeFIIFIIIIndicmax(quantidade);
-				consumoCreatede = true;
 				return true;
 				
 			case "CaixaBat":
 				consumo.setCaixaBat(quantidade);
-				consumoCreatede = true;
 				return true;
 				
 //			eletricos
 				
 			case "FontCarbIndic":
 				eletricos.setFontCarbIndic(quantidade);
-				eletricosCreatede = true;
+		
 				return true;
 				
 			case "FontCarbDelta":
 				eletricos.setFontCarbDelta(quantidade);		
-				eletricosCreatede = true;
+
 				return true;
 				
 			case "PinFemeAliFII":
 				eletricos.setPinFemeAliFII(quantidade);
-				eletricosCreatede = true;
+			
 				return true;		
 				
 			case "PinFemeAliFIII":
 				eletricos.setPinFemeAliFIII(quantidade);	
-				eletricosCreatede = true;
+			
 				return true;	
 				
 			case "BatFIIFIII":
 				eletricos.setBatFIIFIII(quantidade);	
-				eletricosCreatede = true;
+			
 				return true;	
 				
 			case "BatDescartavel":
 				eletricos.setBatDescartavel(quantidade);	
-				eletricosCreatede = true;
+			
 				return true;					
 				
 			case "BatInditemp":
 				eletricos.setBatInditemp(quantidade);
-				eletricosCreatede = true;
+		
 				return true;				
 				
 			case "BatLitio":
 				eletricos.setBatLitio(quantidade);
-				eletricosCreatede = true;
+		
 				return true;	
 				
 			case "CarrEcil":
 				eletricos.setCarrEcil(quantidade);
-				eletricosCreatede = true;
+		
 				return true;
 				
 			case "CarrItalterm":
 				eletricos.setCarrItalterm(quantidade);
-				eletricosCreatede = true;
+			
 				return true;
 				
 //			eletronicos
 				
 			case "PCIFIII":
 				eletronicos.setPCIFIII(quantidade);
-				eletronicosCreatede = true;
+			
 				return true;	
 				
 			case "PCIFKal":
 				eletronicos.setPCIFKal(quantidade);
-				eletronicosCreatede = true;
+		
 				return true;
 				
 			case "DispFKal":
 				eletronicos.setDispFKal(quantidade);
-				eletronicosCreatede = true;
+		
 				return true;	
 				
 			case "CIFII":
 				eletronicos.setCIFII(quantidade);
-				eletronicosCreatede = true;
+		
 				return true;
 				
 			case "CIIndicmax":
 				eletronicos.setCIIndicmax(quantidade);
-				eletronicosCreatede = true;
+		
 				return true;	
 				
 			case "sirene":
 				eletronicos.setSirene(quantidade);
-				eletronicosCreatede = true;
+
 				return true;	
 				
 			case "Indicmax":
 				eletronicos.setIndicmax(quantidade);
-				eletronicosCreatede = true;
+
 				return true;	
 				
 			case "FIII":
 				eletronicos.setFIII(quantidade);
-				eletronicosCreatede = true;
+
 				return true;	
 				
 				
@@ -153,94 +144,94 @@ public class Itens {
 				
 			case "MascaraFII":
 				estetico.setMascaraFII(quantidade);
-				esteticoCreatede = true;
+	
 				return true;
 				
 			case "MascaraFKal":
 				estetico.setMascaraFKal(quantidade);
-				esteticoCreatede = true;
+
 				return true;
 				
 			case "MascaraFIII":
 				estetico.setMascaraFIII(quantidade);
-				esteticoCreatede = true;
+
 				return true;
 				
 			case "MascaraCarbo":
 				estetico.setMascaraCarbo(quantidade);
-				esteticoCreatede = true;
+	
 				return true;
 				
 			case "MascaraIndic":
 				estetico.setMascaraIndic(quantidade);
-				esteticoCreatede = true;
+
 				return true;
 				
 			case "EtiqLatFII":
 				estetico.setEtiqLatFII(quantidade);
-				esteticoCreatede = true;
+
 				return true;
 				
 			case "EtiqLatFIII":
 				estetico.setEtiqLatFIII(quantidade);
-				esteticoCreatede = true;
+
 				return true;
 				
 			case "EtiqTrasFII":
 				estetico.setEtiqTrasFII(quantidade);
-				esteticoCreatede = true;
+		
 				return true;
 				
 			case "Punho":
 				estetico.setPunho(quantidade);
-				esteticoCreatede = true;
+			
 				return true;
 				
 //			Sinal
 				
 			case "ReceptaculoS":
 				sinal.setReceptaculoS(quantidade);
-				sinalCreatede = true;
+	
 				return true;
 				
 			case "ReceptaculoSU":
 				sinal.setReceptaculoSU(quantidade);
-				sinalCreatede = true;
+			
 				return true;
 				
 			case "ReceptaculoEcil":
 				sinal.setReceptaculoEcil(quantidade);
-				sinalCreatede = true;
+		
 				return true;		
 				
 			case "ReceptaculoK":
 				sinal.setReceptaculoK(quantidade);
-				sinalCreatede = true;
+		
 				return true;
 				
 			case "PlugFS":
 				sinal.setPlugFS(quantidade);
-				sinalCreatede = true;
+		
 				return true;
 				
 			case "PlugFK":
 				sinal.setPlugFK(quantidade);
-				sinalCreatede = true;
+	
 				return true;
 				
 			case "PlugMS":
 				sinal.setPlugMS(quantidade);
-				sinalCreatede = true;
+	
 				return true;
 				
 			case "PlugMK":
 				sinal.setPlugMK(quantidade);
-				sinalCreatede = true;
+
 				return true;	
 				
 			case "TomadaS":
 				sinal.setTomadaS(quantidade);
-				sinalCreatede = true;
+
 				return true;	
 				
 			default:
@@ -276,10 +267,17 @@ public class Itens {
 			sinal = new EstoqueSinal(orcamento_id, saida, nfe, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 	}
 	
-	public boolean saveAll() {
-		
+	public boolean saveAll(Orcamento orcamento) throws DbException {
+		ItensRepository repository = new ItensRepository();
+		OrcamentoRepository orcamentoRe = new OrcamentoRepository();		
+
+		orcamento.setEletronicos( repository.saveEletronicos(eletronicos) );
+		orcamento.setEletricos( repository.saveEletricos(eletricos) );
+		orcamento.setConsumo( repository.saveConsumo(consumo) );	
+		orcamento.setEstetico( repository.saveEstetico(estetico) );
+		orcamento.setSinal( repository.saveSinal(sinal) );
+		return orcamentoRe.setIdItens(orcamento);
 	}
 	
-
 }
 

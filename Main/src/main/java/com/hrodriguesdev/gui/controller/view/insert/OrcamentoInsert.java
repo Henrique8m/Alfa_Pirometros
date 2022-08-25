@@ -4,8 +4,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.hrodriguesdev.AlfaPirometrosApplication;
-import com.hrodriguesdev.controller.EquipamentoController;
-import com.hrodriguesdev.controller.OrcamentoController;
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.entities.Orcamento;
 import com.hrodriguesdev.gui.controller.view.main.MainViewController;
@@ -39,8 +37,8 @@ public class OrcamentoInsert implements Initializable {
 //	private EstoqueEletricos eletricos = new EstoqueEletricos();
 //	private EstoqueEletronicos eletronicos = new EstoqueEletronicos();
 //	private EstoqueEstetico estetico = new EstoqueEstetico();
-	private OrcamentoController controller = new OrcamentoController();
-	private EquipamentoController equipamentoController = MainViewController.equipamentoController;
+//	private OrcamentoController controller = new OrcamentoController();
+//	private EquipamentoController equipamentoController = MainViewController.equipamentoController;
 	
 	private Long orcamentoId;
 	private String list = "Lista de Materiais Usados; \n";
@@ -107,7 +105,7 @@ public class OrcamentoInsert implements Initializable {
 	
 	@FXML
 	public void addItem(ActionEvent event) {
-		if(!newItem.getValue().isEmpty() && !newItem.getValue().isBlank() && quantidadeItem.getValue()!= null) {
+		if(newItem.getValue() != null && quantidadeItem.getValue()!= null) {
 			obsMateriais.add(new Orcamento(newItem.getValue(), Integer.parseInt( quantidadeItem.getValue() ) ) );
 			tableOrcamento.refresh();
 			
@@ -144,18 +142,22 @@ public class OrcamentoInsert implements Initializable {
 
 	@FXML
 	public void salvar(ActionEvent event) {
-
+		orcamentoId = MainViewController.orcamento.getId();
+		Itens itens = new Itens(orcamentoId, true, 0);
+		
 		if(obsMateriais.size()>0) {
 			obsMateriais.forEach((orcamento)-> {	
-			String itemStr = orcamento.getItem();
-			this.nova = this.list + itemStr  + "\n";
-			this.list = nova;
-			if( !Itens.addItem(orcamento.getItemRealString()) )
-//				erro
-				return;
+
+			if( !itens.addItem(orcamento.getItemRealString(), orcamento.getQuantidade() ) )	{
+					String itemStr = orcamento.getItem();
+					this.nova = this.list + itemStr  + "\n";
+					this.list = nova;
+				}				
 			});
-			int status = 2;
-			if(controller.updatede( MainViewController.orcamento.getId(), status, nova ) && Itens.createdItensOrcamento() ) {
+			if(!this.list.isEmpty())
+				MainViewController.orcamento.setItem(list);		
+			MainViewController.orcamento.setStatus(2);
+			if(itens.saveAll( MainViewController.orcamento) ) {
 				try {
 					NewView.fecharView();
 				} catch (NumberFormatException e) {

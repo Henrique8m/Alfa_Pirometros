@@ -48,9 +48,10 @@ public class OrcamentoMainView extends TableMainView{
 	protected void addOrcamento(ActionEvent e) throws IOException, SQLException {
 		if(tableFilaEquipamentos.getSelectionModel().getSelectedItem() != null) {			
 			equipamento = tableFilaEquipamentos.getSelectionModel().getSelectedItem();
-			if(tableFilaEquipamentos.getSelectionModel().getSelectedItem().getOrcamento_id()  == null || tableFilaEquipamentos.getSelectionModel().getSelectedItem().getOrcamento_id() == 0) 
+			orcamento = controller.findById( tableFilaEquipamentos.getSelectionModel().getSelectedItem().getOrcamento_id() );
+			if(orcamento.getStatus() == 1) 
 			{
-				orcamento = controller.findById( tableFilaEquipamentos.getSelectionModel().getSelectedItem().getOrcamento_id() );
+				
 //				NewView.getNewView("Entrada Equipamento", "orcamentoDois", new OrcamentoInsert() );
 				NewView.addChildren((Node) NewView.loadFXML("orcamentoDois" , new OrcamentoInsert() ));
 

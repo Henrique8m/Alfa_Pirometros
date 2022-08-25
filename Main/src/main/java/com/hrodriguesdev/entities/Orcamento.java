@@ -11,13 +11,76 @@ public class Orcamento {
 	private Date data_chegada;
 	private Date data_saida;
 	private Boolean laboratorio;
+	private String relatorio;
+	private int status;
+	private Long eletricos;
+	private Long consumo;
+	private Long eletronicos;
+	private Long estetico;
+	private Long sinal;
 	
 	public Orcamento(Long equipamento_id, Date data_chegada, Boolean laboratorio) {
 		this.setEquipamento_id(equipamento_id);
 		this.setData_chegada(data_chegada);
 		this.setLaboratorio(laboratorio);
 	}
-	
+		
+	public String getRelatorio() {
+		return relatorio;
+	}
+
+	public void setRelatorio(String relatorio) {
+		this.relatorio = relatorio;
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
+	public Long getEletricos() {
+		return eletricos;
+	}
+
+	public void setEletricos(Long eletricos) {
+		this.eletricos = eletricos;
+	}
+
+	public Long getConsumo() {
+		return consumo;
+	}
+
+	public void setConsumo(Long consumo) {
+		this.consumo = consumo;
+	}
+
+	public Long getEletronicos() {
+		return eletronicos;
+	}
+
+	public void setEletronicos(Long eletronicos) {
+		this.eletronicos = eletronicos;
+	}
+
+	public Long getEstetico() {
+		return estetico;
+	}
+
+	public void setEstetico(Long estetico) {
+		this.estetico = estetico;
+	}
+
+	public Long getSinal() {
+		return sinal;
+	}
+
+	public void setSinal(Long sinal) {
+		this.sinal = sinal;
+	}
+
 	public Orcamento(String item, Integer quantidade) {
 		Item = item;
 		this.quantidade = quantidade;

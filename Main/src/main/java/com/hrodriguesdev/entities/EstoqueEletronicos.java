@@ -1,6 +1,8 @@
 package com.hrodriguesdev.entities;
 
 import java.io.Serializable;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 //@Entity
 //@Table(name = "tb_eletronicos")
@@ -40,6 +42,32 @@ public class EstoqueEletronicos implements Serializable {
 		CIIndicmax = cIIndicmax;
 	}
 	
+	public EstoqueEletronicos(ResultSet rs) {
+		try {			
+			this.id = rs.getLong("id");
+			this.orcamento_id = rs.getLong("orcamento_id");	
+			this.saida = rs.getBoolean("saida");
+			this.nfe = rs.getInt("nfe");
+			sirene = rs.getInt("sirene");
+			PCIFIII = rs.getInt("pci_fiii");
+			PCIFKal = rs.getInt("pci_fkal");	
+			DispFKal = rs.getInt("disp_fkal");
+			FIII = rs.getInt("fiii");	
+			Indicmax = rs.getInt("indicmax");
+			CIFII = rs.getInt("ci_fii");	
+			CIIndicmax = rs.getInt("ci_indicmax");	
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+		}
+
+	}
+		
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	public Long getOrcamento_id() {
 		return orcamento_id;
 	}

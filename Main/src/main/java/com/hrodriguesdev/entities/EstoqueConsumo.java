@@ -1,6 +1,8 @@
 package com.hrodriguesdev.entities;
 
 import java.io.Serializable;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 //@Entity
 //@Table(name = "tb_consumo")
@@ -29,6 +31,27 @@ public class EstoqueConsumo implements Serializable {
 		CaixaBat = caixaBat;
 	}
 	
+	public EstoqueConsumo(ResultSet rs) {
+		try {			
+			this.id = rs.getLong("id");
+			this.orcamento_id = rs.getLong("orcamento_id");	
+			this.saida = rs.getBoolean("saida");
+			this.nfe = rs.getInt("nfe");
+			BotaoLiga = rs.getInt("b_liga");
+			BoMeFIIFIIIIndicmax = rs.getInt("b_m_forneros");
+			CaixaBat = rs.getInt("caixa_bateria");	
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+		}
+
+	}
+		
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	public Long getOrcamento_id() {
 		return orcamento_id;
 	}

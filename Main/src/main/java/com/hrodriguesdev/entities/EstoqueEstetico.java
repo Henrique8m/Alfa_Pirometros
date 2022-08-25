@@ -1,6 +1,8 @@
 package com.hrodriguesdev.entities;
 
 import java.io.Serializable;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 //@Entity
 //@Table(name = "tb_estetico")
@@ -41,6 +43,33 @@ public class EstoqueEstetico implements Serializable {
 		Punho = punho;
 	}
 	
+	public EstoqueEstetico(ResultSet rs) {
+		try {			
+			this.id = rs.getLong("id");
+			this.orcamento_id = rs.getLong("orcamento_id");	
+			this.saida = rs.getBoolean("saida");
+			this.nfe = rs.getInt("nfe");
+			MascaraFII = rs.getInt("mascara_fii");
+			MascaraFKal = rs.getInt("mascara_fkal");
+			MascaraFIII = rs.getInt("mascara_fiii");	
+			MascaraCarbo = rs.getInt("mascara_carbo");
+			MascaraIndic = rs.getInt("mascara_indic");
+			EtiqLatFII = rs.getInt("etiq_lat_fii");
+			EtiqLatFIII = rs.getInt("etiq_lat_fiii");
+			EtiqTrasFII = rs.getInt("etiq_tras_fii");
+			Punho = rs.getInt("punho");
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+		}
+
+	}
+	
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	public Long getOrcamento_id() {
 		return orcamento_id;
 	}
