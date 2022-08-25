@@ -53,13 +53,13 @@
                               <VBox prefHeight="47.0" prefWidth="147.0">
                                  <children>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="MODELO" wrappingWidth="75.13671875" />
-                                    <TextField fx:id="modelo" editable="false" focusTraversable="false" onKeyReleased="#format" prefHeight="25.0" prefWidth="166.0" />
+                                    <TextField fx:id="modelo" editable="false" focusTraversable="false" prefHeight="25.0" prefWidth="166.0" />
                                  </children>
                               </VBox>
                               <VBox prefHeight="47.0" prefWidth="114.0">
                                  <children>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="NS" wrappingWidth="39.13671875" />
-                                    <TextField fx:id="ns" editable="false" focusTraversable="false" onKeyReleased="#format" prefHeight="25.0" prefWidth="95.0" />
+                                    <TextField fx:id="ns" editable="false" focusTraversable="false" prefHeight="25.0" prefWidth="95.0" />
                                  </children>
                                  <HBox.margin>
                                     <Insets left="20.0" />
@@ -68,7 +68,7 @@
                               <VBox prefHeight="47.0" prefWidth="101.0">
                                  <children>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="PAT" wrappingWidth="65.13671875" />
-                                    <TextField fx:id="pat" editable="false" focusTraversable="false" onKeyReleased="#format" prefHeight="25.0" prefWidth="79.0" />
+                                    <TextField fx:id="pat" editable="false" focusTraversable="false" prefHeight="25.0" prefWidth="79.0" />
                                  </children>
                                  <HBox.margin>
                                     <Insets left="20.0" />

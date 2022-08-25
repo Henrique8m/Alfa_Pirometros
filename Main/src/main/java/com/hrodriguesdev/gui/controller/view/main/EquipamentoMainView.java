@@ -90,19 +90,19 @@ public class EquipamentoMainView extends LogoutMainView {
     		
     	}else if(keyEvent.getCode().toString() == "F12" ) {
     		
-    		if(tableFilaEquipamentos.getSelectionModel().getSelectedItem() != null) 
-    		{
-				equipamento = tableFilaEquipamentos.getSelectionModel().getSelectedItem();
-				equipamento.setLaboratorio(true);
-				equipamentoController.updatede(equipamento.getId(), equipamento.getStatus(), equipamento);			
-
-    		}else if(tableFindEquipamentos.getSelectionModel().getSelectedItem() != null) {
-				equipamento = tableFindEquipamentos.getSelectionModel().getSelectedItem();
-				equipamento.setLaboratorio(true);
-				equipamentoController.updatede(equipamento.getId(), equipamento.getStatus(), equipamento);	
-
-    		}
-    		refreshTable();		
+//    		if(tableFilaEquipamentos.getSelectionModel().getSelectedItem() != null) 
+//    		{
+//				equipamento = tableFilaEquipamentos.getSelectionModel().getSelectedItem();
+//				equipamento.setLaboratorio(true);
+//				equipamentoController.updatede(equipamento.getId(), equipamento.getStatus(), equipamento);			
+//
+//    		}else if(tableFindEquipamentos.getSelectionModel().getSelectedItem() != null) {
+//				equipamento = tableFindEquipamentos.getSelectionModel().getSelectedItem();
+//				equipamento.setLaboratorio(true);
+//				equipamentoController.updatede(equipamento.getId(), equipamento.getStatus(), equipamento);	
+//
+//    		}
+//    		refreshTable();		
     		
     	}
     	else if(keyEvent.getCode().toString() == "DELETE" ) {    		
@@ -187,9 +187,9 @@ public class EquipamentoMainView extends LogoutMainView {
 	public void tableFilaEquipamentoClick(MouseEvent event) throws IOException, SQLException {
 		if(event.getClickCount() >= 2) {
 			if(tableFilaEquipamentos.getSelectionModel().getSelectedItem() != null) {
-				Equipamento equipSelected = tableFilaEquipamentos.getSelectionModel().getSelectedItem();
-				int status = equipSelected.getStatus();
-				if(equipSelected.getOrcamento_id() == 0) 
+				orcamento = controller.findById( tableFilaEquipamentos.getSelectionModel().getSelectedItem().getOrcamento_id() );
+				int status = orcamento.getStatus();
+				if(status == 1) 
 					addOrcamento(new ActionEvent());
 
 				else if(status == 2 || status == 3 || status == 4 || status == 8 || status == 12 || status == 13) 

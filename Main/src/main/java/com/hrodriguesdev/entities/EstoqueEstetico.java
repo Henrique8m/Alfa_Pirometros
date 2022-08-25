@@ -66,6 +66,41 @@ public class EstoqueEstetico implements Serializable {
 
 	}
 	
+	@Override
+	public String toString() {
+		String list = "";
+
+		if( MascaraFII > 0) 
+			list = list + "Mascara Fornero II, quantidade = " + MascaraFII + "\n";
+		
+		if( MascaraFKal > 0) 
+			list = list + "Mascara Fornero kal, quantidade = " + MascaraFKal + "\n";
+		
+		if( MascaraFIII > 0) 
+			list = list + "Mascara Fornero III, quantidade = " + MascaraFIII + "\n";
+		
+		if( MascaraCarbo > 0) 
+			list = list + "Mascara carbomax II, quantidade = " + MascaraCarbo + "\n";
+		
+		if( MascaraIndic > 0) 
+			list = list + "Mascara Indicmax II, quantidade = " + MascaraIndic + "\n";
+		
+		if( EtiqLatFII > 0) 
+			list = list + "Etiqueta lateral fornero II, quantidade = " + EtiqLatFII + "\n";
+		
+		if( EtiqLatFIII > 0) 
+			list = list + "Etiqueta lateral fornero III, quantidade = " + EtiqLatFIII + "\n";
+		
+		if( EtiqTrasFII > 0) 
+			list = list + "Etiqueta traseira fornero II, quantidade = " + EtiqTrasFII + "\n";
+		
+		if( Punho > 0) 
+			list = list + "Punho, quantidade = " + Punho + "\n";
+		
+		
+		return list;
+	}
+	
 	public void setId(Long id) {
 		this.id = id;
 	}

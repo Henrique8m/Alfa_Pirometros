@@ -48,6 +48,22 @@ public class EstoqueConsumo implements Serializable {
 
 	}
 		
+	@Override
+	public String toString() {
+		String list = "";
+		
+		if( BotaoLiga > 0) 
+			list = list + "Botao Liga, quantidade = " + BotaoLiga + "\n";
+		
+		if( BoMeFIIFIIIIndicmax > 0) 
+			list = list + "Botao Memoria, quantidade = " + BoMeFIIFIIIIndicmax + "\n";
+		
+		if( CaixaBat > 0) 
+			list = list + "Caixa para bateria, quantidade = " + CaixaBat + "\n";
+		
+		return list;
+	}
+	
 	public void setId(Long id) {
 		this.id = id;
 	}
@@ -92,6 +108,5 @@ public class EstoqueConsumo implements Serializable {
 		return id;
 	}
 
-	
 	
 }

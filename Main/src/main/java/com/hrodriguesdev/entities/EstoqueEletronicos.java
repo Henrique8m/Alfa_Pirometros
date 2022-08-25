@@ -63,6 +63,37 @@ public class EstoqueEletronicos implements Serializable {
 		}
 
 	}
+	
+	@Override
+	public String toString() {
+		String list = "";
+
+		if( sirene > 0) 
+			list = list + "Sirene fim de medicao, quantidade = " + sirene + "\n";
+		
+		if( PCIFIII > 0) 
+			list = list + "PCI Fornero III, quantidade = " + PCIFIII + "\n";
+		
+		if( PCIFKal > 0) 
+			list = list + "PCI Fornero Kal, quantidade = " + PCIFKal + "\n";
+		
+		if( DispFKal > 0) 
+			list = list + "Display Fornero Kal, quantidade = " + DispFKal + "\n";
+		
+		if( FIII > 0) 
+			list = list + "Fornero III novo, quantidade = " + FIII + "\n";
+		
+		if( Indicmax > 0) 
+			list = list + "Indicmax novo, quantidade = " + Indicmax + "\n";
+		
+		if( CIFII > 0) 
+			list = list + "CI microcontrolador Fornero II, quantidade = " + CIFII + "\n";
+		
+		if( CIIndicmax > 0) 
+			list = list + "CI Indicmax, quantidade = " + CIIndicmax + "\n";
+		
+		return list;
+	}
 		
 	public void setId(Long id) {
 		this.id = id;

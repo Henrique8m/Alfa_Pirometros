@@ -2,7 +2,6 @@ package com.hrodriguesdev.utilitary;
 
 import com.hrodriguesdev.dao.db.DbException;
 import com.hrodriguesdev.dao.repository.ItensRepository;
-import com.hrodriguesdev.dao.repository.ItensRepositoryFind;
 import com.hrodriguesdev.dao.repository.OrcamentoRepository;
 import com.hrodriguesdev.entities.EstoqueConsumo;
 import com.hrodriguesdev.entities.EstoqueEletricos;
@@ -278,17 +277,6 @@ public class Itens {
 		orcamento.setEstetico( repository.saveEstetico(estetico) );
 		orcamento.setSinal( repository.saveSinal(sinal) );
 		return orcamentoRe.setIdItens(orcamento);
-	}
-	
-	public String allItens(Long orcamento_id) {
-		ItensRepositoryFind find = new ItensRepositoryFind();
-		find.consumoByOrcamentoId(orcamento_id).toString();
-		find.eletricosByOrcamentoId(orcamento_id);
-		find.eletronicosByOrcamentoId(orcamento_id);
-		find.esteticoByOrcamentoId(orcamento_id);
-		find.sinalByOrcamentoId(orcamento_id);
-		
-		
 	}
 	
 }

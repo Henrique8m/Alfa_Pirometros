@@ -5,12 +5,12 @@ import java.util.ResourceBundle;
 
 import com.hrodriguesdev.AlfaPirometrosApplication;
 import com.hrodriguesdev.dao.db.DbException;
+import com.hrodriguesdev.dao.repository.ItensRepositoryFind;
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.entities.Orcamento;
 import com.hrodriguesdev.gui.alert.Alerts;
 import com.hrodriguesdev.gui.controller.view.main.MainViewController;
 import com.hrodriguesdev.utilitary.Format;
-import com.hrodriguesdev.utilitary.Itens;
 import com.hrodriguesdev.utilitary.NewView;
 
 import javafx.event.ActionEvent;
@@ -38,7 +38,6 @@ public class OrcamentoViewController implements Initializable {
 	
 	private Equipamento equipamento;
 	private Orcamento orcamento;
-	private Itens itens = new Itens();
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -55,13 +54,26 @@ public class OrcamentoViewController implements Initializable {
 		ns.setText(equipamento.getNs());
 		pat.setText(equipamento.getPat());
 		
-		obs.setText( itens.allItens(orcamento.getId()) );
+		obs.setText( allItens(orcamento.getId()) );
 		Image image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-excluir.png").toString() );
 		cancelarImg.setImage(image);
 		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-salvar-arquivo.png").toString() );
 		salvarImg.setImage(image);
 	}	
 		
+	private String allItens(Long orcamento_id) {
+		ItensRepositoryFind find = new ItensRepositoryFind();
+		String output = "";
+		
+		output = output + find.consumoByOrcamentoId(orcamento_id).toString();
+		output = output + find.eletricosByOrcamentoId(orcamento_id).toString();
+		output = output + find.eletronicosByOrcamentoId(orcamento_id).toString();
+		output = output + find.esteticoByOrcamentoId(orcamento_id).toString();
+		output = output + find.sinalByOrcamentoId(orcamento_id).toString();
+		return output;
+	}
+
+	
 	private void switchStatus(int status) {
 		switch (status) {
 		case 3:

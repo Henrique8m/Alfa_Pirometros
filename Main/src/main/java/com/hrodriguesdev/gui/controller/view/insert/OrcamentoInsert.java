@@ -41,7 +41,7 @@ public class OrcamentoInsert implements Initializable {
 //	private EquipamentoController equipamentoController = MainViewController.equipamentoController;
 	
 	private Long orcamentoId;
-	private String list = "Lista de Materiais Usados; \n";
+	private String list = "";
 	private String nova = "";
 	
 	//Button

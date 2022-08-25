@@ -69,6 +69,43 @@ public class EstoqueEletricos implements Serializable {
 		}
 
 	}
+	
+	@Override
+	public String toString() {
+		String list = "";
+
+		if( FontCarbIndic > 0) 
+			list = list + "Fonte italterm universal, quantidade = " + FontCarbIndic + "\n";
+		
+		if( FontCarbDelta > 0) 
+			list = list + "Font carbomax delta, quantidade = " + FontCarbDelta + "\n";
+		
+		if( PinFemeAliFII > 0) 
+			list = list + "Pino fêmea alimentacao Fornero II, quantidade = " + PinFemeAliFII + "\n";
+		
+		if( PinFemeAliFIII > 0) 
+			list = list + "Pino fêmea alimentacao Fornero III, quantidade = " + PinFemeAliFIII + "\n";
+		
+		if( BatFIIFIII > 0) 
+			list = list + "Bateria de fornero, quantidade = " + BatFIIFIII + "\n";
+		
+		if( BatDescartavel > 0) 
+			list = list + "Bateria 9V, quantidade = " + BatDescartavel + "\n";
+		
+		if( BatInditemp > 0) 
+			list = list + "Bateria inditemp II, quantidade = " + BatInditemp + "\n";
+		
+		if( BatLitio > 0) 
+			list = list + "Bateria inditemp II Plus - litio, quantidade = " + BatLitio + "\n";
+		
+		if( CarrEcil > 0) 
+			list = list + "Carregador ecil, quantidade = " + CarrEcil + "\n";
+		
+		if( CarrItalterm > 0) 
+			list = list + "Carregador Italterm, quantidade = " + CarrItalterm + "\n";
+		
+		return list;
+	}
 		
 	public void setId(Long id) {
 		this.id = id;
