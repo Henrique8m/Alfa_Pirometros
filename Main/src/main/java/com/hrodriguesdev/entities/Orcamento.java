@@ -1,6 +1,8 @@
 package com.hrodriguesdev.entities;
 
 import java.sql.Date;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class Orcamento {
 	
@@ -12,6 +14,7 @@ public class Orcamento {
 	private Date data_saida;
 	private Boolean laboratorio;
 	private String relatorio;
+	private Long coletor_id;
 	private int status;
 	private Long eletricos;
 	private Long consumo;
@@ -25,6 +28,36 @@ public class Orcamento {
 		this.setLaboratorio(laboratorio);
 	}
 		
+	public Orcamento(ResultSet rs) {	
+		try {			
+			this.id = rs.getLong("id");
+			if(rs.getString("Item") != null)
+				Item = rs.getString("Item");
+			
+			quantidade = rs.getInt("quantidade");			
+			equipamento_id = rs.getLong("equipamento_id");
+			if(rs.getDate("data_saida") != null)
+				data_saida = rs.getDate("data_saida");
+			
+			data_chegada = rs.getDate("data_chegada");
+			laboratorio = rs.getBoolean("laboratorio");
+			coletor_id = rs.getLong("coletor_id");
+			relatorio = rs.getString("relatorio");
+			status = rs.getInt("status");
+			eletricos = rs.getLong("eletricos");
+			consumo = rs.getLong("consumo");
+			eletronicos = rs.getLong("eletronicos");
+			estetico = rs.getLong("estetico");
+			sinal = rs.getLong("sinal");
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+		}
+
+	}
+	
+	
 	public String getRelatorio() {
 		return relatorio;
 	}
@@ -87,6 +120,7 @@ public class Orcamento {
 	}
 	public Orcamento() {}
 	
+
 	public Long getId() {
 		return id;
 	}
@@ -267,6 +301,14 @@ public class Orcamento {
 
 	public void setLaboratorio(Boolean laboratorio) {
 		this.laboratorio = laboratorio;
+	}
+
+	public Long getColetor_id() {
+		return coletor_id;
+	}
+
+	public void setColetor_id(Long coletor_id) {
+		this.coletor_id = coletor_id;
 	}
 
 }

@@ -90,7 +90,6 @@ public class OrcamentoRepository {
 	}
 
 	public Orcamento getOrcamento(Long id) throws DbException {	
-		Orcamento orcamento = null;
 		try {
 			conn = DB.getConnection();			
 			st = conn.createStatement();			
@@ -98,10 +97,7 @@ public class OrcamentoRepository {
 			
 			while (rs.next())  
 				if( rs.getLong("id") == id) {
-					orcamento = new Orcamento(rs.getString("Item"), Integer.parseInt( rs.getString("quantidade") ) );
-					orcamento.setId(id);
-					orcamento.setData_chegada(rs.getDate("data_chegada"));
-					orcamento.setStatus(rs.getInt("status"));
+					return new Orcamento(rs);
 				}
 						
 		}catch(DbException | SQLException e) {
@@ -114,7 +110,7 @@ public class OrcamentoRepository {
 			DB.closeConnection();
 			
 		}
-		return orcamento;
+		return null;
 	}
 
 	public boolean updatede(Orcamento orcamento) {
@@ -224,4 +220,47 @@ public class OrcamentoRepository {
 		return false;
 	}
 
+	public boolean updatedeStatusRelatorio(Long id, int status, Orcamento orcamento) {
+		int statusEquip = orcamento.getStatus();
+		boolean ok = false;
+		if ( status == 4 ||	status == 5  ) {
+			if ( statusEquip == 12 || statusEquip == 13)			
+				status = 7;
+		}		
+		if (status == 7)
+			orcamento.setLaboratorio(false);
+		else
+			orcamento.setLaboratorio(true);		
+		try {
+			conn = DB.getConnection();
+			pst = conn.prepareStatement("UPDATE tb_orcamento "
+											+ "SET status = status, " 
+											+ "laboratorio = ? , "
+											+ "relatorio = ? "
+											+ " WHERE "
+											+ "(id = ?)");
+			if(orcamento.getRelatorio() == null ) 
+				orcamento.setRelatorio("");
+			
+			pst.setBoolean( 1, orcamento.getLaboratorio() );
+			pst.setString(2, orcamento.getRelatorio());			
+			pst.setLong( 3, id );
+			
+			int rowsAccepted = pst.executeUpdate();
+			if(rowsAccepted>0)
+				ok=true;
+		
+		}catch (SQLException e) {
+			ok=false;
+		System.out.println(e.getMessage());	
+		}
+		finally {
+			DB.closeStatement(pst);
+			DB.closeConnection();
+			
+		}		
+		return ok;
+
+	}
+	
 }

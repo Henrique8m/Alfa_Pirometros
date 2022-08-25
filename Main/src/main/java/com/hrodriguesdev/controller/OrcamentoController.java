@@ -35,5 +35,9 @@ public class OrcamentoController {
 	public boolean existOrcamento(Long equipamento_id) {		
 		return orcamentoService.existOrcamento(equipamento_id);
 	}
+	
+	public boolean updatedeStatusRelatorio(Long id, int status, Orcamento orcamento) {
+		return orcamentoService.updatedeStatusRelatorio(id, status, orcamento);
+	}
 
 }

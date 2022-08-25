@@ -10,6 +10,8 @@ import com.hrodriguesdev.entities.Orcamento;
 import com.hrodriguesdev.gui.alert.Alerts;
 import com.hrodriguesdev.gui.controller.view.main.MainViewController;
 import com.hrodriguesdev.utilitary.Format;
+import com.hrodriguesdev.utilitary.Itens;
+import com.hrodriguesdev.utilitary.NewView;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,9 +22,8 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.stage.Stage;
 
-public class OrcamentoViewController extends StatusViewController implements Initializable {
+public class OrcamentoViewController implements Initializable {
 	
 	@FXML
 	private Button cancelar, orcamentoEnviado, aprovado, aprovadoSemOrca, liberado, naoAprovado, liberadoSemOrcamento;
@@ -36,26 +37,12 @@ public class OrcamentoViewController extends StatusViewController implements Ini
 	private TextArea obs;
 	
 	private Equipamento equipamento;
+	private Orcamento orcamento;
+	private Itens itens = new Itens();
 	
-	@FXML
-	private void salvar(ActionEvent event) {
-		if(relatorioN.getText() != null && relatorioN.getText() != "" ) {
-			equipamento.setRelatorio( relatorioN.getText() );
-			MainViewController.equipamentoController.updatede(equipamento.getId(), equipamento.getStatus() , equipamento);
-		}
-		try {
-			Stage stage = (Stage) cancelar.getScene().getWindow(); 
-			stage.close();
-		} catch (NumberFormatException e) {
-			e.printStackTrace();
-		}
-		AlfaPirometrosApplication.viewController.refreshTable();;
-
-	}
-		
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		Orcamento orcamento = MainViewController.orcamento;
+		orcamento = MainViewController.orcamento;
 		equipamento = MainViewController.equipamento;
 		if( equipamento.getRelatorio() != null && relatorioN.getText() != "" ) {
 			relatorioN.setText( equipamento.getRelatorio() );
@@ -68,17 +55,13 @@ public class OrcamentoViewController extends StatusViewController implements Ini
 		ns.setText(equipamento.getNs());
 		pat.setText(equipamento.getPat());
 		
-//		Date date = equipamento.getUltimaCalibDate();
-//		if(date != null) ultimaCal.setText(Format.formatData.format(date));	
-		
-		obs.setText(orcamento.getItem());
+		obs.setText( itens.allItens(orcamento.getId()) );
 		Image image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-excluir.png").toString() );
 		cancelarImg.setImage(image);
 		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-salvar-arquivo.png").toString() );
 		salvarImg.setImage(image);
 	}	
-
-	
+		
 	private void switchStatus(int status) {
 		switch (status) {
 		case 3:
@@ -102,31 +85,55 @@ public class OrcamentoViewController extends StatusViewController implements Ini
 	}
 	
 	@FXML
-	@Override
-	protected void liberado(ActionEvent e) {
-		update(5);
-	}
-
-	@Override
-	protected void update(int status) {		
+	private void salvar(ActionEvent event) {
+		if(relatorioN.getText() != null && relatorioN.getText() != "" ) {
+			MainViewController.orcamento.setRelatorio(relatorioN.getText() );
+		}
 		try {
-			
-			equipamentoController.updatede( MainViewController.equipamento.getId(), status, MainViewController.equipamento );
+			MainViewController.orcamentoController.updatedeStatusRelatorio( MainViewController.equipamento.getId(), MainViewController.orcamento.getStatus(), MainViewController.orcamento );
 			Alerts.showAlert("Status ", "Status Alterado com sucesso", "Equipamento da Empressa " + MainViewController.equipamento.getEmpressaName() , AlertType.INFORMATION);
 		} catch (DbException e1) {
 			Alerts.showAlert("DB exception ", "Erro na comunicação com banco de dados", e1.getMessage(), AlertType.ERROR);
 		}
-		
 		AlfaPirometrosApplication.viewController.refreshTable();
+		NewView.fecharView();
+	}
+	
+	protected void update(int status) {		
+		MainViewController.orcamento.setStatus(status);
+	}
+		
+	@FXML
+	protected void liberado(ActionEvent e) {
+		update(5);
+		liberado.setVisible(false);
 	}
 	
 	@FXML
-	public void cancelar(ActionEvent event) {
-		try {
-			Stage stage = (Stage) cancelar.getScene().getWindow(); 
-			stage.close();
-		} catch (NumberFormatException e) {
-			e.printStackTrace();
-		}
+	private void aguardandoAprovacao(ActionEvent e) {
+		update(3);
+		orcamentoEnviado.setVisible(false);
 	}
+	
+	@FXML
+	private void aguardandoReparo(ActionEvent e) {
+		update(4);
+	}
+	
+	@FXML
+	private void naoAprovado(ActionEvent e) {
+		update(6);
+	}
+	
+	@FXML
+	private void liberadoSemOrcamento(ActionEvent e) {
+		update(9);
+		liberado.setVisible(false);
+	}
+			
+	@FXML
+	public void cancelar(ActionEvent event) {
+		NewView.fecharView();
+	}
+	
 }

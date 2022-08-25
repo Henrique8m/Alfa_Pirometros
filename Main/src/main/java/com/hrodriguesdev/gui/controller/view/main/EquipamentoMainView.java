@@ -8,7 +8,6 @@ import com.hrodriguesdev.dao.db.DbException;
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.gui.alert.Alerts;
 import com.hrodriguesdev.gui.controller.OrcamentoViewControllerDois;
-import com.hrodriguesdev.gui.controller.StatusViewController;
 import com.hrodriguesdev.gui.controller.view.saida.equipemento.OpenSaidaEquipamentoViewController;
 import com.hrodriguesdev.gui.controller.view.saida.equipemento.SaidaEquipamentoViewController;
 import com.hrodriguesdev.gui.controller.view.updatede.EquipamentoUpdatede;
@@ -127,24 +126,24 @@ public class EquipamentoMainView extends LogoutMainView {
 	
 	@FXML
     private void updateStatus(ActionEvent e) throws IOException {
-		if(tableFilaEquipamentos.getSelectionModel().getSelectedItem() != null) {
-			equipamento = tableFilaEquipamentos.getSelectionModel().getSelectedItem();
-			NewView.getNewView("Alterar Status","status", new StatusViewController() );
-			try {
-				obsListTableFilaEquipamentos = orcamentoController.findAllLaboratorio(true);
-				dbConection = true;
-			} catch (DbException e1) {
-				showAlerts("DB exception ", "Erro na comunicação com banco de dados", e1.getMessage(), AlertType.ERROR );
-				dbConection = false;
-			}
-			tableFilaEquipamentos.setItems(obsListTableFilaEquipamentos);
-			oldObs = obsListTableFilaEquipamentos;
-			tableFilaEquipamentos.refresh();
-		}
-		else {
-			showAlerts("Seleção ", "", "Nada Selecionado ", AlertType.INFORMATION );
-		}
-	   	
+//		if(tableFilaEquipamentos.getSelectionModel().getSelectedItem() != null) {
+//			equipamento = tableFilaEquipamentos.getSelectionModel().getSelectedItem();
+//			NewView.getNewView("Alterar Status","status", new StatusViewController() );
+//			try {
+//				obsListTableFilaEquipamentos = orcamentoController.findAllLaboratorio(true);
+//				dbConection = true;
+//			} catch (DbException e1) {
+//				showAlerts("DB exception ", "Erro na comunicação com banco de dados", e1.getMessage(), AlertType.ERROR );
+//				dbConection = false;
+//			}
+//			tableFilaEquipamentos.setItems(obsListTableFilaEquipamentos);
+//			oldObs = obsListTableFilaEquipamentos;
+//			tableFilaEquipamentos.refresh();
+//		}
+//		else {
+//			showAlerts("Seleção ", "", "Nada Selecionado ", AlertType.INFORMATION );
+//		}
+//	   	
     }
 	
 		

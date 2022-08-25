@@ -16,7 +16,6 @@ public class OrcamentoService {
 	}
 
 	public Orcamento getOrcamento(Long id) throws SQLException {
-
 		return repository.getOrcamento(id);
 	}
 
@@ -31,6 +30,10 @@ public class OrcamentoService {
 
 	public boolean existOrcamento(Long equipamento_id) {
 		return repository.existOrcamento(equipamento_id);
+	}
+	
+	public boolean updatedeStatusRelatorio(Long id, int status, Orcamento orcamento) {
+		return repository.updatedeStatusRelatorio(id, status, orcamento);
 	}
 	
 }

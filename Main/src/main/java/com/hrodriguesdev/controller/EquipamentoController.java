@@ -48,10 +48,6 @@ public class EquipamentoController {
 		throw new IllegalArgumentException();
 	}
 	
-	public boolean updatede(Long id, int status, Equipamento equipamento) {
-		return equipamentoService.updatede(id, status, equipamento);		
-	}
-	
 	public boolean updatede(Long id, Boolean laboratorio, Long orcamento_id) {
 		return equipamentoService.updatede(id, laboratorio, orcamento_id);		
 	}

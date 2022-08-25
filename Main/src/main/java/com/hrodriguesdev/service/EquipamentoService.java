@@ -105,10 +105,6 @@ public class EquipamentoService {
 		return repository.add(equipamento);
 	}	
 
-	public boolean updatede(Long id, int status, Equipamento equipamento) {
-		return repository.updatede(id, status, equipamento);
-	}
-
 	public boolean updatede(Long id, Boolean laboratorioo, Long orcamento_id) {		
 		return repository.updatede(id, laboratorioo, orcamento_id);
 	}

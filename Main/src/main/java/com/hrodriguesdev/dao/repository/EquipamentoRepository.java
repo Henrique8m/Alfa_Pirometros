@@ -347,51 +347,6 @@ public class EquipamentoRepository {
 
 	}
 	
-	public boolean updatede(Long id, int status, Equipamento equipamento) {
-		int statusEquip = equipamento.getStatus();
-		boolean ok = false;
-		if ( status == 4 ||	status == 5  ) {
-			if ( statusEquip == 12 || statusEquip == 13)			
-				status = 7;
-		}		
-		if (status == 7)
-			equipamento.setLaboratorio(false);
-		else
-			equipamento.setLaboratorio(true);		
-		try {
-			conn = DB.getConnection();
-			pst = conn.prepareStatement("UPDATE tb_equipamento "
-											+ "SET status = " 
-											+ status + ", "
-											+ "laboratorio = ?" + ", "
-											+ "relatorio = ? "
-											+ " WHERE "
-											+ "(id = ?)");
-			if(equipamento.getRelatorio() == null ) 
-				equipamento.setRelatorio("");
-			
-			pst.setBoolean( 1, equipamento.getLaboratorio() );
-			pst.setString(2, equipamento.getRelatorio());			
-			pst.setLong( 3, id );
-			
-			int rowsAccepted = pst.executeUpdate();
-			if(rowsAccepted>0)
-				ok=true;
-		
-		}catch (SQLException e) {
-			ok=false;
-		System.out.println(e.getMessage());	
-		}
-		finally {
-			DB.closeStatement(pst);
-			DB.closeConnection();
-			
-		}		
-		return ok;
-
-	}
-	
-
 	public void updatedeAllDate() {
 		List<Equipamento> list = new ArrayList<>();		
 		try {
