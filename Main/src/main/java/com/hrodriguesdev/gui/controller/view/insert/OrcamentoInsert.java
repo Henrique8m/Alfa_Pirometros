@@ -11,6 +11,7 @@ import com.hrodriguesdev.entities.Orcamento;
 import com.hrodriguesdev.gui.controller.view.main.MainViewController;
 import com.hrodriguesdev.utilitary.Format;
 import com.hrodriguesdev.utilitary.InputFilter;
+import com.hrodriguesdev.utilitary.Itens;
 import com.hrodriguesdev.utilitary.NewView;
 
 import javafx.collections.FXCollections;
@@ -99,20 +100,7 @@ public class OrcamentoInsert implements Initializable {
 	@FXML
 	private void addComEnter(KeyEvent event) {
 		if(event.getCode().toString()=="ENTER") {
-			if(event.getTarget() == newItem) {
-				obsMateriais.add(new Orcamento(newItem.getValue(), Integer.parseInt( quantidadeItem.getValue() ) ) );
-				tableOrcamento.refresh();
-				
-				quantidadeItem.getEditor().textProperty().removeListener( listener );	
-				newItem.getEditor().textProperty().removeListener( inputFilterNewItem );
-				
-				newItem.setValue("");
-				quantidadeItem.setValue("1");
-				conboBoxInit();	
-			}else if(event.getTarget() == obs) {
-				obsMateriais.add( new Orcamento(obs.getText(), 0 ) );
-				obs.setText("");
-			}
+			addItem(new ActionEvent());
 
 		}
 	}
@@ -162,10 +150,12 @@ public class OrcamentoInsert implements Initializable {
 			String itemStr = orcamento.getItem();
 			this.nova = this.list + itemStr  + "\n";
 			this.list = nova;
+			if( !Itens.addItem(orcamento.getItemRealString()) )
+//				erro
+				return;
 			});
-			orcamentoId = controller.add( new Orcamento(nova, 0) );
-			if(equipamentoController.updatede(equipamento.getId() , orcamentoId)) {
-				equipamentoController.updatede(equipamento.getId(), 2, equipamento);
+			int status = 2;
+			if(controller.updatede( MainViewController.orcamento.getId(), status, nova ) && Itens.createdItensOrcamento() ) {
 				try {
 					NewView.fecharView();
 				} catch (NumberFormatException e) {

@@ -18,6 +18,17 @@ public class EstoqueConsumo implements Serializable {
 	private int BoMeFIIFIIIIndicmax;
 	private int CaixaBat;
 	
+	public EstoqueConsumo(Long orcamento_id, Boolean saida, int nfe, int botaoLiga, int boMeFIIFIIIIndicmax,
+			int caixaBat) {
+		super();
+		this.orcamento_id = orcamento_id;
+		this.saida = saida;
+		this.nfe = nfe;
+		BotaoLiga = botaoLiga;
+		BoMeFIIFIIIIndicmax = boMeFIIFIIIIndicmax;
+		CaixaBat = caixaBat;
+	}
+	
 	public Long getOrcamento_id() {
 		return orcamento_id;
 	}

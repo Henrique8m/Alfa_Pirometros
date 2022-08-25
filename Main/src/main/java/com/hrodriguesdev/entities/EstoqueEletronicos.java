@@ -24,6 +24,22 @@ public class EstoqueEletronicos implements Serializable {
 	private int CIFII;
 	private int CIIndicmax;
 	
+	public EstoqueEletronicos(Long orcamento_id, Boolean saida, int nfe, int sirene, int pCIFIII, int pCIFKal,
+			int dispFKal, int fIII, int indicmax, int cIFII, int cIIndicmax) {
+		super();
+		this.orcamento_id = orcamento_id;
+		this.saida = saida;
+		this.nfe = nfe;
+		this.sirene = sirene;
+		PCIFIII = pCIFIII;
+		PCIFKal = pCIFKal;
+		DispFKal = dispFKal;
+		FIII = fIII;
+		Indicmax = indicmax;
+		CIFII = cIFII;
+		CIIndicmax = cIIndicmax;
+	}
+	
 	public Long getOrcamento_id() {
 		return orcamento_id;
 	}

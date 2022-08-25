@@ -24,6 +24,25 @@ public class EstoqueSinal implements Serializable {
 	private int PlugMK;
 	private int TomadaS;
 	
+	
+	
+	public EstoqueSinal(Long orcamento_id, Boolean saida, int nfe, int receptaculoS, int receptaculoSU,
+			int receptaculoEcil, int receptaculoK, int plugFS, int plugFK, int plugMS, int plugMK, int tomadaS) {
+		super();
+		this.orcamento_id = orcamento_id;
+		this.saida = saida;
+		this.nfe = nfe;
+		ReceptaculoS = receptaculoS;
+		ReceptaculoSU = receptaculoSU;
+		ReceptaculoEcil = receptaculoEcil;
+		ReceptaculoK = receptaculoK;
+		PlugFS = plugFS;
+		PlugFK = plugFK;
+		PlugMS = plugMS;
+		PlugMK = plugMK;
+		TomadaS = tomadaS;
+	}
+	
 	public Long getOrcamento_id() {
 		return orcamento_id;
 	}

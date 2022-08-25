@@ -24,6 +24,23 @@ public class EstoqueEstetico implements Serializable {
 	private int EtiqTrasFII;
 	private int Punho;
 	
+	public EstoqueEstetico(Long orcamento_id, Boolean saida, int nfe, int mascaraFII, int mascaraFKal, int mascaraFIII,
+			int mascaraCarbo, int mascaraIndic, int etiqLatFII, int etiqLatFIII, int etiqTrasFII, int punho) {
+		super();
+		this.orcamento_id = orcamento_id;
+		this.saida = saida;
+		this.nfe = nfe;
+		MascaraFII = mascaraFII;
+		MascaraFKal = mascaraFKal;
+		MascaraFIII = mascaraFIII;
+		MascaraCarbo = mascaraCarbo;
+		MascaraIndic = mascaraIndic;
+		EtiqLatFII = etiqLatFII;
+		EtiqLatFIII = etiqLatFIII;
+		EtiqTrasFII = etiqTrasFII;
+		Punho = punho;
+	}
+	
 	public Long getOrcamento_id() {
 		return orcamento_id;
 	}

@@ -18,6 +18,11 @@ public class Orcamento {
 		this.setLaboratorio(laboratorio);
 	}
 	
+	public Orcamento(String item, Integer quantidade) {
+		Item = item;
+		this.quantidade = quantidade;
+	}
+	public Orcamento() {}
 	
 	public Long getId() {
 		return id;
@@ -27,6 +32,10 @@ public class Orcamento {
 		this.id = id;
 	}
 		
+	public String getItemRealString() {
+		return this.Item;
+	}
+	
 	public String getItem() {
 		if(Item != null) {
 	
@@ -156,11 +165,6 @@ public class Orcamento {
 		this.quantidade = quantidade;
 	}
 	
-	public Orcamento(String item, Integer quantidade) {
-		Item = item;
-		this.quantidade = quantidade;
-	}
-	public Orcamento() {}
 
 
 	public Long getEquipamento_id() {

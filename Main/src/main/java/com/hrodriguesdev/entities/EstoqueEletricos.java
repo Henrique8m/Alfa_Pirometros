@@ -25,6 +25,25 @@ public class EstoqueEletricos implements Serializable {
 	private int CarrEcil;
 	private int CarrItalterm;
 	
+	public EstoqueEletricos(Long orcamento_id, Boolean saida, int nfe, int fontCarbIndic, int fontCarbDelta,
+			int pinFemeAliFII, int pinFemeAliFIII, int batFIIFIII, int batDescartavel, int batInditemp, int batLitio,
+			int carrEcil, int carrItalterm) {
+		super();
+		this.orcamento_id = orcamento_id;
+		this.saida = saida;
+		this.nfe = nfe;
+		FontCarbIndic = fontCarbIndic;
+		FontCarbDelta = fontCarbDelta;
+		PinFemeAliFII = pinFemeAliFII;
+		PinFemeAliFIII = pinFemeAliFIII;
+		BatFIIFIII = batFIIFIII;
+		BatDescartavel = batDescartavel;
+		BatInditemp = batInditemp;
+		BatLitio = batLitio;
+		CarrEcil = carrEcil;
+		CarrItalterm = carrItalterm;
+	}
+		
 	public Long getOrcamento_id() {
 		return orcamento_id;
 	}
