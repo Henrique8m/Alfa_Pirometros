@@ -6,10 +6,13 @@ import java.util.ResourceBundle;
 import com.hrodriguesdev.AlfaPirometrosApplication;
 import com.hrodriguesdev.dao.db.DbException;
 import com.hrodriguesdev.entities.Equipamento;
-import com.hrodriguesdev.gui.controller.EquipamentoViewController;
+import com.hrodriguesdev.entities.Orcamento;
+import com.hrodriguesdev.gui.controller.EquipamentoViewControllerDois;
 import com.hrodriguesdev.gui.controller.view.main.MainViewController;
 import com.hrodriguesdev.utilitary.Format;
+import com.hrodriguesdev.utilitary.Geral;
 import com.hrodriguesdev.utilitary.InputFilter;
+import com.hrodriguesdev.utilitary.NewView;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,16 +21,16 @@ import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
-import javafx.stage.Stage;
 
-public class EquipamentoUpdatede extends EquipamentoViewController implements Initializable{
+public class EquipamentoUpdatede extends EquipamentoViewControllerDois implements Initializable{
 	
 	private Equipamento equipamento = MainViewController.equipamentoEdit;
+	private Orcamento orcamento = MainViewController.orcamento;
 
 	
 	@Override
-	public void salvar(ActionEvent event) {
-		if(nomeEmpressa.getValue()== "" ||  modelo.getText()== "" ) {
+	public void adcionar(ActionEvent event) {
+		if(nomeEmpressa.getValue()== "" ||  modeloTxt.getText()== "" ) {
 			error( "Campo nulo " ,"O campo nome da Empressa e Modelo, não pode ser nulo");
 			return;
 		}
@@ -43,15 +46,14 @@ public class EquipamentoUpdatede extends EquipamentoViewController implements In
 		}
 		try {
 			equipamento.setEmpressaName( nomeEmpressa.getValue() );	
-			equipamento.setModelo( modelo.getText() );  
+			equipamento.setModelo( modeloTxt.getText() );  
 			equipamento.setStatus( 1 );
-			equipamento.setDataChegada( data.getText() );			
-			equipamento.setNs( ns.getText() );
-			equipamento.setPat( pat.getText() );
-			equipamento.setUltimaCalib( ultimaCal.getText() );	
-			if(equipamento.getColetor_id() == null || equipamento.getColetor_id() == 0l)
-				equipamento.setLaboratorio(true);
-			equipamento.setColetor_id(0l);
+
+//			orcamento.setData_chegada( Geral.dateParce( data.getText() ) );			
+			equipamento.setNs( nsTxt.getText() );
+			equipamento.setPat( patTxt.getText() );
+
+//			equipamento.setUltimaCalib( ultimaCalTxt.getText() );	
 			
 		}catch(NullPointerException e) {
 			e.printStackTrace();
@@ -60,9 +62,8 @@ public class EquipamentoUpdatede extends EquipamentoViewController implements In
 		}
 		try {
 			
-			if( equipamentoController.updated(equipamento) ) {
-				Stage stage = (Stage) salvar.getScene().getWindow();
-				stage.close();
+			if( equipamentoController.updated(equipamento)  ) {
+				NewView.fecharView();
 				
 			}else {
 				error( "SQL Exeption " ,"Error ao Salvar, id não teve retorno");		
@@ -113,7 +114,7 @@ public class EquipamentoUpdatede extends EquipamentoViewController implements In
 		addEmpressaImg.setImage(image);
 	
 		nomeEmpressa.setValue(equipamento.getEmpressaName());
-	    data.setText(equipamento.getDataChegada());
+	    data.setText( Format.formatData.format( orcamento.getData_chegada() ) );
 		ultimaCal.setText(equipamento.getUltimaCalib());
 		modelo.setText(equipamento.getModelo());
 		ns.setText(equipamento.getNs());

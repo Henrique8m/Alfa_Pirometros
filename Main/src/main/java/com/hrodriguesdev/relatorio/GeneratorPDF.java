@@ -9,6 +9,7 @@ import com.hrodriguesdev.AlfaPirometrosApplication;
 import com.hrodriguesdev.entities.Coletor;
 import com.hrodriguesdev.entities.Empressa;
 import com.hrodriguesdev.entities.Equipamento;
+import com.hrodriguesdev.entities.Orcamento;
 import com.hrodriguesdev.utilitary.Format;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -20,7 +21,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 public class GeneratorPDF {
 	
 	
-	public Boolean newDocument(Coletor coletor, Equipamento equipamento, Empressa empressa) {
+	public Boolean newDocument(Coletor coletor, Equipamento equipamento, Empressa empressa, Orcamento orcamento) {
 		String data = Format.formatData2.format(new Date( System.currentTimeMillis() ) );
 		Paragraph paragraph;
 		Document document = new Document();
@@ -79,7 +80,7 @@ public class GeneratorPDF {
 	  		paragraph = new Paragraph(" ");    		
     		document.add(paragraph);
     		
-			paragraph = new Paragraph( equipamentoStr( equipamento ) );
+			paragraph = new Paragraph( equipamentoStr( equipamento, orcamento) );
 			paragraph.setAlignment(Element.ALIGN_LEFT);
 			paragraph.setFont(font);
 			document.add(paragraph);
@@ -137,7 +138,7 @@ public class GeneratorPDF {
 				+ coletor.getDataHoraColeta();
 	}
 
-	private String equipamentoStr(Equipamento equipamento) {
+	private String equipamentoStr(Equipamento equipamento, Orcamento orcamento) {
 		String patrimonio = "";
 		String ns = "";
 		if(equipamento.getPat() != null) {
@@ -150,8 +151,8 @@ public class GeneratorPDF {
 		
 		return "MODELO: " + equipamento.getModelo() + ns
 				+ patrimonio + "\n"
-				+ "DATA DA CHEGADDA: " + equipamento.getDataChegada() 
-				+ "  DATA DA SAÍDA: " + equipamento.getDataSaida()
+				+ "DATA DA CHEGADDA: " + orcamento.getData_chegada()
+				+ "  DATA DA SAÍDA: " + orcamento.getData_saida()
 				;
 			
 	}

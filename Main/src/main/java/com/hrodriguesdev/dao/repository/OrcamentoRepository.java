@@ -10,6 +10,7 @@ import java.util.List;
 
 import com.hrodriguesdev.dao.db.DB;
 import com.hrodriguesdev.dao.db.DbException;
+import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.entities.Orcamento;
 
 public class OrcamentoRepository {
@@ -64,8 +65,8 @@ public class OrcamentoRepository {
 		return id;
 	}
 	
-	public List<Long> findAllLaboratorio(boolean laboratorio) {
-		List<Long> list = new ArrayList<>();
+	public List<Orcamento> findAllLaboratorio(boolean laboratorio) {
+		List<Orcamento> list = new ArrayList<>();
 		try {
 			conn = DB.getConnection();			
 			st = conn.createStatement();			
@@ -73,7 +74,7 @@ public class OrcamentoRepository {
 			
 			while (rs.next())  
 				if( rs.getBoolean("laboratorio") == true) {
-					list.add(rs.getLong("equipamento_id"));
+					list.add(new Orcamento(rs) );
 				}
 						
 		}catch(DbException | SQLException e) {
@@ -89,6 +90,31 @@ public class OrcamentoRepository {
 		return list;
 	}
 
+	public List<Orcamento> findAllLaboratorio(List<Long> orcamento_id) {
+		List<Orcamento> list = new ArrayList<>();
+		try {
+			conn = DB.getConnection();			
+			st = conn.createStatement();			
+			rs = st.executeQuery("SELECT * FROM alfaestoque.tb_orcamento;");			
+			
+			while (rs.next())  
+				for(Long id: orcamento_id)
+					if(rs.getLong("id") == id ) 
+						list.add( new Orcamento(rs) );	
+						
+		}catch(DbException | SQLException e) {
+			e.printStackTrace();
+			throw new DbException(e.getMessage());
+
+		}finally {
+			DB.closeResultSet(rs);
+			DB.closeStatement(st);
+			DB.closeConnection();
+			
+		}
+		return list;
+	}
+	
 	public Orcamento getOrcamento(Long id) throws DbException {	
 		try {
 			conn = DB.getConnection();			
@@ -262,5 +288,7 @@ public class OrcamentoRepository {
 		return ok;
 
 	}
+
+
 	
 }

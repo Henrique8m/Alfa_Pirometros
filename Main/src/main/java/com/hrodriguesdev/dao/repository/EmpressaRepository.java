@@ -11,7 +11,6 @@ import java.util.List;
 import com.hrodriguesdev.dao.db.DB;
 import com.hrodriguesdev.dao.db.DbException;
 import com.hrodriguesdev.entities.Empressa;
-import com.hrodriguesdev.entities.Equipamento;
 
 public class EmpressaRepository {
 	Connection conn = null;
@@ -94,113 +93,82 @@ public class EmpressaRepository {
 	}
 	
 
-public Long addEmpressa(Empressa empressa) {
-	Long id = 0l;		
-	try {
-		conn = DB.getConnection();
-		conn.setAutoCommit(false);
-		pst = conn.prepareStatement("INSERT INTO tb_empressa "
-				+ "(name, cidade, estado, endereco, cep) "
-				+ "VALUES "
-				+ "(?, ?, ?, ?, ?)",
-				Statement.RETURN_GENERATED_KEYS);			
-		
-		pst.setString(1, empressa.getName());
-		pst.setString(2, empressa.getCidade());
-		pst.setString(3, empressa.getEstado());
-		pst.setString(4, empressa.getEndereço());			
-		pst.setString(5, empressa.getCep());
-		
-		int rowsAffected = pst.executeUpdate();
-		conn.commit();
-		
-		if(rowsAffected> 0) {
-			ResultSet rs = pst.getGeneratedKeys();
-			while(rs.next()) {
-				id = rs.getLong(1);
+	public Long addEmpressa(Empressa empressa) {
+		Long id = 0l;		
+		try {
+			conn = DB.getConnection();
+			conn.setAutoCommit(false);
+			pst = conn.prepareStatement("INSERT INTO tb_empressa "
+					+ "(name, cidade, estado, endereco, cep) "
+					+ "VALUES "
+					+ "(?, ?, ?, ?, ?)",
+					Statement.RETURN_GENERATED_KEYS);			
+			
+			pst.setString(1, empressa.getName());
+			pst.setString(2, empressa.getCidade());
+			pst.setString(3, empressa.getEstado());
+			pst.setString(4, empressa.getEndereço());			
+			pst.setString(5, empressa.getCep());
+			
+			int rowsAffected = pst.executeUpdate();
+			conn.commit();
+			
+			if(rowsAffected> 0) {
+				ResultSet rs = pst.getGeneratedKeys();
+				while(rs.next()) {
+					id = rs.getLong(1);
+					
+				}
 				
 			}
+			else System.out.println("No rown affected");
+		}
+		catch (SQLException e) {
+			System.out.println(e.getMessage());	
+			try {
+				conn.rollback();
+				throw new DbException("Transaction rolled back! Caused by: " + e.getMessage() );
+			}catch (SQLException e1) {
+				throw new DbException("Error trying to rollback! Caused by: \" + e1.getMessage()");
+			}
+		}
+		finally {
+			DB.closeResultSet(rs);
+			DB.closeStatement(pst);
+	
+		}
+		return id;
+	}
+	
+	
+	public Long findEmpresaId(String empresaName) {
+		try {
+			conn = DB.getConnection();			
+			st = conn.createStatement();			
+			rs = st.executeQuery("SELECT * FROM alfaestoque.tb_empressa;");			
+			
+			while (rs.next())  
+				if( rs.getString(2).equalsIgnoreCase(empresaName) )
+					return rs.getLong(1);
 			
 		}
-		else System.out.println("No rown affected");
-	}
-	catch (SQLException e) {
-		System.out.println(e.getMessage());	
-		try {
-			conn.rollback();
-			throw new DbException("Transaction rolled back! Caused by: " + e.getMessage() );
-		}catch (SQLException e1) {
-			throw new DbException("Error trying to rollback! Caused by: \" + e1.getMessage()");
+		catch (SQLException e) {
+			e.printStackTrace();
+			return null;
 		}
-	}
-	finally {
-		DB.closeResultSet(rs);
-		DB.closeStatement(pst);
-
-	}
-	return id;
-}
-
-
-public Long findEmpresaId(String empresaName) {
-	try {
-		conn = DB.getConnection();			
-		st = conn.createStatement();			
-		rs = st.executeQuery("SELECT * FROM alfaestoque.tb_empressa;");			
-		
-		while (rs.next())  
-			if( rs.getString(2).equalsIgnoreCase(empresaName) )
-				return rs.getLong(1);
-		
-	}
-	catch (SQLException e) {
-		e.printStackTrace();
+		finally {
+			DB.closeResultSet(rs);
+			DB.closeStatement(st);
+	
+			conn = null;
+			st = null;
+			rs = null;
+		}
+	
 		return null;
 	}
-	finally {
-		DB.closeResultSet(rs);
-		DB.closeStatement(st);
-
-		conn = null;
-		st = null;
-		rs = null;
-	}
-
-	return null;
-}
-	
-	public Equipamento parseEquipamento(ResultSet rs) {
-		Equipamento obj = new Equipamento();
-		try {
-			obj.setId( rs.getLong("Id") );	
-			obj.setEmpressaName( rs.getString("empressaName") );				
-			obj.setModelo( rs.getString("modelo") );  
-			obj.setStatus( rs.getInt("status") );
-			obj.setDataChegada( rs.getString("dataChegada") );
-			obj.setDataSaida( rs.getString("dataSaida") );
-			obj.setNs(rs.getString("ns"));
-			obj.setPat(rs.getString("pat"));
-			obj.setUltimaCalib(rs.getString("ultimaCalib"));	
-			obj.setCertificado(rs.getString("certificado") );
-			obj.setValor( rs.getDouble("valor") );	
-			//estoque 
-			//empresa
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return obj;		
-	}
-
-
-
-
-
-
-
-
-	
-	
+		
+		
 }
 		
 			

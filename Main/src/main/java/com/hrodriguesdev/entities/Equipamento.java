@@ -11,10 +11,27 @@ public class Equipamento implements Serializable {
 
 
 	private static final long serialVersionUID = 1L;
-	///@Id
-	//@GeneratedValue(strategy = GenerationType.IDENTITY)
 	
 	private Long id;
+	private String empressaName;
+	private String modelo;
+	private String ns;
+	private String pat;
+	private Long empressa;	
+	private Long orcamento_id;	
+	private Boolean laboratorio;
+	private Date ultimaCalibDate;	
+	private Long certificado_id;
+	
+	private int status;
+	private String certificado;	
+	@SuppressWarnings("unused")
+	private String statusStr;	
+	private String relatorio;	
+	private Date dateChegada;
+	
+	public Equipamento() {}
+
 	public Equipamento(String empressaName, String modelo, String ns, String pat, Long empressa) {
 		super();
 		this.empressaName = empressaName;
@@ -23,41 +40,34 @@ public class Equipamento implements Serializable {
 		this.pat = pat;
 		this.empressa = empressa;
 	}
-
-	private String empressaName;
-	private String modelo;
-	private String ns;
-	private String pat;
-	private Long empressa;	
 	
+	public static Equipamento parseEquipamentoDois(ResultSet rs) {
+		Equipamento obj = new Equipamento();
+		try {
+			obj.setId( rs.getLong("Id") );	
+			obj.setEmpressaName( rs.getString("empressaName") );				
+			obj.setModelo( rs.getString("modelo") );  
+			obj.setNs(rs.getString("ns"));
+			obj.setPat(rs.getString("pat"));
+			obj.setEmpressa( rs.getLong( "empresa_id" ) );
+			obj.setOrcamento_id( rs.getLong("orcamento_id"));
+			obj.setLaboratorio( rs.getBoolean( "laboratorio" ));
+			obj.setUltimaCalibDate( rs.getDate( "ultimaCalibDate" ));
+			obj.setCertificado_id( rs.getLong( "certificado" ));
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+		return obj;		
+	}
 	
-	private int status;
-	private String dataChegada;
-	private String dataSaida;	
-	private String ultimaCalib;
-	private String certificado;
-	private double valor;
-	private boolean laboratorio;
-	private String dataCal;
-	@SuppressWarnings("unused")
-	private String statusStr;	
-	private String relatorio;	
-	private Date dateChegada;
-	private Date dateSaida;
-	private Date ultimaCalibDate;
+	public void setOrcamento(Orcamento orcamento) {		
+			setStatus( orcamento.getStatus() );
+			setRelatorio( orcamento.getRelatorio() );	
+			setDateChegada( orcamento.getData_chegada() );			
+	}
 	
-	//@OneToOne(mappedBy = "motorista", fetch = FetchType.EAGER)
-//	private EstoqueEletronicos estoqueEletronicos;
-//	private EstoqueEletricos estoqueempressa;
-//	private EstoqueEstetico estoqueEstetico;
-//	private EstoqueSinal estoqueSinal;
-
-	
-	private Long orcamento_id;
-	private Long coletor_id;
-	
-	public Equipamento() {}
-		
 	public Long getId() {
 		return id;
 	}
@@ -90,22 +100,6 @@ public class Equipamento implements Serializable {
 		this.status = status;
 	}
 
-	public String getDataChegada() {
-		return dataChegada;
-	}
-
-	public void setDataChegada(String dataChegada) {
-		this.dataChegada = dataChegada;
-	}
-
-	public String getDataSaida() {
-		return dataSaida;
-	}
-
-	public void setDataSaida(String dataSaida) {
-		this.dataSaida = dataSaida;
-	}
-
 	public String getNs() {
 		return ns;
 	}
@@ -122,36 +116,12 @@ public class Equipamento implements Serializable {
 		this.pat = pat;
 	}
 
-	public String getUltimaCalib() {
-		return ultimaCalib;
-	}
-
-	public void setUltimaCalib(String ultimaCalib) {
-		this.ultimaCalib = ultimaCalib;
-	}
-
 	public String getCertificado() {
 		return certificado;
 	}
 
 	public void setCertificado(String certificado) {
 		this.certificado = certificado;
-	}
-
-	public double getValor() {
-		return valor;
-	}
-
-	public void setValor(double valor) {
-		this.valor = valor;
-	}
-
-	public boolean getLaboratorio() {
-		return laboratorio;
-	}
-
-	public void setLaboratorio(boolean laboratorio) {
-		this.laboratorio = laboratorio;
 	}
 
 	public Long getEmpressa() {
@@ -194,22 +164,6 @@ public class Equipamento implements Serializable {
 		
 	}
 
-	public String getDataCal() {
-		return dataCal;
-	}
-
-	public void setDataCal(String dataCal) {
-		this.dataCal = dataCal;
-	}
-
-	public Long getColetor_id() {
-		return coletor_id;
-	}
-
-	public void setColetor_id(Long coletor_id) {
-		this.coletor_id = coletor_id;
-	}
-
 	public String getRelatorio() {
 		return relatorio;
 	}
@@ -228,17 +182,6 @@ public class Equipamento implements Serializable {
 		dateChegada.setDate(date);
 		this.dateChegada = dateChegada;
 	}
-
-	public Date getDateSaida() {
-		return dateSaida;
-	}
-
-	@SuppressWarnings("deprecation")
-	public void setDateSaida(Date dateSaida) {
-		int date = dateSaida.getDate() + 1;
-		dateSaida.setDate(date);
-		this.dateSaida = dateSaida;
-	}	
 	
 	public Date getUltimaCalibDate() {
 		return ultimaCalibDate;
@@ -251,61 +194,21 @@ public class Equipamento implements Serializable {
 		this.ultimaCalibDate = ultimaCalibDate ;
 	}
 	
-	public static Equipamento parseEquipamento(ResultSet rs) {
-		Equipamento obj = new Equipamento();
-		try {
-			Date date;
-			obj.setOrcamento_id( rs.getLong("orcamento_id"));
-			obj.setId( rs.getLong("Id") );	
-			obj.setEmpressaName( rs.getString("empressaName") );				
-			obj.setModelo( rs.getString("modelo") );  
-			obj.setStatus( rs.getInt("status") );
-//			obj.setDataChegada( rs.getString("dataChegada") );
-//			obj.setDataSaida( rs.getString("dataSaida") );
-			obj.setNs(rs.getString("ns"));
-			obj.setPat(rs.getString("pat"));
-			obj.setUltimaCalib(rs.getString("ultimaCalib"));	
-			obj.setCertificado(rs.getString("certificado") );
-			obj.setValor( rs.getDouble("valor") );	
-			obj.setEmpressa( rs.getLong( "empresa_id" ) );
-			obj.setColetor_id( rs.getLong( "coletor_id" ) );
-			obj.setRelatorio( rs.getString( "relatorio" ));
-			obj.setLaboratorio( rs.getBoolean( "laboratorio" ));
-			
-			date = rs.getDate("dateChegada");
-			if(date != null)obj.setDateChegada(date);
-			
-			date = rs.getDate("dateSaida");
-			if(date != null)obj.setDateSaida(date);
-			
-			date = rs.getDate("ultimaCalibDate");
-			if(date != null)obj.setUltimaCalibDate(date);
-			
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return null;
-		}
-		return obj;		
+
+	public Boolean getLaboratorio() {
+		return laboratorio;
 	}
-	
-	public static Equipamento parseEquipamentoDois(ResultSet rs) {
-		Equipamento obj = new Equipamento();
-		try {
-			obj.setId( rs.getLong("Id") );	
-			obj.setEmpressaName( rs.getString("empressaName") );				
-			obj.setModelo( rs.getString("modelo") );  
-			obj.setNs(rs.getString("ns"));
-			obj.setPat(rs.getString("pat"));
-			obj.setEmpressa( rs.getLong( "empresa_id" ) );
-			obj.setLaboratorio( rs.getBoolean( "laboratorio" ));
-			obj.setOrcamento_id( rs.getLong("orcamento_id"));
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return null;
-		}
-		return obj;		
+
+	public void setLaboratorio(Boolean laboratorio) {
+		this.laboratorio = laboratorio;
+	}
+
+	public Long getCertificado_id() {
+		return certificado_id;
+	}
+
+	public void setCertificado_id(Long certificado_id) {
+		this.certificado_id = certificado_id;
 	}
 	
 }

@@ -108,25 +108,25 @@ public class MainViewController implements Initializable{
 	
 	@FXML
     private void gerarPDF(ActionEvent e) throws IOException {
-	   	 if(tableFindEquipamentos.getSelectionModel().getSelectedItem() != null) {
-	  		equipamentoEdit = tableFindEquipamentos.getSelectionModel().getSelectedItem();   	
-	  		
-	  		if(equipamentoEdit.getStatus() != 1 ) {
-	  			if( equipamentoEdit.getColetor_id() != null || equipamentoEdit.getColetor_id() != 0) {
-	  				NewView.getNewView("Saida de equipamento",  "saidaEquipamento", new OpenSaidaEquipamentoViewController() );
-		     			try {
-		    				obsListTableFilaEquipamentos = orcamentoController.findAllLaboratorio(true);
-				    		oldObs = obsListTableFilaEquipamentos;
-				    		dbConection = true;
-				    		tableFilaEquipamentos.setItems(obsListTableFilaEquipamentos);
-						} catch (DbException e1) {
-						
-							e1.printStackTrace();
-						}
-	  			}
-	  		}
-	  		
-	  	}
+//	   	 if(tableFindEquipamentos.getSelectionModel().getSelectedItem() != null) {
+//	  		equipamentoEdit = tableFindEquipamentos.getSelectionModel().getSelectedItem();   	
+//	  		
+//	  		if(equipamentoEdit.getStatus() != 1 ) {
+//	  			if( equipamentoEdit.getColetor_id() != null || equipamentoEdit.getColetor_id() != 0) {
+//	  				NewView.getNewView("Saida de equipamento",  "saidaEquipamento", new OpenSaidaEquipamentoViewController() );
+//		     			try {
+//		    				obsListTableFilaEquipamentos = orcamentoController.findAllLaboratorio(true);
+//				    		oldObs = obsListTableFilaEquipamentos;
+//				    		dbConection = true;
+//				    		tableFilaEquipamentos.setItems(obsListTableFilaEquipamentos);
+//						} catch (DbException e1) {
+//						
+//							e1.printStackTrace();
+//						}
+//	  			}
+//	  		}
+//	  		
+//	  	}
 	 }
     
 	@FXML

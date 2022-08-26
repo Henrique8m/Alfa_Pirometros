@@ -27,8 +27,8 @@ public class OrcamentoController {
 	}
 
 	public ObservableList<Equipamento> findAllLaboratorio(boolean laboratorio) {
-		List<Long> equipamento_id = orcamentoService.findAllLaboratorio(laboratorio);
-		return equipamentoController.findById(equipamento_id);
+		List<Orcamento> orcamento = orcamentoService.findAllLaboratorio(laboratorio);
+		return equipamentoController.findById(orcamento);
 		
 	}
 

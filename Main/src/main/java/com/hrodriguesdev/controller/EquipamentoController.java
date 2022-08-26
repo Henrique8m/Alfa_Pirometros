@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.hrodriguesdev.dao.db.DbException;
 import com.hrodriguesdev.entities.Equipamento;
+import com.hrodriguesdev.entities.Orcamento;
 import com.hrodriguesdev.service.EquipamentoService;
 
 import javafx.collections.ObservableList;
@@ -32,8 +33,8 @@ public class EquipamentoController {
 		return equipamentoService.findAll();	
 	}
 
-	public ObservableList<Equipamento> findById(List<Long> equipamento_id) {
-		return equipamentoService.findById(equipamento_id);
+	public ObservableList<Equipamento> findById(List<Orcamento> orcamento) {
+		return equipamentoService.findById(orcamento);
 	}
 	
 	public Equipamento findByNs(String ns) {

@@ -1,12 +1,11 @@
 package com.hrodriguesdev.service;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.hrodriguesdev.dao.db.DbException;
 import com.hrodriguesdev.dao.repository.EquipamentoRepository;
 import com.hrodriguesdev.entities.Equipamento;
+import com.hrodriguesdev.entities.Orcamento;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,44 +13,47 @@ import javafx.collections.ObservableList;
 //@Service
 public class EquipamentoService {
 	private EquipamentoRepository repository = new EquipamentoRepository();
+	private OrcamentoService orcamentoService = new OrcamentoService();
 	
-	public ObservableList<Equipamento> findAllByLaboratorio(boolean laboratorio) throws DbException, SQLException  {		
-		ObservableList<Equipamento> obs = FXCollections.observableArrayList();
-		List<Equipamento> list = repository.findAllByLaboratorio(laboratorio);
-		list.sort( (a, b) -> a.getEmpressaName().compareTo(b.getEmpressaName()));
-		obs.addAll(list);
-		return obs;
-	}	
+//	public ObservableList<Equipamento> findAllByLaboratorio(boolean laboratorio) throws DbException, SQLException  {		
+//		ObservableList<Equipamento> obs = FXCollections.observableArrayList();
+//		List<Equipamento> list = repository.findAllByLaboratorio(laboratorio);
+//		list.sort( (a, b) -> a.getEmpressaName().compareTo(b.getEmpressaName()));
+//		obs.addAll(list);
+//		return obs;
+//	}	
 	
 	public ObservableList<Equipamento> findAll(Equipamento equipamento) {
-		List<Equipamento> list = new ArrayList<>();
+		List<Equipamento> equipamentolist = new ArrayList<>();		
+		
 		if( equipamento.getEmpressaName()!= null) {
-			list =  repository.findAll(equipamento.getEmpressaName() );			
+			equipamentolist =  repository.findAll(equipamento.getEmpressaName() );			
 		}
 		if(equipamento.getNs()!= null) {
-			if(list.size()>0) {
-				for(int i = 0; i<list.size(); i++) {
-					if( !list.get(i).getNs().equalsIgnoreCase( equipamento.getNs() ) )
-						list.remove(i);
+			if(equipamentolist.size()>0) {
+				for(int i = 0; i<equipamentolist.size(); i++) {
+					if( !equipamentolist.get(i).getNs().equalsIgnoreCase( equipamento.getNs() ) )
+						equipamentolist.remove(i);
 				}
 			
-			}else list = repository.findAllNs(equipamento.getNs() );
+			}else equipamentolist = repository.findAllNs(equipamento.getNs() );
 
 		}		
 		if(equipamento.getPat()!= null) {
-			if(list.size()>0) {
-				for(int i = 0; i<list.size(); i++) {
-					if( !list.get(i).getPat().equalsIgnoreCase( equipamento.getPat() ) )
-						list.remove(i);
+			if(equipamentolist.size()>0) {
+				for(int i = 0; i<equipamentolist.size(); i++) {
+					if( !equipamentolist.get(i).getPat().equalsIgnoreCase( equipamento.getPat() ) )
+						equipamentolist.remove(i);
 				}		
-			}else list =  repository.findAllPat(equipamento.getPat() );
+			}else equipamentolist =  repository.findAllPat(equipamento.getPat() );
 
 		}
 		
 		ObservableList<Equipamento> obs = FXCollections.observableArrayList();
-		if(list!=null) {
-			obs.addAll(list);
+		if(equipamentolist!=null) {	
+			obs.addAll(getListOrcamento(equipamentolist));
 			return obs;
+			
 		}	
 		
 		return null;
@@ -61,7 +63,7 @@ public class EquipamentoService {
 		ObservableList<Equipamento> obs = FXCollections.observableArrayList();
 		List<Equipamento> list = repository.findAll() ;
 		if(list!=null) {
-			obs.addAll(list);
+			obs.addAll(getListOrcamento(list) );
 			return obs;
 		}
 					
@@ -72,7 +74,7 @@ public class EquipamentoService {
 		ObservableList<Equipamento> obs = FXCollections.observableArrayList();
 		List<Equipamento> list = repository.findByName(name) ;
 		if(list!=null) {
-			obs.addAll(list);
+			obs.addAll(getListOrcamento(list));
 			return obs;
 		}
 		return null;
@@ -82,15 +84,27 @@ public class EquipamentoService {
 		ObservableList<Equipamento> obs = FXCollections.observableArrayList();
 		List<Equipamento> list = repository.findByIdEmpressa(id, laboratorio) ;
 		if(list!=null) {
-			obs.addAll(list);
+			obs.addAll(getListOrcamento(list));
 			return obs;
 		}
 		return null;
 	}	
 	
-	public ObservableList<Equipamento> findById(List<Long> equipamento_id) {
+	public ObservableList<Equipamento> findById(List<Orcamento> orcamento) {			
 		ObservableList<Equipamento> obs = FXCollections.observableArrayList();
+		List<Long> equipamento_id = new ArrayList<>();
+		for(Orcamento orc: orcamento) 
+			equipamento_id.add(orc.getEquipamento_id());
+		
 		List<Equipamento> list = repository.findById(equipamento_id) ;
+		list.forEach((equipamento)-> {
+			orcamento.forEach( (orcament)-> {
+				if( orcament.getEquipamento_id() == equipamento.getId() ) {
+					equipamento.setOrcamento(orcament);
+				}				
+			});			
+		});
+		
 		list.sort( (a, b) -> a.getEmpressaName().compareTo(b.getEmpressaName()));
 		obs.addAll(list);
 		return obs;
@@ -117,6 +131,22 @@ public class EquipamentoService {
 		return repository.delete(id);
 	}
 
+	private List<Equipamento> getListOrcamento(List<Equipamento> equipamentoList){
+		
+		List<Long> orcamento_id = new ArrayList<>();			
+		for(Equipamento equi: equipamentoList) 
+			orcamento_id.add(equi.getOrcamento_id());
+		
+		List<Orcamento> orcamentolist = orcamentoService.findById(orcamento_id);
+		equipamentoList.forEach((equip)-> {
+			orcamentolist.forEach( (orcament)-> {
+				if( orcament.getEquipamento_id() == equip.getId() ) {
+					equip.setOrcamento(orcament);
+				}				
+			});			
+		});
+		return equipamentoList;
+	}
 
 
 }

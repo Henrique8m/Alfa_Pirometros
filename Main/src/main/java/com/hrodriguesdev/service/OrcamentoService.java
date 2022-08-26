@@ -23,9 +23,13 @@ public class OrcamentoService {
 		return repository.updatede( orcamento );
 	}
 
-	public List<Long> findAllLaboratorio(boolean laboratorio) {	
+	public List<Orcamento> findAllLaboratorio(boolean laboratorio) {	
 		return repository.findAllLaboratorio(laboratorio);	
 		
+	}
+	
+	public List<Orcamento> findById(List<Long> orcamento_id) {		
+		return repository.findAllLaboratorio(orcamento_id);	
 	}
 
 	public boolean existOrcamento(Long equipamento_id) {
@@ -35,5 +39,6 @@ public class OrcamentoService {
 	public boolean updatedeStatusRelatorio(Long id, int status, Orcamento orcamento) {
 		return repository.updatedeStatusRelatorio(id, status, orcamento);
 	}
+
 	
 }
