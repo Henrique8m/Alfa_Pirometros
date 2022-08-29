@@ -3,6 +3,8 @@ package com.hrodriguesdev.entities;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Orcamento {
 	
@@ -309,6 +311,24 @@ public class Orcamento {
 
 	public void setColetor_id(Long coletor_id) {
 		this.coletor_id = coletor_id;
+	}
+
+	public static List<Orcamento> getList(String itens, EstoqueConsumo consumo2, EstoqueEstetico estetico2,
+			EstoqueEletricos eletrico, EstoqueEletronicos eletronico, EstoqueSinal sinal2) {
+		List<Orcamento> list = new ArrayList<>();
+		list.addAll(EstoqueConsumo.orcamentoListConsumo(consumo2));
+		list.addAll(EstoqueEstetico.orcamentoListEstetico(estetico2));
+		list.addAll(EstoqueEletricos.orcamentoListEletrico(eletrico));
+		list.addAll(EstoqueEletronicos.orcamentoListEletronico(eletronico));
+		list.addAll(EstoqueSinal.orcamentoListSinal(sinal2));
+		if(!itens.isBlank()) {
+			String[] Itens = itens.split("\n");
+			for(String newIten: Itens) {
+				list.add( new Orcamento(newIten, 0));
+				}
+		}
+		
+		return list;
 	}
 
 }

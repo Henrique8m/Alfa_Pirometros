@@ -51,22 +51,16 @@ public class PaginaBuscaController extends EquipamentoMainView implements Initia
 	}
 	
 	@FXML
-	public void click(MouseEvent event) {
+	public void click(MouseEvent event) throws SQLException {
 		if(tableFindEquipamentos.getSelectionModel().getSelectedItem() != null) {
 			Equipamento equipamento = tableFindEquipamentos.getSelectionModel().getSelectedItem();
 			Coletor coletor = new Coletor();
-			Orcamento orcamento = new Orcamento();
-			if( equipamento.getColetor_id() != null && equipamento.getColetor_id() != 0 ) {
-				coletor = MainViewController.coletorController.findById( equipamento.getColetor_id() );
+			Orcamento orcamento = orcamentoController.getOrcamento( equipamento.getOrcamento_id() ); 
+			
+			if( orcamento.getColetor_id() != null && orcamento.getColetor_id() != 0 ) {
+//				coletor = MainViewController.coletorController.findById( equipamento.getColetor_id() );
 			}
-			if ( equipamento.getOrcamento_id() != null && equipamento.getOrcamento_id() != 0 ) {
-				try {
-					orcamento = OrcamentoMainView.controller.findById( equipamento.getOrcamento_id() );
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
+
 			nomeEmpressaClick.setText(equipamento.getEmpressaName());
 			if( equipamento.getNs()!= null ) nsClick.setText(equipamento.getNs() );
 			if( equipamento.getPat()!= null ) patClick.setText(equipamento.getPat() );
@@ -80,11 +74,11 @@ public class PaginaBuscaController extends EquipamentoMainView implements Initia
 				Date date = new Date( equipamento.getUltimaCalibDate().getTime() );
 				ultimaCalClick.setText( Format.formatData.format(date) );
 			}
-			if( equipamento.getDateSaida() != null ) {
-				Date date = new Date( equipamento.getDateSaida().getTime() );
+			if( orcamento.getData_saida() != null ) {
+				Date date = new Date( orcamento.getData_saida().getTime() );
 				dataSaidaClick.setText( Format.formatData.format(date) );
 			}
-			if( equipamento.getColetor_id() != null && equipamento.getColetor_id() != 0) {
+			if( orcamento.getColetor_id() != null && orcamento.getColetor_id() != 0) {
 				empressaColetaClick.setText(coletor.getEmpressaName() );
 				Date date = new Date(coletor.getDate().getTime() );		
 				dataColetaClick.setText( Format.formatData.format(date));

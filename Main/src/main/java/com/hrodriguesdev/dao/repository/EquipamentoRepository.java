@@ -301,26 +301,23 @@ public class EquipamentoRepository {
 		return id;
 	}
 	
-	public boolean updatede(Equipamento equipamento) {
+	public boolean updatedeNsPatModelo(Equipamento equipamento) {
 		boolean ok = false;
 		
 		try {
 			conn = DB.getConnection();
 			conn.setAutoCommit(false);
 			pst = conn.prepareStatement("UPDATE tb_equipamento "
-											+ "SET empressaName = ? , "
-											+ "modelo = ? ,"
-											+ " ns = ? , pat = ? ,"
-											+ " empresa_id = ?,"										
+											+ "SET modelo = ? ,"
+											+ " ns = ? ,"
+											+ " pat = ? "										
 											+ " WHERE "
 											+"(id = ?)");		
 	
-			pst.setString(1, equipamento.getEmpressaName());
-			pst.setString(2, equipamento.getModelo());
-			pst.setString(3, equipamento.getNs());
-			pst.setString(4, equipamento.getPat());
-			pst.setLong(5, equipamento.getEmpressa());
-			pst.setLong( 6, equipamento.getId() );
+			pst.setString(1, equipamento.getModelo());
+			pst.setString(2, equipamento.getNs());
+			pst.setString(3, equipamento.getPat());
+			pst.setLong( 4, equipamento.getId() );
 			
 			int rowsAccepted = pst.executeUpdate();
 			conn.commit();
@@ -426,7 +423,7 @@ public class EquipamentoRepository {
 			conn = DB.getConnection();
 			conn.setAutoCommit(false);
 			pst = conn.prepareStatement("UPDATE tb_equipamento "
-											+ "SET laboratorio = " + laboratorioo 
+											+ "SET laboratorio = " + laboratorioo + ", "
 											+ "orcamento_id = ?"
 											+" WHERE "
 											+"(id = ?)");

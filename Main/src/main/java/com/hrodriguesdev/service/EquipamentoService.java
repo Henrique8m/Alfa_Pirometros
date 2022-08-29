@@ -1,5 +1,6 @@
 package com.hrodriguesdev.service;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -112,7 +113,20 @@ public class EquipamentoService {
 	}
 	
 	public Equipamento findByNs(String ns) {
-		return repository.findByNs(ns);		
+		Equipamento equipamento = repository.findByNs(ns);			
+		Orcamento orcamento;
+		if(equipamento != null)
+			if(equipamento.getOrcamento_id()!= null && equipamento.getOrcamento_id() != 0l) {
+				try {
+					orcamento = orcamentoService.getOrcamento( equipamento.getOrcamento_id() );
+					equipamento.setOrcamento(orcamento);
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+				
+			}
+		
+		return 	null;
 	}	
 	
 	public Long add(Equipamento equipamento) {		
@@ -123,8 +137,8 @@ public class EquipamentoService {
 		return repository.updatede(id, laboratorioo, orcamento_id);
 	}
 
-	public boolean updatede(Equipamento equipamento) {
-		return repository.updatede(equipamento);
+	public boolean updatedeNsPatModelo(Equipamento equipamento) {
+		return repository.updatedeNsPatModelo(equipamento);
 	}
 
 	public Boolean delete(Long id) {

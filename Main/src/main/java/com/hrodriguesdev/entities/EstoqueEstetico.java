@@ -3,6 +3,8 @@ package com.hrodriguesdev.entities;
 import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 //@Entity
 //@Table(name = "tb_estetico")
@@ -64,6 +66,39 @@ public class EstoqueEstetico implements Serializable {
 			
 		}
 
+	}
+	
+	public static List<Orcamento> orcamentoListEstetico(EstoqueEstetico estetico) {
+		List<Orcamento> list = new ArrayList<>();
+		
+		if( estetico.getMascaraFII() > 0) 
+			list.add(new Orcamento("MascaraFII", estetico.getMascaraFII() ) );
+		
+		if( estetico.getMascaraFKal() > 0) 
+			list.add(new Orcamento("MascaraFKal", estetico.getMascaraFKal() ) );
+		
+		if( estetico.getMascaraFIII() > 0) 
+			list.add(new Orcamento("MascaraFIII", estetico.getMascaraFIII() ) );
+		
+		if( estetico.getMascaraCarbo() > 0) 
+			list.add(new Orcamento("MascaraCarbo", estetico.getMascaraCarbo() ) );
+		
+		if( estetico.getMascaraIndic() > 0) 
+			list.add(new Orcamento("MascaraIndic", estetico.getMascaraIndic() ) );
+		
+		if( estetico.getEtiqLatFII() > 0) 
+			list.add(new Orcamento("EtiqLatFII", estetico.getEtiqLatFII() ) );
+		
+		if( estetico.getEtiqLatFIII() > 0) 
+			list.add(new Orcamento("EtiqLatFIII", estetico.getEtiqLatFIII() ) );
+		
+		if( estetico.getEtiqTrasFII() > 0) 
+			list.add(new Orcamento("EtiqTrasFII", estetico.getEtiqTrasFII() ) );
+		
+		if( estetico.getPunho() > 0) 
+			list.add(new Orcamento("Punho", estetico.getPunho() ) );
+		
+		return list;
 	}
 	
 	@Override

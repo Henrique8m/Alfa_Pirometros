@@ -6,7 +6,7 @@ import java.util.ResourceBundle;
 
 import com.hrodriguesdev.entities.Coletor;
 import com.hrodriguesdev.entities.Empressa;
-import com.hrodriguesdev.gui.controller.view.main.MainViewController;
+import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.relatorio.GeneratorPDF;
 import com.hrodriguesdev.utilitary.Format;
 
@@ -15,13 +15,17 @@ import javafx.stage.Stage;
 
 public class OpenSaidaEquipamentoViewController extends SaidaEquipamentoViewController{
 
+	public OpenSaidaEquipamentoViewController(Equipamento equipamento) {
+		super(equipamento);
+	}
+
 	@Override
 	protected void gerarPDF(ActionEvent event) {
 		GeneratorPDF pdf = new GeneratorPDF();	
 		Coletor coletor = getColetor();
 		Empressa empressa = empressaController.find( equipamento.getEmpressa() );			
 		
-		pdf.newDocument(coletor, equipamento, empressa);
+//		pdf.newDocument(coletor, equipamento, empressa);
 		Stage stage = (Stage) salvar.getScene().getWindow();
 		stage.close();
 				
@@ -32,17 +36,17 @@ public class OpenSaidaEquipamentoViewController extends SaidaEquipamentoViewCont
 		super.imageInit();
 		
 		nomeEmpressa.setText(equipamento.getEmpressaName());
-	    data.setText(equipamento.getDataChegada());
-		ultimaCal.setText(equipamento.getUltimaCalib());
+//	    data.setText(equipamento.getDataChegada());
+//		ultimaCal.setText(equipamento.getUltimaCalib());
 		modelo.setText(equipamento.getModelo());
 		ns.setText(equipamento.getNs());
 		pat.setText(equipamento.getPat());
 		dataColeta.setText(Format.formataDateTimeString.format(new Date(System.currentTimeMillis() ) ) );	    	    
 		
-		dataColeta.setText( MainViewController.equipamentoEdit.getDataSaida() );
-		Coletor coletor = coletorController.findById( MainViewController.equipamentoEdit.getColetor_id() );
-		nomeColetor.setText( coletor.getNomeColetor() );
-		coleta.setValue(  coletor.getEmpressaName() );
+//		dataColeta.setText( MainViewController.equipamentoEdit.getDataSaida() );
+//		Coletor coletor = coletorController.findById( MainViewController.equipamentoEdit.getColetor_id() );
+//		nomeColetor.setText( coletor.getNomeColetor() );
+//		coleta.setValue(  coletor.getEmpressaName() );
 		
 		nomeColetor.setEditable(false);
 		coleta.setEditable(false);
@@ -52,7 +56,7 @@ public class OpenSaidaEquipamentoViewController extends SaidaEquipamentoViewCont
 		if(equipamento.getStatus() == 5) {
 			equipamento.setStatus(7);
 			equipamento.setLaboratorio(false);
-			equipamentoController.updated(equipamento);
+			equipamentoController.updatedeNsPatModelo(equipamento);
 			
 		}
 		

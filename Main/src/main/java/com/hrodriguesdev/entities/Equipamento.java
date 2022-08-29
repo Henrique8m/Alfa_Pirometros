@@ -52,7 +52,8 @@ public class Equipamento implements Serializable {
 			obj.setEmpressa( rs.getLong( "empresa_id" ) );
 			obj.setOrcamento_id( rs.getLong("orcamento_id"));
 			obj.setLaboratorio( rs.getBoolean( "laboratorio" ));
-			obj.setUltimaCalibDate( rs.getDate( "ultimaCalibDate" ));
+			if(rs.getDate( "ultimaCalibDate" )!= null)
+				obj.setUltimaCalibDate( rs.getDate( "ultimaCalibDate" ));
 			obj.setCertificado_id( rs.getLong( "certificado" ));
 			
 		} catch (SQLException e) {

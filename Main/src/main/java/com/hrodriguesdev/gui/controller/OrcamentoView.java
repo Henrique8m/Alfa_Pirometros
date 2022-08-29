@@ -23,7 +23,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class OrcamentoViewController implements Initializable {
+public class OrcamentoView implements Initializable {
 	
 	@FXML
 	private Button cancelar, orcamentoEnviado, aprovado, aprovadoSemOrca, liberado, naoAprovado, liberadoSemOrcamento;
@@ -39,10 +39,13 @@ public class OrcamentoViewController implements Initializable {
 	private Equipamento equipamento;
 	private Orcamento orcamento;
 	
+	public OrcamentoView(Equipamento equipamento, Orcamento orcamento) {
+		this.equipamento = equipamento;
+		this.orcamento = orcamento;
+	}
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		orcamento = MainViewController.orcamento;
-		equipamento = MainViewController.equipamento;
 		if( equipamento.getRelatorio() != null && relatorioN.getText() != "" ) {
 			relatorioN.setText( equipamento.getRelatorio() );
 		}
@@ -99,11 +102,11 @@ public class OrcamentoViewController implements Initializable {
 	@FXML
 	private void salvar(ActionEvent event) {
 		if(relatorioN.getText() != null && relatorioN.getText() != "" ) {
-			MainViewController.orcamento.setRelatorio(relatorioN.getText() );
+			orcamento.setRelatorio(relatorioN.getText() );
 		}
 		try {
-			MainViewController.orcamentoController.updatedeStatusRelatorio( MainViewController.equipamento.getId(), MainViewController.orcamento.getStatus(), MainViewController.orcamento );
-			Alerts.showAlert("Status ", "Status Alterado com sucesso", "Equipamento da Empressa " + MainViewController.equipamento.getEmpressaName() , AlertType.INFORMATION);
+			MainViewController.orcamentoController.updatedeStatusRelatorio( orcamento.getId(), orcamento.getStatus(), orcamento );
+			Alerts.showAlert("Status ", "Status Alterado com sucesso", "Equipamento da Empressa " + equipamento.getEmpressaName() , AlertType.INFORMATION);
 		} catch (DbException e1) {
 			Alerts.showAlert("DB exception ", "Erro na comunicação com banco de dados", e1.getMessage(), AlertType.ERROR);
 		}
@@ -112,7 +115,7 @@ public class OrcamentoViewController implements Initializable {
 	}
 	
 	protected void update(int status) {		
-		MainViewController.orcamento.setStatus(status);
+		orcamento.setStatus(status);
 	}
 		
 	@FXML
@@ -147,5 +150,7 @@ public class OrcamentoViewController implements Initializable {
 	public void cancelar(ActionEvent event) {
 		NewView.fecharView();
 	}
+
+
 	
 }

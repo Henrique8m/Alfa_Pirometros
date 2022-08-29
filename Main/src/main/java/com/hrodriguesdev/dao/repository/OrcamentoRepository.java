@@ -10,7 +10,6 @@ import java.util.List;
 
 import com.hrodriguesdev.dao.db.DB;
 import com.hrodriguesdev.dao.db.DbException;
-import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.entities.Orcamento;
 
 public class OrcamentoRepository {
@@ -260,7 +259,7 @@ public class OrcamentoRepository {
 		try {
 			conn = DB.getConnection();
 			pst = conn.prepareStatement("UPDATE tb_orcamento "
-											+ "SET status = status, " 
+											+ "SET status = " + status + ", "
 											+ "laboratorio = ? , "
 											+ "relatorio = ? "
 											+ " WHERE "

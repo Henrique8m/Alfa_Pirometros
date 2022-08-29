@@ -40,4 +40,8 @@ public class OrcamentoController {
 		return orcamentoService.updatedeStatusRelatorio(id, status, orcamento);
 	}
 
+	public Orcamento getOrcamento(Long id) throws SQLException {
+		return orcamentoService.getOrcamento(id);
+	}
+	
 }

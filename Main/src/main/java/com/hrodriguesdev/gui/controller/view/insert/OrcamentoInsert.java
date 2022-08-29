@@ -6,7 +6,6 @@ import java.util.ResourceBundle;
 import com.hrodriguesdev.AlfaPirometrosApplication;
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.entities.Orcamento;
-import com.hrodriguesdev.gui.controller.view.main.MainViewController;
 import com.hrodriguesdev.utilitary.Format;
 import com.hrodriguesdev.utilitary.InputFilter;
 import com.hrodriguesdev.utilitary.Itens;
@@ -31,57 +30,55 @@ import javafx.scene.text.Text;
 
 public class OrcamentoInsert implements Initializable {
 	
-	private Equipamento equipamento;
-//	private Orcamento orcamento;
-//	private EstoqueConsumo consumo = new EstoqueConsumo();
-//	private EstoqueEletricos eletricos = new EstoqueEletricos();
-//	private EstoqueEletronicos eletronicos = new EstoqueEletronicos();
-//	private EstoqueEstetico estetico = new EstoqueEstetico();
-//	private OrcamentoController controller = new OrcamentoController();
-//	private EquipamentoController equipamentoController = MainViewController.equipamentoController;
+	public OrcamentoInsert(Equipamento equipamento, Orcamento orcamento) {
+		this.equipamento = equipamento;
+		this.orcamento = orcamento;
+	}
 	
-	private Long orcamentoId;
-	private String list = "";
-	private String nova = "";
+	protected Equipamento equipamento;
+	protected Orcamento orcamento;
+
+	protected Long orcamentoId;
+	protected String list = "";
+	protected String nova = "";
 	
 	//Button
 	@FXML
-	private Button salvar, cancelar;
+	protected Button salvar, cancelar;
 	
 	//Image Button
 	@FXML
-	private ImageView cancelarImg, salvarImg;
+	protected ImageView cancelarImg, salvarImg;
 	
 	@FXML
-	private Text erro, erro2;
+	protected Text erro, erro2;
 	
 	//Info Employee 
 	@FXML
-	public TextField nomeEmpressa, data, modelo, ns, pat, ultimaCal;
+	protected TextField nomeEmpressa, data, modelo, ns, pat, ultimaCal;
 
 	
 	//Table
 	@FXML
-	private TableView<Orcamento> tableOrcamento = new TableView<>();
-	private ObservableList<Orcamento> obsMateriais = FXCollections.observableArrayList();
+	protected TableView<Orcamento> tableOrcamento = new TableView<>();
+	protected ObservableList<Orcamento> obsMateriais = FXCollections.observableArrayList();
 	@FXML
-	private TableColumn<Orcamento, String> item;
+	protected TableColumn<Orcamento, String> item;
 	@FXML
-	private TableColumn<Orcamento, Integer> quantidade;
+	protected TableColumn<Orcamento, Integer> quantidade;
 	
 	//Add Orçamentos
 	@FXML
-	private TextField obs;
+	protected TextField obs;
 	@FXML
-	private ComboBox<String> newItem = new ComboBox<>();
+	protected ComboBox<String> newItem = new ComboBox<>();
 	@FXML
-	private ComboBox<String> quantidadeItem = new ComboBox<>();
+	protected ComboBox<String> quantidadeItem = new ComboBox<>();
 	
 	//config combobox
-	private InputFilter<String> inputFilterNewItem;
-	private InputFilter<String> listener;
-	
-		
+	protected InputFilter<String> inputFilterNewItem;
+	protected InputFilter<String> listener;
+			
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		quantidadeItem.setValue("1");
@@ -91,12 +88,11 @@ public class OrcamentoInsert implements Initializable {
 		imageInit();
 		textFildInserts();
 		tabelaInit();
-		
-		
+				
 	}	
 	
 	@FXML
-	private void addComEnter(KeyEvent event) {
+	protected void addComEnter(KeyEvent event) {
 		if(event.getCode().toString()=="ENTER") {
 			addItem(new ActionEvent());
 
@@ -104,7 +100,7 @@ public class OrcamentoInsert implements Initializable {
 	}
 	
 	@FXML
-	public void addItem(ActionEvent event) {
+	protected void addItem(ActionEvent event) {
 		if(newItem.getValue() != null && quantidadeItem.getValue()!= null) {
 			obsMateriais.add(new Orcamento(newItem.getValue(), Integer.parseInt( quantidadeItem.getValue() ) ) );
 			tableOrcamento.refresh();
@@ -129,7 +125,7 @@ public class OrcamentoInsert implements Initializable {
 	}	
 	
 	@FXML
-	public void removeItem(ActionEvent event) {
+	protected void removeItem(ActionEvent event) {
 		Integer index = tableOrcamento.getSelectionModel().getSelectedIndex();
 		if(index != null) {
 			obsMateriais.remove(tableOrcamento.getSelectionModel().getSelectedItem() );
@@ -141,8 +137,8 @@ public class OrcamentoInsert implements Initializable {
 
 
 	@FXML
-	public void salvar(ActionEvent event) {
-		orcamentoId = MainViewController.orcamento.getId();
+	protected void salvar(ActionEvent event) {
+		orcamentoId = orcamento.getId();
 		Itens itens = new Itens(orcamentoId, true, 0);
 		
 		if(obsMateriais.size()>0) {
@@ -155,9 +151,9 @@ public class OrcamentoInsert implements Initializable {
 				}				
 			});
 			if(!this.list.isEmpty())
-				MainViewController.orcamento.setItem(list);		
-			MainViewController.orcamento.setStatus(2);
-			if(itens.saveAll( MainViewController.orcamento) ) {
+				orcamento.setItem(list);		
+			orcamento.setStatus(2);
+			if(itens.saveAll( orcamento) ) {
 				try {
 					NewView.fecharView();
 				} catch (NumberFormatException e) {
@@ -172,24 +168,24 @@ public class OrcamentoInsert implements Initializable {
 	}	
 	
 	@FXML
-	public void cancelar(ActionEvent event) {
+	protected void cancelar(ActionEvent event) {
 		NewView.fecharView();
 	}
 
 	
 	@FXML
-	public void format(KeyEvent event) {
+	protected void format(KeyEvent event) {
 		
 }
 	
-	private void tabelaInit() {
+	protected void tabelaInit() {
 		item.setCellValueFactory(new PropertyValueFactory<Orcamento, String>("Item") );
 		quantidade.setCellValueFactory(new PropertyValueFactory<Orcamento, Integer>("quantidade"));
 		tableOrcamento.setItems(obsMateriais);
 		
 	}
 
-	private void conboBoxInit() {
+	protected void conboBoxInit() {
 		quantidadeItem.setEditable(true);
 		newItem.setEditable(true);	
 		
@@ -198,16 +194,15 @@ public class OrcamentoInsert implements Initializable {
 		newItem.getEditor().textProperty().addListener( inputFilterNewItem );
 	}
 	
-	private void imageInit() {
+	protected void imageInit() {
 		Image image =  new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-adicionar.png").toString() );
 		salvarImg.setImage(image);
 		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-excluir.png").toString() );
 		cancelarImg.setImage(image);
 	}
 	
-	private void textFildInserts() {
-		equipamento = MainViewController.equipamento;
-		Orcamento orcamento = MainViewController.orcamento;
+	protected void textFildInserts() {
+
 		nomeEmpressa.setText(equipamento.getEmpressaName());
 		data.setText( Format.formatData.format(orcamento.getData_chegada()) );
 		modelo.setText(equipamento.getModelo());

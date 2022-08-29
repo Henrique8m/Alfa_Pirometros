@@ -39,12 +39,16 @@ import javafx.stage.Stage;
 
 public class SaidaEquipamentoViewController implements Initializable {
 	
+	public SaidaEquipamentoViewController(Equipamento equipamento) {
+		this.equipamento = equipamento;
+	}
+	
 	//@Autowired
 	protected OrcamentoController controller = MainViewController.orcamentoController;
 	protected EquipamentoController equipamentoController = MainViewController.equipamentoController;
 	protected ColetorController coletorController = MainViewController.coletorController;
 	protected EmpressaController empressaController = MainViewController.empressaController;
-	protected Equipamento equipamento = MainViewController.equipamentoEdit;
+	protected Equipamento equipamento;
 	
 	@FXML
 	protected ImageView cancelarImg;
@@ -98,8 +102,8 @@ public class SaidaEquipamentoViewController implements Initializable {
 			GeneratorPDF pdf = new GeneratorPDF();	
 			Coletor coletor = getColetor();
 			Empressa empressa = empressaController.find( equipamento.getEmpressa() );			
-			if( equipamentoController.updated(equipamento) ) {
-				pdf.newDocument(coletor, equipamento, empressa);
+			if( equipamentoController.updatedeNsPatModelo(equipamento) ) {
+//				pdf.newDocument(coletor, equipamento, empressa);
 				Stage stage = (Stage) salvar.getScene().getWindow();
 				stage.close();
 				
@@ -116,7 +120,7 @@ public class SaidaEquipamentoViewController implements Initializable {
 		
 		try {
 			updateEquipamento();
-			if( equipamentoController.updated(equipamento) ) {
+			if( equipamentoController.updatedeNsPatModelo(equipamento) ) {
 				Stage stage = (Stage) salvar.getScene().getWindow();
 				stage.close();
 				
@@ -141,8 +145,8 @@ public class SaidaEquipamentoViewController implements Initializable {
 
 	protected void updateEquipamento() throws NullPointerException{
 
-		equipamento.setDataSaida( dataColeta.getText() );
-		equipamento.setDateSaida(new java.sql.Date(System.currentTimeMillis()));
+//		equipamento.setDataSaida( dataColeta.getText() );
+//		equipamento.setDateSaida(new java.sql.Date(System.currentTimeMillis()));
 		switch ( equipamento.getStatus() ) {
 			case 2:
 				equipamento.setStatus( 12 );
@@ -178,7 +182,7 @@ public class SaidaEquipamentoViewController implements Initializable {
 			coletor.setDataHoraColeta( dataColeta.getText() );
 			coletor.setDate(new java.sql.Date(System.currentTimeMillis()));
 			coletor.setHoraColeta( Integer.parseInt( Format.formataTimeInt.format(new Date(System.currentTimeMillis() )  ) ) );
-			equipamento.setColetor_id( coletorController.add(coletor) );
+//			equipamento.setColetor_id( coletorController.add(coletor) );
 			
 		}catch(DbException e2) {
 			error( "Find Empresa" ,"Empresa Não Encontrada");
@@ -211,8 +215,8 @@ public class SaidaEquipamentoViewController implements Initializable {
 		imageInit();
 		
 		nomeEmpressa.setText(equipamento.getEmpressaName());
-	    data.setText(equipamento.getDataChegada());
-		ultimaCal.setText(equipamento.getUltimaCalib());
+//	    data.setText(equipamento.getDataChegada());
+//		ultimaCal.setText(equipamento.getUltimaCalib());
 		modelo.setText(equipamento.getModelo());
 		ns.setText(equipamento.getNs());
 		pat.setText(equipamento.getPat());

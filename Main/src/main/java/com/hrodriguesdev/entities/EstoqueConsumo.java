@@ -3,6 +3,8 @@ package com.hrodriguesdev.entities;
 import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 //@Entity
 //@Table(name = "tb_consumo")
@@ -48,6 +50,21 @@ public class EstoqueConsumo implements Serializable {
 
 	}
 		
+	public static List<Orcamento> orcamentoListConsumo(EstoqueConsumo consumo) {
+		List<Orcamento> list = new ArrayList<>();
+		
+		if( consumo.getBotaoLiga() > 0) 
+			list.add(new Orcamento("BotaoLiga", consumo.getBotaoLiga() ) );
+		
+		if( consumo.getBoMeFIIFIIIIndicmax() > 0) 
+			list.add(new Orcamento("BoMeFIIFIIIIndicmax", consumo.getBoMeFIIFIIIIndicmax() ) );
+		
+		if( consumo.getCaixaBat() > 0) 
+			list.add(new Orcamento("CaixaBat", consumo.getCaixaBat() ) );
+		
+		return list;
+	}
+	
 	@Override
 	public String toString() {
 		String list = "";

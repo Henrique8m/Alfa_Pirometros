@@ -11,6 +11,8 @@ import com.hrodriguesdev.dao.db.DbException;
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.entities.Orcamento;
 import com.hrodriguesdev.gui.alert.Alerts;
+import com.hrodriguesdev.gui.controller.view.insert.EmpressaInsert;
+import com.hrodriguesdev.gui.controller.view.insert.EquipamentoInsert;
 import com.hrodriguesdev.gui.controller.view.main.MainViewController;
 import com.hrodriguesdev.utilitary.Format;
 import com.hrodriguesdev.utilitary.Geral;
@@ -38,7 +40,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 
-public class OrcamentoViewControllerDois implements Initializable{
+public class EquipamentoEntradaViewController implements Initializable{
 	private String empressa;
 	@FXML
 	protected ImageView cancelarImg, salvarImg, addEmpressaImg, addEquipamento, logoYgg;
@@ -67,9 +69,9 @@ public class OrcamentoViewControllerDois implements Initializable{
 	private TableColumn<Equipamento, Date> ultimaCal;
     private  ObservableList<Equipamento> obsListEquipamentos = FXCollections.observableArrayList();
     
-    public OrcamentoViewControllerDois() {}
+    public EquipamentoEntradaViewController() {}
     
-    public OrcamentoViewControllerDois(String nomeEmpressa) {
+    public EquipamentoEntradaViewController(String nomeEmpressa) {
     	this.empressa = nomeEmpressa;
     }
 	
@@ -158,7 +160,9 @@ public class OrcamentoViewControllerDois implements Initializable{
 				Long orcamento_id = MainViewController.orcamentoController.add(orcamento);
 				if(orcamento_id != null)
 					MainViewController.equipamentoController.updatede(tableEquipamentos.getSelectionModel().getSelectedItem().getId(), true, orcamento_id);
-					NewView.fecharView();		
+				
+				AlfaPirometrosApplication.viewController.refreshTable();
+				NewView.fecharView();		
 			}	
 		}catch(NullPointerException e) {
 			error("Selection", "Nada selecionado");		
@@ -174,7 +178,7 @@ public class OrcamentoViewControllerDois implements Initializable{
 	@FXML
 	public void addEquipamento(ActionEvent event) {
 		try {
-			NewView.addChildren((Node) NewView.loadFXML("cadastroEquipamento", new EquipamentoViewControllerDois() ) );
+			NewView.addChildren((Node) NewView.loadFXML("cadastroEquipamento", new EquipamentoInsert() ) );
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -182,7 +186,7 @@ public class OrcamentoViewControllerDois implements Initializable{
 	
 	@FXML
 	public void addEmpressa(ActionEvent event) {
-		
+		NewView.getNewView("Adcionar empressa", "newEmpressa", new EmpressaInsert() );
 	}	
 	
 	@FXML

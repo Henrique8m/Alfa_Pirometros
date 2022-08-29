@@ -14,13 +14,9 @@ import com.hrodriguesdev.dao.db.DB;
 import com.hrodriguesdev.dao.db.DbException;
 import com.hrodriguesdev.entities.Anotations;
 import com.hrodriguesdev.entities.Equipamento;
-import com.hrodriguesdev.entities.Orcamento;
 import com.hrodriguesdev.gui.alert.Alerts;
 import com.hrodriguesdev.gui.controller.view.insert.EquipamentoInsert;
-import com.hrodriguesdev.gui.controller.view.saida.equipemento.OpenSaidaEquipamentoViewController;
-import com.hrodriguesdev.service.OrcamentoService;
 import com.hrodriguesdev.utilitary.Format;
-import com.hrodriguesdev.utilitary.NewView;
 
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -53,10 +49,12 @@ public class MainViewController implements Initializable{
 	private Timeline timeline;
 	protected static Boolean dbConection;
 	
-	public static Equipamento equipamento;
-	public static Equipamento equipamentoEdit;
-	public static Orcamento orcamentoEdit;
-	public static Orcamento orcamento;
+//	public static Equipamento equipamento;
+//	public static Equipamento equipamentoEdit;
+//	public static Equipamento equipamentoColeta;
+//	public static Orcamento orcamentoEdit;
+//	public static Orcamento orcamento;
+//	public static Orcamento orcamentoColeta;
 	public static Boolean FILTER = true;
 	
 	@FXML
@@ -192,7 +190,6 @@ public class MainViewController implements Initializable{
 		
 		if( dbConection ) {
 			try {
-//	    		obsListTableFilaEquipamentos = equipamentoController.findAllByLaboratorio(true);
 				obsListTableFilaEquipamentos = orcamentoController.findAllLaboratorio(true);
 	    		oldObs = obsListTableFilaEquipamentos;
 	

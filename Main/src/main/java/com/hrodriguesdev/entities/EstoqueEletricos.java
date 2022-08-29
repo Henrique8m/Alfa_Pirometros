@@ -3,6 +3,8 @@ package com.hrodriguesdev.entities;
 import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 //@Entity
 //@Table(name = "tb_eletricos")
@@ -68,6 +70,42 @@ public class EstoqueEletricos implements Serializable {
 			
 		}
 
+	}
+	
+	public static List<Orcamento> orcamentoListEletrico(EstoqueEletricos eletricos) {
+		List<Orcamento> list = new ArrayList<>();
+		
+		if( eletricos.getFontCarbIndic() > 0) 
+			list.add(new Orcamento("FontCarbIndic", eletricos.getFontCarbIndic() ) );
+		
+		if( eletricos.getFontCarbDelta() > 0) 
+			list.add(new Orcamento("FontCarbDelta", eletricos.getFontCarbDelta() ) );
+		
+		if( eletricos.getPinFemeAliFII() > 0) 
+			list.add(new Orcamento("PinFemeAliFII", eletricos.getPinFemeAliFII() ) );
+		
+		if( eletricos.getPinFemeAliFIII() > 0) 
+			list.add(new Orcamento("PinFemeAliFIII", eletricos.getPinFemeAliFIII() ) );
+		
+		if( eletricos.getBatFIIFIII() > 0) 
+			list.add(new Orcamento("BatFIIFIII", eletricos.getBatFIIFIII() ) );
+		
+		if( eletricos.getBatDescartavel() > 0) 
+			list.add(new Orcamento("BatDescartavel", eletricos.getBatDescartavel() ) );
+		
+		if( eletricos.getBatInditemp() > 0) 
+			list.add(new Orcamento("BatInditemp", eletricos.getBatInditemp() ) );
+		
+		if( eletricos.getBatLitio() > 0) 
+			list.add(new Orcamento("BatLitio", eletricos.getBatLitio() ) );
+		
+		if( eletricos.getCarrEcil() > 0) 
+			list.add(new Orcamento("CarrEcil", eletricos.getCarrEcil() ) );
+		
+		if( eletricos.getCarrItalterm() > 0) 
+			list.add(new Orcamento("CarrItalterm", eletricos.getCarrItalterm() ) );
+		
+		return list;
 	}
 	
 	@Override

@@ -3,6 +3,8 @@ package com.hrodriguesdev.entities;
 import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 //@Entity
 //@Table(name = "tb_eletronicos")
@@ -62,6 +64,36 @@ public class EstoqueEletronicos implements Serializable {
 			
 		}
 
+	}
+	
+	public static List<Orcamento> orcamentoListEletronico(EstoqueEletronicos eletronicos) {
+		List<Orcamento> list = new ArrayList<>();
+		
+		if( eletronicos.getPCIFIII() > 0) 
+			list.add(new Orcamento("PCIFIII", eletronicos.getPCIFIII() ) );
+		
+		if( eletronicos.getPCIFKal() > 0) 
+			list.add(new Orcamento("PCIFKal", eletronicos.getPCIFKal() ) );
+		
+		if( eletronicos.getDispFKal() > 0) 
+			list.add(new Orcamento("DispFKal", eletronicos.getDispFKal() ) );
+		
+		if( eletronicos.getFIII() > 0) 
+			list.add(new Orcamento("FIII", eletronicos.getFIII())  );
+		
+		if( eletronicos.getIndicmax() > 0) 
+			list.add(new Orcamento("Indicmax", eletronicos.getIndicmax() ) );
+		
+		if( eletronicos.getCIFII() > 0) 
+			list.add(new Orcamento("CIFII", eletronicos.getCIFII() ) );
+		
+		if( eletronicos.getCIIndicmax() > 0) 
+			list.add(new Orcamento("CIIndicmax", eletronicos.getCIIndicmax() ) );
+		
+		if( eletronicos.getSirene() > 0) 
+			list.add(new Orcamento("sirene", eletronicos.getSirene() ) );
+		
+		return list;
 	}
 	
 	@Override

@@ -88,7 +88,6 @@ public class EmpressaInsert implements Initializable {
 			saidaView.addListener();
 			saidaView = null;
 		}					
-		else MainViewController.equipamentoInsert.addListener();
 	}
 	
 	@FXML

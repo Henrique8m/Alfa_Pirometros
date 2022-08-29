@@ -1,7 +1,10 @@
 package com.hrodriguesdev.utilitary;
 
+import java.util.List;
+
 import com.hrodriguesdev.dao.db.DbException;
 import com.hrodriguesdev.dao.repository.ItensRepository;
+import com.hrodriguesdev.dao.repository.ItensRepositoryFind;
 import com.hrodriguesdev.dao.repository.OrcamentoRepository;
 import com.hrodriguesdev.entities.EstoqueConsumo;
 import com.hrodriguesdev.entities.EstoqueEletricos;
@@ -9,6 +12,9 @@ import com.hrodriguesdev.entities.EstoqueEletronicos;
 import com.hrodriguesdev.entities.EstoqueEstetico;
 import com.hrodriguesdev.entities.EstoqueSinal;
 import com.hrodriguesdev.entities.Orcamento;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class Itens {
 
@@ -18,6 +24,8 @@ public class Itens {
 	private EstoqueEstetico estetico;
 	private EstoqueSinal sinal;
 		
+	public Itens() {}
+	
 	public Itens(Long orcamento_id, boolean saida, int nfe) {
 		eletricos(orcamento_id, saida, nfe);
 		eletronicos(orcamento_id, saida, nfe);
@@ -277,6 +285,21 @@ public class Itens {
 		orcamento.setEstetico( repository.saveEstetico(estetico) );
 		orcamento.setSinal( repository.saveSinal(sinal) );
 		return orcamentoRe.setIdItens(orcamento);
+	}
+
+	public ObservableList<Orcamento> getAllItens(Long id, String itens) {
+		ItensRepositoryFind repository = new ItensRepositoryFind();
+		EstoqueConsumo consumo = repository.consumoByOrcamentoId(id);
+		EstoqueEstetico estetico = repository.esteticoByOrcamentoId(id);
+		EstoqueEletricos eletrico = repository.eletricosByOrcamentoId(id);
+		EstoqueEletronicos eletronico = repository.eletronicosByOrcamentoId(id);
+		EstoqueSinal sinal = repository.sinalByOrcamentoId(id);
+		
+		List<Orcamento> list = Orcamento.getList(itens ,consumo, estetico, eletrico, eletronico, sinal);
+		ObservableList<Orcamento> obs = FXCollections.observableArrayList();
+		obs.addAll(list);
+		
+		return obs;
 	}
 	
 }

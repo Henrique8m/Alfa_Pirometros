@@ -4,10 +4,11 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import com.hrodriguesdev.controller.OrcamentoController;
+import com.hrodriguesdev.entities.Orcamento;
 import com.hrodriguesdev.gui.alert.Alerts;
-import com.hrodriguesdev.gui.controller.OrcamentoViewController;
+import com.hrodriguesdev.gui.controller.OrcamentoView;
 import com.hrodriguesdev.gui.controller.view.insert.OrcamentoInsert;
-import com.hrodriguesdev.gui.controller.view.updatede.OrcamentoUpdatede;
+import com.hrodriguesdev.gui.controller.view.updatede.OrcamentoUpdatedeDois;
 import com.hrodriguesdev.utilitary.NewView;
 
 import javafx.event.ActionEvent;
@@ -23,7 +24,7 @@ public class OrcamentoMainView extends TableMainView{
     @FXML
     protected void openOrcamento(ActionEvent e) throws IOException {
     	if(tableFilaEquipamentos.getSelectionModel().getSelectedItem() != null) {
-    		equipamento = tableFilaEquipamentos.getSelectionModel().getSelectedItem();
+    		Orcamento orcamento;
     		try {
 				orcamento = controller.findById( tableFilaEquipamentos.getSelectionModel().getSelectedItem().getOrcamento_id() );
 				dbConection = true;
@@ -34,7 +35,7 @@ public class OrcamentoMainView extends TableMainView{
 			}
     		if(orcamento != null) {
 //    			NewView.getNewView("Entrada Equipamento", "orcamentoView", new OrcamentoViewController() );
-    			NewView.addChildren((Node) NewView.loadFXML("orcamentoViewDois" , new OrcamentoViewController() ));
+    			NewView.addChildren((Node) NewView.loadFXML("orcamentoViewDois" , new OrcamentoView(tableFilaEquipamentos.getSelectionModel().getSelectedItem(), orcamento ) ));
     		}else
     			Alerts.showAlert("Orcamento" , "Status Orcamento", "Não consta orçamento para este equipamento" , AlertType.INFORMATION);
     		
@@ -46,14 +47,15 @@ public class OrcamentoMainView extends TableMainView{
     
     @FXML
 	protected void addOrcamento(ActionEvent e) throws IOException, SQLException {
-		if(tableFilaEquipamentos.getSelectionModel().getSelectedItem() != null) {			
-			equipamento = tableFilaEquipamentos.getSelectionModel().getSelectedItem();
-			orcamento = controller.findById( tableFilaEquipamentos.getSelectionModel().getSelectedItem().getOrcamento_id() );
-			if(orcamento.getStatus() == 1) 
+		if(tableFilaEquipamentos.getSelectionModel().getSelectedItem() != null) {
+			int status = tableFilaEquipamentos.getSelectionModel().getSelectedItem().getStatus();
+			if(status == 1) 
 			{
 				
 //				NewView.getNewView("Entrada Equipamento", "orcamentoDois", new OrcamentoInsert() );
-				NewView.addChildren((Node) NewView.loadFXML("orcamentoDois" , new OrcamentoInsert() ));
+				NewView.addChildren((Node) NewView.loadFXML("orcamentoDois" , new OrcamentoInsert(
+						tableFilaEquipamentos.getSelectionModel().getSelectedItem(),
+						controller.findById( tableFilaEquipamentos.getSelectionModel().getSelectedItem().getOrcamento_id() ) ) ));
 
 			}else openOrcamento(new ActionEvent());
 
@@ -65,13 +67,16 @@ public class OrcamentoMainView extends TableMainView{
     }   
     
 	protected void updatedEquipamento(KeyEvent keyEvent) throws IOException {
+		Orcamento orcamento;
 	    if(keyEvent.getCode().toString() == "F3" ) {			
 			if(tableFilaEquipamentos.getSelectionModel().getSelectedItem() != null) 
 			{
 				try {
-					equipamento = tableFilaEquipamentos.getSelectionModel().getSelectedItem();
-					orcamentoEdit = controller.findById( tableFilaEquipamentos.getSelectionModel().getSelectedItem().getOrcamento_id() );
-					NewView.getNewView("Edit Orcamento", "orcamento", new OrcamentoUpdatede() );
+					orcamento = controller.findById( tableFilaEquipamentos.getSelectionModel().getSelectedItem().getOrcamento_id() );
+					NewView.addChildren((Node) NewView.loadFXML( "orcamentoDois", new OrcamentoUpdatedeDois(
+							tableFilaEquipamentos.getSelectionModel().getSelectedItem(),
+							orcamento
+							) ));
 					refreshTable();
 					
 				} catch (SQLException e1) {
@@ -82,9 +87,11 @@ public class OrcamentoMainView extends TableMainView{
 			}else if(tableFindEquipamentos.getSelectionModel().getSelectedItem() != null) 
 			{
 				try {
-					equipamento = tableFindEquipamentos.getSelectionModel().getSelectedItem();
-					orcamentoEdit = controller.findById( tableFindEquipamentos.getSelectionModel().getSelectedItem().getOrcamento_id() );
-					NewView.getNewView("Edit Orcamento", "orcamento", new OrcamentoUpdatede() );
+					orcamento = controller.findById( tableFindEquipamentos.getSelectionModel().getSelectedItem().getOrcamento_id() );
+					NewView.addChildren((Node) NewView.loadFXML("orcamentoDois", new OrcamentoUpdatedeDois(
+							tableFilaEquipamentos.getSelectionModel().getSelectedItem(),
+							orcamento
+							)));
 					refreshTable();
 					
 				} catch (SQLException e1) {

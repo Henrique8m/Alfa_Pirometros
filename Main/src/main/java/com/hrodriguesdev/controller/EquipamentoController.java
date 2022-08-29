@@ -53,8 +53,8 @@ public class EquipamentoController {
 		return equipamentoService.updatede(id, laboratorio, orcamento_id);		
 	}
 	
-	public boolean updated(Equipamento equipamento) {		
-		return equipamentoService.updatede(equipamento);
+	public boolean updatedeNsPatModelo(Equipamento equipamento) {		
+		return equipamentoService.updatedeNsPatModelo(equipamento);
 	}
 
 	public Boolean delete(Long id) {
