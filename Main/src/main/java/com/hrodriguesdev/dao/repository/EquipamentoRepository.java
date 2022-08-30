@@ -11,7 +11,6 @@ import java.util.List;
 import com.hrodriguesdev.dao.db.DB;
 import com.hrodriguesdev.dao.db.DbException;
 import com.hrodriguesdev.entities.Equipamento;
-import com.hrodriguesdev.entities.Orcamento;
 
 public class EquipamentoRepository {
 	Connection conn = null;
@@ -345,39 +344,62 @@ public class EquipamentoRepository {
 	}
 	
 	public void updatedeAllDate() {
-		List<Equipamento> list = new ArrayList<>();		
-		try {
-			conn = DB.getConnection();			
-			st = conn.createStatement();			
-			rs = st.executeQuery("SELECT * FROM alfaestoque.tb_equipamento;");			
-			
-			while ( rs.next() ) {
-				list.add(Equipamento.parseEquipamentoDois(rs));
-			}
-			
-		}catch (SQLException e) {	
-			e.printStackTrace();
-		}
-
-//		try {
-			OrcamentoRepository repo = new OrcamentoRepository();
-			Orcamento or;
-			for(Equipamento equipamento: list) {
-				
-				if(equipamento.getOrcamento_id() == null || equipamento.getOrcamento_id() == 0) {
-					or = new Orcamento();
-					or.setItem("Item");
-					or.setEquipamento_id(equipamento.getId());
-					or.setData_chegada(equipamento.getDateChegada());
-					or.setLaboratorio(equipamento.getLaboratorio() );
-					
-					repo.add(or);
-					
-					}	
-				
-			}			
-			
 		
+//	
+//		List<Orcamento> listOrcamento = new ArrayList<>();		
+//		try {
+//			conn = DB.getConnection();			
+//			st = conn.createStatement();			
+//			rs = st.executeQuery("SELECT * FROM alfaestoque.tb_orcamento;");			
+//			
+//			while ( rs.next() ) {
+//				listOrcamento.add(new Orcamento(rs));
+//			}
+//			
+//		}catch (SQLException e) {	
+//			e.printStackTrace();
+//		}
+//			
+//		
+//		List<Equipamento> listEquipamento = new ArrayList<>();		
+//		try {
+//			conn = DB.getConnection();			
+//			st = conn.createStatement();			
+//			rs = st.executeQuery("SELECT * FROM alfaestoque.tb_equipamento;");			
+//			
+//			while ( rs.next() ) {
+//				listEquipamento.add(Equipamento.parseEquipamentoDois(rs));
+//			}
+//			
+//		}catch (SQLException e) {	
+//			e.printStackTrace();
+//		}
+//		
+//		listOrcamento.forEach((orcamento)-> {
+//			listEquipamento.forEach((equipamento)->{
+//				if(equipamento.getId() == orcamento.getEquipamento_id()) {
+//					try {
+//						pst = conn.prepareStatement("UPDATE tb_equipamento "
+//														+ "SET orcamento_id = "
+//														+ orcamento.getId()
+//														+ " WHERE "
+//														+ "(id = ?)");
+//						
+//						
+//						pst.setLong( 1, equipamento.getId() );
+//						pst.executeUpdate();
+//						
+//						
+//					} catch (SQLException e) {					
+//						e.printStackTrace();
+//					}	
+//					
+//				}
+//					
+//			});
+//		});
+			
+//		
 //		try {
 //			for(Equipamento equipamento: list) {				
 //			if(equipamento.getDataSaida() != null) {
@@ -488,7 +510,6 @@ public class EquipamentoRepository {
 		}
 		return ok;
 	}
-
 
 
 }

@@ -25,7 +25,7 @@ public class ColetorRepository {
 			conn = DB.getConnection();
 			conn.setAutoCommit(false);
 			pst = conn.prepareStatement("INSERT INTO tb_coletor "
-					+ "(empressaName, nomeColetor, dataHoraColeta, equipamento_id, dateColeta, horaColeta) "
+					+ "(empressaName, nomeColetor, dataHoraColeta, orcamento_id, dateColeta, horaColeta) "
 					+ "VALUES "
 					+ "(?, ?, ?, ?, ?, ?)",
 					Statement.RETURN_GENERATED_KEYS);			
@@ -33,7 +33,7 @@ public class ColetorRepository {
 			pst.setString(1, coletor.getEmpressaName());
 			pst.setString(2, coletor.getNomeColetor() );
 			pst.setString(3, coletor.getDataHoraColeta());
-			pst.setLong(4, coletor.getEquipamento_id() );		
+			pst.setLong(4, coletor.getOrcamento_id() );		
 			pst.setDate(5, coletor.getDate());
 			pst.setInt(6, coletor.getHoraColeta() );
 			

@@ -6,6 +6,9 @@ import java.util.List;
 import com.hrodriguesdev.dao.repository.OrcamentoRepository;
 import com.hrodriguesdev.entities.Orcamento;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 public class OrcamentoService {
 	private OrcamentoRepository repository = new OrcamentoRepository();
 	
@@ -25,6 +28,13 @@ public class OrcamentoService {
 
 	public List<Orcamento> findAllLaboratorio(boolean laboratorio) {	
 		return repository.findAllLaboratorio(laboratorio);	
+		
+	}
+	
+	public ObservableList<Orcamento> findAllIdEquipamento(Long equipamento_id) {	
+		ObservableList<Orcamento> obs = FXCollections.observableArrayList();
+		obs.addAll(repository.findAllIdEquipamento(equipamento_id));
+		return obs;
 		
 	}
 	

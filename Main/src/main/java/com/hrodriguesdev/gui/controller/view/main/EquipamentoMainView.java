@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import com.hrodriguesdev.controller.EquipamentoController;
 import com.hrodriguesdev.dao.db.DbException;
 import com.hrodriguesdev.entities.Equipamento;
+import com.hrodriguesdev.entities.Orcamento;
 import com.hrodriguesdev.gui.alert.Alerts;
 import com.hrodriguesdev.gui.controller.EquipamentoEntradaViewController;
 import com.hrodriguesdev.gui.controller.view.saida.equipemento.OpenSaidaEquipamentoViewController;
@@ -71,24 +72,7 @@ public class EquipamentoMainView extends LogoutMainView {
 		
 		if(keyEvent.getCode().toString() == "F5" )
 			refreshTable();
-
-		else if(keyEvent.getCode().toString() == "F12" ) {
-    		
-//    		if(tableFilaEquipamentos.getSelectionModel().getSelectedItem() != null) 
-//    		{
-//				equipamento = tableFilaEquipamentos.getSelectionModel().getSelectedItem();
-//				equipamento.setLaboratorio(true);
-//				equipamentoController.updatede(equipamento.getId(), equipamento.getStatus(), equipamento);			
-//
-//    		}else if(tableFindEquipamentos.getSelectionModel().getSelectedItem() != null) {
-//				equipamento = tableFindEquipamentos.getSelectionModel().getSelectedItem();
-//				equipamento.setLaboratorio(true);
-//				equipamentoController.updatede(equipamento.getId(), equipamento.getStatus(), equipamento);	
-//
-//    		}
-//    		refreshTable();		
-    		
-    	}
+		
     	else if(keyEvent.getCode().toString() == "DELETE" ) {    		
     		if(tableFilaEquipamentos.getSelectionModel().getSelectedItem() != null) 
     		{
@@ -110,61 +94,27 @@ public class EquipamentoMainView extends LogoutMainView {
 	
 	@FXML
     private void updateStatus(ActionEvent e) throws IOException {
-//		if(tableFilaEquipamentos.getSelectionModel().getSelectedItem() != null) {
-//			equipamento = tableFilaEquipamentos.getSelectionModel().getSelectedItem();
-//			NewView.getNewView("Alterar Status","status", new StatusViewController() );
-//			try {
-//				obsListTableFilaEquipamentos = orcamentoController.findAllLaboratorio(true);
-//				dbConection = true;
-//			} catch (DbException e1) {
-//				showAlerts("DB exception ", "Erro na comunicação com banco de dados", e1.getMessage(), AlertType.ERROR );
-//				dbConection = false;
-//			}
-//			tableFilaEquipamentos.setItems(obsListTableFilaEquipamentos);
-//			oldObs = obsListTableFilaEquipamentos;
-//			tableFilaEquipamentos.refresh();
-//		}
-//		else {
-//			showAlerts("Seleção ", "", "Nada Selecionado ", AlertType.INFORMATION );
-//		}
-//	   	
+
     }
-	
-		
+			
 	@FXML
     private void addColeta(ActionEvent e) throws IOException, SQLException {
-//    	 if(tableFilaEquipamentos.getSelectionModel().getSelectedItem() != null) {
-//     		equipamentoEdit = tableFilaEquipamentos.getSelectionModel().getSelectedItem(); 
-//     		orcamentoColeta = orcamentoController.getOrcamento( equipamentoEdit.getOrcamento_id() );     		
-//     		
-//     		if(equipamentoEdit.getStatus() != 1 ) {
-//     			if( orcamentoColeta.getColetor_id() == null || orcamentoColeta.getColetor_id() == 0) {
-//     				NewView.getNewView("Saida de equipamento", "saidaEquipamento", new SaidaEquipamentoViewController() );
-//	     			try {
-//	    				obsListTableFilaEquipamentos = orcamentoController.findAllLaboratorio(true);
-//			    		oldObs = obsListTableFilaEquipamentos;
-//			    		dbConection = true;
-//			    		tableFilaEquipamentos.setItems(obsListTableFilaEquipamentos);
-//					} catch (DbException e1) {
-//					
-//						e1.printStackTrace();
-//					}
-//     			} else{
-//     				NewView.getNewView("Saida de equipamento", "saidaEquipamento", new OpenSaidaEquipamentoViewController());
-//	     			try {
-//	    				obsListTableFilaEquipamentos = orcamentoController.findAllLaboratorio(true);
-//			    		oldObs = obsListTableFilaEquipamentos;
-//			    		dbConection = true;
-//			    		tableFilaEquipamentos.setItems(obsListTableFilaEquipamentos);
-//					} catch (DbException e1) {
-//					
-//						e1.printStackTrace();
-//					}
-//     			}
-//     		}else
-//     			Alerts.showAlert("Saida de Equipamento" , "Equipamento nao pode ser liberado por:", equipamentoEdit.getStatusStr() , AlertType.INFORMATION);
-//     		
-//     	}else showAlerts("Seleção ", "", "Nada Selecionado ", AlertType.INFORMATION );
+		Orcamento orcamento;
+    	 if(tableFilaEquipamentos.getSelectionModel().getSelectedItem() != null) {    		
+			int status = tableFilaEquipamentos.getSelectionModel().getSelectedItem().getStatus();
+			orcamento = controller.findById( tableFilaEquipamentos.getSelectionModel().getSelectedItem().getOrcamento_id() );
+			if(status == 5 || status == 6 || status == 9) {					
+     			if( orcamento.getColetor_id() == null || orcamento.getColetor_id() == 0) {
+     				NewView.getNewView("Saida de equipamento", "saidaEquipamento", new SaidaEquipamentoViewController(tableFilaEquipamentos.getSelectionModel().getSelectedItem(), orcamento ) );
+
+     			} else{
+     				NewView.getNewView("Saida de equipamento", "saidaEquipamento", new OpenSaidaEquipamentoViewController(tableFilaEquipamentos.getSelectionModel().getSelectedItem(), orcamento));
+
+     			}
+     		}else
+     			Alerts.showAlert("Saida de Equipamento" , "Equipamento nao pode ser liberado por:", "" , AlertType.INFORMATION);
+     		
+     	}else showAlerts("Seleção ", "", "Nada Selecionado ", AlertType.INFORMATION );
     }
 	
 	

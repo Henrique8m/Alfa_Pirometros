@@ -11,9 +11,11 @@ import com.hrodriguesdev.controller.EmpressaController;
 import com.hrodriguesdev.controller.EquipamentoController;
 import com.hrodriguesdev.controller.OrcamentoController;
 import com.hrodriguesdev.dao.db.DbException;
+import com.hrodriguesdev.dao.repository.SaidaEquipamentoTransacao;
 import com.hrodriguesdev.entities.Coletor;
 import com.hrodriguesdev.entities.Empressa;
 import com.hrodriguesdev.entities.Equipamento;
+import com.hrodriguesdev.entities.Orcamento;
 import com.hrodriguesdev.gui.alert.Alerts;
 import com.hrodriguesdev.gui.controller.view.insert.EmpressaInsert;
 import com.hrodriguesdev.gui.controller.view.main.MainViewController;
@@ -39,8 +41,9 @@ import javafx.stage.Stage;
 
 public class SaidaEquipamentoViewController implements Initializable {
 	
-	public SaidaEquipamentoViewController(Equipamento equipamento) {
+	public SaidaEquipamentoViewController(Equipamento equipamento, Orcamento orcamento) {
 		this.equipamento = equipamento;
+		this.orcamento = orcamento;
 	}
 	
 	//@Autowired
@@ -49,6 +52,8 @@ public class SaidaEquipamentoViewController implements Initializable {
 	protected ColetorController coletorController = MainViewController.coletorController;
 	protected EmpressaController empressaController = MainViewController.empressaController;
 	protected Equipamento equipamento;
+	protected Orcamento orcamento;
+	protected SaidaEquipamentoTransacao transaction = new SaidaEquipamentoTransacao();
 	
 	@FXML
 	protected ImageView cancelarImg;
@@ -76,17 +81,6 @@ public class SaidaEquipamentoViewController implements Initializable {
 	private FilteredList<String> filteredList;
 	private InputFilter<String> inputFilter;
 		
-	public void addListener() {
-		obsString =  MainViewController.empressaController.findAll();
-		filteredList = new FilteredList<>(obsString);  
-		inputFilter = new InputFilter<String>( coleta, filteredList );
-		coleta.getEditor().textProperty().addListener(inputFilter);	
-	}
-	
-	private void removeListener() {
-		coleta.getEditor().textProperty().removeListener(inputFilter);
-		coleta.setValue("");
-	}
 	
 	@FXML
 	protected void addEmpressa(ActionEvent e) throws IOException {
@@ -103,7 +97,7 @@ public class SaidaEquipamentoViewController implements Initializable {
 			Coletor coletor = getColetor();
 			Empressa empressa = empressaController.find( equipamento.getEmpressa() );			
 			if( equipamentoController.updatedeNsPatModelo(equipamento) ) {
-//				pdf.newDocument(coletor, equipamento, empressa);
+				pdf.newDocument(coletor, equipamento, empressa, orcamento);
 				Stage stage = (Stage) salvar.getScene().getWindow();
 				stage.close();
 				
@@ -112,15 +106,14 @@ public class SaidaEquipamentoViewController implements Initializable {
 		}
 		salvar(event);
 	}
-	
-	
+		
 	@FXML
 	protected void salvar(ActionEvent event) {
 		getColetor();
 		
 		try {
-			updateEquipamento();
-			if( equipamentoController.updatedeNsPatModelo(equipamento) ) {
+			updateEquipamentoAndOrcamento();
+			if( transaction.saidaEquipamento(equipamento, orcamento)) {
 				Stage stage = (Stage) salvar.getScene().getWindow();
 				stage.close();
 				
@@ -143,22 +136,27 @@ public class SaidaEquipamentoViewController implements Initializable {
 		
 	}
 
-	protected void updateEquipamento() throws NullPointerException{
+	protected void updateEquipamentoAndOrcamento() throws NullPointerException{
 
-//		equipamento.setDataSaida( dataColeta.getText() );
-//		equipamento.setDateSaida(new java.sql.Date(System.currentTimeMillis()));
+		orcamento.setData_saida(new java.sql.Date(System.currentTimeMillis()));
 		switch ( equipamento.getStatus() ) {
 			case 2:
 				equipamento.setStatus( 12 );
+				orcamento.setStatus(12);
 				equipamento.setLaboratorio(true);
+				orcamento.setLaboratorio(true);
 				break;
 			case 3:
 				equipamento.setStatus( 13 );
+				orcamento.setStatus(13);
 				equipamento.setLaboratorio(true);
+				orcamento.setLaboratorio(true);
 				break;
 			default:
-				equipamento.setLaboratorio(false);
+				equipamento.setLaboratorio(true);
+				orcamento.setLaboratorio(true);
 				equipamento.setStatus( 7 );
+				orcamento.setStatus(7);
 				break;
 				
 		}
@@ -168,7 +166,7 @@ public class SaidaEquipamentoViewController implements Initializable {
 	protected Coletor getColetor() {
 		Coletor coletor = new Coletor();
 		if(coleta.getValue()== "" ||  nomeColetor.getText()== "" ) {
-			error( "Campo nulo " ,"O campo nome da Empressa e nome do coletor, não pode estar vazio");
+			erro.setText("O campo nome da Empressa e nome do coletor, não pode estar vazio");
 			return null;
 		}
 		try {	
@@ -176,16 +174,16 @@ public class SaidaEquipamentoViewController implements Initializable {
 				throw new DbException("Empresa não existe");
 			}
 
-			coletor.setEquipamento_id( equipamento.getId() );	
+			coletor.setOrcamento_id( equipamento.getOrcamento_id() );	
 			coletor.setEmpressaName(coleta.getValue());
 			coletor.setNomeColetor(nomeColetor.getText());
 			coletor.setDataHoraColeta( dataColeta.getText() );
 			coletor.setDate(new java.sql.Date(System.currentTimeMillis()));
 			coletor.setHoraColeta( Integer.parseInt( Format.formataTimeInt.format(new Date(System.currentTimeMillis() )  ) ) );
-//			equipamento.setColetor_id( coletorController.add(coletor) );
+			orcamento.setColetor_id( coletorController.add(coletor) );
 			
 		}catch(DbException e2) {
-			error( "Find Empresa" ,"Empresa Não Encontrada");
+			erro.setText("Empresa Não Encontrada");
 			return null;
 		}
 		return coletor;
@@ -215,8 +213,9 @@ public class SaidaEquipamentoViewController implements Initializable {
 		imageInit();
 		
 		nomeEmpressa.setText(equipamento.getEmpressaName());
-//	    data.setText(equipamento.getDataChegada());
-//		ultimaCal.setText(equipamento.getUltimaCalib());
+	    data.setText(Format.formatData.format( equipamento.getDateChegada() ) );
+	    if(equipamento.getUltimaCalibDate()!=null) 
+	    	ultimaCal.setText(Format.formatData.format( equipamento.getUltimaCalibDate() ) );
 		modelo.setText(equipamento.getModelo());
 		ns.setText(equipamento.getNs());
 		pat.setText(equipamento.getPat());
@@ -235,5 +234,17 @@ public class SaidaEquipamentoViewController implements Initializable {
 		pdf.setImage(image);
 	}
 
+	public void addListener() {
+		obsString =  MainViewController.empressaController.findAll();
+		filteredList = new FilteredList<>(obsString);  
+		inputFilter = new InputFilter<String>( coleta, filteredList );
+		coleta.getEditor().textProperty().addListener(inputFilter);	
+	}
+	
+	private void removeListener() {
+		coleta.getEditor().textProperty().removeListener(inputFilter);
+		coleta.setValue("");
+	}
+	
 }
 

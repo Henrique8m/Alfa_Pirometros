@@ -139,7 +139,7 @@ public class OrcamentoInsert implements Initializable {
 	@FXML
 	protected void salvar(ActionEvent event) {
 		orcamentoId = orcamento.getId();
-		Itens itens = new Itens(orcamentoId, true, 0);
+		Itens itens = new Itens(orcamentoId, false , 0);
 		
 		if(obsMateriais.size()>0) {
 			obsMateriais.forEach((orcamento)-> {	

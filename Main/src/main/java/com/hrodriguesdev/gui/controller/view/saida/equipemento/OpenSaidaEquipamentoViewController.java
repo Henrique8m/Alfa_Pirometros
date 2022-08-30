@@ -1,12 +1,12 @@
 package com.hrodriguesdev.gui.controller.view.saida.equipemento;
 
 import java.net.URL;
-import java.util.Date;
 import java.util.ResourceBundle;
 
 import com.hrodriguesdev.entities.Coletor;
 import com.hrodriguesdev.entities.Empressa;
 import com.hrodriguesdev.entities.Equipamento;
+import com.hrodriguesdev.entities.Orcamento;
 import com.hrodriguesdev.relatorio.GeneratorPDF;
 import com.hrodriguesdev.utilitary.Format;
 
@@ -15,8 +15,13 @@ import javafx.stage.Stage;
 
 public class OpenSaidaEquipamentoViewController extends SaidaEquipamentoViewController{
 
-	public OpenSaidaEquipamentoViewController(Equipamento equipamento) {
-		super(equipamento);
+	private Equipamento equipamento;
+	private Orcamento orcamento;
+
+	public OpenSaidaEquipamentoViewController(Equipamento equipamento, Orcamento orcamento) {
+		super(equipamento, orcamento);
+		this.equipamento = equipamento;
+		this.orcamento = orcamento;
 	}
 
 	@Override
@@ -25,7 +30,7 @@ public class OpenSaidaEquipamentoViewController extends SaidaEquipamentoViewCont
 		Coletor coletor = getColetor();
 		Empressa empressa = empressaController.find( equipamento.getEmpressa() );			
 		
-//		pdf.newDocument(coletor, equipamento, empressa);
+		pdf.newDocument(coletor, equipamento, empressa, orcamento);
 		Stage stage = (Stage) salvar.getScene().getWindow();
 		stage.close();
 				
@@ -36,30 +41,23 @@ public class OpenSaidaEquipamentoViewController extends SaidaEquipamentoViewCont
 		super.imageInit();
 		
 		nomeEmpressa.setText(equipamento.getEmpressaName());
-//	    data.setText(equipamento.getDataChegada());
-//		ultimaCal.setText(equipamento.getUltimaCalib());
+	    data.setText(Format.formatData.format( orcamento.getData_chegada() ) );
+	    if(equipamento.getUltimaCalibDate() != null)
+	    	ultimaCal.setText(Format.formatData.format( equipamento.getUltimaCalibDate() ) );
 		modelo.setText(equipamento.getModelo());
 		ns.setText(equipamento.getNs());
 		pat.setText(equipamento.getPat());
-		dataColeta.setText(Format.formataDateTimeString.format(new Date(System.currentTimeMillis() ) ) );	    	    
+		dataColeta.setText(Format.formatData.format( orcamento.getData_saida() ) );	    	    
 		
-//		dataColeta.setText( MainViewController.equipamentoEdit.getDataSaida() );
-//		Coletor coletor = coletorController.findById( MainViewController.equipamentoEdit.getColetor_id() );
-//		nomeColetor.setText( coletor.getNomeColetor() );
-//		coleta.setValue(  coletor.getEmpressaName() );
+		Coletor coletor = coletorController.findById( orcamento.getColetor_id() );
+		nomeColetor.setText( coletor.getNomeColetor() );
+		coleta.setValue(  coletor.getEmpressaName() );
 		
 		nomeColetor.setEditable(false);
 		coleta.setEditable(false);
 		salvar.setVisible(false);
 		addEmpressa.setVisible(false);
-		
-		if(equipamento.getStatus() == 5) {
-			equipamento.setStatus(7);
-			equipamento.setLaboratorio(false);
-			equipamentoController.updatedeNsPatModelo(equipamento);
-			
-		}
-		
+				
 	}	
 
 }

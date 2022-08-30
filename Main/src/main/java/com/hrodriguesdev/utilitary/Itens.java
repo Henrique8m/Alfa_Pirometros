@@ -5,6 +5,7 @@ import java.util.List;
 import com.hrodriguesdev.dao.db.DbException;
 import com.hrodriguesdev.dao.repository.ItensRepository;
 import com.hrodriguesdev.dao.repository.ItensRepositoryFind;
+import com.hrodriguesdev.dao.repository.ItensRepositoryUpdatede;
 import com.hrodriguesdev.dao.repository.OrcamentoRepository;
 import com.hrodriguesdev.entities.EstoqueConsumo;
 import com.hrodriguesdev.entities.EstoqueEletricos;
@@ -300,6 +301,35 @@ public class Itens {
 		obs.addAll(list);
 		
 		return obs;
+	}
+	
+	public boolean setSaida(Long orcamento_id) {
+		
+		ItensRepositoryFind repository = new ItensRepositoryFind();
+		
+		EstoqueConsumo consumo = repository.consumoByOrcamentoId(orcamento_id);
+		EstoqueEstetico estetico = repository.esteticoByOrcamentoId(orcamento_id);
+		EstoqueEletricos eletrico = repository.eletricosByOrcamentoId(orcamento_id);
+		EstoqueEletronicos eletronico = repository.eletronicosByOrcamentoId(orcamento_id);
+		EstoqueSinal sinal = repository.sinalByOrcamentoId(orcamento_id);
+		
+		ItensRepositoryUpdatede repositoryUpdate = new ItensRepositoryUpdatede();
+		consumo.setSaida(true);
+		estetico.setSaida(true);
+		eletrico.setSaida(true);
+		eletronico.setSaida(true);
+		sinal.setSaida(true);
+		
+		repositoryUpdate.updatedeConsumo(consumo);
+		repositoryUpdate.updatedeEletricos(eletrico);
+		repositoryUpdate.updatedeEletronicos(eletronico);
+		repositoryUpdate.updatedeEstetico(estetico);
+		repositoryUpdate.updatedeSinal(sinal);
+		
+		return true;
+	}
+	public boolean setBalanço() {
+		return true;
 	}
 	
 }

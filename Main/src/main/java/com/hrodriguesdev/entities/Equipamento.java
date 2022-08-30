@@ -29,6 +29,7 @@ public class Equipamento implements Serializable {
 	private String statusStr;	
 	private String relatorio;	
 	private Date dateChegada;
+	private Date dateSaida;
 	
 	public Equipamento() {}
 
@@ -66,7 +67,9 @@ public class Equipamento implements Serializable {
 	public void setOrcamento(Orcamento orcamento) {		
 			setStatus( orcamento.getStatus() );
 			setRelatorio( orcamento.getRelatorio() );	
-			setDateChegada( orcamento.getData_chegada() );			
+			setDateChegada( orcamento.getData_chegada() );		
+			if(orcamento.getData_saida()!= null)
+				setDateSaida(orcamento.getData_saida());
 	}
 	
 	public Long getId() {
@@ -182,6 +185,17 @@ public class Equipamento implements Serializable {
 		int date = dateChegada.getDate() + 1;
 		dateChegada.setDate(date);
 		this.dateChegada = dateChegada;
+	}
+	
+	public Date getDateSaida() {
+		return dateSaida;
+	}
+	
+	@SuppressWarnings("deprecation")
+	public void setDateSaida(Date dateSaida) {
+		int date = dateSaida.getDate() + 1;
+		dateSaida.setDate(date);
+		this.dateSaida = dateSaida;
 	}
 	
 	public Date getUltimaCalibDate() {

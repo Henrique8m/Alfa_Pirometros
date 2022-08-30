@@ -151,8 +151,8 @@ public class GeneratorPDF {
 		
 		return "MODELO: " + equipamento.getModelo() + ns
 				+ patrimonio + "\n"
-				+ "DATA DA CHEGADDA: " + orcamento.getData_chegada()
-				+ "  DATA DA SAÍDA: " + orcamento.getData_saida()
+				+ "DATA DA CHEGADDA: " + Format.formatData.format(orcamento.getData_chegada())
+				+ "  DATA DA SAÍDA: " + Format.formatData.format(orcamento.getData_saida())
 				;
 			
 	}

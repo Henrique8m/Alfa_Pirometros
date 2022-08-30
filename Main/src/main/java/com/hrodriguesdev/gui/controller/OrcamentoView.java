@@ -11,6 +11,7 @@ import com.hrodriguesdev.entities.Orcamento;
 import com.hrodriguesdev.gui.alert.Alerts;
 import com.hrodriguesdev.gui.controller.view.main.MainViewController;
 import com.hrodriguesdev.utilitary.Format;
+import com.hrodriguesdev.utilitary.Itens;
 import com.hrodriguesdev.utilitary.NewView;
 
 import javafx.event.ActionEvent;
@@ -38,6 +39,7 @@ public class OrcamentoView implements Initializable {
 	
 	private Equipamento equipamento;
 	private Orcamento orcamento;
+	private Itens itens;
 	
 	public OrcamentoView(Equipamento equipamento, Orcamento orcamento) {
 		this.equipamento = equipamento;
@@ -46,6 +48,7 @@ public class OrcamentoView implements Initializable {
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		itens = new Itens();
 		if( equipamento.getRelatorio() != null && relatorioN.getText() != "" ) {
 			relatorioN.setText( equipamento.getRelatorio() );
 		}
@@ -84,6 +87,7 @@ public class OrcamentoView implements Initializable {
 			break;
 		case 13:
 			aprovado.setVisible(true);
+			naoAprovado.setVisible(true);
 			break;
 		case 4:
 			liberado.setVisible(true);
@@ -94,6 +98,7 @@ public class OrcamentoView implements Initializable {
 		default:
 			orcamentoEnviado.setVisible(true);
 			aprovadoSemOrca.setVisible(true);
+			
 			break;
 		}
 		
@@ -121,28 +126,36 @@ public class OrcamentoView implements Initializable {
 	@FXML
 	protected void liberado(ActionEvent e) {
 		update(5);
+		itens.setSaida(orcamento.getId());
 		liberado.setVisible(false);
+		aprovadoSemOrca.setVisible(false);
 	}
 	
 	@FXML
 	private void aguardandoAprovacao(ActionEvent e) {
 		update(3);
 		orcamentoEnviado.setVisible(false);
+		aprovadoSemOrca.setVisible(false);
 	}
 	
 	@FXML
 	private void aguardandoReparo(ActionEvent e) {
 		update(4);
+		aprovado.setVisible(false);
+		naoAprovado.setVisible(false);
 	}
 	
 	@FXML
 	private void naoAprovado(ActionEvent e) {
 		update(6);
-	}
+		naoAprovado.setVisible(false);
+		aprovado.setVisible(false);
+		}
 	
 	@FXML
 	private void liberadoSemOrcamento(ActionEvent e) {
 		update(9);
+		itens.setSaida(orcamento.getId());
 		liberado.setVisible(false);
 	}
 			

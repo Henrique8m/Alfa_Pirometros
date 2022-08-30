@@ -31,6 +31,11 @@ public class OrcamentoController {
 		return equipamentoController.findById(orcamento);
 		
 	}
+	
+	public ObservableList<Orcamento> findAllIdEquipamento(Long equipamento_id) {	
+		return orcamentoService.findAllIdEquipamento(equipamento_id);
+		
+	}
 
 	public boolean existOrcamento(Long equipamento_id) {		
 		return orcamentoService.existOrcamento(equipamento_id);

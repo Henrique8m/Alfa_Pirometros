@@ -196,7 +196,10 @@
                               <Insets bottom="40.0" />
                            </opaqueInsets>
                         </Button>
-                        <Text fx:id="erro" fill="RED" layoutX="70.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="39.13671875" />
+                        <Text fx:id="erro" fill="RED" layoutX="14.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="516.0">
+                           <font>
+                              <Font size="14.0" />
+                           </font></Text>
                      </children>
                   </AnchorPane>
                </children>

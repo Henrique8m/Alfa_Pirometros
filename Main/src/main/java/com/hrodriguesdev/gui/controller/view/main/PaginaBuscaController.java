@@ -19,13 +19,19 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
 public class PaginaBuscaController extends EquipamentoMainView implements Initializable{
-
+  
+	private Equipamento equipamento;
+	
 	@FXML
 	private TextField nomeEmpressaClick, nsClick, patClick,
 			modeloClick, dataChegadaClick, relatorioClick, 
@@ -44,53 +50,139 @@ public class PaginaBuscaController extends EquipamentoMainView implements Initia
     private FilteredList<String> filteredList;
 	private InputFilter<String> inputFilter;
 		
+
+	@FXML
+	private TableView<Orcamento> tableOrcamentos;
+	private static ObservableList<Orcamento> obsOrcamento = FXCollections.observableArrayList();
+	
+	@FXML
+	private TableColumn<Orcamento, String>  relatorioTable;
+	
+	@FXML
+	private TableColumn<Orcamento, Date>  chegadaTable;
+	
+	@FXML
+	private TableColumn<Orcamento, Date>  saidaTable;
+	
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		super.initialize(location, resources);
 		addListener();
+		startTableOrcamentos();
 	}
+
 	
+	private void startTableOrcamentos() {
+		tableOrcamentos.setEditable(false);	 
+		
+		relatorioTable.setCellValueFactory(new PropertyValueFactory<Orcamento, String>("relatorio"));		
+
+		chegadaTable.setCellValueFactory(new PropertyValueFactory<>("data_chegada"));
+		chegadaTable.setCellFactory( cell -> {
+            return new TableCell<Orcamento, Date>() {
+                @Override
+                protected void updateItem( Date item, boolean empty) {
+                   super.updateItem(item, empty);
+                   if( !empty ) {
+                	   try {
+                		   setText( Format.formatData.format(item) );
+                	   }catch(NullPointerException e){
+                           setText("");
+                           setGraphic(null);
+                	   }
+                      
+                   }else {
+                      setText("");
+                      setGraphic(null);
+                   }
+                }
+            };        
+         } );		
+		
+		saidaTable.setCellValueFactory(new PropertyValueFactory<>("data_saida"));
+		saidaTable.setCellFactory( cell -> {
+            return new TableCell<Orcamento, Date>() {
+                @Override
+                protected void updateItem( Date item, boolean empty) {
+                   super.updateItem(item, empty);
+                   if( !empty ) {
+                	   try {
+                		   setText( Format.formatData.format(item) );
+                	   }catch(NullPointerException e){
+                           setText("");
+                           setGraphic(null);
+                	   }
+                      
+                   }else {
+                      setText("");
+                      setGraphic(null);
+                   }
+                }
+            };        
+         } );		
+		
+		
+		
+		tableOrcamentos.setItems(obsOrcamento);
+		
+	}
+
+
 	@FXML
 	public void click(MouseEvent event) throws SQLException {
+//		super.click(event);
+//		if(event.getTarget() == tableFindEquipamentos)
 		if(tableFindEquipamentos.getSelectionModel().getSelectedItem() != null) {
-			Equipamento equipamento = tableFindEquipamentos.getSelectionModel().getSelectedItem();
-			Coletor coletor = new Coletor();
-			Orcamento orcamento = orcamentoController.getOrcamento( equipamento.getOrcamento_id() ); 
-			
-			if( orcamento.getColetor_id() != null && orcamento.getColetor_id() != 0 ) {
-//				coletor = MainViewController.coletorController.findById( equipamento.getColetor_id() );
-			}
-
-			nomeEmpressaClick.setText(equipamento.getEmpressaName());
-			if( equipamento.getNs()!= null ) nsClick.setText(equipamento.getNs() );
-			if( equipamento.getPat()!= null ) patClick.setText(equipamento.getPat() );
-			if( equipamento.getModelo()!= null ) modeloClick.setText( equipamento.getModelo() );
-			if( equipamento.getDateChegada()!= null ) {
-				Date date = new Date( equipamento.getDateChegada().getTime() );
-				dataChegadaClick.setText( Format.formatData.format(date) ); 
-			}
-			if( equipamento.getRelatorio() != null ) relatorioClick.setText(equipamento.getRelatorio() );
-			if( equipamento.getUltimaCalibDate() != null ) {
-				Date date = new Date( equipamento.getUltimaCalibDate().getTime() );
-				ultimaCalClick.setText( Format.formatData.format(date) );
-			}
-			if( orcamento.getData_saida() != null ) {
-				Date date = new Date( orcamento.getData_saida().getTime() );
-				dataSaidaClick.setText( Format.formatData.format(date) );
-			}
-			if( orcamento.getColetor_id() != null && orcamento.getColetor_id() != 0) {
-				empressaColetaClick.setText(coletor.getEmpressaName() );
-				Date date = new Date(coletor.getDate().getTime() );		
-				dataColetaClick.setText( Format.formatData.format(date));
-				nomeColetorClick.setText( coletor.getNomeColetor() );
-			}
-			if( orcamento.getItem() != null ) itensOrcamentoClick.setText(orcamento.getItem());
-			
+			equipamento = tableFindEquipamentos.getSelectionModel().getSelectedItem();
+			obsOrcamento = orcamentoController.findAllIdEquipamento(equipamento.getId());
+			tableOrcamentos.setItems(obsOrcamento);
+			tableOrcamentos.refresh();
 		}
 	}	
 	
 	@FXML
-	private void enter(KeyEvent event) {
+	public void clickOrcamento(MouseEvent event) throws SQLException {
+		if(equipamento != null)
+			if(tableOrcamentos.getSelectionModel().getSelectedItem() != null) {
+					Coletor coletor = new Coletor();
+					Orcamento orcamento = orcamentoController.getOrcamento( tableOrcamentos.getSelectionModel().getSelectedItem().getId() ); 
+					
+					if( orcamento.getColetor_id() != null && orcamento.getColetor_id() != 0 ) {
+		//				coletor = MainViewController.coletorController.findById( equipamento.getColetor_id() );
+					}
+		
+					nomeEmpressaClick.setText(equipamento.getEmpressaName());
+					if( equipamento.getNs()!= null ) nsClick.setText(equipamento.getNs() );
+					if( equipamento.getPat()!= null ) patClick.setText(equipamento.getPat() );
+					if( equipamento.getModelo()!= null ) modeloClick.setText( equipamento.getModelo() );
+					if( equipamento.getDateChegada()!= null ) {
+						Date date = new Date( equipamento.getDateChegada().getTime() );
+						dataChegadaClick.setText( Format.formatData.format(date) ); 
+					}
+					if( equipamento.getRelatorio() != null ) relatorioClick.setText(equipamento.getRelatorio() );
+					if( equipamento.getUltimaCalibDate() != null ) {
+						Date date = new Date( equipamento.getUltimaCalibDate().getTime() );
+						ultimaCalClick.setText( Format.formatData.format(date) );
+					}
+					if( orcamento.getData_saida() != null ) {
+						Date date = new Date( orcamento.getData_saida().getTime() );
+						dataSaidaClick.setText( Format.formatData.format(date) );
+					}
+					if( orcamento.getColetor_id() != null && orcamento.getColetor_id() != 0) {
+						empressaColetaClick.setText(coletor.getEmpressaName() );
+						if(coletor.getDate()!= null)
+							dataColetaClick.setText( Format.formatData.format(coletor.getDate()));
+						nomeColetorClick.setText( coletor.getNomeColetor() );
+					}
+					if( orcamento.getItem() != null ) itensOrcamentoClick.setText(orcamento.getItem());
+					
+				}
+	}
+	
+	@FXML
+	protected void enter(KeyEvent event) {
+		super.enter(event);
 		if(event.getTarget() == textEmpresa)
 			try {
 				buscar(new ActionEvent());
