@@ -23,6 +23,7 @@ public class Orcamento {
 	private Long eletronicos;
 	private Long estetico;
 	private Long sinal;
+	private Long cabos;
 	
 	public Orcamento(Long equipamento_id, Date data_chegada, Boolean laboratorio) {
 		this.setEquipamento_id(equipamento_id);
@@ -51,6 +52,7 @@ public class Orcamento {
 			eletronicos = rs.getLong("eletronicos");
 			estetico = rs.getLong("estetico");
 			sinal = rs.getLong("sinal");
+			setCabos(rs.getLong("cabos"));
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -120,6 +122,7 @@ public class Orcamento {
 		Item = item;
 		this.quantidade = quantidade;
 	}
+	
 	public Orcamento() {}
 	
 
@@ -246,7 +249,7 @@ public class Orcamento {
 				return "Plug Macho K";			
 			case "TomadaS":
 				
-				return "Tomada S";				
+				return "Tomada S";	
 			default:
 				return Item;
 			}
@@ -314,13 +317,14 @@ public class Orcamento {
 	}
 
 	public static List<Orcamento> getList(String itens, EstoqueConsumo consumo2, EstoqueEstetico estetico2,
-			EstoqueEletricos eletrico, EstoqueEletronicos eletronico, EstoqueSinal sinal2) {
+			EstoqueEletricos eletrico, EstoqueEletronicos eletronico, EstoqueSinal sinal2, EstoqueCabos cabos) {
 		List<Orcamento> list = new ArrayList<>();
 		list.addAll(EstoqueConsumo.orcamentoListConsumo(consumo2));
 		list.addAll(EstoqueEstetico.orcamentoListEstetico(estetico2));
 		list.addAll(EstoqueEletricos.orcamentoListEletrico(eletrico));
 		list.addAll(EstoqueEletronicos.orcamentoListEletronico(eletronico));
 		list.addAll(EstoqueSinal.orcamentoListSinal(sinal2));
+		list.addAll(EstoqueCabos.cabosListSinal(cabos));
 		if(!itens.isBlank()) {
 			String[] Itens = itens.split("\n");
 			for(String newIten: Itens) {
@@ -329,6 +333,14 @@ public class Orcamento {
 		}
 		
 		return list;
+	}
+
+	public Long getCabos() {
+		return cabos;
+	}
+
+	public void setCabos(Long cabos) {
+		this.cabos = cabos;
 	}
 
 }

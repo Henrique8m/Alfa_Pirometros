@@ -7,6 +7,7 @@ import com.hrodriguesdev.dao.repository.ItensRepository;
 import com.hrodriguesdev.dao.repository.ItensRepositoryFind;
 import com.hrodriguesdev.dao.repository.ItensRepositoryUpdatede;
 import com.hrodriguesdev.dao.repository.OrcamentoRepository;
+import com.hrodriguesdev.entities.EstoqueCabos;
 import com.hrodriguesdev.entities.EstoqueConsumo;
 import com.hrodriguesdev.entities.EstoqueEletricos;
 import com.hrodriguesdev.entities.EstoqueEletronicos;
@@ -24,8 +25,12 @@ public class Itens {
 	private EstoqueConsumo consumo;
 	private EstoqueEstetico estetico;
 	private EstoqueSinal sinal;
+	private EstoqueCabos cabos;
+	private ItensRepositoryFind repository;
 		
-	public Itens() {}
+	public Itens() {
+		repository = new ItensRepositoryFind();
+	}
 	
 	public Itens(Long orcamento_id, boolean saida, int nfe) {
 		eletricos(orcamento_id, saida, nfe);
@@ -33,6 +38,7 @@ public class Itens {
 		consumo(orcamento_id, saida, nfe);
 		estetico(orcamento_id, saida, nfe);
 		sinal(orcamento_id, saida, nfe);
+		cabos(orcamento_id, saida, nfe);
 	}
 
 	public boolean addItem(String item, int quantidade) {
@@ -242,6 +248,31 @@ public class Itens {
 				sinal.setTomadaS(quantidade);
 
 				return true;	
+//				"", "", "", "", "", ""
+			case "Cabo_S_borracha":
+				cabos.setS_borracha(quantidade);
+				
+				return true;
+			case "Cabo_S_miolo_lanca":
+				cabos.setS_miolo(quantidade);
+				
+				return true;
+			case "Cabo_S_extensao":
+				cabos.setS_extensao(quantidade);
+				
+				return true;
+			case "Cabo_K_borracha":
+				cabos.setK_borracha(quantidade);
+				
+				return true;
+			case "Cabo_K_Fibra_Fibra":
+				cabos.setK_miolo(quantidade);
+				
+				return true;
+			case "Cabo_K_Fibra_Silicone":
+				cabos.setK_extensao(quantidade);
+				
+				return true;
 				
 			default:
 				return false;
@@ -276,6 +307,11 @@ public class Itens {
 			sinal = new EstoqueSinal(orcamento_id, saida, nfe, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 	}
 	
+	private void cabos(Long orcamento_id, boolean saida, int nfe) {
+		if(cabos == null)
+			cabos = new EstoqueCabos(orcamento_id, saida, nfe, 0, 0, 0, 0, 0, 0);
+	}
+	
 	public boolean saveAll(Orcamento orcamento) throws DbException {
 		ItensRepository repository = new ItensRepository();
 		OrcamentoRepository orcamentoRe = new OrcamentoRepository();		
@@ -285,6 +321,7 @@ public class Itens {
 		orcamento.setConsumo( repository.saveConsumo(consumo) );	
 		orcamento.setEstetico( repository.saveEstetico(estetico) );
 		orcamento.setSinal( repository.saveSinal(sinal) );
+		orcamento.setCabos( repository.saveCabos(cabos) );
 		return orcamentoRe.setIdItens(orcamento);
 	}
 
@@ -295,8 +332,9 @@ public class Itens {
 		EstoqueEletricos eletrico = repository.eletricosByOrcamentoId(id);
 		EstoqueEletronicos eletronico = repository.eletronicosByOrcamentoId(id);
 		EstoqueSinal sinal = repository.sinalByOrcamentoId(id);
+		EstoqueCabos cabos = repository.cabosByOrcamentoId(id);
 		
-		List<Orcamento> list = Orcamento.getList(itens ,consumo, estetico, eletrico, eletronico, sinal);
+		List<Orcamento> list = Orcamento.getList(itens ,consumo, estetico, eletrico, eletronico, sinal, cabos);
 		ObservableList<Orcamento> obs = FXCollections.observableArrayList();
 		obs.addAll(list);
 		
@@ -312,6 +350,7 @@ public class Itens {
 		EstoqueEletricos eletrico = repository.eletricosByOrcamentoId(orcamento_id);
 		EstoqueEletronicos eletronico = repository.eletronicosByOrcamentoId(orcamento_id);
 		EstoqueSinal sinal = repository.sinalByOrcamentoId(orcamento_id);
+		EstoqueCabos cabos = repository.cabosByOrcamentoId(orcamento_id);
 		
 		ItensRepositoryUpdatede repositoryUpdate = new ItensRepositoryUpdatede();
 		consumo.setSaida(true);
@@ -319,17 +358,44 @@ public class Itens {
 		eletrico.setSaida(true);
 		eletronico.setSaida(true);
 		sinal.setSaida(true);
+		cabos.setSaida(true);
 		
 		repositoryUpdate.updatedeConsumo(consumo);
 		repositoryUpdate.updatedeEletricos(eletrico);
 		repositoryUpdate.updatedeEletronicos(eletronico);
 		repositoryUpdate.updatedeEstetico(estetico);
 		repositoryUpdate.updatedeSinal(sinal);
+		repositoryUpdate.updatedeCabos(cabos);
 		
 		return true;
 	}
+	
 	public boolean setBalanço() {
 		return true;
+	}
+
+	public EstoqueConsumo getEstoqueConsumo() {		
+		return repository.consumoEstoque();
+	}
+	
+	public EstoqueEletricos getEstoqueEletrico() {		
+		return repository.eletricosEstoque();
+	}
+	
+	public EstoqueEletronicos getEstoqueEletronicos() {		
+		return repository.eletronicosEstoque();
+	}
+	
+	public EstoqueEstetico getEstoqueEstetico() {		
+		return repository.esteticoEstoque();
+	}
+	
+	public EstoqueSinal getEstoqueSinal() {		
+		return repository.sinalEstoque();
+	}
+	
+	public EstoqueCabos getEstoqueCabos() {		
+		return repository.cabosEstoque();
 	}
 	
 }

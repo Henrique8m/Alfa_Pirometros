@@ -8,6 +8,7 @@ import java.sql.Statement;
 
 import com.hrodriguesdev.dao.db.DB;
 import com.hrodriguesdev.dao.db.DbException;
+import com.hrodriguesdev.entities.EstoqueCabos;
 import com.hrodriguesdev.entities.EstoqueConsumo;
 import com.hrodriguesdev.entities.EstoqueEletricos;
 import com.hrodriguesdev.entities.EstoqueEletronicos;
@@ -272,6 +273,58 @@ public class ItensRepositoryUpdatede {
 			pst.setInt(10, sinal.getPlugMK());
 			pst.setInt(11, sinal.getTomadaS());
 			pst.setLong(12, sinal.getId());
+			
+			int rowsAccepted = pst.executeUpdate();
+			conn.commit();
+			if(rowsAccepted>0)
+				ok=true;
+		
+		}catch(DbException | SQLException e) {
+			e.printStackTrace();
+			try {
+				conn.rollback();
+				throw new DbException("Transaction rolled back! Caused by: " + e.getMessage() );
+			}catch (SQLException e1) {
+				throw new DbException("Error trying to rollback! Caused by: \" + e1.getMessage()");
+			}
+			
+		}
+		finally {
+			DB.closeStatement(pst);
+			DB.closeConnection();
+			
+		}
+		return ok;
+	}
+	
+	public boolean updatedeCabos(EstoqueCabos cabos) {
+		boolean ok = false;		
+		try {
+			conn = DB.getConnection();
+			conn.setAutoCommit(false);
+			pst = conn.prepareStatement("UPDATE tb_itens_cabos "
+											+ "SET orcamento_id = ? ,"
+											+ " saida = ? ,"
+											+ " nfe = ? ,"
+											+ " s_borracha = ? ,"
+											+ " s_miolo = ? ,"
+											+ " s_extensao = ? ,"
+											+ " k_borracha = ? ,"
+											+ " k_miolo = ? ,"
+											+ " k_extensao = ? "				
+											+ " WHERE "
+											+ "(id = ?)");
+			
+			pst.setLong(1, cabos.getOrcamento_id());
+			pst.setInt(2, cabos.getNfe());
+			pst.setBoolean(3, cabos.getSaida());
+			pst.setInt(4, cabos.getS_borracha());
+			pst.setInt(5, cabos.getS_miolo());
+			pst.setInt(6, cabos.getS_extensao());
+			pst.setInt(7, cabos.getK_borracha());
+			pst.setInt(8, cabos.getK_miolo());
+			pst.setInt(9, cabos.getK_extensao());
+			pst.setLong(10, cabos.getId());
 			
 			int rowsAccepted = pst.executeUpdate();
 			conn.commit();

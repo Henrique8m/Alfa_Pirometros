@@ -37,12 +37,20 @@ public class AlfaPirometrosApplication extends Application{
 	
 	
 	
-	public static ObservableList<String> obsPecasEstoque = FXCollections.observableArrayList("Calibracao", "Cabo miolo de lanca",
+	public static ObservableList<String> obsPecasEstoque = FXCollections.observableArrayList(
+			
 			"BotaoLiga", "BoMeFIIFIIIIndicmax", "CaixaBat",
-			"FontCarbIndic", "FontCarbDelta", "PinFemeAliFII", "PinFemeAliFIII", "BatFIIFIII", "BatDescartavel", "BatInditemp", "BatLitio", "CarrEcil", "CarrItalterm",
+			"FontCarbIndic", "FontCarbDelta", "PinFemeAliFII", "PinFemeAliFIII", 
+			"BatFIIFIII", "BatDescartavel", "BatInditemp", "BatLitio", "CarrEcil", "CarrItalterm",
+			
 			"PCIFIII", "PCIFKal", "DispFKal", "FIII", "Indicmax", "CIFII", "CIIndicmax", "sirene", 
 			"MascaraFII", "MascaraFKal", "MascaraFIII", "MascaraCarbo", "MascaraIndic", "EtiqLatFII", "EtiqLatFIII", "EtiqTrasFII", "Punho", 
-			"ReceptaculoS", "ReceptaculoSU", "ReceptaculoEcil", "ReceptaculoK", "PlugFS", "PlugFK", "PlugMS", "PlugMK", "TomadaS"
+			
+			"ReceptaculoS", "ReceptaculoSU", "ReceptaculoEcil", "ReceptaculoK", "PlugFS", "PlugFK", "PlugMS", "PlugMK", "TomadaS",
+			
+			"Cabo_S_borracha", "Cabo_S_miolo_lanca", "Cabo_S_extensao", "Cabo_K_borracha", "Cabo_K_Fibra_Fibra", "Cabo_K_Fibra_Silicone", 
+			
+			"Calibracao"
 			);
 	public static ObservableList<String> obsQuantidade = FXCollections.observableArrayList("1","2","3","4","5","6","7","8","9","10");
 

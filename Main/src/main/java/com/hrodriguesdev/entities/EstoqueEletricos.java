@@ -18,16 +18,16 @@ public class EstoqueEletricos implements Serializable {
 	private Long orcamento_id;
 	private Boolean saida;
 	private int nfe;
-	private int FontCarbIndic;
-	private int FontCarbDelta;
-	private int PinFemeAliFII;
-	private int PinFemeAliFIII;
-	private int BatFIIFIII;
-	private int BatDescartavel;
-	private int BatInditemp;
-	private int BatLitio;
-	private int CarrEcil;
-	private int CarrItalterm;
+	private Integer FontCarbIndic;
+	private Integer FontCarbDelta;
+	private Integer PinFemeAliFII;
+	private Integer PinFemeAliFIII;
+	private Integer BatFIIFIII;
+	private Integer BatDescartavel;
+	private Integer BatInditemp;
+	private Integer BatLitio;
+	private Integer CarrEcil;
+	private Integer CarrItalterm;
 	
 	public EstoqueEletricos(Long orcamento_id, Boolean saida, int nfe, int fontCarbIndic, int fontCarbDelta,
 			int pinFemeAliFII, int pinFemeAliFIII, int batFIIFIII, int batDescartavel, int batInditemp, int batLitio,
@@ -72,6 +72,52 @@ public class EstoqueEletricos implements Serializable {
 
 	}
 	
+	public void remove(ResultSet rs) {
+		try {			
+
+			FontCarbIndic =- rs.getInt("font_carb_indic");
+			FontCarbDelta =- rs.getInt("font_carb_delta");
+			PinFemeAliFII =- rs.getInt("pin_femea_ali_fii");	
+			PinFemeAliFIII =- rs.getInt("pin_femea_ali_fiii");
+			BatFIIFIII =- rs.getInt("bat_fii_fiii");	
+			BatDescartavel =- rs.getInt("bat_descartavel");
+			BatInditemp =- rs.getInt("bat_inditemp");	
+			BatLitio =- rs.getInt("bat_litio");	
+			CarrEcil =- rs.getInt("carr_ecil");	
+			CarrItalterm =- rs.getInt("carr_italterm");	
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+		}
+		
+	}
+	
+	public void add(ResultSet rs) {
+		try {			
+
+			FontCarbIndic =+ rs.getInt("font_carb_indic");
+			FontCarbDelta =+ rs.getInt("font_carb_delta");
+			PinFemeAliFII =+ rs.getInt("pin_femea_ali_fii");	
+			PinFemeAliFIII =+ rs.getInt("pin_femea_ali_fiii");
+			BatFIIFIII =+ rs.getInt("bat_fii_fiii");	
+			BatDescartavel =+ rs.getInt("bat_descartavel");
+			BatInditemp =+ rs.getInt("bat_inditemp");	
+			BatLitio =+ rs.getInt("bat_litio");	
+			CarrEcil =+ rs.getInt("carr_ecil");	
+			CarrItalterm =+ rs.getInt("carr_italterm");	
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+		}
+		
+	}
+	
+	public EstoqueEletricos() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public static List<Orcamento> orcamentoListEletrico(EstoqueEletricos eletricos) {
 		List<Orcamento> list = new ArrayList<>();
 		
@@ -230,6 +276,8 @@ public class EstoqueEletricos implements Serializable {
 	public Long getId() {
 		return id;
 	}
+
+
 
 	
 }

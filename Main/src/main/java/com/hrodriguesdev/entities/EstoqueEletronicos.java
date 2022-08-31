@@ -19,14 +19,14 @@ public class EstoqueEletronicos implements Serializable {
 	private Long orcamento_id;
 	private Boolean saida;
 	private int nfe;
-	private int sirene;
-	private int PCIFIII;
-	private int PCIFKal;
-	private int DispFKal;
-	private int FIII;
-	private int Indicmax;
-	private int CIFII;
-	private int CIIndicmax;
+	private Integer sirene;
+	private Integer PCIFIII;
+	private Integer PCIFKal;
+	private Integer DispFKal;
+	private Integer FIII;
+	private Integer Indicmax;
+	private Integer CIFII;
+	private Integer CIIndicmax;
 	
 	public EstoqueEletronicos(Long orcamento_id, Boolean saida, int nfe, int sirene, int pCIFIII, int pCIFKal,
 			int dispFKal, int fIII, int indicmax, int cIFII, int cIIndicmax) {
@@ -66,6 +66,49 @@ public class EstoqueEletronicos implements Serializable {
 
 	}
 	
+
+	public void remove(ResultSet rs) {
+		try {			
+
+			sirene =- rs.getInt("sirene");
+			PCIFIII =- rs.getInt("pci_fiii");
+			PCIFKal =- rs.getInt("pci_fkal");	
+			DispFKal =- rs.getInt("disp_fkal");
+			FIII =- rs.getInt("fiii");	
+			Indicmax =- rs.getInt("indicmax");
+			CIFII =- rs.getInt("ci_fii");	
+			CIIndicmax =- rs.getInt("ci_indicmax");	
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+		}
+
+	}
+	
+	public void add(ResultSet rs) {
+		try {			
+
+			sirene =+ rs.getInt("sirene");
+			PCIFIII =+ rs.getInt("pci_fiii");
+			PCIFKal =+ rs.getInt("pci_fkal");	
+			DispFKal =+ rs.getInt("disp_fkal");
+			FIII =+ rs.getInt("fiii");	
+			Indicmax =+ rs.getInt("indicmax");
+			CIFII =+ rs.getInt("ci_fii");	
+			CIIndicmax =+ rs.getInt("ci_indicmax");	
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+		}
+
+	}
+	
+	public EstoqueEletronicos() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public static List<Orcamento> orcamentoListEletronico(EstoqueEletronicos eletronicos) {
 		List<Orcamento> list = new ArrayList<>();
 		
@@ -200,6 +243,7 @@ public class EstoqueEletronicos implements Serializable {
 	public Long getId() {
 		return id;
 	}
+
 	
 	
 

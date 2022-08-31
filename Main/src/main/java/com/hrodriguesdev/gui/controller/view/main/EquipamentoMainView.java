@@ -9,6 +9,7 @@ import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.entities.Orcamento;
 import com.hrodriguesdev.gui.alert.Alerts;
 import com.hrodriguesdev.gui.controller.EquipamentoEntradaViewController;
+import com.hrodriguesdev.gui.controller.EstoqueController;
 import com.hrodriguesdev.gui.controller.view.saida.equipemento.OpenSaidaEquipamentoViewController;
 import com.hrodriguesdev.gui.controller.view.saida.equipemento.SaidaEquipamentoViewController;
 import com.hrodriguesdev.utilitary.NewView;
@@ -93,8 +94,8 @@ public class EquipamentoMainView extends LogoutMainView {
     }
 	
 	@FXML
-    private void updateStatus(ActionEvent e) throws IOException {
-
+    private void estoque(ActionEvent e) throws IOException {
+		NewView.addChildren((Node) NewView.loadFXML("estoque" , new EstoqueController() ));
     }
 			
 	@FXML

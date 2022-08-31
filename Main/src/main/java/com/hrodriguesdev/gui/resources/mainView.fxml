@@ -33,7 +33,7 @@
                      <children>
                         <HBox minHeight="300.0" minWidth="100.0" prefHeight="697.0" prefWidth="1250.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <VBox>
+                              <VBox prefHeight="1031.0" prefWidth="1506.0">
                                  <children>
                                     <AnchorPane minHeight="-Infinity" minWidth="844.0" prefHeight="33.0" prefWidth="1500.0">
                                        <children>
@@ -138,10 +138,13 @@
                                              </font>
                                           </Button>
                                           <ImageView fx:id="logoYgg" fitHeight="244.0" fitWidth="313.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="5" />
-                                          <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#updateStatus" prefHeight="45.0" prefWidth="185.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Atualizar Status" GridPane.rowIndex="4">
+                                          <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#estoque" prefHeight="45.0" prefWidth="185.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Estoque" GridPane.rowIndex="4">
                                              <graphic>
                                                 <ImageView fx:id="refresh" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" />
                                              </graphic>
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
                                           </Button>
                                           <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#addOrcamento" prefHeight="45.0" prefWidth="185.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Inserir Orçamento" GridPane.rowIndex="1">
                                              <graphic>

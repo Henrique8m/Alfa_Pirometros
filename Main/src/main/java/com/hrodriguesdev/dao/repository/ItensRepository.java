@@ -8,6 +8,7 @@ import java.sql.Statement;
 
 import com.hrodriguesdev.dao.db.DB;
 import com.hrodriguesdev.dao.db.DbException;
+import com.hrodriguesdev.entities.EstoqueCabos;
 import com.hrodriguesdev.entities.EstoqueConsumo;
 import com.hrodriguesdev.entities.EstoqueEletricos;
 import com.hrodriguesdev.entities.EstoqueEletronicos;
@@ -259,9 +260,9 @@ public class ItensRepository {
 					
 //			11
 			
-			pst.setLong(1, sinal.getOrcamento_id());
-			pst.setInt(2, sinal.getNfe());
-			pst.setBoolean(3, sinal.getSaida());
+			pst.setLong(1, sinal.getOrcamento_id());			
+			pst.setBoolean(2, sinal.getSaida());
+			pst.setInt(3, sinal.getNfe());
 			pst.setInt(4, sinal.getReceptaculoS());
 			pst.setInt(5, sinal.getReceptaculoSU());
 			pst.setInt(6, sinal.getReceptaculoEcil());
@@ -270,6 +271,61 @@ public class ItensRepository {
 			pst.setInt(9, sinal.getPlugMS());
 			pst.setInt(10, sinal.getPlugMK());
 			pst.setInt(11, sinal.getTomadaS());
+			
+			int rowsAffected = pst.executeUpdate();
+			conn.commit();
+			
+			if(rowsAffected >0) {
+				rs = pst.getGeneratedKeys();
+				while(rs.next())
+					return rs.getLong(1);
+			}else {
+				throw new DbException("Erro ao salvar");
+			}
+					
+		}catch (SQLException e) {
+			throw new DbException("SQL error" + e.getMessage());
+		}
+		finally {
+			DB.closeResultSet(rs);
+			DB.closeStatement(pst);
+			DB.closeConnection();
+			
+		}
+		throw new DbException("Erro desconhecido");
+		
+	}
+	
+	public Long saveCabos(EstoqueCabos cabos) throws DbException {
+		EstoqueCabos obj = find.cabosByOrcamentoId(cabos.getOrcamento_id());
+		if(obj != null) {
+			cabos.setId(obj.getId());
+			updated.updatedeCabos(cabos);
+			return cabos.getId();
+		}
+		try {
+			conn = DB.getConnection();
+			conn.setAutoCommit(false);
+			pst = conn.prepareStatement(
+					"INSERT INTO tb_itens_cabos "
+					+ "(orcamento_id, saida, nfe, s_borracha, s_miolo, s_extensao, k_borracha, k_miolo, k_extensao) "
+					 
+					+ "VALUES "
+					+ "(?,?,?,?,?,?,?,?,?)",				
+					Statement.RETURN_GENERATED_KEYS);
+					
+//			11
+			
+			pst.setLong(1, cabos.getOrcamento_id());			
+			pst.setBoolean(2, cabos.getSaida());
+			pst.setInt(3, cabos.getNfe());
+			pst.setInt(4, cabos.getS_borracha());
+			pst.setInt(5, cabos.getS_miolo());
+			pst.setInt(6, cabos.getS_extensao());
+			pst.setInt(7, cabos.getK_borracha());
+			pst.setInt(8, cabos.getK_miolo());
+			pst.setInt(9, cabos.getK_extensao());
+
 			
 			int rowsAffected = pst.executeUpdate();
 			conn.commit();

@@ -69,7 +69,50 @@ public class EstoqueSinal implements Serializable {
 		}
 
 	}
+
+	public void remove(ResultSet rs) {
+		try {			
+
+			ReceptaculoS =- rs.getInt("receptaculo_s");
+			ReceptaculoSU =- rs.getInt("receptaculo_su");
+			ReceptaculoEcil =- rs.getInt("receptaculo_ecil");	
+			ReceptaculoK =- rs.getInt("receptaculo_k");
+			PlugFS =- rs.getInt("plug_fs");
+			PlugFK = 0;
+			PlugMS =- rs.getInt("plug_ms");
+			PlugMK =- rs.getInt("plug_mk");
+			TomadaS =- rs.getInt("tomada_s");
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+		}
+
+	}
+	public void add(ResultSet rs) {
+		try {			
+
+			ReceptaculoS =+ rs.getInt("receptaculo_s");
+			ReceptaculoSU =+ rs.getInt("receptaculo_su");
+			ReceptaculoEcil =+ rs.getInt("receptaculo_ecil");	
+			ReceptaculoK =+ rs.getInt("receptaculo_k");
+			PlugFS =+ rs.getInt("plug_fs");
+			PlugFK =+ 0;
+			PlugMS =+ rs.getInt("plug_ms");
+			PlugMK =+ rs.getInt("plug_mk");
+			TomadaS =+ rs.getInt("tomada_s");
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+		}
+
+	}
 	
+	public EstoqueSinal() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public static List<Orcamento> orcamentoListSinal(EstoqueSinal sinal) {
 		List<Orcamento> list = new ArrayList<>();
 		
@@ -219,7 +262,6 @@ public class EstoqueSinal implements Serializable {
 
 		return list;
 	}
-	
 	
 
 }

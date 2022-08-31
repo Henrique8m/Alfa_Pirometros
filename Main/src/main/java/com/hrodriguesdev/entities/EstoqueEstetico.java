@@ -18,15 +18,15 @@ public class EstoqueEstetico implements Serializable {
 	private Long orcamento_id;
 	private Boolean saida;
 	private int nfe;
-	private int MascaraFII;
-	private int MascaraFKal;
-	private int MascaraFIII;
-	private int MascaraCarbo;
-	private int MascaraIndic;
-	private int EtiqLatFII;
-	private int EtiqLatFIII;
-	private int EtiqTrasFII;
-	private int Punho;
+	private Integer MascaraFII;
+	private Integer MascaraFKal;
+	private Integer MascaraFIII;
+	private Integer MascaraCarbo;
+	private Integer MascaraIndic;
+	private Integer EtiqLatFII;
+	private Integer EtiqLatFIII;
+	private Integer EtiqTrasFII;
+	private Integer Punho;
 	
 	public EstoqueEstetico(Long orcamento_id, Boolean saida, int nfe, int mascaraFII, int mascaraFKal, int mascaraFIII,
 			int mascaraCarbo, int mascaraIndic, int etiqLatFII, int etiqLatFIII, int etiqTrasFII, int punho) {
@@ -68,6 +68,50 @@ public class EstoqueEstetico implements Serializable {
 
 	}
 	
+	public void remove(ResultSet rs) {
+		try {			
+
+			MascaraFII =- rs.getInt("mascara_fii");
+			MascaraFKal =- rs.getInt("mascara_fkal");
+			MascaraFIII =- rs.getInt("mascara_fiii");	
+			MascaraCarbo =- rs.getInt("mascara_carbo");
+			MascaraIndic =- rs.getInt("mascara_indic");
+			EtiqLatFII =- rs.getInt("etiq_lat_fii");
+			EtiqLatFIII =- rs.getInt("etiq_lat_fiii");
+			EtiqTrasFII =- rs.getInt("etiq_tras_fii");
+			Punho =- rs.getInt("punho");
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+		}
+
+	}
+	
+	public void add(ResultSet rs) {
+		try {			
+
+			MascaraFII =+ rs.getInt("mascara_fii");
+			MascaraFKal =+ rs.getInt("mascara_fkal");
+			MascaraFIII =+ rs.getInt("mascara_fiii");	
+			MascaraCarbo =+ rs.getInt("mascara_carbo");
+			MascaraIndic =+ rs.getInt("mascara_indic");
+			EtiqLatFII =+ rs.getInt("etiq_lat_fii");
+			EtiqLatFIII =+ rs.getInt("etiq_lat_fiii");
+			EtiqTrasFII =+ rs.getInt("etiq_tras_fii");
+			Punho =+ rs.getInt("punho");
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+		}
+
+	}
+	
+	public EstoqueEstetico() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public static List<Orcamento> orcamentoListEstetico(EstoqueEstetico estetico) {
 		List<Orcamento> list = new ArrayList<>();
 		
@@ -215,6 +259,7 @@ public class EstoqueEstetico implements Serializable {
 	public Long getId() {
 		return id;
 	}
+
 	
 	
 

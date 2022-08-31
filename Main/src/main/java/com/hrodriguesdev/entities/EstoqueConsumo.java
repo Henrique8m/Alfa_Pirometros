@@ -18,9 +18,9 @@ public class EstoqueConsumo implements Serializable {
 	private Long orcamento_id;
 	private Boolean saida;
 	private int nfe;
-	private int BotaoLiga;
-	private int BoMeFIIFIIIIndicmax;
-	private int CaixaBat;
+	private Integer BotaoLiga;
+	private Integer BoMeFIIFIIIIndicmax;
+	private Integer CaixaBat;
 	
 	public EstoqueConsumo(Long orcamento_id, Boolean saida, int nfe, int botaoLiga, int boMeFIIFIIIIndicmax,
 			int caixaBat) {
@@ -50,6 +50,14 @@ public class EstoqueConsumo implements Serializable {
 
 	}
 		
+	public EstoqueConsumo() {
+		
+		BotaoLiga = 0;
+		BoMeFIIFIIIIndicmax = 0;
+		CaixaBat = 0;
+
+	}
+
 	public static List<Orcamento> orcamentoListConsumo(EstoqueConsumo consumo) {
 		List<Orcamento> list = new ArrayList<>();
 		
@@ -103,27 +111,52 @@ public class EstoqueConsumo implements Serializable {
 	public void setNfe(int nfe) {
 		this.nfe = nfe;
 	}
-	public int getBotaoLiga() {
+	public Integer getBotaoLiga() {
 		return BotaoLiga;
 	}
-	public void setBotaoLiga(int botaoLiga) {
+	public void setBotaoLiga(Integer botaoLiga) {
 		BotaoLiga = botaoLiga;
 	}
-	public int getBoMeFIIFIIIIndicmax() {
+	public Integer getBoMeFIIFIIIIndicmax() {
 		return BoMeFIIFIIIIndicmax;
 	}
-	public void setBoMeFIIFIIIIndicmax(int boMeFIIFIIIIndicmax) {
+	public void setBoMeFIIFIIIIndicmax(Integer boMeFIIFIIIIndicmax) {
 		BoMeFIIFIIIIndicmax = boMeFIIFIIIIndicmax;
 	}
-	public int getCaixaBat() {
+	public Integer getCaixaBat() {
 		return CaixaBat;
 	}
-	public void setCaixaBat(int caixaBat) {
+	public void setCaixaBat(Integer caixaBat) {
 		CaixaBat = caixaBat;
 	}
 	public Long getId() {
 		return id;
 	}
 
+	public void remove(ResultSet rs) {
+		try {			
+			BotaoLiga -= rs.getInt("b_liga");
+			BoMeFIIFIIIIndicmax -= rs.getInt("b_m_forneros");
+			CaixaBat -= rs.getInt("caixa_bateria");	
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+		}
+
+	}
+
+	public void add(ResultSet rs) {
+		try {			
+			BotaoLiga =+ rs.getInt("b_liga");
+			BoMeFIIFIIIIndicmax =+ rs.getInt("b_m_forneros");
+			CaixaBat =+ rs.getInt("caixa_bateria");	
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+		}
+
+	}
 	
 }
