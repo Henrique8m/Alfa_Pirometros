@@ -117,33 +117,60 @@ public class EstoqueEstetico implements Serializable {
 
 	public static List<Orcamento> orcamentoListEstetico(EstoqueEstetico estetico) {
 		List<Orcamento> list = new ArrayList<>();
-		
-		if( estetico.getMascaraFII() > 0) 
+		try {
+
+					if( estetico.getMascaraFII() > 0) 
 			list.add(new Orcamento("MascaraFII", estetico.getMascaraFII() ) );
-		
+		}catch(NullPointerException e) {}
+
+		try {
 		if( estetico.getMascaraFKal() > 0) 
 			list.add(new Orcamento("MascaraFKal", estetico.getMascaraFKal() ) );
-		
+			
+		}catch(NullPointerException e) {}
+		try {
 		if( estetico.getMascaraFIII() > 0) 
 			list.add(new Orcamento("MascaraFIII", estetico.getMascaraFIII() ) );
-		
+			
+		}catch(NullPointerException e) {}
+		try {
 		if( estetico.getMascaraCarbo() > 0) 
 			list.add(new Orcamento("MascaraCarbo", estetico.getMascaraCarbo() ) );
-		
+			
+		}catch(NullPointerException e) {}
+		try {
 		if( estetico.getMascaraIndic() > 0) 
 			list.add(new Orcamento("MascaraIndic", estetico.getMascaraIndic() ) );
-		
+			
+		}catch(NullPointerException e) {}
+		try {
 		if( estetico.getEtiqLatFII() > 0) 
 			list.add(new Orcamento("EtiqLatFII", estetico.getEtiqLatFII() ) );
-		
-		if( estetico.getEtiqLatFIII() > 0) 
+			
+		}catch(NullPointerException e) {}
+		try {
+	if( estetico.getEtiqLatFIII() > 0) 
 			list.add(new Orcamento("EtiqLatFIII", estetico.getEtiqLatFIII() ) );
+			
+		}catch(NullPointerException e) {}
 		
+		try {
+
 		if( estetico.getEtiqTrasFII() > 0) 
 			list.add(new Orcamento("EtiqTrasFII", estetico.getEtiqTrasFII() ) );
+			
+		}catch(NullPointerException e) {}
+		try {
 		
 		if( estetico.getPunho() > 0) 
 			list.add(new Orcamento("Punho", estetico.getPunho() ) );
+			
+		}catch(NullPointerException e) {}
+
+		
+	
+		
+
 		
 		return list;
 	}

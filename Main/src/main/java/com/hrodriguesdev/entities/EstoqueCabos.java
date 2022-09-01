@@ -19,7 +19,7 @@ public class EstoqueCabos implements Serializable {
 	private Long orcamento_id;
 	private Boolean saida;
 	private int nfe;
-	private Integer s_borracha;
+	private int s_borracha;
 	private Integer s_miolo;
 	private Integer s_extensao;
 	private Integer k_borracha;
@@ -57,7 +57,6 @@ public class EstoqueCabos implements Serializable {
 			k_miolo = rs.getInt("k_miolo");
 			k_extensao = rs.getInt("k_extensao");
 			this.setEntrada(rs.getBoolean("entrada"));
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 			
@@ -103,24 +102,51 @@ public class EstoqueCabos implements Serializable {
 
 	public static List<Orcamento> cabosListSinal(EstoqueCabos sinal) {
 		List<Orcamento> list = new ArrayList<>();
-		
-		if( sinal.getS_borracha() > 0) 
+		try {
+			
+		if(sinal.getS_borracha() > 0) 
 			list.add(new Orcamento("Cabo_S_borracha", sinal.getS_borracha() ) );
 		
-		if( sinal.getS_miolo() > 0) 
+		}catch(NullPointerException e) {}
+
+		try {
+
+				if( sinal.getS_miolo() > 0) 
 			list.add(new Orcamento("Cabo_S_miolo_lanca", sinal.getS_miolo() ) );
 		
+		}catch(NullPointerException e) {}
+		
+		try {
+
+
 		if( sinal.getS_extensao() > 0) 
 			list.add(new Orcamento("Cabo_S_extensao", sinal.getS_extensao() ) );
-		
+			
+		}catch(NullPointerException e) {}
+		try {
+
+					
 		if( sinal.getK_borracha() > 0) 
 			list.add(new Orcamento("Cabo_K_borracha", sinal.getK_borracha())  );
 		
+		}catch(NullPointerException e) {}
+		try {
+			
 		if( sinal.getK_miolo() > 0) 
 			list.add(new Orcamento("Cabo_K_Fibra_Fibra", sinal.getK_miolo() ) );
 		
+			
+		}catch(NullPointerException e) {}
+		
+		try {
+			
 		if( sinal.getK_extensao() > 0) 
 			list.add(new Orcamento("Cabo_K_Fibra_Silicone", sinal.getK_extensao() ) );
+		
+		}catch(NullPointerException e) {}
+		
+
+
 		
 		return list;
 	}
@@ -141,7 +167,7 @@ public class EstoqueCabos implements Serializable {
 	public void setSaida(Boolean saida) {
 		this.saida = saida;
 	}
-	public int getNfe() {
+	public Integer getNfe() {
 		return nfe;
 	}
 	public void setNfe(int nfe) {
@@ -156,7 +182,7 @@ public class EstoqueCabos implements Serializable {
 		this.s_borracha = s_borracha;
 	}
 
-	public Integer getS_miolo() {
+	public int getS_miolo() {
 		return s_miolo;
 	}
 
@@ -164,7 +190,7 @@ public class EstoqueCabos implements Serializable {
 		this.s_miolo = s_miolo;
 	}
 
-	public Integer getS_extensao() {
+	public int getS_extensao() {
 		return s_extensao;
 	}
 
@@ -172,7 +198,7 @@ public class EstoqueCabos implements Serializable {
 		this.s_extensao = s_extensao;
 	}
 
-	public Integer getK_borracha() {
+	public int getK_borracha() {
 		return k_borracha;
 	}
 
@@ -180,7 +206,7 @@ public class EstoqueCabos implements Serializable {
 		this.k_borracha = k_borracha;
 	}
 
-	public Integer getK_miolo() {
+	public int getK_miolo() {
 		return k_miolo;
 	}
 
@@ -188,7 +214,7 @@ public class EstoqueCabos implements Serializable {
 		this.k_miolo = k_miolo;
 	}
 
-	public Integer getK_extensao() {
+	public int getK_extensao() {
 		return k_extensao;
 	}
 

@@ -123,36 +123,57 @@ public class EstoqueEletricos implements Serializable {
 
 	public static List<Orcamento> orcamentoListEletrico(EstoqueEletricos eletricos) {
 		List<Orcamento> list = new ArrayList<>();
-		
-		if( eletricos.getFontCarbIndic() > 0) 
+		try {
+	if( eletricos.getFontCarbIndic() > 0) 
 			list.add(new Orcamento("FontCarbIndic", eletricos.getFontCarbIndic() ) );
-		
+			
+		}catch(NullPointerException e) {}
+		try {
 		if( eletricos.getFontCarbDelta() > 0) 
 			list.add(new Orcamento("FontCarbDelta", eletricos.getFontCarbDelta() ) );
-		
+			
+		}catch(NullPointerException e) {}
+		try {
 		if( eletricos.getPinFemeAliFII() > 0) 
 			list.add(new Orcamento("PinFemeAliFII", eletricos.getPinFemeAliFII() ) );
-		
+			
+		}catch(NullPointerException e) {}
+		try {
 		if( eletricos.getPinFemeAliFIII() > 0) 
 			list.add(new Orcamento("PinFemeAliFIII", eletricos.getPinFemeAliFIII() ) );
-		
+			
+		}catch(NullPointerException e) {}
+		try {
 		if( eletricos.getBatFIIFIII() > 0) 
 			list.add(new Orcamento("BatFIIFIII", eletricos.getBatFIIFIII() ) );
-		
+			
+		}catch(NullPointerException e) {}
+		try {
 		if( eletricos.getBatDescartavel() > 0) 
 			list.add(new Orcamento("BatDescartavel", eletricos.getBatDescartavel() ) );
-		
+
+			
+		}catch(NullPointerException e) {}
+		try {
 		if( eletricos.getBatInditemp() > 0) 
 			list.add(new Orcamento("BatInditemp", eletricos.getBatInditemp() ) );
-		
+			
+		}catch(NullPointerException e) {}
+		try {
 		if( eletricos.getBatLitio() > 0) 
 			list.add(new Orcamento("BatLitio", eletricos.getBatLitio() ) );
-		
+			
+		}catch(NullPointerException e) {}
+		try {
 		if( eletricos.getCarrEcil() > 0) 
 			list.add(new Orcamento("CarrEcil", eletricos.getCarrEcil() ) );
-		
+			
+		}catch(NullPointerException e) {}
+		try {
 		if( eletricos.getCarrItalterm() > 0) 
 			list.add(new Orcamento("CarrItalterm", eletricos.getCarrItalterm() ) );
+			
+		}catch(NullPointerException e) {}
 		
 		return list;
 	}

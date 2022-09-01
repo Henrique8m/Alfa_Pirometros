@@ -118,32 +118,66 @@ public class EstoqueSinal implements Serializable {
 	public static List<Orcamento> orcamentoListSinal(EstoqueSinal sinal) {
 		List<Orcamento> list = new ArrayList<>();
 		
-		if( sinal.getReceptaculoS() > 0) 
-			list.add(new Orcamento("ReceptaculoS", sinal.getReceptaculoS() ) );
+		try {
+
+			if( sinal.getReceptaculoS() > 0) 
+				list.add(new Orcamento("ReceptaculoS", sinal.getReceptaculoS() ) );
 		
-		if( sinal.getReceptaculoSU() > 0) 
-			list.add(new Orcamento("ReceptaculoSU", sinal.getReceptaculoSU() ) );
+		}catch(NullPointerException e) {}
+
+		try {
+
+			
+			if( sinal.getReceptaculoSU() > 0) 
+				list.add(new Orcamento("ReceptaculoSU", sinal.getReceptaculoSU() ) );
+			
+			
+
+		}catch(NullPointerException e) {}
 		
-		if( sinal.getReceptaculoEcil() > 0) 
+		try {
+	if( sinal.getReceptaculoEcil() > 0) 
 			list.add(new Orcamento("ReceptaculoEcil", sinal.getReceptaculoEcil() ) );
-		
-		if( sinal.getReceptaculoK() > 0) 
+			
+		}catch(NullPointerException e) {}
+	
+		try {
+
+					if( sinal.getReceptaculoK() > 0) 
 			list.add(new Orcamento("ReceptaculoK", sinal.getReceptaculoK())  );
-		
-		if( sinal.getPlugFS() > 0) 
+		}catch(NullPointerException e) {}
+		try {
+
+				if( sinal.getPlugFS() > 0) 
 			list.add(new Orcamento("PlugFS", sinal.getPlugFS() ) );
 		
+		}catch(NullPointerException e) {}
+
+		try {
+	
 		if( sinal.getPlugFK() > 0) 
 			list.add(new Orcamento("PlugFK", sinal.getPlugFK() ) );
-		
+			
+		}catch(NullPointerException e) {}
+
+		try {
 		if( sinal.getPlugMS() > 0) 
 			list.add(new Orcamento("PlugMS", sinal.getPlugMS() ) );
-		
+			
+		}catch(NullPointerException e) {}
+		try {
+
+					
 		if( sinal.getPlugMK() > 0) 
 			list.add(new Orcamento("PlugMK", sinal.getPlugMK() ) );
-		
-		if( sinal.getTomadaS() > 0) 
+		}catch(NullPointerException e) {}
+
+		try {
+
+					if( sinal.getTomadaS() > 0) 
 			list.add(new Orcamento("TomadaS", sinal.getTomadaS() ) );
+		}catch(NullPointerException e) {}
+
 		
 		return list;
 	}

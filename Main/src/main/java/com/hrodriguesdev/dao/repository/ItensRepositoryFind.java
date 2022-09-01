@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.hrodriguesdev.dao.db.DB;
 import com.hrodriguesdev.dao.db.DbException;
@@ -307,6 +309,29 @@ public class ItensRepositoryFind {
 			
 		}
 		return cabos;
+	}
+
+	public List<EstoqueConsumo> findAllConsumo() {
+		List<EstoqueConsumo> list = new ArrayList<>();
+		try {
+			conn = DB.getConnection();			
+			st = conn.createStatement();			
+			rs = st.executeQuery("SELECT * FROM alfaestoque.tb_itens_consumo;");			
+			
+			while (rs.next())  
+				list.add( new EstoqueConsumo(rs) );
+						
+		}catch(DbException | SQLException e) {
+			e.printStackTrace();
+			throw new DbException(e.getMessage());
+
+		}finally {
+			DB.closeResultSet(rs);
+			DB.closeStatement(st);
+			DB.closeConnection();
+			
+		}
+		return list;
 	}
 	
 }

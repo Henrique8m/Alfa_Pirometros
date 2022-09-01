@@ -327,12 +327,37 @@ public class Orcamento {
 	public static List<Orcamento> getList(String itens, EstoqueConsumo consumo2, EstoqueEstetico estetico2,
 			EstoqueEletricos eletrico, EstoqueEletronicos eletronico, EstoqueSinal sinal2, EstoqueCabos cabos) {
 		List<Orcamento> list = new ArrayList<>();
-		list.addAll(EstoqueConsumo.orcamentoListConsumo(consumo2));
-		list.addAll(EstoqueEstetico.orcamentoListEstetico(estetico2));
-		list.addAll(EstoqueEletricos.orcamentoListEletrico(eletrico));
-		list.addAll(EstoqueEletronicos.orcamentoListEletronico(eletronico));
-		list.addAll(EstoqueSinal.orcamentoListSinal(sinal2));
-		list.addAll(EstoqueCabos.cabosListSinal(cabos));
+		try {
+			list.addAll(EstoqueConsumo.orcamentoListConsumo(consumo2));
+		}catch(NullPointerException e){
+			e.printStackTrace();
+		}
+		try {
+			list.addAll(EstoqueEstetico.orcamentoListEstetico(estetico2));
+		}catch(NullPointerException e){
+			e.printStackTrace();
+		}
+		try {
+			list.addAll(EstoqueEletricos.orcamentoListEletrico(eletrico));
+		}catch(NullPointerException e){
+			e.printStackTrace();
+		}
+		try {
+			list.addAll(EstoqueEletronicos.orcamentoListEletronico(eletronico));
+		}catch(NullPointerException e){
+			e.printStackTrace();
+		}
+		try {
+				list.addAll(EstoqueSinal.orcamentoListSinal(sinal2));
+		}catch(NullPointerException e){
+			e.printStackTrace();
+		}
+		try {
+			list.addAll(EstoqueCabos.cabosListSinal(cabos));
+		}catch(NullPointerException e){
+			e.printStackTrace();
+		}
+		
 		if(!itens.isBlank()) {
 			String[] Itens = itens.split("\n");
 			for(String newIten: Itens) {

@@ -11,6 +11,7 @@ import com.hrodriguesdev.entities.Coletor;
 import com.hrodriguesdev.entities.Orcamento;
 import com.hrodriguesdev.gui.controller.view.main.MainViewController;
 import com.hrodriguesdev.utilitary.Format;
+import com.hrodriguesdev.utilitary.Itens;
 import com.hrodriguesdev.utilitary.NewView;
 
 import javafx.collections.FXCollections;
@@ -22,13 +23,13 @@ import javafx.scene.Node;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 
 public class RelatoriosController implements Initializable{
 	private OrcamentoController orcamentoController = new OrcamentoController();
+	private Itens itens = new Itens();
 
 	@FXML
 	private TextField ns, pat,
@@ -37,7 +38,7 @@ public class RelatoriosController implements Initializable{
 	@FXML
 	private TableView<Orcamento> tableOrcamentos;
 	private ObservableList<Orcamento> obsOrcamento = FXCollections.observableArrayList();
-	
+		
 	@FXML
 	private TableColumn<Orcamento, String>  relatorioTable;
 	
@@ -57,8 +58,13 @@ public class RelatoriosController implements Initializable{
 	private TableColumn<Orcamento, String>  empressa;
 	
 	@FXML
-	private TextArea itensOrcamento;
-	
+	protected TableView<Orcamento> tableOrcamento = new TableView<>();
+	protected ObservableList<Orcamento> obsMateriais = FXCollections.observableArrayList();
+	@FXML
+	protected TableColumn<Orcamento, String> item;
+	@FXML
+	protected TableColumn<Orcamento, Integer> quantidade;
+		
 	@FXML
 	public void clickOrcamento(MouseEvent event) throws SQLException {
 			if(tableOrcamentos.getSelectionModel().getSelectedItem() != null) {
@@ -69,12 +75,22 @@ public class RelatoriosController implements Initializable{
 						coletor = MainViewController.coletorController.findById( orcamento.getColetor_id() );
 						dataColeta.setText( Format.formatData.format(coletor.getDate()));
 						nomeColetor.setText( coletor.getNomeColetor() );
+					}else {
+						dataColeta.setText( "" );
+						nomeColetor.setText( "" );
 					}
-		
-				
-					if( orcamento.getItem() != null ) itensOrcamento.setText(orcamento.getItem());
-					
-				}
+					if(orcamento.getId()!=0 && orcamento.getId()!=null) {
+						obsMateriais = itens.getAllItens(orcamento.getId(), orcamento.getItem() );
+						tableOrcamento.setItems(obsMateriais);
+						tableOrcamento.refresh();
+						
+					}
+					else {
+						obsMateriais = FXCollections.observableArrayList();
+						tableOrcamento.setItems(obsMateriais);
+						tableOrcamento.refresh();
+					}
+			}
 	}
 	
 	private void startTableOrcamentos() {
@@ -129,7 +145,9 @@ public class RelatoriosController implements Initializable{
             };        
          } );		
 		
-		
+		item.setCellValueFactory(new PropertyValueFactory<Orcamento, String>("Item") );
+		quantidade.setCellValueFactory(new PropertyValueFactory<Orcamento, Integer>("quantidade"));
+		tableOrcamento.setItems(obsMateriais);
 		
 		tableOrcamentos.setItems(obsOrcamento);
 		

@@ -5,7 +5,6 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -56,6 +55,9 @@
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="MODELO" wrappingWidth="75.13671875" />
                                           <TextField fx:id="modelo" editable="false" focusTraversable="false" minWidth="102.5" prefHeight="25.0" prefWidth="138.0" />
                                        </children>
+                                       <padding>
+                                          <Insets left="20.0" />
+                                       </padding>
                                     </VBox>
                                     <VBox minWidth="100.0" prefWidth="164.0">
                                        <HBox.margin>
@@ -66,18 +68,6 @@
                                           <TextField fx:id="ultimaCal" editable="false" focusTraversable="false" prefHeight="25.0" prefWidth="160.0" />
                                        </children>
                                     </VBox>
-                                 </children>
-                                 <padding>
-                                    <Insets left="20.0" right="20.0" top="20.0" />
-                                 </padding>
-                              </HBox>
-                              <HBox>
-                                 <padding>
-                                    <Insets left="20.0" right="20.0" top="20.0" />
-                                 </padding>
-                              </HBox>
-                              <HBox prefHeight="71.0" prefWidth="685.0">
-                                 <children>
                                     <VBox minWidth="100.0" prefWidth="147.0">
                                        <HBox.margin>
                                           <Insets left="20.0" />
@@ -97,6 +87,11 @@
                                        </HBox.margin>
                                     </VBox>
                                  </children>
+                                 <padding>
+                                    <Insets left="20.0" right="20.0" top="20.0" />
+                                 </padding>
+                              </HBox>
+                              <HBox>
                                  <padding>
                                     <Insets left="20.0" right="20.0" top="20.0" />
                                  </padding>
@@ -125,11 +120,15 @@
                                     <Insets left="10.0" top="10.0" />
                                  </padding>
                               </TableView>
-                              <TextArea fx:id="itensOrcamento" focusTraversable="false" minWidth="225.0" prefHeight="456.0" prefWidth="300.0">
-                                 <padding>
-                                    <Insets left="10.0" top="10.0" />
-                                 </padding>
-                              </TextArea>
+                              <TableView fx:id="tableOrcamento" minHeight="300.0" minWidth="300.0" style="-fx-background-radius: 10;">
+                                 <columns>
+                                    <TableColumn fx:id="item" minWidth="100.0" prefWidth="500.0" text="Item" />
+                                    <TableColumn fx:id="quantidade" minWidth="50.0" prefWidth="94.0" text="Quantidade" />
+                                 </columns>
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
+                              </TableView>
                            </children>
                         </HBox>
                      </children>
@@ -165,14 +164,6 @@
                <graphic>
                   <ImageView fx:id="entradaMaterialImg" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" />
                </graphic>
-            </Button>
-            <Button fx:id="salvarSaida" mnemonicParsing="false" onAction="#salvarSaida" prefHeight="45.0" prefWidth="185.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Salvar" visible="false" GridPane.rowIndex="4">
-               <graphic>
-                  <ImageView fx:id="saidaMaterialImg1" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" />
-               </graphic>
-               <font>
-                  <Font size="14.0" />
-               </font>
             </Button>
          </children>
          <padding>

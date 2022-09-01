@@ -3,11 +3,9 @@ package com.hrodriguesdev.service;
 import java.sql.SQLException;
 import java.util.List;
 
-import com.hrodriguesdev.dao.repository.ColetorRepository;
 import com.hrodriguesdev.dao.repository.ItensRepositoryFind;
 import com.hrodriguesdev.dao.repository.OrcamentoRepository;
-import com.hrodriguesdev.entities.Coletor;
-import com.hrodriguesdev.entities.EstoqueCabos;
+import com.hrodriguesdev.entities.EstoqueConsumo;
 import com.hrodriguesdev.entities.Orcamento;
 
 import javafx.collections.FXCollections;
@@ -15,9 +13,7 @@ import javafx.collections.ObservableList;
 
 public class OrcamentoService {
 	private OrcamentoRepository repository = new OrcamentoRepository();
-	private ItensRepositoryFind itensFind = new ItensRepositoryFind();
-	private ColetorRepository coletorRepository = new ColetorRepository();
-	
+	private ItensRepositoryFind itensFind = new ItensRepositoryFind();	
 
 	public Long addOrcamento(Orcamento orcamento) {
 		
@@ -47,22 +43,24 @@ public class OrcamentoService {
 	public ObservableList<Orcamento> findAll() {
 		ObservableList<Orcamento> obs = FXCollections.observableArrayList();
 		obs.addAll(repository.findAll());
+		List<EstoqueConsumo> consumoList = itensFind.findAllConsumo();
 		obs.forEach((orcamento)->{
-			EstoqueCabos cabos = itensFind.cabosByOrcamentoId(orcamento.getId());
-			orcamento.setNfe(cabos.getNfe());
-			if(cabos.getEntrada())
-				orcamento.setSituation("Entrada para Estoque");
-			else if(cabos.getSaida() && orcamento.getEquipamento_id() != 0)
-				orcamento.setSituation("Manutenção em Equipamento");
-			else if(cabos.getSaida() && orcamento.getEquipamento_id() == 0)
-				orcamento.setSituation("Manutenção em area ou venda");
-			Coletor coletor;
-			if(orcamento.getColetor_id() != null && orcamento.getColetor_id() != 0) {
-				coletor = coletorRepository.findColetor(orcamento.getColetor_id());
-				orcamento.setEmpressa(coletor.getEmpressaName());
+			
+			consumoList.forEach((consumo)->{
 				
-			}
-				
+				if(consumo.getOrcamento_id() == orcamento.getId()) {
+					if(consumo.getNfe()!= null)
+						orcamento.setNfe(consumo.getNfe());
+					if(consumo.getEntrada())
+						orcamento.setSituation("Entrada para Estoque");
+					else if(consumo.getSaida() && orcamento.getEquipamento_id() != 0)
+						orcamento.setSituation("Manutenção em Equipamento");
+					else if(consumo.getSaida() && orcamento.getEquipamento_id() == 0)
+						orcamento.setSituation("Manutenção em area ou venda");
+				}
+
+			});
+			
 		});
 		
 		return obs;
