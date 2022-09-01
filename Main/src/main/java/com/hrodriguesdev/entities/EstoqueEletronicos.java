@@ -27,8 +27,9 @@ public class EstoqueEletronicos implements Serializable {
 	private Integer Indicmax;
 	private Integer CIFII;
 	private Integer CIIndicmax;
+	private Boolean entrada;
 	
-	public EstoqueEletronicos(Long orcamento_id, Boolean saida, int nfe, int sirene, int pCIFIII, int pCIFKal,
+	public EstoqueEletronicos(Boolean entrada, Long orcamento_id, Boolean saida, int nfe, int sirene, int pCIFIII, int pCIFKal,
 			int dispFKal, int fIII, int indicmax, int cIFII, int cIIndicmax) {
 		super();
 		this.orcamento_id = orcamento_id;
@@ -42,6 +43,7 @@ public class EstoqueEletronicos implements Serializable {
 		Indicmax = indicmax;
 		CIFII = cIFII;
 		CIIndicmax = cIIndicmax;
+		this.entrada = entrada;
 	}
 	
 	public EstoqueEletronicos(ResultSet rs) {
@@ -58,6 +60,7 @@ public class EstoqueEletronicos implements Serializable {
 			Indicmax = rs.getInt("indicmax");
 			CIFII = rs.getInt("ci_fii");	
 			CIIndicmax = rs.getInt("ci_indicmax");	
+			this.entrada = rs.getBoolean("entrada");
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -242,6 +245,14 @@ public class EstoqueEletronicos implements Serializable {
 	}
 	public Long getId() {
 		return id;
+	}
+
+	public Boolean getEntrada() {
+		return entrada;
+	}
+
+	public void setEntrada(Boolean entrada) {
+		this.entrada = entrada;
 	}
 
 	

@@ -35,9 +35,9 @@ public class ItensRepository {
 			conn.setAutoCommit(false);
 			pst = conn.prepareStatement(
 					"INSERT INTO tb_itens_eletricos "
-					+ "(orcamento_id, nfe, saida, font_carb_indic, font_carb_delta, pin_femea_ali_fii, pin_femea_ali_fiii, bat_fii_fiii, bat_descartavel, bat_inditemp, bat_litio, carr_ecil, carr_italterm ) "
+					+ "(orcamento_id, nfe, saida, font_carb_indic, font_carb_delta, pin_femea_ali_fii, pin_femea_ali_fiii, bat_fii_fiii, bat_descartavel, bat_inditemp, bat_litio, carr_ecil, carr_italterm , entrada) "
 					+ "VALUES "
-					+ "(?,?,?,?,?,?,?,?,?,?,?,?,?)",				
+					+ "(?,?,?,?,?,?,?,?,?,?,?,?,?,?)",				
 					Statement.RETURN_GENERATED_KEYS);
 					
 			pst.setLong(1, eletricos.getOrcamento_id());
@@ -53,6 +53,7 @@ public class ItensRepository {
 			pst.setInt(11, eletricos.getBatLitio());
 			pst.setInt(12, eletricos.getCarrEcil());
 			pst.setInt(13, eletricos.getCarrItalterm());
+			pst.setBoolean(14, eletricos.getEntrada());
 			
 			int rowsAffected = pst.executeUpdate();
 			conn.commit();
@@ -90,9 +91,9 @@ public class ItensRepository {
 			conn.setAutoCommit(false);
 			pst = conn.prepareStatement(
 					"INSERT INTO tb_itens_eletronicos "
-					+ "(orcamento_id, nfe, saida, sirene, pci_fiii, pci_fkal, disp_fkal, fiii, indicmax, ci_fii, ci_indicmax ) "
+					+ "(orcamento_id, nfe, saida, sirene, pci_fiii, pci_fkal, disp_fkal, fiii, indicmax, ci_fii, ci_indicmax , entrada) "
 					+ "VALUES "
-					+ "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",				
+					+ "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)",				
 					Statement.RETURN_GENERATED_KEYS);
 					
 //			11
@@ -108,6 +109,7 @@ public class ItensRepository {
 			pst.setInt(9, eletronicos.getIndicmax());
 			pst.setInt(10, eletronicos.getCIFII());
 			pst.setInt(11, eletronicos.getCIIndicmax());
+			pst.setBoolean(12, eletronicos.getEntrada());
 			
 			int rowsAffected = pst.executeUpdate();
 			conn.commit();
@@ -146,9 +148,9 @@ public class ItensRepository {
 			conn.setAutoCommit(false);
 			pst = conn.prepareStatement(
 					"INSERT INTO tb_itens_consumo "
-					+ "(orcamento_id, nfe, saida, b_liga, b_m_forneros, caixa_bateria ) "
+					+ "(orcamento_id, nfe, saida, b_liga, b_m_forneros, caixa_bateria , entrada) "
 					+ "VALUES "
-					+ "(?,?,?,?,?,?)",				
+					+ "(?,?,?,?,?,?,?)",				
 					Statement.RETURN_GENERATED_KEYS);
 					
 //			6
@@ -159,6 +161,7 @@ public class ItensRepository {
 			pst.setInt(4, consumo.getBotaoLiga());
 			pst.setInt(5, consumo.getBoMeFIIFIIIIndicmax());
 			pst.setInt(6, consumo.getCaixaBat());
+			pst.setBoolean(7, consumo.getEntrada());
 			
 			int rowsAffected = pst.executeUpdate();
 			conn.commit();
@@ -197,9 +200,9 @@ public class ItensRepository {
 			conn.setAutoCommit(false);
 			pst = conn.prepareStatement(
 					"INSERT INTO tb_itens_estetico "
-					+ "(orcamento_id, nfe, saida, mascara_fii, mascara_fkal, mascara_fiii, mascara_carbo, mascara_indic, etiq_lat_fii, etiq_lat_fiii, etiq_tras_fii, punho ) "
+					+ "(orcamento_id, nfe, saida, mascara_fii, mascara_fkal, mascara_fiii, mascara_carbo, mascara_indic, etiq_lat_fii, etiq_lat_fiii, etiq_tras_fii, punho, entrada) "
 					+ "VALUES "
-					+ "(?,?,?,?,?,?,?,?,?,?,?,?)",				
+					+ "(?,?,?,?,?,?,?,?,?,?,?,?,?)",				
 					Statement.RETURN_GENERATED_KEYS);
 					
 //			12
@@ -216,6 +219,7 @@ public class ItensRepository {
 			pst.setInt(10, estetico.getEtiqLatFIII());
 			pst.setInt(11, estetico.getEtiqTrasFII());
 			pst.setInt(12, estetico.getPunho());
+			pst.setBoolean(13, estetico.getEntrada() );
 			
 			int rowsAffected = pst.executeUpdate();
 			conn.commit();
@@ -253,9 +257,9 @@ public class ItensRepository {
 			conn.setAutoCommit(false);
 			pst = conn.prepareStatement(
 					"INSERT INTO tb_itens_sinal "
-					+ "(orcamento_id, saida, nfe, receptaculo_s, receptaculo_su, receptaculo_ecil, receptaculo_k, plug_fs, plug_ms, plug_mk, tomada_s) "
+					+ "(orcamento_id, saida, nfe, receptaculo_s, receptaculo_su, receptaculo_ecil, receptaculo_k, plug_fs, plug_ms, plug_mk, tomada_s, entrada) "
 					+ "VALUES "
-					+ "(?,?,?,?,?,?,?,?,?,?,?)",				
+					+ "(?,?,?,?,?,?,?,?,?,?,?,?)",				
 					Statement.RETURN_GENERATED_KEYS);
 					
 //			11
@@ -271,6 +275,7 @@ public class ItensRepository {
 			pst.setInt(9, sinal.getPlugMS());
 			pst.setInt(10, sinal.getPlugMK());
 			pst.setInt(11, sinal.getTomadaS());
+			pst.setBoolean(12, sinal.getEntrada());
 			
 			int rowsAffected = pst.executeUpdate();
 			conn.commit();
@@ -308,10 +313,10 @@ public class ItensRepository {
 			conn.setAutoCommit(false);
 			pst = conn.prepareStatement(
 					"INSERT INTO tb_itens_cabos "
-					+ "(orcamento_id, saida, nfe, s_borracha, s_miolo, s_extensao, k_borracha, k_miolo, k_extensao) "
+					+ "(orcamento_id, saida, nfe, s_borracha, s_miolo, s_extensao, k_borracha, k_miolo, k_extensao, entrada) "
 					 
 					+ "VALUES "
-					+ "(?,?,?,?,?,?,?,?,?)",				
+					+ "(?,?,?,?,?,?,?,?,?,?)",				
 					Statement.RETURN_GENERATED_KEYS);
 					
 //			11
@@ -325,6 +330,7 @@ public class ItensRepository {
 			pst.setInt(7, cabos.getK_borracha());
 			pst.setInt(8, cabos.getK_miolo());
 			pst.setInt(9, cabos.getK_extensao());
+			pst.setBoolean(10, cabos.getEntrada());
 
 			
 			int rowsAffected = pst.executeUpdate();

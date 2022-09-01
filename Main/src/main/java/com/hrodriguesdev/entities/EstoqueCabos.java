@@ -25,11 +25,11 @@ public class EstoqueCabos implements Serializable {
 	private Integer k_borracha;
 	private Integer k_miolo;
 	private Integer k_extensao;
-
+	private Boolean entrada;
 	
 	
 	
-	public EstoqueCabos(Long orcamento_id, Boolean saida, int nfe, Integer s_borracha, Integer s_miolo,
+	public EstoqueCabos(Boolean entrada, Long orcamento_id, Boolean saida, int nfe, Integer s_borracha, Integer s_miolo,
 			Integer s_extensao, Integer k_borracha, Integer k_miolo, Integer k_extensao) {
 		super();
 		this.orcamento_id = orcamento_id;
@@ -41,6 +41,7 @@ public class EstoqueCabos implements Serializable {
 		this.k_borracha = k_borracha;
 		this.k_miolo = k_miolo;
 		this.k_extensao = k_extensao;
+		this.setEntrada(entrada);
 	}
 
 	public EstoqueCabos(ResultSet rs) {
@@ -55,6 +56,7 @@ public class EstoqueCabos implements Serializable {
 			k_borracha = rs.getInt("k_borracha");
 			k_miolo = rs.getInt("k_miolo");
 			k_extensao = rs.getInt("k_extensao");
+			this.setEntrada(rs.getBoolean("entrada"));
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -222,6 +224,14 @@ public class EstoqueCabos implements Serializable {
 			
 
 		return list;
+	}
+
+	public Boolean getEntrada() {
+		return entrada;
+	}
+
+	public void setEntrada(Boolean entrada) {
+		this.entrada = entrada;
 	}
 	
 

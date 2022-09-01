@@ -1,5 +1,6 @@
 package com.hrodriguesdev.gui.controller.view.insert;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -26,6 +27,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 public class OrcamentoInsert implements Initializable {
@@ -42,6 +44,9 @@ public class OrcamentoInsert implements Initializable {
 	protected String list = "";
 	protected String nova = "";
 	
+	@FXML
+	protected VBox chegada, modeloVbox, nsVbox, patVbox, calVbox, empressaVBox, observacaoVbox, nfeVbox;
+	
 	//Button
 	@FXML
 	protected Button salvar, cancelar;
@@ -51,13 +56,12 @@ public class OrcamentoInsert implements Initializable {
 	protected ImageView cancelarImg, salvarImg;
 	
 	@FXML
-	protected Text erro, erro2;
+	protected Text erro, infoText;
 	
 	//Info Employee 
 	@FXML
-	protected TextField nomeEmpressa, data, modelo, ns, pat, ultimaCal;
-
-	
+	protected TextField nomeEmpressa, data, modelo, ns, pat, ultimaCal, nfeText;
+		
 	//Table
 	@FXML
 	protected TableView<Orcamento> tableOrcamento = new TableView<>();
@@ -71,9 +75,12 @@ public class OrcamentoInsert implements Initializable {
 	@FXML
 	protected TextField obs;
 	@FXML
-	protected ComboBox<String> newItem = new ComboBox<>();
+	protected ComboBox<String> newItem;
 	@FXML
-	protected ComboBox<String> quantidadeItem = new ComboBox<>();
+	protected ComboBox<String> quantidadeItem;
+	
+	@FXML 
+	protected ComboBox<String> empressaComboBox;
 	
 	//config combobox
 	protected InputFilter<String> inputFilterNewItem;
@@ -82,8 +89,6 @@ public class OrcamentoInsert implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		quantidadeItem.setValue("1");
-		inputFilterNewItem = new InputFilter<String>( newItem,  new FilteredList<>(AlfaPirometrosApplication.obsPecasEstoque) );
-		listener = new InputFilter<String>( quantidadeItem,  new FilteredList<>(AlfaPirometrosApplication.obsQuantidade) );
 		conboBoxInit();
 		imageInit();
 		textFildInserts();
@@ -119,7 +124,7 @@ public class OrcamentoInsert implements Initializable {
 			obs.setText("");
 			
 		}else {
-			erro2.setText("Error");
+			erro.setText("Novo item com valor vazio");
 		}
 		
 	}	
@@ -131,15 +136,14 @@ public class OrcamentoInsert implements Initializable {
 			obsMateriais.remove(tableOrcamento.getSelectionModel().getSelectedItem() );
 			tableOrcamento.setItems(obsMateriais);
 			tableOrcamento.refresh();
-			System.out.println("Teste");
 		}		
 	}	
 
 
 	@FXML
-	protected void salvar(ActionEvent event) {
+	protected void salvar(ActionEvent event) throws IOException {
 		orcamentoId = orcamento.getId();
-		Itens itens = new Itens(orcamentoId, false , 0);
+		Itens itens = new Itens(orcamentoId, false , 0, false);
 		
 		if(obsMateriais.size()>0) {
 			obsMateriais.forEach((orcamento)-> {	
@@ -168,15 +172,18 @@ public class OrcamentoInsert implements Initializable {
 	}	
 	
 	@FXML
-	protected void cancelar(ActionEvent event) {
+	protected void cancelar(ActionEvent event) throws IOException {
 		NewView.fecharView();
 	}
 
 	
 	@FXML
 	protected void format(KeyEvent event) {
-		
-}
+		if(event.getTarget() == nfeText) {
+			nfeText.setText( nfeText.getText().replaceAll("[^0-9]+", "") );
+			nfeText.end();
+		}
+	}	
 	
 	protected void tabelaInit() {
 		item.setCellValueFactory(new PropertyValueFactory<Orcamento, String>("Item") );
@@ -186,11 +193,13 @@ public class OrcamentoInsert implements Initializable {
 	}
 
 	protected void conboBoxInit() {
+		inputFilterNewItem = new InputFilter<String>( newItem,  new FilteredList<>(AlfaPirometrosApplication.obsPecasEstoque) );
+		listener = new InputFilter<String>( quantidadeItem,  new FilteredList<>(AlfaPirometrosApplication.obsQuantidade) );
+		
 		quantidadeItem.setEditable(true);
 		newItem.setEditable(true);	
 		
-		quantidadeItem.getEditor().textProperty().addListener(listener );
-		//FilteredList<String> filteredList = new FilteredList<>(AlfaPirometrosApplication.obsPecasEstoque);		
+		quantidadeItem.getEditor().textProperty().addListener(listener );		
 		newItem.getEditor().textProperty().addListener( inputFilterNewItem );
 	}
 	

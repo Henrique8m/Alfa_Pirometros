@@ -32,13 +32,13 @@ public class Itens {
 		repository = new ItensRepositoryFind();
 	}
 	
-	public Itens(Long orcamento_id, boolean saida, int nfe) {
-		eletricos(orcamento_id, saida, nfe);
-		eletronicos(orcamento_id, saida, nfe);
-		consumo(orcamento_id, saida, nfe);
-		estetico(orcamento_id, saida, nfe);
-		sinal(orcamento_id, saida, nfe);
-		cabos(orcamento_id, saida, nfe);
+	public Itens(Long orcamento_id, boolean saida, int nfe, boolean entrada) {
+		eletricos(orcamento_id, saida, nfe, entrada);
+		eletronicos(orcamento_id, saida, nfe, entrada);
+		consumo(orcamento_id, saida, nfe, entrada);
+		estetico(orcamento_id, saida, nfe, entrada);
+		sinal(orcamento_id, saida, nfe, entrada);
+		cabos(orcamento_id, saida, nfe, entrada);
 	}
 
 	public boolean addItem(String item, int quantidade) {
@@ -282,34 +282,34 @@ public class Itens {
 	
 	}
 	
-	private void eletricos(Long orcamento_id, boolean saida, int nfe) {
+	private void eletricos(Long orcamento_id, boolean saida, int nfe, boolean entrada) {
 		if(eletricos == null)
-			eletricos = new EstoqueEletricos(orcamento_id, saida, nfe, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+			eletricos = new EstoqueEletricos(entrada, orcamento_id, saida, nfe, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 	}
 	
-	private void eletronicos(Long orcamento_id, boolean saida, int nfe) {
+	private void eletronicos(Long orcamento_id, boolean saida, int nfe, boolean entrada) {
 		if(eletronicos == null)
-			eletronicos = new EstoqueEletronicos(orcamento_id, saida, nfe, 0, 0, 0, 0, 0, 0, 0, 0);
+			eletronicos = new EstoqueEletronicos(entrada, orcamento_id, saida, nfe, 0, 0, 0, 0, 0, 0, 0, 0);
 	}
 	
-	private void consumo(Long orcamento_id, boolean saida, int nfe) {
+	private void consumo(Long orcamento_id, boolean saida, int nfe, boolean entrada) {
 		if(consumo == null)
-			consumo = new EstoqueConsumo(orcamento_id, saida, nfe, 0, 0, 0);
+			consumo = new EstoqueConsumo(entrada, orcamento_id, saida, nfe, 0, 0, 0);
 	}
 
-	private void estetico(Long orcamento_id, boolean saida, int nfe) {
+	private void estetico(Long orcamento_id, boolean saida, int nfe, boolean entrada) {
 		if(estetico == null)
-			estetico = new EstoqueEstetico(orcamento_id, saida, nfe, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+			estetico = new EstoqueEstetico(entrada, orcamento_id, saida, nfe, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 	}
 	
-	private void sinal(Long orcamento_id, boolean saida, int nfe) {
+	private void sinal(Long orcamento_id, boolean saida, int nfe, boolean entrada) {
 		if(sinal == null)
-			sinal = new EstoqueSinal(orcamento_id, saida, nfe, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+			sinal = new EstoqueSinal(entrada, orcamento_id, saida, nfe, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 	}
 	
-	private void cabos(Long orcamento_id, boolean saida, int nfe) {
+	private void cabos(Long orcamento_id, boolean saida, int nfe, boolean entrada) {
 		if(cabos == null)
-			cabos = new EstoqueCabos(orcamento_id, saida, nfe, 0, 0, 0, 0, 0, 0);
+			cabos = new EstoqueCabos(entrada, orcamento_id, saida, nfe, 0, 0, 0, 0, 0, 0);
 	}
 	
 	public boolean saveAll(Orcamento orcamento) throws DbException {

@@ -19,79 +19,95 @@
 
 <HBox prefHeight="700.0" prefWidth="1250.0" style="-fx-background-color: #c9c9c9;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <SplitPane dividerPositions="0.23652694610778444" orientation="VERTICAL" prefHeight="1080.0" prefWidth="1500.0">
+      <SplitPane dividerPositions="0.26497005988023953" orientation="VERTICAL" prefHeight="1080.0" prefWidth="1500.0" style="-fx-background-radius: 10;">
          <items>
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="143.0" prefWidth="572.0" style="-fx-background-radius: 20;">
+            <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="220.0" prefWidth="1480.0">
                <children>
-                  <VBox layoutY="-8.0" prefHeight="156.0" prefWidth="566.0" style="-fx-background-color: #c9c9c9; -fx-background-radius: 10;" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="-8.0">
+                  <VBox alignment="CENTER" layoutY="-8.0" minHeight="-Infinity" prefHeight="180.0" style="-fx-background-color: #c9c9c9; -fx-background-radius: 10;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <HBox alignment="TOP_CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="67.0" prefWidth="610.0" style="-fx-background-color: #c9c9c9;">
+                        <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="80.0" prefWidth="1400.0" style="-fx-background-color: #c9c9c9;">
                            <children>
-                              <VBox prefHeight="47.0" prefWidth="395.0" style="-fx-background-color: #c9c9c9;">
+                              <VBox fx:id="empressaVBox" style="-fx-background-color: #c9c9c9;">
                                  <children>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="NOME DA EMPRESSA" wrappingWidth="174.13671875" />
-                                    <TextField fx:id="nomeEmpressa" editable="false" focusTraversable="false" />
+                                    <TextField fx:id="nomeEmpressa" editable="false" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="325.0" />
+                                 </children>
+                              </VBox>
+                              <VBox fx:id="chegada" prefWidth="97.0">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="CHEGADA" wrappingWidth="64.13671875" />
+                                    <TextField fx:id="data" editable="false" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="95.0" />
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets left="20.0" />
+                                 </HBox.margin>
+                              </VBox>
+                              <VBox fx:id="empressaVBox1" alignment="TOP_CENTER" style="-fx-background-color: #c9c9c9;" visible="false">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="NOME DA EMPRESSA" wrappingWidth="120.13671875" />
+                                    <ComboBox fx:id="empressaComboBox" editable="true" prefHeight="25.0" prefWidth="160.0" />
                                  </children>
                                  <padding>
                                     <Insets right="10.0" />
                                  </padding>
                               </VBox>
-                              <VBox prefHeight="47.0" prefWidth="97.0">
-                                 <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="CHEGADA" wrappingWidth="64.13671875" />
-                                    <TextField fx:id="data" editable="false" focusTraversable="false" prefHeight="25.0" prefWidth="84.0" />
-                                 </children>
-                                 <HBox.margin>
-                                    <Insets left="20.0" />
-                                 </HBox.margin>
-                              </VBox>
+                              <Text fx:id="infoText" strokeType="OUTSIDE" strokeWidth="0.0" text="Será indispensavél e obrigatorio&#10;adcionar o numero da nota fiscal.&#10;Para entrada e saída de material." textAlignment="CENTER" visible="false" wrappingWidth="355.13671875">
+                                 <font>
+                                    <Font name="Comic Sans MS" size="18.0" />
+                                 </font>
+                              </Text>
                            </children>
                            <padding>
-                              <Insets left="20.0" right="20.0" top="20.0" />
+                              <Insets left="20.0" />
                            </padding>
                         </HBox>
-                        <HBox alignment="TOP_CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="67.0" prefWidth="446.0" style="-fx-background-color: #c9c9c9;">
+                        <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="80.0" prefWidth="1400.0" style="-fx-background-color: #c9c9c9;">
                            <children>
-                              <VBox prefHeight="47.0" prefWidth="147.0">
+                              <VBox fx:id="modeloVbox">
                                  <children>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="MODELO" wrappingWidth="75.13671875" />
-                                    <TextField fx:id="modelo" editable="false" focusTraversable="false" onKeyReleased="#format" prefHeight="25.0" prefWidth="166.0" />
+                                    <TextField fx:id="modelo" editable="false" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyReleased="#format" prefHeight="25.0" prefWidth="95.0" />
                                  </children>
                               </VBox>
-                              <VBox prefHeight="47.0" prefWidth="114.0">
+                              <VBox fx:id="nsVbox">
                                  <children>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="NS" wrappingWidth="39.13671875" />
-                                    <TextField fx:id="ns" editable="false" focusTraversable="false" onKeyReleased="#format" prefHeight="25.0" prefWidth="95.0" />
+                                    <TextField fx:id="ns" editable="false" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyReleased="#format" prefHeight="25.0" prefWidth="95.0" />
                                  </children>
                                  <HBox.margin>
                                     <Insets left="20.0" />
                                  </HBox.margin>
                               </VBox>
-                              <VBox prefHeight="47.0" prefWidth="101.0">
+                              <VBox fx:id="patVbox">
                                  <children>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="PAT" wrappingWidth="65.13671875" />
-                                    <TextField fx:id="pat" editable="false" focusTraversable="false" onKeyReleased="#format" prefHeight="25.0" prefWidth="79.0" />
+                                    <TextField fx:id="pat" editable="false" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyReleased="#format" prefHeight="25.0" prefWidth="95.0" />
                                  </children>
                                  <HBox.margin>
                                     <Insets left="20.0" />
                                  </HBox.margin>
                               </VBox>
-                              <VBox prefHeight="47.0" prefWidth="91.0">
+                              <VBox fx:id="calVbox">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ULTIMA CAL" wrappingWidth="68.13671875" />
+                                    <TextField fx:id="ultimaCal" editable="false" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="95.0" />
+                                 </children>
                                  <HBox.margin>
                                     <Insets left="20.0" />
                                  </HBox.margin>
+                              </VBox>
+                              <VBox fx:id="nfeVbox" alignment="CENTER" visible="false">
                                  <children>
-                                    <VBox prefHeight="47.0" prefWidth="89.0">
-                                       <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ULTIMA CAL" wrappingWidth="85.13671875" />
-                                          <TextField fx:id="ultimaCal" editable="false" focusTraversable="false" prefHeight="25.0" prefWidth="84.0" />
-                                       </children>
-                                    </VBox>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="NFE" wrappingWidth="23.13671875" />
+                                    <TextField fx:id="nfeText" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyReleased="#format" prefHeight="25.0" prefWidth="200.0" />
                                  </children>
+                                 <HBox.margin>
+                                    <Insets left="20.0" />
+                                 </HBox.margin>
                               </VBox>
                            </children>
                            <padding>
-                              <Insets left="20.0" right="20.0" top="20.0" />
+                              <Insets left="20.0" />
                            </padding>
                         </HBox>
                      </children>
@@ -100,25 +116,28 @@
                      </opaqueInsets>
                   </VBox>
                </children>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" top="20.0" />
+               </padding>
             </AnchorPane>
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="483.0" prefWidth="572.0">
+            <AnchorPane minHeight="300.0" minWidth="600.0" prefHeight="483.0" prefWidth="572.0">
                <children>
-                  <SplitPane dividerPositions="0.5" prefHeight="507.0" prefWidth="978.0">
+                  <SplitPane dividerPositions="0.5" prefHeight="507.0" prefWidth="978.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <items>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="397.0" prefWidth="485.0">
+                        <AnchorPane minHeight="300.0" minWidth="300.0" prefHeight="300.0" prefWidth="600.0">
                            <children>
-                              <HBox alignment="CENTER" prefHeight="155.0" prefWidth="485.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="488.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
-                                    <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                                    <VBox alignment="CENTER_LEFT">
                                        <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ADD AO ORCAMENTO" wrappingWidth="147.0" />
-                                          <ComboBox fx:id="newItem" editable="true" onKeyPressed="#addComEnter" pickOnBounds="false" prefWidth="150.0" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ADD" wrappingWidth="32.0" />
+                                          <ComboBox fx:id="newItem" editable="true" onKeyPressed="#addComEnter" pickOnBounds="false" prefHeight="25.0" prefWidth="150.0" />
                                        </children>
                                        <padding>
                                           <Insets right="20.0" />
                                        </padding>
                                     </VBox>
-                                    <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                                    <VBox alignment="CENTER_LEFT" prefHeight="150.0" prefWidth="110.0">
                                        <children>
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="QUANTIDADE" wrappingWidth="75.13671875" />
                                           <ComboBox fx:id="quantidadeItem" editable="true" prefHeight="25.0" prefWidth="75.0" promptText="1" />
@@ -129,9 +148,9 @@
                                     </VBox>
                                  </children>
                               </HBox>
-                              <HBox alignment="CENTER" layoutX="14.0" layoutY="155.0" prefHeight="310.0" prefWidth="485.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                              <HBox alignment="CENTER" layoutX="14.0" layoutY="155.0" minHeight="150.0" prefHeight="310.0" prefWidth="485.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="150.0">
                                  <children>
-                                    <VBox prefHeight="310.0" prefWidth="180.0">
+                                    <VBox fx:id="observacaoVbox" minHeight="150.0" prefHeight="310.0" prefWidth="180.0">
                                        <children>
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ADD OBSERVAÇÃO">
                                              <font>
@@ -139,13 +158,12 @@
                                              </font>
                                           </Text>
                                           <TextField fx:id="obs" onKeyPressed="#addComEnter" prefHeight="25.0" prefWidth="226.0" />
-                                          <Text fx:id="erro" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="39.13671875" />
                                        </children>
                                        <padding>
                                           <Insets left="20.0" right="20.0" />
                                        </padding>
                                     </VBox>
-                                    <VBox alignment="TOP_CENTER" prefHeight="211.0" prefWidth="119.0">
+                                    <VBox alignment="TOP_CENTER" minHeight="150.0" prefHeight="211.0" prefWidth="119.0">
                                        <children>
                                           <Button mnemonicParsing="false" onAction="#addItem" prefHeight="45.0" prefWidth="55.0" text="ADD">
                                              <VBox.margin>
@@ -163,13 +181,16 @@
                               </HBox>
                            </children>
                         </AnchorPane>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                        <AnchorPane minHeight="300.0" minWidth="300.0" prefHeight="160.0" prefWidth="100.0">
                            <children>
-                              <TableView fx:id="tableOrcamento" prefHeight="413.0" prefWidth="485.0">
+                              <TableView fx:id="tableOrcamento" minHeight="300.0" minWidth="300.0" style="-fx-background-radius: 10;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <columns>
-                                    <TableColumn fx:id="item" prefWidth="390.0" text="Item" />
-                                    <TableColumn fx:id="quantidade" minWidth="0.0" prefWidth="94.0" text="Quantidade" />
+                                    <TableColumn fx:id="item" minWidth="100.0" prefWidth="500.0" text="Item" />
+                                    <TableColumn fx:id="quantidade" minWidth="50.0" prefWidth="94.0" text="Quantidade" />
                                  </columns>
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
                               </TableView>
                            </children>
                         </AnchorPane>
@@ -179,7 +200,7 @@
             </AnchorPane>
          </items>
       </SplitPane>
-      <GridPane alignment="CENTER" minHeight="200.0" minWidth="244.0" prefHeight="1000.0" prefWidth="325.0" style="-fx-background-color: #a8a8a8; -fx-background-radius: 10;">
+      <GridPane alignment="CENTER" minHeight="604.0" minWidth="244.0" prefHeight="1000.0" prefWidth="325.0" style="-fx-background-color: #a8a8a8; -fx-background-radius: 10;">
          <columnConstraints>
             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="314.0" prefWidth="100.0" />
          </columnConstraints>
@@ -210,6 +231,11 @@
                </font>
             </Button>
             <ImageView fx:id="logoYgg" fitHeight="244.0" fitWidth="313.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="5" />
+            <Text fx:id="erro" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="222.13671875" GridPane.rowIndex="3">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Text>
          </children>
          <padding>
             <Insets left="20.0" right="40.0" />

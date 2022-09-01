@@ -28,9 +28,9 @@ public class EstoqueSinal implements Serializable {
 	private int PlugMS;
 	private int PlugMK;
 	private int TomadaS;
+	private Boolean entrada;
 	
-	
-	public EstoqueSinal(Long orcamento_id, Boolean saida, int nfe, int receptaculoS, int receptaculoSU,
+	public EstoqueSinal(Boolean entrada, Long orcamento_id, Boolean saida, int nfe, int receptaculoS, int receptaculoSU,
 			int receptaculoEcil, int receptaculoK, int plugFS, int plugFK, int plugMS, int plugMK, int tomadaS) {
 		super();
 		this.orcamento_id = orcamento_id;
@@ -45,6 +45,7 @@ public class EstoqueSinal implements Serializable {
 		PlugMS = plugMS;
 		PlugMK = plugMK;
 		TomadaS = tomadaS;
+		this.setEntrada(entrada);
 	}
 	
 	public EstoqueSinal(ResultSet rs) {
@@ -62,6 +63,7 @@ public class EstoqueSinal implements Serializable {
 			PlugMS = rs.getInt("plug_ms");
 			PlugMK = rs.getInt("plug_mk");
 			TomadaS = rs.getInt("tomada_s");
+			this.setEntrada(rs.getBoolean("entrada"));
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -261,6 +263,14 @@ public class EstoqueSinal implements Serializable {
 			list = list + "Tomada S, quantidade = " + TomadaS + "\n";
 
 		return list;
+	}
+
+	public Boolean getEntrada() {
+		return entrada;
+	}
+
+	public void setEntrada(Boolean entrada) {
+		this.entrada = entrada;
 	}
 	
 

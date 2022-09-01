@@ -21,8 +21,9 @@ public class EstoqueConsumo implements Serializable {
 	private Integer BotaoLiga;
 	private Integer BoMeFIIFIIIIndicmax;
 	private Integer CaixaBat;
+	private Boolean entrada;
 	
-	public EstoqueConsumo(Long orcamento_id, Boolean saida, int nfe, int botaoLiga, int boMeFIIFIIIIndicmax,
+	public EstoqueConsumo(Boolean entrada, Long orcamento_id, Boolean saida, int nfe, int botaoLiga, int boMeFIIFIIIIndicmax,
 			int caixaBat) {
 		super();
 		this.orcamento_id = orcamento_id;
@@ -31,6 +32,7 @@ public class EstoqueConsumo implements Serializable {
 		BotaoLiga = botaoLiga;
 		BoMeFIIFIIIIndicmax = boMeFIIFIIIIndicmax;
 		CaixaBat = caixaBat;
+		this.setEntrada(entrada);
 	}
 	
 	public EstoqueConsumo(ResultSet rs) {
@@ -42,6 +44,7 @@ public class EstoqueConsumo implements Serializable {
 			BotaoLiga = rs.getInt("b_liga");
 			BoMeFIIFIIIIndicmax = rs.getInt("b_m_forneros");
 			CaixaBat = rs.getInt("caixa_bateria");	
+			this.setEntrada(rs.getBoolean("entrada"));
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -157,6 +160,14 @@ public class EstoqueConsumo implements Serializable {
 			
 		}
 
+	}
+
+	public Boolean getEntrada() {
+		return entrada;
+	}
+
+	public void setEntrada(Boolean entrada) {
+		this.entrada = entrada;
 	}
 	
 }

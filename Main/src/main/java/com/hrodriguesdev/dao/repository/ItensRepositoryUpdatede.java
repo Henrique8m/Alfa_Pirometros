@@ -39,7 +39,8 @@ public class ItensRepositoryUpdatede {
 											+ " bat_inditemp = ?,"
 											+ " bat_litio = ?,"
 											+ " carr_ecil = ?,"
-											+ " carr_italterm = ?"
+											+ " carr_italterm = ?,"
+											+ " entrada = ? "											
 											+ " WHERE "
 											+ "(id = ?)");
 			
@@ -56,7 +57,8 @@ public class ItensRepositoryUpdatede {
 			pst.setInt(11, eletricos.getBatLitio());
 			pst.setInt(12, eletricos.getCarrEcil());
 			pst.setInt(13, eletricos.getCarrItalterm());
-			pst.setLong(14, eletricos.getId());
+			pst.setBoolean(14, eletricos.getEntrada());
+			pst.setLong(15, eletricos.getId());
 			
 			int rowsAccepted = pst.executeUpdate();
 			conn.commit();
@@ -97,7 +99,8 @@ public class ItensRepositoryUpdatede {
 											+ " fiii= ?,"
 											+ " indicmax= ?,"
 											+ " ci_fii= ?,"
-											+ " ci_indicmax = ?"
+											+ " ci_indicmax = ?, "
+											+ " entrada = ? "											
 											+ " WHERE "
 											+ "(id = ?)");
 			
@@ -112,7 +115,8 @@ public class ItensRepositoryUpdatede {
 			pst.setInt(9, eletronicos.getIndicmax());
 			pst.setInt(10, eletronicos.getCIFII());
 			pst.setInt(11, eletronicos.getCIIndicmax());
-			pst.setLong(12, eletronicos.getId());
+			pst.setBoolean(12, eletronicos.getEntrada());
+			pst.setLong(13, eletronicos.getId());
 			
 			int rowsAccepted = pst.executeUpdate();
 			conn.commit();
@@ -148,7 +152,8 @@ public class ItensRepositoryUpdatede {
 											+ " saida = ?,"
 											+ " b_liga = ?,"
 											+ " b_m_forneros = ? ,"
-											+ " caixa_bateria  = ?"
+											+ " caixa_bateria  = ? ,"
+											+ " entrada = ? "
 											+ " WHERE "
 											+ "(id = ?)");
 			
@@ -158,7 +163,8 @@ public class ItensRepositoryUpdatede {
 			pst.setInt(4, consumo.getBotaoLiga());
 			pst.setInt(5, consumo.getBoMeFIIFIIIIndicmax());
 			pst.setInt(6, consumo.getCaixaBat());
-			pst.setLong(7, consumo.getId());
+			pst.setBoolean(7, consumo.getEntrada());
+			pst.setLong(8, consumo.getId());
 			
 			int rowsAccepted = pst.executeUpdate();
 			conn.commit();
@@ -200,7 +206,8 @@ public class ItensRepositoryUpdatede {
 											+ " etiq_lat_fii = ? ,"
 											+ " etiq_lat_fiii = ? ,"
 											+ " etiq_tras_fii = ? ,"
-											+ " punho = ?"
+											+ " punho = ?, "
+											+ " entrada = ? "
 											+ " WHERE "
 											+ "(id = ?)");
 			
@@ -257,7 +264,8 @@ public class ItensRepositoryUpdatede {
 											+ " plug_fs = ? ,"
 											+ " plug_ms = ? ,"
 											+ " plug_mk = ? ,"
-											+ " tomada_s  = ?"
+											+ " tomada_s  = ?, "
+											+ " entrada = ? "
 											+ " WHERE "
 											+ "(id = ?)");
 			
@@ -272,7 +280,8 @@ public class ItensRepositoryUpdatede {
 			pst.setInt(9, sinal.getPlugMS());
 			pst.setInt(10, sinal.getPlugMK());
 			pst.setInt(11, sinal.getTomadaS());
-			pst.setLong(12, sinal.getId());
+			pst.setBoolean(12, sinal.getEntrada());
+			pst.setLong(13, sinal.getId());
 			
 			int rowsAccepted = pst.executeUpdate();
 			conn.commit();
@@ -311,7 +320,8 @@ public class ItensRepositoryUpdatede {
 											+ " s_extensao = ? ,"
 											+ " k_borracha = ? ,"
 											+ " k_miolo = ? ,"
-											+ " k_extensao = ? "				
+											+ " k_extensao = ? ,"
+											+ " entrada = ? "
 											+ " WHERE "
 											+ "(id = ?)");
 			
@@ -324,7 +334,8 @@ public class ItensRepositoryUpdatede {
 			pst.setInt(7, cabos.getK_borracha());
 			pst.setInt(8, cabos.getK_miolo());
 			pst.setInt(9, cabos.getK_extensao());
-			pst.setLong(10, cabos.getId());
+			pst.setBoolean(10, cabos.getEntrada());
+			pst.setLong(11, cabos.getId());
 			
 			int rowsAccepted = pst.executeUpdate();
 			conn.commit();

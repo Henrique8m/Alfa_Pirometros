@@ -28,8 +28,9 @@ public class EstoqueEletricos implements Serializable {
 	private Integer BatLitio;
 	private Integer CarrEcil;
 	private Integer CarrItalterm;
+	private Boolean entrada;
 	
-	public EstoqueEletricos(Long orcamento_id, Boolean saida, int nfe, int fontCarbIndic, int fontCarbDelta,
+	public EstoqueEletricos(Boolean entrada, Long orcamento_id, Boolean saida, int nfe, int fontCarbIndic, int fontCarbDelta,
 			int pinFemeAliFII, int pinFemeAliFIII, int batFIIFIII, int batDescartavel, int batInditemp, int batLitio,
 			int carrEcil, int carrItalterm) {
 		super();
@@ -46,6 +47,7 @@ public class EstoqueEletricos implements Serializable {
 		BatLitio = batLitio;
 		CarrEcil = carrEcil;
 		CarrItalterm = carrItalterm;
+		this.entrada = entrada;
 	}
 	
 	public EstoqueEletricos(ResultSet rs) {
@@ -64,6 +66,7 @@ public class EstoqueEletricos implements Serializable {
 			BatLitio = rs.getInt("bat_litio");	
 			CarrEcil = rs.getInt("carr_ecil");	
 			CarrItalterm = rs.getInt("carr_italterm");	
+			this.entrada = rs.getBoolean("entrada");
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -275,6 +278,14 @@ public class EstoqueEletricos implements Serializable {
 	}
 	public Long getId() {
 		return id;
+	}
+
+	public Boolean getEntrada() {
+		return entrada;
+	}
+
+	public void setEntrada(Boolean entrada) {
+		this.entrada = entrada;
 	}
 
 

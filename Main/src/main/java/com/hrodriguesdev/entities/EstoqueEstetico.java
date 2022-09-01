@@ -27,8 +27,9 @@ public class EstoqueEstetico implements Serializable {
 	private Integer EtiqLatFIII;
 	private Integer EtiqTrasFII;
 	private Integer Punho;
+	private Boolean entrada;
 	
-	public EstoqueEstetico(Long orcamento_id, Boolean saida, int nfe, int mascaraFII, int mascaraFKal, int mascaraFIII,
+	public EstoqueEstetico(Boolean entrada, Long orcamento_id, Boolean saida, int nfe, int mascaraFII, int mascaraFKal, int mascaraFIII,
 			int mascaraCarbo, int mascaraIndic, int etiqLatFII, int etiqLatFIII, int etiqTrasFII, int punho) {
 		super();
 		this.orcamento_id = orcamento_id;
@@ -43,6 +44,7 @@ public class EstoqueEstetico implements Serializable {
 		EtiqLatFIII = etiqLatFIII;
 		EtiqTrasFII = etiqTrasFII;
 		Punho = punho;
+		this.setEntrada(entrada);
 	}
 	
 	public EstoqueEstetico(ResultSet rs) {
@@ -60,6 +62,7 @@ public class EstoqueEstetico implements Serializable {
 			EtiqLatFIII = rs.getInt("etiq_lat_fiii");
 			EtiqTrasFII = rs.getInt("etiq_tras_fii");
 			Punho = rs.getInt("punho");
+			this.setEntrada(rs.getBoolean("entrada"));
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -258,6 +261,14 @@ public class EstoqueEstetico implements Serializable {
 	}
 	public Long getId() {
 		return id;
+	}
+
+	public Boolean getEntrada() {
+		return entrada;
+	}
+
+	public void setEntrada(Boolean entrada) {
+		this.entrada = entrada;
 	}
 
 	

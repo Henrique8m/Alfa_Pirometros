@@ -24,6 +24,8 @@ public class Orcamento {
 	private Long estetico;
 	private Long sinal;
 	private Long cabos;
+
+	
 	
 	public Orcamento(Long equipamento_id, Date data_chegada, Boolean laboratorio) {
 		this.setEquipamento_id(equipamento_id);
@@ -125,6 +127,8 @@ public class Orcamento {
 	
 	public Orcamento() {}
 	
+
+
 
 	public Long getId() {
 		return id;

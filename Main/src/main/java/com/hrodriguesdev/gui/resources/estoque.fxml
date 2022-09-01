@@ -2,7 +2,6 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -1101,12 +1100,12 @@
                </font>
             </Button>
             <ImageView fx:id="logoYgg" fitHeight="244.0" fitWidth="313.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="6" />
-            <Button fx:id="entradaButton" mnemonicParsing="false" onAction="#entradaMaterial" prefHeight="45.0" prefWidth="185.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Entrada Material" GridPane.rowIndex="1">
+            <Button mnemonicParsing="false" onAction="#entradaMaterial" prefHeight="45.0" prefWidth="185.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Entrada Material" GridPane.rowIndex="1">
                <graphic>
                   <ImageView fx:id="entradaMaterialImg" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" />
                </graphic>
             </Button>
-            <Button fx:id="saidaButton" mnemonicParsing="false" onAction="#saidaMaterial" prefHeight="45.0" prefWidth="185.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Saida Material" GridPane.rowIndex="2">
+            <Button mnemonicParsing="false" onAction="#saidaMaterial" prefHeight="45.0" prefWidth="185.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Saida Material" GridPane.rowIndex="2">
                <graphic>
                   <ImageView fx:id="saidaMaterialImg" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" />
                </graphic>
@@ -1114,16 +1113,6 @@
                   <Font size="14.0" />
                </font>
             </Button>
-            <VBox fx:id="vboxNFE" alignment="CENTER" prefHeight="67.0" prefWidth="229.0" visible="false" GridPane.rowIndex="3">
-               <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="NFE">
-                     <font>
-                        <Font size="17.0" />
-                     </font>
-                  </Text>
-                  <TextField fx:id="nfeNumero" maxWidth="130.0" prefHeight="25.0" prefWidth="100.0" />
-               </children>
-            </VBox>
             <Button fx:id="salvarSaida" mnemonicParsing="false" onAction="#salvarSaida" prefHeight="45.0" prefWidth="185.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Salvar" visible="false" GridPane.rowIndex="4">
                <graphic>
                   <ImageView fx:id="saidaMaterialImg1" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" />

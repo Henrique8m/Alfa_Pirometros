@@ -1,19 +1,21 @@
 package com.hrodriguesdev.gui.controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.entities.EstoqueConsumo;
+import com.hrodriguesdev.entities.Orcamento;
 import com.hrodriguesdev.utilitary.Itens;
 import com.hrodriguesdev.utilitary.NewView;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 public class EstoqueController implements Initializable{
@@ -70,14 +72,8 @@ public class EstoqueController implements Initializable{
 	private ImageView saidaMaterialImg, logoYgg, entradaMaterialImg, cancelarImg;
 	
 	@FXML
-	protected Button cancelar, saidaButton, entradaButton, salvarSaida;
-	
-	@FXML
-	protected TextField nfeNumero;
-	
-	@FXML
-	protected VBox vboxNFE;
-	
+	protected Button cancelar;
+
 	protected Itens itens;
 	
 	@FXML
@@ -91,13 +87,13 @@ public class EstoqueController implements Initializable{
 	} 
 	
 	@FXML
-	protected void saidaMaterial(ActionEvent event) {
-		
+	protected void saidaMaterial(ActionEvent event) throws IOException {
+	
 	}
 	
 	@FXML
-	protected void entradaMaterial(ActionEvent event) {
-		
+	protected void entradaMaterial(ActionEvent event) throws IOException {
+		NewView.addChildren((Node) NewView.loadFXML("orcamentoDois" , new EstoqueEntradaController(new Equipamento(), new Orcamento() ) ));
 	}
 
 	@Override
