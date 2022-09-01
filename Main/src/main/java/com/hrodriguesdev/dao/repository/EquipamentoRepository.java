@@ -345,6 +345,7 @@ public class EquipamentoRepository {
 	
 	public void updatedeAllDate() {
 		
+//	ItensRepositoryFind findItens = new ItensRepositoryFind();
 //	
 //		List<Orcamento> listOrcamento = new ArrayList<>();		
 //		try {
@@ -359,44 +360,92 @@ public class EquipamentoRepository {
 //		}catch (SQLException e) {	
 //			e.printStackTrace();
 //		}
+//		DB.closeStatement(pst);
+//		DB.closeConnection();
 //			
+//		List<EstoqueConsumo> listConsumo = findItens.findAllConsumo();
 //		
-//		List<Equipamento> listEquipamento = new ArrayList<>();		
-//		try {
-//			conn = DB.getConnection();			
-//			st = conn.createStatement();			
-//			rs = st.executeQuery("SELECT * FROM alfaestoque.tb_equipamento;");			
-//			
-//			while ( rs.next() ) {
-//				listEquipamento.add(Equipamento.parseEquipamentoDois(rs));
-//			}
-//			
-//		}catch (SQLException e) {	
-//			e.printStackTrace();
-//		}
 //		
-//		listOrcamento.forEach((orcamento)-> {
-//			listEquipamento.forEach((equipamento)->{
-//				if(equipamento.getId() == orcamento.getEquipamento_id()) {
-//					try {
-//						pst = conn.prepareStatement("UPDATE tb_equipamento "
-//														+ "SET orcamento_id = "
-//														+ orcamento.getId()
-//														+ " WHERE "
-//														+ "(id = ?)");
-//						
-//						
-//						pst.setLong( 1, equipamento.getId() );
-//						pst.executeUpdate();
-//						
-//						
-//					} catch (SQLException e) {					
-//						e.printStackTrace();
-//					}	
+//		
+//		listOrcamento.forEach((orcamento)-> {			
+//			if(orcamento.getCabos() == null || orcamento.getCabos() == 0)
+//				listConsumo.forEach((consumo)->{
+//					if(consumo.getOrcamento_id() == orcamento.getId()) {
+//						long idcabos = 0;
 //					
-//				}
+//						try {	
+//							conn = DB.getConnection();
+//							conn.setAutoCommit(false);
+//							pst = conn.prepareStatement(
+//									"INSERT INTO tb_itens_cabos "
+//									+ "(orcamento_id, saida, nfe) "
+//									+ "VALUES "
+//									+ "(?,?,?)",				
+//									Statement.RETURN_GENERATED_KEYS);
+//							
+//						pst.setLong(1, consumo.getOrcamento_id());			
+//						pst.setBoolean(2, consumo.getSaida());
+//						pst.setInt(3, consumo.getNfe());
+//
+//			
+//						int rowsAffected = pst.executeUpdate();
+//						conn.commit();
+//						rs = pst.getGeneratedKeys();
+//						while(rs.next())
+//							idcabos = rs.getLong(1);
+//							
+//						} catch (SQLException e) {
+//							// TODO Auto-generated catch block
+//							e.printStackTrace();
+//						}		
+//						finally {
+//							DB.closeResultSet(rs);
+//							DB.closeStatement(pst);
+//							DB.closeConnection();
+//							
+//						}
+//
+//							
+//							
+//							try {
+//								conn = DB.getConnection();
+//								conn.setAutoCommit(false);
+//								pst = conn.prepareStatement("UPDATE tb_orcamento "
+//																+ "SET cabos = ?"
+//																+" WHERE "
+//																+"(id = ?)");
+//								
+//								pst.setLong( 1, idcabos );
+//								pst.setLong( 2, orcamento.getId() );
+//								
+//								pst.executeUpdate();
+//								conn.commit();
+//							
+//							}catch(DbException | SQLException e) {
+//								e.printStackTrace();
+//								try {
+//									conn.rollback();
+//									throw new DbException("Transaction rolled back! Caused by: " + e.getMessage() );
+//								}catch (SQLException e1) {
+//									throw new DbException("Error trying to rollback! Caused by: \" + e1.getMessage()");
+//								}
+//								
+//							}
+//							finally {
+//								DB.closeStatement(pst);
+//								DB.closeConnection();
+//								
+//							}
+//								
 //					
-//			});
+//						
+//						
+//					}
+//						
+//				});
+//				
+//					
+//			
 //		});
 			
 //		
@@ -430,8 +479,7 @@ public class EquipamentoRepository {
 //		System.out.println(e.getMessage());	
 //		}
 //		finally {
-			DB.closeStatement(pst);
-			DB.closeConnection();
+
 //			
 //		}		
 

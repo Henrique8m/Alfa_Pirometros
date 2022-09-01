@@ -260,8 +260,8 @@ public class OrcamentoRepository {
 													+ " eletronicos = ?,"
 													+ " estetico =? ,"
 													+ " sinal = ?, "
-													+ " Item = ?"
-													+ " cabos = ?, "
+													+ " Item = ? ,"
+													+ " cabos = ? "
 													+" WHERE "
 													+"(id = ?)");
 					

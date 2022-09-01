@@ -223,7 +223,8 @@ public class ItensRepositoryUpdatede {
 			pst.setInt(10, estetico.getEtiqLatFIII());
 			pst.setInt(11, estetico.getEtiqTrasFII());
 			pst.setInt(12, estetico.getPunho());
-			pst.setLong(13, estetico.getId());
+			pst.setBoolean(13, estetico.getEntrada());
+			pst.setLong(14, estetico.getId());
 			
 			int rowsAccepted = pst.executeUpdate();
 			conn.commit();

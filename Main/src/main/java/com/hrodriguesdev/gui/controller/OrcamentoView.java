@@ -60,14 +60,14 @@ public class OrcamentoView implements Initializable {
 		ns.setText(equipamento.getNs());
 		pat.setText(equipamento.getPat());
 		
-		obs.setText( allItens(orcamento.getId()) );
+		obs.setText( allItens(orcamento.getId(), orcamento) );
 		Image image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-excluir.png").toString() );
 		cancelarImg.setImage(image);
 		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-salvar-arquivo.png").toString() );
 		salvarImg.setImage(image);
 	}	
 		
-	private String allItens(Long orcamento_id) {
+	private String allItens(Long orcamento_id, Orcamento orcamento) {
 		ItensRepositoryFind find = new ItensRepositoryFind();
 		String output = "";
 		
@@ -76,6 +76,12 @@ public class OrcamentoView implements Initializable {
 		output = output + find.eletronicosByOrcamentoId(orcamento_id).toString();
 		output = output + find.esteticoByOrcamentoId(orcamento_id).toString();
 		output = output + find.sinalByOrcamentoId(orcamento_id).toString();
+		try{
+			output = output + find.cabosByOrcamentoId(orcamento_id).toString();
+		}catch (NullPointerException e) {
+		}
+		
+		output = output + orcamento.toString();
 		return output;
 	}
 

@@ -143,18 +143,18 @@ public class SaidaEquipamentoViewController implements Initializable {
 			case 2:
 				equipamento.setStatus( 12 );
 				orcamento.setStatus(12);
-				equipamento.setLaboratorio(true);
-				orcamento.setLaboratorio(true);
+				equipamento.setLaboratorio(false);
+				orcamento.setLaboratorio(false);
 				break;
 			case 3:
 				equipamento.setStatus( 13 );
 				orcamento.setStatus(13);
-				equipamento.setLaboratorio(true);
-				orcamento.setLaboratorio(true);
+				equipamento.setLaboratorio(false);
+				orcamento.setLaboratorio(false);
 				break;
 			default:
-				equipamento.setLaboratorio(true);
-				orcamento.setLaboratorio(true);
+				equipamento.setLaboratorio(false);
+				orcamento.setLaboratorio(false);
 				equipamento.setStatus( 7 );
 				orcamento.setStatus(7);
 				break;

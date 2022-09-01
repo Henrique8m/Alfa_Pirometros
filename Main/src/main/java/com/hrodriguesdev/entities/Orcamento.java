@@ -400,4 +400,15 @@ public class Orcamento {
 		this.empressa = empressa;
 	}
 
+	@Override
+	public String toString() {
+		if(Item!=null) 
+			if(Item!= "")
+				return Item;
+		
+		return "";
+	}
+
+	
+	
 }
