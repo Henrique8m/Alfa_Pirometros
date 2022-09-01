@@ -88,7 +88,7 @@ public class EstoqueController implements Initializable{
 	
 	@FXML
 	protected void saidaMaterial(ActionEvent event) throws IOException {
-	
+		NewView.addChildren((Node) NewView.loadFXML("orcamentoDois" , new EstoqueSaidaController(new Equipamento(), new Orcamento() ) ));
 	}
 	
 	@FXML

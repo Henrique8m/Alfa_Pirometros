@@ -45,7 +45,7 @@ public class OrcamentoInsert implements Initializable {
 	protected String nova = "";
 	
 	@FXML
-	protected VBox chegada, modeloVbox, nsVbox, patVbox, calVbox, empressaVBox, observacaoVbox, nfeVbox;
+	protected VBox chegada, modeloVbox, nsVbox, patVbox, calVbox, empressaVBox, observacaoVbox, nfeVbox, responsavelVbox, empressaVBox1;
 	
 	//Button
 	@FXML
@@ -60,7 +60,7 @@ public class OrcamentoInsert implements Initializable {
 	
 	//Info Employee 
 	@FXML
-	protected TextField nomeEmpressa, data, modelo, ns, pat, ultimaCal, nfeText;
+	protected TextField nomeEmpressa, data, modelo, ns, pat, ultimaCal, nfeText, responsavel;
 		
 	//Table
 	@FXML
@@ -102,6 +102,10 @@ public class OrcamentoInsert implements Initializable {
 			addItem(new ActionEvent());
 
 		}
+	}
+	
+	@FXML
+	protected void removeListner(KeyEvent event) {
 	}
 	
 	@FXML

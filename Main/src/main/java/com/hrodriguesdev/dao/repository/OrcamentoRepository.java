@@ -203,25 +203,56 @@ public class OrcamentoRepository {
 		try {
 			conn = DB.getConnection();
 			conn.setAutoCommit(false);
-			pst = conn.prepareStatement("UPDATE tb_orcamento "
-											+ "SET status = ?,"
-											+ " eletricos = ?,"
-											+ " consumo = ?,"
-											+ " eletronicos = ?,"
-											+ " estetico =? ,"
-											+ " sinal = ?, "
-											+ " Item = ?"
-											+" WHERE "
-											+"(id = ?)");
 			
-			pst.setInt(1, orcamento.getStatus());
-			pst.setLong(2, orcamento.getEletricos());
-			pst.setLong(3, orcamento.getConsumo());
-			pst.setLong(4, orcamento.getEletronicos());
-			pst.setLong(5, orcamento.getEstetico());
-			pst.setLong(6, orcamento.getSinal());
-			pst.setString(7, orcamento.getItem());
-			pst.setLong(8, orcamento.getId());
+			if(orcamento.getColetor_id()!= null && orcamento.getColetor_id()!= 0l) {
+				pst = conn.prepareStatement("UPDATE tb_orcamento "
+						+ "SET status = ?,"
+						+ " eletricos = ?,"
+						+ " consumo = ?,"
+						+ " eletronicos = ?,"
+						+ " estetico =? ,"
+						+ " sinal = ?, "
+						+ " Item = ?, "
+						+ " cabos = ?, "
+						+ "coletor_id = ?"
+						+" WHERE "
+						+"(id = ?)");
+				
+				pst.setInt(1, orcamento.getStatus());
+				pst.setLong(2, orcamento.getEletricos());
+				pst.setLong(3, orcamento.getConsumo());
+				pst.setLong(4, orcamento.getEletronicos());
+				pst.setLong(5, orcamento.getEstetico());
+				pst.setLong(6, orcamento.getSinal());
+				pst.setString(7, orcamento.getItem());
+				pst.setLong(8, orcamento.getCabos());
+				pst.setLong(9, orcamento.getColetor_id());
+				pst.setLong(10, orcamento.getId());
+				
+			}else {
+					pst = conn.prepareStatement("UPDATE tb_orcamento "
+													+ "SET status = ?,"
+													+ " eletricos = ?,"
+													+ " consumo = ?,"
+													+ " eletronicos = ?,"
+													+ " estetico =? ,"
+													+ " sinal = ?, "
+													+ " Item = ?"
+													+ " cabos = ?, "
+													+" WHERE "
+													+"(id = ?)");
+					
+					pst.setInt(1, orcamento.getStatus());
+					pst.setLong(2, orcamento.getEletricos());
+					pst.setLong(3, orcamento.getConsumo());
+					pst.setLong(4, orcamento.getEletronicos());
+					pst.setLong(5, orcamento.getEstetico());
+					pst.setLong(6, orcamento.getSinal());
+					pst.setString(7, orcamento.getItem());
+					pst.setLong(8, orcamento.getCabos());
+					pst.setLong(9, orcamento.getId());
+				
+			}
 			
 			int rowsAccepted = pst.executeUpdate();
 			conn.commit();
