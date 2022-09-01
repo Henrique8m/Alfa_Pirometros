@@ -24,6 +24,10 @@ public class Orcamento {
 	private Long estetico;
 	private Long sinal;
 	private Long cabos;
+	
+	private int nfe;
+	private String situation;
+	private String empressa;
 
 	
 	
@@ -345,6 +349,30 @@ public class Orcamento {
 
 	public void setCabos(Long cabos) {
 		this.cabos = cabos;
+	}
+
+	public int getNfe() {
+		return nfe;
+	}
+
+	public void setNfe(int nfe) {
+		this.nfe = nfe;
+	}
+
+	public String getSituation() {
+		return situation;
+	}
+
+	public void setSituation(String situation) {
+		this.situation = situation;
+	}
+
+	public String getEmpressa() {
+		return empressa;
+	}
+
+	public void setEmpressa(String empressa) {
+		this.empressa = empressa;
 	}
 
 }

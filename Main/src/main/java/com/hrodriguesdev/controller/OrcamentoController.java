@@ -36,7 +36,11 @@ public class OrcamentoController {
 		return orcamentoService.findAllIdEquipamento(equipamento_id);
 		
 	}
-
+	
+	public ObservableList<Orcamento> findAll() {
+		return orcamentoService.findAll();
+	}
+	
 	public boolean existOrcamento(Long equipamento_id) {		
 		return orcamentoService.existOrcamento(equipamento_id);
 	}
@@ -48,5 +52,7 @@ public class OrcamentoController {
 	public Orcamento getOrcamento(Long id) throws SQLException {
 		return orcamentoService.getOrcamento(id);
 	}
+
+
 	
 }

@@ -138,6 +138,29 @@ public class OrcamentoRepository {
 		return list;
 	}
 	
+	public List<Orcamento> findAll() {
+		List<Orcamento> list = new ArrayList<>();
+		try {
+			conn = DB.getConnection();			
+			st = conn.createStatement();			
+			rs = st.executeQuery("SELECT * FROM alfaestoque.tb_orcamento;");			
+			
+			while (rs.next())  
+				list.add( new Orcamento(rs) );	
+						
+		}catch(DbException | SQLException e) {
+			e.printStackTrace();
+			throw new DbException(e.getMessage());
+
+		}finally {
+			DB.closeResultSet(rs);
+			DB.closeStatement(st);
+			DB.closeConnection();
+			
+		}
+		return list;
+	}
+	
 	public Orcamento getOrcamento(Long id) throws DbException {	
 		try {
 			conn = DB.getConnection();			
@@ -342,6 +365,8 @@ public class OrcamentoRepository {
 		return ok;
 
 	}
+
+
 
 
 	

@@ -95,6 +95,11 @@ public class EstoqueController implements Initializable{
 	protected void entradaMaterial(ActionEvent event) throws IOException {
 		NewView.addChildren((Node) NewView.loadFXML("orcamentoDois" , new EstoqueEntradaController(new Equipamento(), new Orcamento() ) ));
 	}
+	
+	@FXML
+	protected void relatorios(ActionEvent event) throws IOException {
+		NewView.addChildren((Node) NewView.loadFXML("orcamentos" , new RelatoriosController( ) ));
+	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {

@@ -138,6 +138,14 @@ public class PaginaBuscaController extends EquipamentoMainView implements Initia
 			obsOrcamento = orcamentoController.findAllIdEquipamento(equipamento.getId());
 			tableOrcamentos.setItems(obsOrcamento);
 			tableOrcamentos.refresh();
+			nomeEmpressaClick.setText(equipamento.getEmpressaName());
+			if( equipamento.getNs()!= null ) nsClick.setText(equipamento.getNs() );
+			if( equipamento.getPat()!= null ) patClick.setText(equipamento.getPat() );
+			if( equipamento.getModelo()!= null ) modeloClick.setText( equipamento.getModelo() );
+			if( equipamento.getUltimaCalibDate() != null ) {
+				Date date = new Date( equipamento.getUltimaCalibDate().getTime() );
+				ultimaCalClick.setText( Format.formatData.format(date) );
+			}
 		}
 	}	
 	
@@ -148,33 +156,25 @@ public class PaginaBuscaController extends EquipamentoMainView implements Initia
 					Coletor coletor = new Coletor();
 					Orcamento orcamento = orcamentoController.getOrcamento( tableOrcamentos.getSelectionModel().getSelectedItem().getId() ); 
 					
-					if( orcamento.getColetor_id() != null && orcamento.getColetor_id() != 0 ) {
-		//				coletor = MainViewController.coletorController.findById( equipamento.getColetor_id() );
+					if( orcamento.getColetor_id() != null && orcamento.getColetor_id() != 0 ) {						
+						coletor = MainViewController.coletorController.findById( orcamento.getColetor_id() );
+						empressaColetaClick.setText(coletor.getEmpressaName() );
+						dataColetaClick.setText( Format.formatData.format(coletor.getDate()));
+						nomeColetorClick.setText( coletor.getNomeColetor() );
 					}
 		
-					nomeEmpressaClick.setText(equipamento.getEmpressaName());
-					if( equipamento.getNs()!= null ) nsClick.setText(equipamento.getNs() );
-					if( equipamento.getPat()!= null ) patClick.setText(equipamento.getPat() );
-					if( equipamento.getModelo()!= null ) modeloClick.setText( equipamento.getModelo() );
-					if( equipamento.getDateChegada()!= null ) {
-						Date date = new Date( equipamento.getDateChegada().getTime() );
+					
+					if( orcamento.getData_chegada()!= null ) {
+						Date date = new Date( orcamento.getData_chegada().getTime() );						
 						dataChegadaClick.setText( Format.formatData.format(date) ); 
-					}
-					if( equipamento.getRelatorio() != null ) relatorioClick.setText(equipamento.getRelatorio() );
-					if( equipamento.getUltimaCalibDate() != null ) {
-						Date date = new Date( equipamento.getUltimaCalibDate().getTime() );
-						ultimaCalClick.setText( Format.formatData.format(date) );
+						
 					}
 					if( orcamento.getData_saida() != null ) {
 						Date date = new Date( orcamento.getData_saida().getTime() );
 						dataSaidaClick.setText( Format.formatData.format(date) );
+						
 					}
-					if( orcamento.getColetor_id() != null && orcamento.getColetor_id() != 0) {
-						empressaColetaClick.setText(coletor.getEmpressaName() );
-						if(coletor.getDate()!= null)
-							dataColetaClick.setText( Format.formatData.format(coletor.getDate()));
-						nomeColetorClick.setText( coletor.getNomeColetor() );
-					}
+					if( orcamento.getRelatorio() != null ) relatorioClick.setText(orcamento.getRelatorio() );					
 					if( orcamento.getItem() != null ) itensOrcamentoClick.setText(orcamento.getItem());
 					
 				}
