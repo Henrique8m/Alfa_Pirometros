@@ -53,7 +53,7 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Tomada S" wrappingWidth="65.13671875" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Tomada S" wrappingWidth="65.13671875" GridPane.columnIndex="8" GridPane.rowIndex="1">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -88,7 +88,7 @@
                         <Font size="14.0" />
                      </font>
                   </Text>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Plug Fêmea S" wrappingWidth="91.13671875" GridPane.columnIndex="6" GridPane.rowIndex="1">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Plug Fêmea S" wrappingWidth="91.13671875" GridPane.columnIndex="2" GridPane.rowIndex="1">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -518,7 +518,7 @@
                         </Text>
                      </children>
                   </VBox>
-                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="9" GridPane.rowIndex="1">
                      <children>
                         <Text fx:id="tsS" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="000" textAlignment="CENTER" wrappingWidth="28.13671875">
                            <font>
@@ -546,7 +546,7 @@
                         </Text>
                      </children>
                   </VBox>
-                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="7" GridPane.rowIndex="1">
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
                      <children>
                         <Text fx:id="pfsS" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="000" textAlignment="CENTER" wrappingWidth="28.13671875">
                            <font>
@@ -819,7 +819,7 @@
                               <Font size="14.0" />
                            </font>
                         </Text>
-                        <Text fx:id="fkd" strokeType="OUTSIDE" strokeWidth="0.0" text="000" textAlignment="CENTER" wrappingWidth="28.13671875">
+                        <Text fx:id="fcd" strokeType="OUTSIDE" strokeWidth="0.0" text="000" textAlignment="CENTER" wrappingWidth="28.13671875">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -959,7 +959,7 @@
                               <Font size="14.0" />
                            </font>
                         </Text>
-                        <Text fx:id="cbs" strokeType="OUTSIDE" strokeWidth="0.0" text="000" textAlignment="CENTER" wrappingWidth="28.13671875">
+                        <Text fx:id="cbs" strokeType="OUTSIDE" strokeWidth="0.0" text="000" textAlignment="CENTER" wrappingWidth="38.803375244140625">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -973,7 +973,7 @@
                               <Font size="14.0" />
                            </font>
                         </Text>
-                        <Text fx:id="cffs" strokeType="OUTSIDE" strokeWidth="0.0" text="000" textAlignment="CENTER" wrappingWidth="28.13671875">
+                        <Text fx:id="cffs" strokeType="OUTSIDE" strokeWidth="0.0" text="000" textAlignment="CENTER" wrappingWidth="37.47003173828125">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -987,7 +987,7 @@
                               <Font size="14.0" />
                            </font>
                         </Text>
-                        <Text fx:id="cfsk" strokeType="OUTSIDE" strokeWidth="0.0" text="000" textAlignment="CENTER" wrappingWidth="28.13671875">
+                        <Text fx:id="cfsk" strokeType="OUTSIDE" strokeWidth="0.0" text="000" textAlignment="CENTER" wrappingWidth="45.47003173828125">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -1001,7 +1001,7 @@
                               <Font size="14.0" />
                            </font>
                         </Text>
-                        <Text fx:id="cffk" strokeType="OUTSIDE" strokeWidth="0.0" text="000" textAlignment="CENTER" wrappingWidth="28.13671875">
+                        <Text fx:id="cffk" strokeType="OUTSIDE" strokeWidth="0.0" text="000" textAlignment="CENTER" wrappingWidth="41.470062255859375">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -1015,7 +1015,7 @@
                               <Font size="14.0" />
                            </font>
                         </Text>
-                        <Text fx:id="cbk" strokeType="OUTSIDE" strokeWidth="0.0" text="000" textAlignment="CENTER" wrappingWidth="28.13671875">
+                        <Text fx:id="cbk" strokeType="OUTSIDE" strokeWidth="0.0" text="000" textAlignment="CENTER" wrappingWidth="46.80339050292969">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -1029,7 +1029,7 @@
                               <Font size="14.0" />
                            </font>
                         </Text>
-                        <Text fx:id="cfss" strokeType="OUTSIDE" strokeWidth="0.0" text="000" textAlignment="CENTER" wrappingWidth="28.13671875">
+                        <Text fx:id="cfss" strokeType="OUTSIDE" strokeWidth="0.0" text="000" textAlignment="CENTER" wrappingWidth="38.80340576171875">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -1064,6 +1064,25 @@
                         </Text>
                      </children>
                   </VBox>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="7" GridPane.rowIndex="1">
+                     <children>
+                        <Text fx:id="pfkS" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="000" textAlignment="CENTER" wrappingWidth="28.13671875">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="pfk" strokeType="OUTSIDE" strokeWidth="0.0" text="000" textAlignment="CENTER" wrappingWidth="28.13671875">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </VBox>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Plug Fêmea K" wrappingWidth="91.13671875" GridPane.columnIndex="6" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Text>
                </children>
                <padding>
                   <Insets left="10.0" />
@@ -1091,7 +1110,7 @@
             <RowConstraints maxHeight="500.0" minHeight="244.0" prefHeight="279.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Button fx:id="cancelar" minHeight="30.0" minWidth="-Infinity" mnemonicParsing="false" onAction="#cancelar" prefHeight="45.0" prefWidth="185.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Cancelar">
+            <Button fx:id="cancelar" minHeight="30.0" minWidth="-Infinity" mnemonicParsing="false" onAction="#cancelar" prefHeight="45.0" prefWidth="185.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Voltar">
                <graphic>
                   <ImageView fx:id="cancelarImg" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" />
                </graphic>
@@ -1123,7 +1142,15 @@
             </Button>
             <Button mnemonicParsing="false" onAction="#relatorios" prefHeight="45.0" prefWidth="185.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Relatorios" GridPane.rowIndex="3">
                <graphic>
-                  <ImageView fx:id="saidaMaterialImg2" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="relatorioImg" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" />
+               </graphic>
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#relatoriosPdf" prefHeight="45.0" prefWidth="185.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Gerar PDF" GridPane.rowIndex="4">
+               <graphic>
+                  <ImageView fx:id="pdfImg" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" />
                </graphic>
                <font>
                   <Font size="14.0" />

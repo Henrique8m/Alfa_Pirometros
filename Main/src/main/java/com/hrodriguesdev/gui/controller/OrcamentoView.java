@@ -40,6 +40,7 @@ public class OrcamentoView implements Initializable {
 	private Equipamento equipamento;
 	private Orcamento orcamento;
 	private Itens itens;
+	;
 	
 	public OrcamentoView(Equipamento equipamento, Orcamento orcamento) {
 		this.equipamento = equipamento;
@@ -49,12 +50,16 @@ public class OrcamentoView implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		itens = new Itens();
-		if( equipamento.getRelatorio() != null && relatorioN.getText() != "" ) {
+		if( equipamento.getRelatorio() != null && relatorioN.getText() != "" ) 
 			relatorioN.setText( equipamento.getRelatorio() );
-		}
+		
+		if(equipamento.getUltimaCalibDate() != null) 
+			ultimaCal.setText( Format.formatData.format(equipamento.getUltimaCalibDate()) );
 		switchStatus(equipamento.getStatus());		
 		nomeEmpressa.setText(equipamento.getEmpressaName());
 		data.setText(Format.formatData.format(orcamento.getData_chegada()));
+		
+		
 		
 		modelo.setText(equipamento.getModelo());
 		ns.setText(equipamento.getNs());

@@ -66,12 +66,12 @@ public class EstoqueCabos implements Serializable {
 
 	public void remove(ResultSet rs) {
 		try {			
-			s_borracha =- rs.getInt("s_borracha");
-			s_miolo =- rs.getInt("s_miolo");
-			s_extensao =- rs.getInt("s_extensao");	
-			k_borracha =- rs.getInt("k_borracha");
-			k_miolo =- rs.getInt("k_miolo");
-			k_extensao =- rs.getInt("k_extensao");
+			s_borracha -= rs.getInt("s_borracha");
+			s_miolo -= rs.getInt("s_miolo");
+			s_extensao -= rs.getInt("s_extensao");	
+			k_borracha -= rs.getInt("k_borracha");
+			k_miolo -= rs.getInt("k_miolo");
+			k_extensao -= rs.getInt("k_extensao");
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -82,12 +82,12 @@ public class EstoqueCabos implements Serializable {
 	public void add(ResultSet rs) {
 		try {			
 
-			s_borracha =+ rs.getInt("s_borracha");
-			s_miolo =+ rs.getInt("s_miolo");
-			s_extensao =+ rs.getInt("s_extensao");	
-			k_borracha =+ rs.getInt("k_borracha");
-			k_miolo =+ rs.getInt("k_miolo");
-			k_extensao =+ rs.getInt("k_extensao");
+			s_borracha += rs.getInt("s_borracha");
+			s_miolo += rs.getInt("s_miolo");
+			s_extensao += rs.getInt("s_extensao");	
+			k_borracha += rs.getInt("k_borracha");
+			k_miolo += rs.getInt("k_miolo");
+			k_extensao += rs.getInt("k_extensao");
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -97,7 +97,12 @@ public class EstoqueCabos implements Serializable {
 	}
 	
 	public EstoqueCabos() {
-		// TODO Auto-generated constructor stub
+		s_borracha=0;
+		s_miolo=0;
+		s_extensao=0;
+		k_borracha=0;
+		k_miolo=0;
+		k_extensao=0;
 	}
 
 	public static List<Orcamento> cabosListSinal(EstoqueCabos sinal) {
@@ -247,6 +252,23 @@ public class EstoqueCabos implements Serializable {
 		
 		if( k_extensao > 0) 
 			list = list + "Cabo_K_Fibra_Silicone, quantidade = " + k_extensao + "\n";
+			
+
+		return list;
+	}
+	
+	public String string() {
+		String list = "Cabo S borracha = " + s_borracha + "\n";
+		
+			list = list + "Cabo S fibra fibra, quantidade = " + s_miolo + "cm" + "\n";
+
+			list = list + "Cabo S extensao, quantidade = " + s_extensao + "cm" + "\n";
+		
+			list = list + "Cabo K borracha, quantidade = " + k_borracha + "cm" + "\n";
+		 
+			list = list + "Cabo K fibra fibra, quantidade = " + k_miolo + "cm" + "\n";
+		
+			list = list + "Cabo K fibra silicone, quantidade = " + k_extensao + "cm" + "\n";
 			
 
 		return list;

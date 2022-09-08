@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.Date;
 import java.util.ResourceBundle;
 
+import com.hrodriguesdev.AlfaPirometrosApplication;
 import com.hrodriguesdev.controller.OrcamentoController;
 import com.hrodriguesdev.entities.Coletor;
 import com.hrodriguesdev.entities.Orcamento;
@@ -25,15 +26,22 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 
 public class RelatoriosController implements Initializable{
 	private OrcamentoController orcamentoController = new OrcamentoController();
 	private Itens itens = new Itens();
 
+	
+	@FXML
+	private VBox nsVbox, patVbox, modeloVbox, calVbox, coletaVbox, coletorVbox, empressaVbox;
+	
 	@FXML
 	private TextField ns, pat,
-			modelo, ultimaCal, dataColeta, nomeColetor;
+			modelo, ultimaCal, dataColeta, nomeColetor, nomeEmpressa;
 	
 	@FXML
 	private TableView<Orcamento> tableOrcamentos;
@@ -55,9 +63,6 @@ public class RelatoriosController implements Initializable{
 	private TableColumn<Orcamento, String>  situation;
 	
 	@FXML
-	private TableColumn<Orcamento, String>  empressa;
-	
-	@FXML
 	protected TableView<Orcamento> tableOrcamento = new TableView<>();
 	protected ObservableList<Orcamento> obsMateriais = FXCollections.observableArrayList();
 	@FXML
@@ -66,15 +71,44 @@ public class RelatoriosController implements Initializable{
 	protected TableColumn<Orcamento, Integer> quantidade;
 		
 	@FXML
+	private ImageView cancelarImg, buscarImg, logoYgg;
+	
+	@FXML
 	public void clickOrcamento(MouseEvent event) throws SQLException {
 			if(tableOrcamentos.getSelectionModel().getSelectedItem() != null) {
 					Coletor coletor = new Coletor();
 					Orcamento orcamento = orcamentoController.getOrcamento( tableOrcamentos.getSelectionModel().getSelectedItem().getId() ); 
 					
+					if(orcamento.getStatus() == 20) {
+						 nsVbox.setVisible(false); 
+						 patVbox.setVisible(false);
+						 modeloVbox.setVisible(false);
+						 calVbox.setVisible(false);
+						 empressaVbox.setVisible(true);
+						 coletaVbox.setVisible(true);
+						 coletorVbox.setVisible(true);
+					}else if(orcamento.getStatus() == 7) {
+						 nsVbox.setVisible(true); 
+						 patVbox.setVisible(true);
+						 modeloVbox.setVisible(true);
+						 calVbox.setVisible(true);
+						 coletaVbox.setVisible(true);
+						 coletorVbox.setVisible(true);
+						 empressaVbox.setVisible(true);
+					}else {
+						 nsVbox.setVisible(true); 
+						 patVbox.setVisible(true);
+						 modeloVbox.setVisible(true);
+						 calVbox.setVisible(true);
+					}
+											
+					
+					
 					if( orcamento.getColetor_id() != null && orcamento.getColetor_id() != 0 ) {						
 						coletor = MainViewController.coletorController.findById( orcamento.getColetor_id() );
 						dataColeta.setText( Format.formatData.format(coletor.getDate()));
 						nomeColetor.setText( coletor.getNomeColetor() );
+						nomeEmpressa.setText(coletor.getEmpressaName());
 					}else {
 						dataColeta.setText( "" );
 						nomeColetor.setText( "" );
@@ -99,8 +133,7 @@ public class RelatoriosController implements Initializable{
 		relatorioTable.setCellValueFactory(new PropertyValueFactory<Orcamento, String>("relatorio"));	
 		nfe.setCellValueFactory(new PropertyValueFactory<Orcamento, Integer>("nfe"));
 		situation.setCellValueFactory(new PropertyValueFactory<Orcamento, String>("situation"));
-		empressa.setCellValueFactory(new PropertyValueFactory<Orcamento, String>("empressa"));
-
+		
 		chegadaTable.setCellValueFactory(new PropertyValueFactory<>("data_chegada"));
 		chegadaTable.setCellFactory( cell -> {
             return new TableCell<Orcamento, Date>() {
@@ -156,6 +189,16 @@ public class RelatoriosController implements Initializable{
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		startTableOrcamentos();
+
+		Image image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/Yggdrasilicon.jpg").toString() );
+		logoYgg.setImage(image);
+		
+		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-excluir.png").toString() );
+		cancelarImg.setImage(image);
+		
+		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-pesquisar.png").toString() );
+		buscarImg.setImage(image);
+		
 		
 	}
 	

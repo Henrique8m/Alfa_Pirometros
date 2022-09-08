@@ -221,6 +221,8 @@ public class OrcamentoInsert implements Initializable {
 		modelo.setText(equipamento.getModelo());
 		ns.setText(equipamento.getNs());
 		pat.setText(equipamento.getPat());
+		if(equipamento.getUltimaCalibDate() != null) 
+			ultimaCal.setText( Format.formatData.format(equipamento.getUltimaCalibDate()) );
 //		ultimaCal.setText(equipamento.getUltimaCalib());	
 	}
 		

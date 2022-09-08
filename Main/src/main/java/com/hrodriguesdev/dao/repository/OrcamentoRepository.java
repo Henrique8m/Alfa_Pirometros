@@ -158,6 +158,7 @@ public class OrcamentoRepository {
 			DB.closeConnection();
 			
 		}
+		list.sort( (a, b) -> b.getData_chegada().compareTo(a.getData_chegada()));
 		return list;
 	}
 	

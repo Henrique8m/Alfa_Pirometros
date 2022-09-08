@@ -98,6 +98,16 @@ public class EstoqueConsumo implements Serializable {
 		return list;
 	}
 	
+	public String string() {
+		String list = "Botao liga, quantidade = " + BotaoLiga + "\n";
+		
+			list = list + "Botao memoria, quantidade = " + BoMeFIIFIIIIndicmax + "\n";
+
+			list = list + "Caixa para bateria, quantidade = " + CaixaBat + "\n";
+		
+		return list;
+	}
+	
 	public void setId(Long id) {
 		this.id = id;
 	}
@@ -157,9 +167,9 @@ public class EstoqueConsumo implements Serializable {
 
 	public void add(ResultSet rs) {
 		try {			
-			BotaoLiga =+ rs.getInt("b_liga");
-			BoMeFIIFIIIIndicmax =+ rs.getInt("b_m_forneros");
-			CaixaBat =+ rs.getInt("caixa_bateria");	
+			BotaoLiga += rs.getInt("b_liga");
+			BoMeFIIFIIIIndicmax += rs.getInt("b_m_forneros");
+			CaixaBat += rs.getInt("caixa_bateria");	
 			
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -74,15 +74,15 @@ public class EstoqueEstetico implements Serializable {
 	public void remove(ResultSet rs) {
 		try {			
 
-			MascaraFII =- rs.getInt("mascara_fii");
-			MascaraFKal =- rs.getInt("mascara_fkal");
-			MascaraFIII =- rs.getInt("mascara_fiii");	
-			MascaraCarbo =- rs.getInt("mascara_carbo");
-			MascaraIndic =- rs.getInt("mascara_indic");
-			EtiqLatFII =- rs.getInt("etiq_lat_fii");
-			EtiqLatFIII =- rs.getInt("etiq_lat_fiii");
-			EtiqTrasFII =- rs.getInt("etiq_tras_fii");
-			Punho =- rs.getInt("punho");
+			MascaraFII -= rs.getInt("mascara_fii");
+			MascaraFKal -= rs.getInt("mascara_fkal");
+			MascaraFIII -= rs.getInt("mascara_fiii");	
+			MascaraCarbo -= rs.getInt("mascara_carbo");
+			MascaraIndic -= rs.getInt("mascara_indic");
+			EtiqLatFII -= rs.getInt("etiq_lat_fii");
+			EtiqLatFIII -= rs.getInt("etiq_lat_fiii");
+			EtiqTrasFII -= rs.getInt("etiq_tras_fii");
+			Punho -= rs.getInt("punho");
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -94,15 +94,15 @@ public class EstoqueEstetico implements Serializable {
 	public void add(ResultSet rs) {
 		try {			
 
-			MascaraFII =+ rs.getInt("mascara_fii");
-			MascaraFKal =+ rs.getInt("mascara_fkal");
-			MascaraFIII =+ rs.getInt("mascara_fiii");	
-			MascaraCarbo =+ rs.getInt("mascara_carbo");
-			MascaraIndic =+ rs.getInt("mascara_indic");
-			EtiqLatFII =+ rs.getInt("etiq_lat_fii");
-			EtiqLatFIII =+ rs.getInt("etiq_lat_fiii");
-			EtiqTrasFII =+ rs.getInt("etiq_tras_fii");
-			Punho =+ rs.getInt("punho");
+			MascaraFII += rs.getInt("mascara_fii");
+			MascaraFKal += rs.getInt("mascara_fkal");
+			MascaraFIII += rs.getInt("mascara_fiii");	
+			MascaraCarbo += rs.getInt("mascara_carbo");
+			MascaraIndic += rs.getInt("mascara_indic");
+			EtiqLatFII += rs.getInt("etiq_lat_fii");
+			EtiqLatFIII += rs.getInt("etiq_lat_fiii");
+			EtiqTrasFII += rs.getInt("etiq_tras_fii");
+			Punho += rs.getInt("punho");
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -112,7 +112,15 @@ public class EstoqueEstetico implements Serializable {
 	}
 	
 	public EstoqueEstetico() {
-		// TODO Auto-generated constructor stub
+		MascaraFII=0;
+		MascaraFKal=0;
+		MascaraFIII=0;
+		MascaraCarbo=0;
+		MascaraIndic=0;
+		EtiqLatFII=0;
+		EtiqLatFIII=0;
+		EtiqTrasFII=0;
+		Punho=0;
 	}
 
 	public static List<Orcamento> orcamentoListEstetico(EstoqueEstetico estetico) {
@@ -204,6 +212,29 @@ public class EstoqueEstetico implements Serializable {
 			list = list + "Etiqueta traseira fornero II, quantidade = " + EtiqTrasFII + "\n";
 		
 		if( Punho > 0) 
+			list = list + "Punho, quantidade = " + Punho + "\n";
+		
+		
+		return list;
+	}
+	
+	public String string() {
+		String list = "Mascara Fornero II, quantidade = " + MascaraFII + "\n";
+		
+			list = list + "Mascara Fornero kal, quantidade = " + MascaraFKal + "\n";
+		
+			list = list + "Mascara Fornero III, quantidade = " + MascaraFIII + "\n";
+		
+			list = list + "Mascara carbomax II, quantidade = " + MascaraCarbo + "\n";
+		
+			list = list + "Mascara Indicmax II, quantidade = " + MascaraIndic + "\n";
+		
+			list = list + "Etiqueta lateral fornero II, quantidade = " + EtiqLatFII + "\n";
+		
+			list = list + "Etiqueta lateral fornero III, quantidade = " + EtiqLatFIII + "\n";
+		
+			list = list + "Etiqueta traseira fornero II, quantidade = " + EtiqTrasFII + "\n";
+		
 			list = list + "Punho, quantidade = " + Punho + "\n";
 		
 		

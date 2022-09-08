@@ -73,14 +73,14 @@ public class EstoqueEletronicos implements Serializable {
 	public void remove(ResultSet rs) {
 		try {			
 
-			sirene =- rs.getInt("sirene");
-			PCIFIII =- rs.getInt("pci_fiii");
-			PCIFKal =- rs.getInt("pci_fkal");	
-			DispFKal =- rs.getInt("disp_fkal");
-			FIII =- rs.getInt("fiii");	
-			Indicmax =- rs.getInt("indicmax");
-			CIFII =- rs.getInt("ci_fii");	
-			CIIndicmax =- rs.getInt("ci_indicmax");	
+			sirene -= rs.getInt("sirene");
+			PCIFIII -= rs.getInt("pci_fiii");
+			PCIFKal -= rs.getInt("pci_fkal");	
+			DispFKal -= rs.getInt("disp_fkal");
+			FIII -= rs.getInt("fiii");	
+			Indicmax -= rs.getInt("indicmax");
+			CIFII -= rs.getInt("ci_fii");	
+			CIIndicmax -= rs.getInt("ci_indicmax");	
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -92,14 +92,14 @@ public class EstoqueEletronicos implements Serializable {
 	public void add(ResultSet rs) {
 		try {			
 
-			sirene =+ rs.getInt("sirene");
-			PCIFIII =+ rs.getInt("pci_fiii");
-			PCIFKal =+ rs.getInt("pci_fkal");	
-			DispFKal =+ rs.getInt("disp_fkal");
-			FIII =+ rs.getInt("fiii");	
-			Indicmax =+ rs.getInt("indicmax");
-			CIFII =+ rs.getInt("ci_fii");	
-			CIIndicmax =+ rs.getInt("ci_indicmax");	
+			sirene += rs.getInt("sirene");
+			PCIFIII += rs.getInt("pci_fiii");
+			PCIFKal += rs.getInt("pci_fkal");	
+			DispFKal += rs.getInt("disp_fkal");
+			FIII += rs.getInt("fiii");	
+			Indicmax += rs.getInt("indicmax");
+			CIFII += rs.getInt("ci_fii");	
+			CIIndicmax += rs.getInt("ci_indicmax");	
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -109,7 +109,14 @@ public class EstoqueEletronicos implements Serializable {
 	}
 	
 	public EstoqueEletronicos() {
-		// TODO Auto-generated constructor stub
+		sirene=0;
+		PCIFIII=0;
+		PCIFKal=0;
+		DispFKal=0;
+		FIII=0;
+		Indicmax=0;
+		CIFII=0;
+		CIIndicmax=0;
 	}
 
 	public static List<Orcamento> orcamentoListEletronico(EstoqueEletronicos eletronicos) {
@@ -192,6 +199,26 @@ public class EstoqueEletronicos implements Serializable {
 			list = list + "CI microcontrolador Fornero II, quantidade = " + CIFII + "\n";
 		
 		if( CIIndicmax > 0) 
+			list = list + "CI Indicmax, quantidade = " + CIIndicmax + "\n";
+		
+		return list;
+	}
+	
+	public String string() {
+		String list = "Sirene fim de medicao, quantidade = " + sirene + "\n";
+		
+			list = list + "PCI Fornero III, quantidade = " + PCIFIII + "\n";
+		
+			list = list + "PCI Fornero Kal, quantidade = " + PCIFKal + "\n";
+		
+			list = list + "Display Fornero Kal, quantidade = " + DispFKal + "\n";
+		
+			list = list + "Fornero III novo, quantidade = " + FIII + "\n";
+		
+			list = list + "Indicmax novo, quantidade = " + Indicmax + "\n";
+		
+			list = list + "CI microcontrolador Fornero II, quantidade = " + CIFII + "\n";
+		
 			list = list + "CI Indicmax, quantidade = " + CIIndicmax + "\n";
 		
 		return list;

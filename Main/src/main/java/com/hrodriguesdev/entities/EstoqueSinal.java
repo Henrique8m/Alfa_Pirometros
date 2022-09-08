@@ -75,15 +75,15 @@ public class EstoqueSinal implements Serializable {
 	public void remove(ResultSet rs) {
 		try {			
 
-			ReceptaculoS =- rs.getInt("receptaculo_s");
-			ReceptaculoSU =- rs.getInt("receptaculo_su");
-			ReceptaculoEcil =- rs.getInt("receptaculo_ecil");	
-			ReceptaculoK =- rs.getInt("receptaculo_k");
-			PlugFS =- rs.getInt("plug_fs");
+			ReceptaculoS -= rs.getInt("receptaculo_s");
+			ReceptaculoSU -= rs.getInt("receptaculo_su");
+			ReceptaculoEcil -= rs.getInt("receptaculo_ecil");	
+			ReceptaculoK -= rs.getInt("receptaculo_k");
+			PlugFS -= rs.getInt("plug_fs");
 			PlugFK = 0;
-			PlugMS =- rs.getInt("plug_ms");
-			PlugMK =- rs.getInt("plug_mk");
-			TomadaS =- rs.getInt("tomada_s");
+			PlugMS -= rs.getInt("plug_ms");
+			PlugMK -= rs.getInt("plug_mk");
+			TomadaS -= rs.getInt("tomada_s");
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -94,15 +94,15 @@ public class EstoqueSinal implements Serializable {
 	public void add(ResultSet rs) {
 		try {			
 
-			ReceptaculoS =+ rs.getInt("receptaculo_s");
-			ReceptaculoSU =+ rs.getInt("receptaculo_su");
-			ReceptaculoEcil =+ rs.getInt("receptaculo_ecil");	
-			ReceptaculoK =+ rs.getInt("receptaculo_k");
-			PlugFS =+ rs.getInt("plug_fs");
-			PlugFK =+ 0;
-			PlugMS =+ rs.getInt("plug_ms");
-			PlugMK =+ rs.getInt("plug_mk");
-			TomadaS =+ rs.getInt("tomada_s");
+			ReceptaculoS += rs.getInt("receptaculo_s");
+			ReceptaculoSU += rs.getInt("receptaculo_su");
+			ReceptaculoEcil += rs.getInt("receptaculo_ecil");	
+			ReceptaculoK += rs.getInt("receptaculo_k");
+			PlugFS += rs.getInt("plug_fs");
+			PlugFK += 0;
+			PlugMS += rs.getInt("plug_ms");
+			PlugMK += rs.getInt("plug_mk");
+			TomadaS += rs.getInt("tomada_s");
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -299,6 +299,28 @@ public class EstoqueSinal implements Serializable {
 		return list;
 	}
 
+	public String string() {
+		String list =  "Receptaculo S, quantidade = " + ReceptaculoS + "\n";
+		 
+			list = list + "Receptaculo SU, quantidade = " + ReceptaculoSU + "\n";
+		
+			list = list + "Receptaculo Ecil, quantidade = " + ReceptaculoEcil + "\n";
+		
+			list = list + "Receptaculo K, quantidade = " + ReceptaculoK + "\n";
+		
+			list = list + "Plug Fêmea S, quantidade = " + PlugFS + "\n";
+		 
+			list = list + "Plug Fêmea K, quantidade = " + PlugFK + "\n";
+		
+			list = list + "Plug Macho S, quantidade = " + PlugMS + "\n";
+		
+			list = list + "Plug Macho K, quantidade = " + PlugMK + "\n";
+		
+			list = list + "Tomada S, quantidade = " + TomadaS + "\n";
+
+		return list;
+	}
+	
 	public Boolean getEntrada() {
 		return entrada;
 	}

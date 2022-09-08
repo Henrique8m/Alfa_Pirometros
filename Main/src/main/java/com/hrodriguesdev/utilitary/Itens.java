@@ -322,6 +322,8 @@ public class Itens {
 		orcamento.setEstetico( repository.saveEstetico(estetico) );
 		orcamento.setSinal( repository.saveSinal(sinal) );
 		orcamento.setCabos( repository.saveCabos(cabos) );
+		if(orcamento.getColetor_id() == null)
+			orcamento.setColetor_id(0l);
 		return orcamentoRe.setIdItens(orcamento);
 	}
 

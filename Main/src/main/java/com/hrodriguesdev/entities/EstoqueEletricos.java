@@ -78,16 +78,16 @@ public class EstoqueEletricos implements Serializable {
 	public void remove(ResultSet rs) {
 		try {			
 
-			FontCarbIndic =- rs.getInt("font_carb_indic");
-			FontCarbDelta =- rs.getInt("font_carb_delta");
-			PinFemeAliFII =- rs.getInt("pin_femea_ali_fii");	
-			PinFemeAliFIII =- rs.getInt("pin_femea_ali_fiii");
-			BatFIIFIII =- rs.getInt("bat_fii_fiii");	
-			BatDescartavel =- rs.getInt("bat_descartavel");
-			BatInditemp =- rs.getInt("bat_inditemp");	
-			BatLitio =- rs.getInt("bat_litio");	
-			CarrEcil =- rs.getInt("carr_ecil");	
-			CarrItalterm =- rs.getInt("carr_italterm");	
+			FontCarbIndic -= rs.getInt("font_carb_indic");
+			FontCarbDelta -= rs.getInt("font_carb_delta");
+			PinFemeAliFII -= rs.getInt("pin_femea_ali_fii");	
+			PinFemeAliFIII -= rs.getInt("pin_femea_ali_fiii");
+			BatFIIFIII -= rs.getInt("bat_fii_fiii");	
+			BatDescartavel -= rs.getInt("bat_descartavel");
+			BatInditemp -= rs.getInt("bat_inditemp");	
+			BatLitio -= rs.getInt("bat_litio");	
+			CarrEcil -= rs.getInt("carr_ecil");	
+			CarrItalterm -= rs.getInt("carr_italterm");	
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -99,16 +99,16 @@ public class EstoqueEletricos implements Serializable {
 	public void add(ResultSet rs) {
 		try {			
 
-			FontCarbIndic =+ rs.getInt("font_carb_indic");
-			FontCarbDelta =+ rs.getInt("font_carb_delta");
-			PinFemeAliFII =+ rs.getInt("pin_femea_ali_fii");	
-			PinFemeAliFIII =+ rs.getInt("pin_femea_ali_fiii");
-			BatFIIFIII =+ rs.getInt("bat_fii_fiii");	
-			BatDescartavel =+ rs.getInt("bat_descartavel");
-			BatInditemp =+ rs.getInt("bat_inditemp");	
-			BatLitio =+ rs.getInt("bat_litio");	
-			CarrEcil =+ rs.getInt("carr_ecil");	
-			CarrItalterm =+ rs.getInt("carr_italterm");	
+			FontCarbIndic += rs.getInt("font_carb_indic");
+			FontCarbDelta += rs.getInt("font_carb_delta");
+			PinFemeAliFII += rs.getInt("pin_femea_ali_fii");	
+			PinFemeAliFIII += rs.getInt("pin_femea_ali_fiii");
+			BatFIIFIII += rs.getInt("bat_fii_fiii");	
+			BatDescartavel += rs.getInt("bat_descartavel");
+			BatInditemp += rs.getInt("bat_inditemp");	
+			BatLitio += rs.getInt("bat_litio");	
+			CarrEcil += rs.getInt("carr_ecil");	
+			CarrItalterm += rs.getInt("carr_italterm");	
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -118,7 +118,16 @@ public class EstoqueEletricos implements Serializable {
 	}
 	
 	public EstoqueEletricos() {
-		// TODO Auto-generated constructor stub
+		FontCarbIndic=0;
+		FontCarbDelta=0;
+		PinFemeAliFII=0;
+		PinFemeAliFIII=0;
+		BatFIIFIII=0;
+		BatDescartavel=0;
+		BatInditemp=0;
+		BatLitio=0;
+		CarrEcil=0;
+		CarrItalterm=0;
 	}
 
 	public static List<Orcamento> orcamentoListEletrico(EstoqueEletricos eletricos) {
@@ -215,6 +224,30 @@ public class EstoqueEletricos implements Serializable {
 		return list;
 	}
 		
+	public String string() {
+		String list = "Fonte italterm universal, quantidade = " + FontCarbIndic + "\n";
+		
+			list = list + "Font carbomax delta, quantidade = " + FontCarbDelta + "\n";
+		
+			list = list + "Pino fêmea alimentacao Fornero II, quantidade = " + PinFemeAliFII + "\n";
+		
+			list = list + "Pino fêmea alimentacao Fornero III, quantidade = " + PinFemeAliFIII + "\n";
+		
+			list = list + "Bateria dos forneiros, quantidade = " + BatFIIFIII + "\n";
+		
+			list = list + "Bateria 9V, quantidade = " + BatDescartavel + "\n";
+		
+			list = list + "Bateria inditemp II, quantidade = " + BatInditemp + "\n";
+		
+			list = list + "Bateria inditemp II Plus - litio, quantidade = " + BatLitio + "\n";
+		 
+			list = list + "Carregador ecil, quantidade = " + CarrEcil + "\n";
+		
+			list = list + "Carregador italterm, quantidade = " + CarrItalterm + "\n";
+		
+		return list;
+	}
+	
 	public void setId(Long id) {
 		this.id = id;
 	}

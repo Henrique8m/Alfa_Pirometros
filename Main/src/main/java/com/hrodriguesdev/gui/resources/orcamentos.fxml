@@ -16,7 +16,6 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
 <HBox xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="300.0" minWidth="400.0" prefHeight="1080.0" prefWidth="1500.0">
@@ -32,7 +31,7 @@
                            <children>
                               <HBox>
                                  <children>
-                                    <VBox minWidth="100.0" prefWidth="147.0">
+                                    <VBox fx:id="nsVbox" minWidth="100.0" prefWidth="147.0">
                                        <children>
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="NS" wrappingWidth="39.13671875" />
                                           <TextField fx:id="ns" editable="false" focusTraversable="false" minWidth="100.0" prefHeight="25.0" prefWidth="170.0" />
@@ -41,7 +40,7 @@
                                           <Insets left="20.0" />
                                        </HBox.margin>
                                     </VBox>
-                                    <VBox minWidth="100.0" prefWidth="164.0">
+                                    <VBox fx:id="patVbox" minWidth="100.0" prefWidth="164.0">
                                        <children>
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="PAT" wrappingWidth="65.13671875" />
                                           <TextField fx:id="pat" editable="false" focusTraversable="false" prefHeight="25.0" prefWidth="79.0" />
@@ -50,7 +49,7 @@
                                           <Insets left="20.0" />
                                        </HBox.margin>
                                     </VBox>
-                                    <VBox minWidth="102.5" prefWidth="138.0">
+                                    <VBox fx:id="modeloVbox" minWidth="102.5" prefWidth="138.0">
                                        <children>
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="MODELO" wrappingWidth="75.13671875" />
                                           <TextField fx:id="modelo" editable="false" focusTraversable="false" minWidth="102.5" prefHeight="25.0" prefWidth="138.0" />
@@ -59,7 +58,7 @@
                                           <Insets left="20.0" />
                                        </padding>
                                     </VBox>
-                                    <VBox minWidth="100.0" prefWidth="164.0">
+                                    <VBox fx:id="calVbox" minWidth="100.0" prefWidth="164.0">
                                        <HBox.margin>
                                           <Insets left="20.0" />
                                        </HBox.margin>
@@ -68,22 +67,34 @@
                                           <TextField fx:id="ultimaCal" editable="false" focusTraversable="false" prefHeight="25.0" prefWidth="160.0" />
                                        </children>
                                     </VBox>
-                                    <VBox minWidth="100.0" prefWidth="147.0">
+                                    <VBox fx:id="coletaVbox" minWidth="100.0" prefWidth="147.0">
                                        <HBox.margin>
-                                          <Insets left="20.0" />
+                                          <Insets left="10.0" />
                                        </HBox.margin>
                                        <children>
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="DATA COLETA" wrappingWidth="91.13671875" />
                                           <TextField fx:id="dataColeta" editable="false" focusTraversable="false" prefHeight="25.0" prefWidth="147.0" />
                                        </children>
                                     </VBox>
-                                    <VBox minWidth="100.0" prefWidth="164.0">
+                                    <VBox fx:id="coletorVbox" minWidth="100.0" prefWidth="164.0">
                                        <children>
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="NOME COLETOR" wrappingWidth="102.13671875" />
                                           <TextField fx:id="nomeColetor" editable="false" focusTraversable="false" prefHeight="25.0" prefWidth="147.0" />
                                        </children>
                                        <HBox.margin>
-                                          <Insets left="20.0" />
+                                          <Insets left="10.0" />
+                                       </HBox.margin>
+                                    </VBox>
+                                    <VBox fx:id="empressaVbox" minWidth="100.0" prefWidth="164.0">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="EMPRESSA COLETA" wrappingWidth="121.13671875" />
+                                          <TextField fx:id="nomeEmpressa" editable="false" focusTraversable="false" prefHeight="25.0" prefWidth="147.0" />
+                                       </children>
+                                       <padding>
+                                          <Insets left="10.0" />
+                                       </padding>
+                                       <HBox.margin>
+                                          <Insets />
                                        </HBox.margin>
                                     </VBox>
                                  </children>
@@ -107,17 +118,16 @@
                      <children>
                         <HBox prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <TableView fx:id="tableOrcamentos" onMouseClicked="#clickOrcamento" prefHeight="803.0" prefWidth="914.0">
+                              <TableView fx:id="tableOrcamentos" onMouseClicked="#clickOrcamento" prefHeight="803.0" prefWidth="914.0" style="-fx-background-radius: 10;">
                                  <columns>
                                     <TableColumn fx:id="relatorioTable" prefWidth="97.0" text="Relatorio" />
                                     <TableColumn fx:id="chegadaTable" prefWidth="95.0" text="Chegada" />
                                     <TableColumn fx:id="saidaTable" prefWidth="86.0" text="Saída" />
                                     <TableColumn fx:id="nfe" prefWidth="75.0" text="nfe" />
                                     <TableColumn fx:id="situation" prefWidth="198.0" text="Situação" />
-                                    <TableColumn fx:id="empressa" prefWidth="170.0" text="Empressa Coleta" />
                                  </columns>
                                  <padding>
-                                    <Insets left="10.0" top="10.0" />
+                                    <Insets left="10.0" />
                                  </padding>
                               </TableView>
                               <TableView fx:id="tableOrcamento" minHeight="300.0" minWidth="300.0" style="-fx-background-radius: 10;">
@@ -159,10 +169,10 @@
                   <Font size="14.0" />
                </font>
             </Button>
-            <ImageView fx:id="logoYgg" fitHeight="244.0" fitWidth="313.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="6" />
+            <ImageView fx:id="logoYgg" fitHeight="244.0" fitWidth="313.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="6" />
             <Button mnemonicParsing="false" onAction="#buscar" prefHeight="45.0" prefWidth="185.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Buscar" GridPane.rowIndex="1">
                <graphic>
-                  <ImageView fx:id="entradaMaterialImg" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="buscarImg" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" />
                </graphic>
             </Button>
          </children>
