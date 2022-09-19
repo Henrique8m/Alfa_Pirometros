@@ -91,13 +91,13 @@ public class EquipamentoService {
 		return null;
 	}	
 	
-	public ObservableList<Equipamento> findById(List<Orcamento> orcamento) {			
+	public ObservableList<Equipamento> findByIdOrcamento(List<Orcamento> orcamento) {			
 		ObservableList<Equipamento> obs = FXCollections.observableArrayList();
 		List<Long> equipamento_id = new ArrayList<>();
 		for(Orcamento orc: orcamento) 
 			equipamento_id.add(orc.getEquipamento_id());
 		
-		List<Equipamento> list = repository.findById(equipamento_id) ;
+		List<Equipamento> list = repository.findByIdOrcamento(equipamento_id) ;
 		list.forEach((equipamento)-> {
 			orcamento.forEach( (orcament)-> {
 				if( orcament.getEquipamento_id() == equipamento.getId() ) {
@@ -160,6 +160,14 @@ public class EquipamentoService {
 			});			
 		});
 		return equipamentoList;
+	}
+
+	public Equipamento findById(Long id) {
+		return repository.findById(id);
+	}
+
+	public Boolean updateSaida(Equipamento equipamento) {
+		return repository.updateSaida(equipamento);
 	}
 
 

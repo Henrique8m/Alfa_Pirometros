@@ -11,6 +11,7 @@ import com.hrodriguesdev.entities.Orcamento;
 import com.hrodriguesdev.gui.alert.Alerts;
 import com.hrodriguesdev.gui.controller.view.main.MainViewController;
 import com.hrodriguesdev.utilitary.Format;
+import com.hrodriguesdev.utilitary.Geral;
 import com.hrodriguesdev.utilitary.Itens;
 import com.hrodriguesdev.utilitary.NewView;
 
@@ -23,11 +24,12 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 
 public class OrcamentoView implements Initializable {
 	
 	@FXML
-	private Button cancelar, orcamentoEnviado, aprovado, aprovadoSemOrca, liberado, naoAprovado, liberadoSemOrcamento;
+	private Button cancelar, orcamentoEnviado, aprovado, aprovadoSemOrca, liberado, naoAprovado, liberadoSemOrcamento, manutencaoArea;
 	
 	@FXML
 	private ImageView cancelarImg, salvarImg;
@@ -109,6 +111,7 @@ public class OrcamentoView implements Initializable {
 		default:
 			orcamentoEnviado.setVisible(true);
 			aprovadoSemOrca.setVisible(true);
+			manutencaoArea.setVisible(true);
 			
 			break;
 		}
@@ -117,10 +120,23 @@ public class OrcamentoView implements Initializable {
 	
 	@FXML
 	private void salvar(ActionEvent event) {
+		if(data.getText().length()==10) {
+			orcamento.setData_chegada( Geral.dateParceString( data.getText() ) );
+		}else{
+			Alerts.showAlert("Data", "Data de entrada errada", null, AlertType.ERROR);
+			return;
+		}
+			
 		if(relatorioN.getText() != null && relatorioN.getText() != "" ) {
 			orcamento.setRelatorio(relatorioN.getText() );
 		}
 		try {
+			if(orcamento.getStatus() == 20) {
+				if(!MainViewController.equipamentoController.updateSaida(equipamento) ) {
+					Alerts.showAlert("Equipamento ", "Falha em dar saida no equipamento", "" , AlertType.ERROR);
+					return;
+				}
+			}
 			MainViewController.orcamentoController.updatedeStatusRelatorio( orcamento.getId(), orcamento.getStatus(), orcamento );
 			Alerts.showAlert("Status ", "Status Alterado com sucesso", "Equipamento da Empressa " + equipamento.getEmpressaName() , AlertType.INFORMATION);
 		} catch (DbException e1) {
@@ -136,17 +152,26 @@ public class OrcamentoView implements Initializable {
 		
 	@FXML
 	protected void liberado(ActionEvent e) {
+		
+//		Manutenção executada, baixa no estoque	
+		if(!itens.setSaida(orcamento.getId()) ) {
+			NewView.fecharView();
+			Alerts.showAlert("Erro", "Falha ao dar saida no banco de dados", "Ocorreu uma falha ao atualizar o orcamento", AlertType.ERROR);
+		}
+		
 		update(5);
-		itens.setSaida(orcamento.getId());
 		liberado.setVisible(false);
 		aprovadoSemOrca.setVisible(false);
 	}
 	
+
+
 	@FXML
 	private void aguardandoAprovacao(ActionEvent e) {
 		update(3);
 		orcamentoEnviado.setVisible(false);
 		aprovadoSemOrca.setVisible(false);
+		manutencaoArea.setVisible(false);
 	}
 	
 	@FXML
@@ -154,6 +179,21 @@ public class OrcamentoView implements Initializable {
 		update(4);
 		aprovado.setVisible(false);
 		naoAprovado.setVisible(false);
+	}
+	
+	@FXML
+	private void manutencaoArea(ActionEvent e) {
+		if(!itens.setSaida(orcamento.getId()) ) {
+			NewView.fecharView();
+			Alerts.showAlert("Erro", "Falha ao dar saida no banco de dados", "Ocorreu uma falha ao atualizar o orcamento", AlertType.ERROR);
+		}
+		data.setEditable(true);
+		update(20);	
+		equipamento.setLaboratorio(false);
+		orcamentoEnviado.setVisible(false);
+		aprovadoSemOrca.setVisible(false);
+		manutencaoArea.setVisible(false);
+		
 	}
 	
 	@FXML
@@ -165,8 +205,13 @@ public class OrcamentoView implements Initializable {
 	
 	@FXML
 	private void liberadoSemOrcamento(ActionEvent e) {
+		
+		if(!itens.setSaida(orcamento.getId()) ) {
+			NewView.fecharView();
+			Alerts.showAlert("Erro", "Falha ao dar saida no banco de dados", "Ocorreu uma falha ao atualizar o orcamento", AlertType.ERROR);
+		}
+		
 		update(9);
-		itens.setSaida(orcamento.getId());
 		liberado.setVisible(false);
 	}
 			
@@ -175,6 +220,14 @@ public class OrcamentoView implements Initializable {
 		NewView.fecharView();
 	}
 
+	@FXML
+	private void format(KeyEvent event) {
+    	if(!data.getText().isBlank()) {
+    		data.setText( Format.replaceData(data.getText()) );
+    		data.end();
+    	}
+		
+	}
 
 	
 }

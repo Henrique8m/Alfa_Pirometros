@@ -135,17 +135,34 @@ public class PaginaBuscaController extends EquipamentoMainView implements Initia
 //		if(event.getTarget() == tableFindEquipamentos)
 		if(tableFindEquipamentos.getSelectionModel().getSelectedItem() != null) {
 			equipamento = tableFindEquipamentos.getSelectionModel().getSelectedItem();
+			obsOrcamento = FXCollections.observableArrayList();
 			obsOrcamento = orcamentoController.findAllIdEquipamento(equipamento.getId());
 			tableOrcamentos.setItems(obsOrcamento);
 			tableOrcamentos.refresh();
 			nomeEmpressaClick.setText(equipamento.getEmpressaName());
+			
 			if( equipamento.getNs()!= null ) nsClick.setText(equipamento.getNs() );
+			else nsClick.setText("" );
+			
 			if( equipamento.getPat()!= null ) patClick.setText(equipamento.getPat() );
+			else  patClick.setText("");
+			
 			if( equipamento.getModelo()!= null ) modeloClick.setText( equipamento.getModelo() );
+			else modeloClick.setText("");
+			
 			if( equipamento.getUltimaCalibDate() != null ) {
 				Date date = new Date( equipamento.getUltimaCalibDate().getTime() );
 				ultimaCalClick.setText( Format.formatData.format(date) );
 			}
+			else ultimaCalClick.setText( "" );
+			
+			empressaColetaClick.setText("" );
+			dataColetaClick.setText( "");
+			nomeColetorClick.setText( "");
+			dataChegadaClick.setText( "" ); 
+			dataSaidaClick.setText( "" );
+			itensOrcamentoClick.setText("");
+			relatorioClick.setText("");
 		}
 	}	
 	
@@ -161,6 +178,12 @@ public class PaginaBuscaController extends EquipamentoMainView implements Initia
 						empressaColetaClick.setText(coletor.getEmpressaName() );
 						dataColetaClick.setText( Format.formatData.format(coletor.getDate()));
 						nomeColetorClick.setText( coletor.getNomeColetor() );
+					}else if(orcamento.getStatus() == 20)
+						nomeColetorClick.setText("Manutenção na área");
+					else {
+						empressaColetaClick.setText("" );
+						dataColetaClick.setText( "");
+						nomeColetorClick.setText( "");
 					}
 		
 					
@@ -168,15 +191,19 @@ public class PaginaBuscaController extends EquipamentoMainView implements Initia
 						Date date = new Date( orcamento.getData_chegada().getTime() );						
 						dataChegadaClick.setText( Format.formatData.format(date) ); 
 						
+					}else {
+						dataChegadaClick.setText( "" ); 
 					}
 					if( orcamento.getData_saida() != null ) {
 						Date date = new Date( orcamento.getData_saida().getTime() );
 						dataSaidaClick.setText( Format.formatData.format(date) );
-						
-					}
-					if( orcamento.getRelatorio() != null ) relatorioClick.setText(orcamento.getRelatorio() );					
+										
+					}else
+						dataSaidaClick.setText( "" );
+					if( orcamento.getRelatorio() != null ) relatorioClick.setText(orcamento.getRelatorio() );	
+					else  relatorioClick.setText("");	
 					if( orcamento.getItem() != null ) itensOrcamentoClick.setText(orcamento.getItem());
-					
+					else itensOrcamentoClick.setText("");
 				}
 	}
 	

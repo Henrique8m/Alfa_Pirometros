@@ -53,10 +53,15 @@ public class OrcamentoService {
 						orcamento.setNfe(consumo.getNfe());
 					if(consumo.getEntrada())
 						orcamento.setSituation("Entrada para Estoque");
-					else if(consumo.getSaida() && orcamento.getEquipamento_id() != 0)
-						orcamento.setSituation("Manutenção em Equipamento");
+					else if(orcamento.getEquipamento_id() != 0) {
+						if(orcamento.getStatus() == 20)
+							orcamento.setSituation("Manutenção de equipamento na área");
+						else 
+							orcamento.setSituation("Manutenção de equipamento em laboratorio");
+					}						
 					else if(consumo.getSaida() && orcamento.getEquipamento_id() == 0)
 						orcamento.setSituation("Manutenção em area ou venda");
+
 				}
 
 			});

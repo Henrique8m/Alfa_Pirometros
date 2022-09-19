@@ -183,6 +183,9 @@ public class MainViewController implements Initializable{
 		beginTimer();
 //		EquipamentoRepository repo = new EquipamentoRepository();
 //		repo.updatedeAllDate();
+//		Itens itens = new Itens();
+//		
+//		itens.setSaida(89l);
 	}	 	
 	
 	

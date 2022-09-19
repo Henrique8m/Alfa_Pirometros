@@ -93,6 +93,7 @@ public class CertificadoPaginaController extends MainViewController{
 	
 	private void removeListener() {
 		textEmpresaCertificado.getEditor().textProperty().removeListener(inputFilter);
+		textEmpresaCertificado.setValue("");
 	}
 	
 	protected void enter(KeyEvent event) {

@@ -17,6 +17,30 @@ public class EquipamentoRepository {
 	Statement st = null;
 	ResultSet rs = null;
 	PreparedStatement pst = null;
+
+	public Equipamento findById(Long id) {
+		try {
+			conn = DB.getConnection();	
+			st = conn.createStatement();			
+			rs = st.executeQuery("SELECT * FROM alfaestoque.tb_equipamento;");			
+			
+			while (rs.next())  
+				if( rs.getLong("id") == id)
+					return Equipamento.parseEquipamentoDois(rs);	
+			
+		}catch(DbException | SQLException e) {
+			e.printStackTrace();
+			throw new DbException(e.getMessage());
+		}finally{
+			DB.closeResultSet(rs);
+			DB.closeStatement(st);
+			DB.closeConnection();
+			
+		}
+		return null;
+	}
+
+	
 	
 	public List<Equipamento> findAllByLaboratorio(boolean laboratorio) throws DbException, SQLException{
 		List<Equipamento> list = new ArrayList<>();		
@@ -175,7 +199,7 @@ public class EquipamentoRepository {
 
 	}
 	
-	public List<Equipamento> findById(List<Long> equipamento_id) {
+	public List<Equipamento> findByIdOrcamento(List<Long> equipamento_id) {
 		List<Equipamento> list = new ArrayList<>();
 		conn = DB.getConnection();					
 		try {
@@ -526,7 +550,31 @@ public class EquipamentoRepository {
 
 	}
 
-	
+	public Boolean updateSaida(Equipamento equipamento) {
+		try {
+			conn = DB.getConnection();
+			conn.setAutoCommit(false);
+			pst = conn.prepareStatement("UPDATE tb_equipamento "
+											+ "SET laboratorio = " 
+											+ equipamento.getLaboratorio()
+											+ " WHERE "
+											+"(id = ?)");
+			
+			pst.setLong( 1, equipamento.getId() );
+			
+			int rowsAccepted = pst.executeUpdate();
+			conn.commit();
+			
+			if(rowsAccepted>0)
+				return true;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}		
+
+		return true;
+	}
 	
 	public Boolean delete(Long id) {
 		boolean ok = false;		

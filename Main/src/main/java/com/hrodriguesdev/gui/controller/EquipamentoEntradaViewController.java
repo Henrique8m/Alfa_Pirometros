@@ -188,7 +188,7 @@ public class EquipamentoEntradaViewController implements Initializable{
 	public void addEmpressa(ActionEvent event) {
 		NewView.getNewView("Adcionar empressa", "newEmpressa", new EmpressaInsert() );
 	}	
-	
+		
 	@FXML
 	private void equipamentoClick(MouseEvent event) {
 		if(event.getClickCount() >= 2) 

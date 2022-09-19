@@ -33,8 +33,12 @@ public class EquipamentoController {
 		return equipamentoService.findAll();	
 	}
 
-	public ObservableList<Equipamento> findById(List<Orcamento> orcamento) {
-		return equipamentoService.findById(orcamento);
+	public ObservableList<Equipamento> findByIdOrcamento(List<Orcamento> orcamento) {
+		return equipamentoService.findByIdOrcamento(orcamento);
+	}
+	
+	public Equipamento findById(Long id) {
+		return equipamentoService.findById(id);
 	}
 	
 	public Equipamento findByNs(String ns) {
@@ -59,6 +63,11 @@ public class EquipamentoController {
 
 	public Boolean delete(Long id) {
 		return equipamentoService.delete(id);		
+	}
+
+	public Boolean updateSaida(Equipamento equipamento) {
+		return equipamentoService.updateSaida(equipamento);
+		
 	}
 
 

@@ -1102,12 +1102,12 @@
          </columnConstraints>
          <rowConstraints>
             <RowConstraints maxHeight="110.0" minHeight="60.0" prefHeight="80.0" valignment="CENTER" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="110.0" minHeight="60.0" prefHeight="80.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="110.0" minHeight="60.0" prefHeight="80.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="110.0" minHeight="60.0" prefHeight="80.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="110.0" minHeight="60.0" prefHeight="80.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="110.0" minHeight="60.0" prefHeight="80.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="500.0" minHeight="244.0" prefHeight="279.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="110.0" minHeight="60.0" prefHeight="80.0" valignment="CENTER" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="110.0" minHeight="60.0" prefHeight="80.0" valignment="CENTER" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="110.0" minHeight="60.0" prefHeight="80.0" valignment="CENTER" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="110.0" minHeight="60.0" prefHeight="80.0" valignment="CENTER" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="500.0" minHeight="244.0" prefHeight="300.0" valignment="CENTER" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="60.0" minHeight="60.0" prefHeight="60.0" valignment="CENTER" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
             <Button fx:id="cancelar" minHeight="30.0" minWidth="-Infinity" mnemonicParsing="false" onAction="#cancelar" prefHeight="45.0" prefWidth="185.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Voltar">
@@ -1118,7 +1118,7 @@
                   <Font size="14.0" />
                </font>
             </Button>
-            <ImageView fx:id="logoYgg" fitHeight="244.0" fitWidth="313.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="6" />
+            <ImageView fx:id="logoYgg" fitHeight="244.0" fitWidth="313.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="5" />
             <Button mnemonicParsing="false" onAction="#entradaMaterial" prefHeight="45.0" prefWidth="185.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Entrada Material" GridPane.rowIndex="1">
                <graphic>
                   <ImageView fx:id="entradaMaterialImg" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" />

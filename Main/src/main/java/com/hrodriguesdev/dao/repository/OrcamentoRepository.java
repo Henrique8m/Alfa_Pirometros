@@ -17,6 +17,9 @@ public class OrcamentoRepository {
 	Statement st = null;
 	ResultSet rs = null;
 	PreparedStatement pst = null;
+	
+	EquipamentoRepository repositoryEquipamento = new EquipamentoRepository();
+			
 
 	public Long add(Orcamento orcamento) throws DbException {
 		Long id = 0l;		
@@ -331,8 +334,8 @@ public class OrcamentoRepository {
 			if ( statusEquip == 12 || statusEquip == 13)			
 				status = 7;
 		}		
-		if (status == 7)
-			orcamento.setLaboratorio(false);
+		if (status == 20) 
+			orcamento.setLaboratorio(false);			
 		else
 			orcamento.setLaboratorio(true);		
 		try {
@@ -340,15 +343,17 @@ public class OrcamentoRepository {
 			pst = conn.prepareStatement("UPDATE tb_orcamento "
 											+ "SET status = " + status + ", "
 											+ "laboratorio = ? , "
-											+ "relatorio = ? "
+											+ "relatorio = ? , "
+											+ "data_chegada = ? "
 											+ " WHERE "
 											+ "(id = ?)");
 			if(orcamento.getRelatorio() == null ) 
 				orcamento.setRelatorio("");
 			
 			pst.setBoolean( 1, orcamento.getLaboratorio() );
-			pst.setString(2, orcamento.getRelatorio());			
-			pst.setLong( 3, id );
+			pst.setString(2, orcamento.getRelatorio());	
+			pst.setDate(3, orcamento.getData_chegada());
+			pst.setLong( 4, id );
 			
 			int rowsAccepted = pst.executeUpdate();
 			if(rowsAccepted>0)

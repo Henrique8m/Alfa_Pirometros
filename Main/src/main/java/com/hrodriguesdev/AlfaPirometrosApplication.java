@@ -57,7 +57,7 @@ public class AlfaPirometrosApplication extends Application{
 	private final String nameIcon = "Yggdrasilicon.jpg";
 	private final String nameImageViewStarting = "Yggdrasil.jpg";
 	
-	public static String caminhoDbProperties = "C:\\Program Files\\Java\\resources\\db.properties";
+	public static String caminhoDbProperties = "C:\\Program Files\\Java\\resources\\dbAlfa.properties";
 	public static String caminhoDbProperties2 = "C:\\Program Files (x86)\\Java\\resources\\dbAlfa.properties";
 	public static String properties = "Properties.properties";
 	public static String strDiretorioYggDrasil = "\\AppData\\Local\\YggDrasil";
