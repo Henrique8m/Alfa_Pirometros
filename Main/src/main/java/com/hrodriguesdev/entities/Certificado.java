@@ -21,8 +21,9 @@ public class Certificado {
 		try {
 			this.id = (rs.getLong("id"));
 			this.equipamento_id = rs.getLong("equipamento_id");
-			this.date_cal = rs.getDate("date_cal");
+			setDate_cal( rs.getDate("date_cal") );
 			this.numero = rs.getInt("numero");
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -38,8 +39,12 @@ public class Certificado {
 	public Date getDate_cal() {
 		return date_cal;
 	}
+	
+	@Deprecated
 	public void setDate_cal(Date date_cal) {
-		this.date_cal = date_cal;
+		int date = date_cal.getDate() + 1;
+		date_cal.setDate(date);
+		this.date_cal = date_cal ;
 	}
 	public int getNumero() {
 		return numero;

@@ -180,10 +180,10 @@ public class Equipamento implements Serializable {
 		return dateChegada;
 	}
 
-	@SuppressWarnings("deprecation")
+//	@SuppressWarnings("deprecation")
 	public void setDateChegada(Date dateChegada) {
-		int date = dateChegada.getDate() + 1;
-		dateChegada.setDate(date);
+//		int date = dateChegada.getDate() + 1;
+//		dateChegada.setDate(date);
 		this.dateChegada = dateChegada;
 	}
 	
@@ -191,10 +191,10 @@ public class Equipamento implements Serializable {
 		return dateSaida;
 	}
 	
-	@SuppressWarnings("deprecation")
+//	@SuppressWarnings("deprecation")
 	public void setDateSaida(Date dateSaida) {
-		int date = dateSaida.getDate() + 1;
-		dateSaida.setDate(date);
+//		int date = dateSaida.getDate() + 1;
+//		dateSaida.setDate(date);
 		this.dateSaida = dateSaida;
 	}
 	

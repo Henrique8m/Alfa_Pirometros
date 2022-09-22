@@ -28,8 +28,6 @@ public class Orcamento {
 	private int nfe;
 	private String situation;
 	private String empressa;
-
-	
 	
 	public Orcamento(Long equipamento_id, Date data_chegada, Boolean laboratorio) {
 		this.setEquipamento_id(equipamento_id);
@@ -46,9 +44,9 @@ public class Orcamento {
 			quantidade = rs.getInt("quantidade");			
 			equipamento_id = rs.getLong("equipamento_id");
 			if(rs.getDate("data_saida") != null)
-				data_saida = rs.getDate("data_saida");
+				setData_saida( rs.getDate("data_saida"));
 			
-			data_chegada = rs.getDate("data_chegada");
+			setData_chegada( rs.getDate("data_chegada"));
 			laboratorio = rs.getBoolean("laboratorio");
 			coletor_id = rs.getLong("coletor_id");
 			relatorio = rs.getString("relatorio");
@@ -66,8 +64,14 @@ public class Orcamento {
 		}
 
 	}
+		
+	public Orcamento(String item, Integer quantidade) {
+		Item = item;
+		this.quantidade = quantidade;
+	}
 	
-	
+	public Orcamento() {}
+		
 	public String getRelatorio() {
 		return relatorio;
 	}
@@ -123,16 +127,6 @@ public class Orcamento {
 	public void setSinal(Long sinal) {
 		this.sinal = sinal;
 	}
-
-	public Orcamento(String item, Integer quantidade) {
-		Item = item;
-		this.quantidade = quantidade;
-	}
-	
-	public Orcamento() {}
-	
-
-
 
 	public Long getId() {
 		return id;
@@ -265,35 +259,37 @@ public class Orcamento {
 		return "";
 	
 	}
+	
 	public void setItem(String item) {
 		Item = item;
 	}
+	
 	public Integer getQuantidade() {
 		return quantidade;
 	}
+	
 	public void setQuantidade(Integer quantidade) {
 		this.quantidade = quantidade;
 	}
-	
-
 
 	public Long getEquipamento_id() {
 		return equipamento_id;
 	}
 
-
 	public void setEquipamento_id(Long equipamento_id) {
 		this.equipamento_id = equipamento_id;
 	}
-
 
 	public Date getData_chegada() {
 		return data_chegada;
 	}
 
-
+	@SuppressWarnings("deprecation")
 	public void setData_chegada(Date data_chegada) {
-		this.data_chegada = data_chegada;
+		int date = data_chegada.getDate() + 1;
+		data_chegada.setDate(date);
+		this.data_chegada = data_chegada ;
+
 	}
 
 
@@ -302,8 +298,11 @@ public class Orcamento {
 	}
 
 
+	@SuppressWarnings("deprecation")
 	public void setData_saida(Date data_saida) {
-		this.data_saida = data_saida;
+		int date = data_saida.getDate() + 1;
+		data_saida.setDate(date);
+		this.data_saida = data_saida ;
 	}
 
 
