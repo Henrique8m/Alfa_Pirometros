@@ -18,16 +18,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
 public class EquipamentoMainView extends LogoutMainView {
 	public static EquipamentoController equipamentoController = new EquipamentoController();
-	
-	@FXML
-	private TextField filtro;
-	
+
 
 	@FXML
 	private void clear(ActionEvent e) {

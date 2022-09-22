@@ -30,6 +30,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -92,6 +93,13 @@ public class MainViewController implements Initializable{
     public static ObservableList<Anotations> obsListTableAnotacoes = FXCollections.observableArrayList();
     
 
+    
+    
+	@FXML
+	protected TextField filtro;
+    
+    
+    
     //------------------------------------- Página de Busca --------------------------------------------------------
 	
 	
