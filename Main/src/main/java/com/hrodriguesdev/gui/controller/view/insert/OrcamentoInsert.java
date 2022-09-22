@@ -8,6 +8,7 @@ import com.hrodriguesdev.AlfaPirometrosApplication;
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.entities.Orcamento;
 import com.hrodriguesdev.utilitary.Format;
+import com.hrodriguesdev.utilitary.Geral;
 import com.hrodriguesdev.utilitary.InputFilter;
 import com.hrodriguesdev.utilitary.Itens;
 import com.hrodriguesdev.utilitary.NewView;
@@ -93,6 +94,7 @@ public class OrcamentoInsert implements Initializable {
 		imageInit();
 		textFildInserts();
 		tabelaInit();
+		data.setEditable(true);
 				
 	}	
 	
@@ -161,6 +163,8 @@ public class OrcamentoInsert implements Initializable {
 				orcamento.setItem(list);	
 			if(orcamento.getStatus() == 1)
 				orcamento.setStatus(2);
+			if(data.getText().length() == 10)
+				orcamento.setData_chegada(Geral.dateParceString(data.getText()));
 			if(itens.saveAll( orcamento) ) {
 				try {
 					NewView.fecharView();
@@ -186,6 +190,10 @@ public class OrcamentoInsert implements Initializable {
 		if(event.getTarget() == nfeText) {
 			nfeText.setText( nfeText.getText().replaceAll("[^0-9]+", "") );
 			nfeText.end();
+		}
+		else if(event.getTarget() == data) {
+			data.setText(Format.replaceData(data.getText()));
+			data.end();
 		}
 	}	
 	

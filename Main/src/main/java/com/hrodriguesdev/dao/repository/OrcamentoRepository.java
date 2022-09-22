@@ -240,6 +240,7 @@ public class OrcamentoRepository {
 						+ " estetico =? ,"
 						+ " sinal = ?, "
 						+ " Item = ?, "
+						+ " data_chegada = ?,"
 						+ " cabos = ?, "
 						+ "coletor_id = ?"
 						+" WHERE "
@@ -252,9 +253,10 @@ public class OrcamentoRepository {
 				pst.setLong(5, orcamento.getEstetico());
 				pst.setLong(6, orcamento.getSinal());
 				pst.setString(7, orcamento.getItem());
-				pst.setLong(8, orcamento.getCabos());
-				pst.setLong(9, orcamento.getColetor_id());
-				pst.setLong(10, orcamento.getId());
+				pst.setDate(8, orcamento.getData_chegada());
+				pst.setLong(9, orcamento.getCabos());
+				pst.setLong(10, orcamento.getColetor_id());
+				pst.setLong(11, orcamento.getId());
 				
 			}else {
 					pst = conn.prepareStatement("UPDATE tb_orcamento "
@@ -265,6 +267,7 @@ public class OrcamentoRepository {
 													+ " estetico =? ,"
 													+ " sinal = ?, "
 													+ " Item = ? ,"
+													+ " data_chegada = ?,"
 													+ " cabos = ? "
 													+" WHERE "
 													+"(id = ?)");
@@ -276,8 +279,9 @@ public class OrcamentoRepository {
 					pst.setLong(5, orcamento.getEstetico());
 					pst.setLong(6, orcamento.getSinal());
 					pst.setString(7, orcamento.getItem());
-					pst.setLong(8, orcamento.getCabos());
-					pst.setLong(9, orcamento.getId());
+					pst.setDate(8, orcamento.getData_chegada());
+					pst.setLong(9, orcamento.getCabos());
+					pst.setLong(10, orcamento.getId());
 				
 			}
 			

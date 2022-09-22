@@ -24,7 +24,7 @@ public class Geral {
 	}
 	
 	@SuppressWarnings("deprecation")
-	public static Date dateParce(String dateStr){		
+	public static Date dateParceTraco(String dateStr){		
 		StringBuilder stringBuilder = new StringBuilder(dateStr);
 		if(dateStr.length() >= 10 ) {
 			while(dateStr.length() > 10) {

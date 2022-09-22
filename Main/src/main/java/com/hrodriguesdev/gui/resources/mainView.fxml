@@ -60,7 +60,7 @@
                                           </HBox>
                                        </children>
                                     </AnchorPane>
-                                    <TableView fx:id="tableFilaEquipamentos" cache="true" depthTest="DISABLE" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="200.0" minWidth="844.0" onKeyPressed="#updatedEquipamento" onMouseClicked="#tableFilaEquipamentoClick" prefHeight="700.0" prefWidth="1500.0" style="-fx-background-radius: 10;" tableMenuButtonVisible="true">
+                                    <TableView fx:id="tableFilaEquipamentos" cache="true" depthTest="DISABLE" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="200.0" minWidth="844.0" onKeyPressed="#updatedEquipamento" onMouseClicked="#tableFilaEquipamentoClick" prefHeight="978.0" prefWidth="1500.0" style="-fx-background-radius: 10;" tableMenuButtonVisible="true">
                                       <columns>
                                           <TableColumn editable="false" maxWidth="-Infinity" minWidth="500.0" prefWidth="1500.0" sortable="false" text="Equipamentos em Laboratorio">
                                              <columns>
@@ -78,19 +78,6 @@
                                        <padding>
                                           <Insets left="10.0" right="10.0" />
                                        </padding>
-                                       <columnResizePolicy>
-                                          <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                                       </columnResizePolicy>
-                                    </TableView>
-                                    <TableView fx:id="tabelaAnotacoes" focusTraversable="false" minHeight="150.0" prefHeight="328.0" prefWidth="1500.0">
-                                      <columns>
-                                          <TableColumn prefWidth="75.0" text="Itens a comprar / Vendas">
-                                             <columns>
-                                              <TableColumn fx:id="descricao" editable="false" maxWidth="1400.0" minWidth="500.0" prefWidth="1400.0" text="Descrição" />
-                                              <TableColumn fx:id="referencia" maxWidth="150.0" prefWidth="150.0" text="Referencia" />
-                                             </columns>
-                                          </TableColumn>
-                                      </columns>
                                        <columnResizePolicy>
                                           <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                        </columnResizePolicy>
@@ -499,7 +486,7 @@
                                           <Insets left="20.0" />
                                        </padding>
                                     </HBox>
-                                    <TableView fx:id="tableEquipamentosCertificados" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="300.0" minWidth="500.0" onMouseClicked="#clickCertificado" onMousePressed="#click" prefHeight="924.0" prefWidth="750.0" style="-fx-background-radius: 10;">
+                                    <TableView fx:id="tableEquipamentosCertificados" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="300.0" minWidth="500.0" onMouseClicked="#clickCertificado" onMousePressed="#click" prefHeight="924.0" prefWidth="750.0" style="-fx-background-radius: 10;">
                                        <columns>
                                           <TableColumn fx:id="empressaCertificado" maxWidth="200.0" minWidth="150.0" prefWidth="200.0" text="Empresa" />
                                           <TableColumn fx:id="nsCertificado" maxWidth="137.5" minWidth="87.5" prefWidth="137.5" text="Ns" />
@@ -529,13 +516,13 @@
                                                       <VBox minWidth="179.0" prefHeight="42.0" prefWidth="216.0">
                                                          <children>
                                                             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="NOME DA EMPRESSA" wrappingWidth="174.13671875" />
-                                                            <TextField fx:id="nomeEmpressaClickCertificado" editable="false" minWidth="154.0" prefHeight="25.0" prefWidth="154.0" />
+                                                            <TextField fx:id="nomeEmpressaClickCertificado" editable="false" focusTraversable="false" minWidth="154.0" prefHeight="25.0" prefWidth="154.0" />
                                                          </children>
                                                       </VBox>
                                                       <VBox minWidth="100.0" prefHeight="42.0" prefWidth="104.0">
                                                          <children>
                                                             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="NS" wrappingWidth="39.13671875" />
-                                                            <TextField fx:id="nsClickCertificado" editable="false" minWidth="100.0" prefHeight="25.0" prefWidth="107.0" />
+                                                            <TextField fx:id="nsClickCertificado" editable="false" focusTraversable="false" minWidth="100.0" prefHeight="25.0" prefWidth="107.0" />
                                                          </children>
                                                          <HBox.margin>
                                                             <Insets left="20.0" />
@@ -544,7 +531,7 @@
                                                       <VBox minWidth="100.0" prefHeight="42.0" prefWidth="115.0">
                                                          <children>
                                                             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="PAT" wrappingWidth="65.13671875" />
-                                                            <TextField fx:id="patClickCertificado" editable="false" prefHeight="25.0" prefWidth="120.0" />
+                                                            <TextField fx:id="patClickCertificado" editable="false" focusTraversable="false" prefHeight="25.0" prefWidth="120.0" />
                                                          </children>
                                                          <HBox.margin>
                                                             <Insets left="20.0" />
@@ -553,7 +540,7 @@
                                                       <VBox minWidth="102.5" prefWidth="138.0">
                                                          <children>
                                                             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="MODELO" wrappingWidth="75.13671875" />
-                                                            <TextField fx:id="modeloClickCertificado" editable="false" minWidth="102.5" prefHeight="25.0" prefWidth="138.0" />
+                                                            <TextField fx:id="modeloClickCertificado" editable="false" focusTraversable="false" minWidth="102.5" prefHeight="25.0" prefWidth="138.0" />
                                                          </children>
                                                          <HBox.margin>
                                                             <Insets left="20.0" />
@@ -574,7 +561,7 @@
                                                       <VBox minWidth="102.5" prefWidth="138.0">
                                                          <children>
                                                             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Numero Certificado" wrappingWidth="135.13671875" />
-                                                            <TextField fx:id="numeroCertificadoNovo" focusTraversable="false" minWidth="102.5" prefHeight="25.0" prefWidth="138.0" />
+                                                            <TextField fx:id="numeroCertificadoNovo" minWidth="102.5" prefHeight="25.0" prefWidth="138.0" />
                                                          </children>
                                                          <HBox.margin>
                                                             <Insets left="20.0" />
@@ -583,7 +570,7 @@
                                                       <VBox minWidth="102.5" prefWidth="138.0">
                                                          <children>
                                                             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Data Calibração" wrappingWidth="135.13671875" />
-                                                            <TextField fx:id="dataCalibracaoNovo" focusTraversable="false" minWidth="102.5" onKeyReleased="#formatarData" prefHeight="25.0" prefWidth="138.0" />
+                                                            <TextField fx:id="dataCalibracaoNovo" minWidth="102.5" onKeyReleased="#formatarData" prefHeight="25.0" prefWidth="138.0" promptText="dd/mm/aaaa" />
                                                          </children>
                                                          <HBox.margin>
                                                             <Insets left="20.0" />
@@ -605,7 +592,7 @@
                                     </AnchorPane>
                                     <AnchorPane minHeight="300.0" prefHeight="831.0" style="-fx-background-color: #e1e1e1; -fx-background-radius: 15;">
                                        <children>
-                                          <TableView fx:id="tableCertificado" style="-fx-background-radius: 10;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                          <TableView fx:id="tableCertificado" focusTraversable="false" style="-fx-background-radius: 10;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                                             <columns>
                                               <TableColumn fx:id="dataCalibracao" prefWidth="178.0" text="DATA DA CALIBRAÇÂO" />
                                               <TableColumn fx:id="numeroCertificado" minWidth="0.0" prefWidth="194.0" text="NUMERO DO CERTIFICADO" />
