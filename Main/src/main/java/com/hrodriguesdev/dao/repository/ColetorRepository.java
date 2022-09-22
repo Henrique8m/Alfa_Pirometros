@@ -25,17 +25,16 @@ public class ColetorRepository {
 			conn = DB.getConnection();
 			conn.setAutoCommit(false);
 			pst = conn.prepareStatement("INSERT INTO tb_coletor "
-					+ "(empressaName, nomeColetor, dataHoraColeta, orcamento_id, dateColeta, horaColeta) "
+					+ "(empressaName, nomeColetor, orcamento_id, dateColeta, horaColeta) "
 					+ "VALUES "
-					+ "(?, ?, ?, ?, ?, ?)",
+					+ "(?, ?, ?, ?, ?)",
 					Statement.RETURN_GENERATED_KEYS);			
 			
 			pst.setString(1, coletor.getEmpressaName());
 			pst.setString(2, coletor.getNomeColetor() );
-			pst.setString(3, coletor.getDataHoraColeta());
-			pst.setLong(4, coletor.getOrcamento_id() );		
-			pst.setDate(5, coletor.getDate());
-			pst.setInt(6, coletor.getHoraColeta() );
+			pst.setLong(3, coletor.getOrcamento_id() );		
+			pst.setDate(4, coletor.getDate());
+			pst.setInt(5, coletor.getHoraColeta() );
 			
 			int rowsAffected = pst.executeUpdate();
 			conn.commit();
@@ -43,7 +42,7 @@ public class ColetorRepository {
 			if(rowsAffected> 0) {
 				ResultSet rs = pst.getGeneratedKeys();
 				while(rs.next()) {
-					id = rs.getLong(1);
+					return rs.getLong(1);
 					
 				}
 				
@@ -121,6 +120,30 @@ public class ColetorRepository {
 			while (rs.next())  
 				if( rs.getLong(1)== coletor_id)
 					coletor = Coletor.parceColetor( rs );
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}			
+		finally {
+			DB.closeResultSet(rs);
+			DB.closeStatement(st);
+		}
+		conn = null;
+		st = null;
+		rs = null;
+	
+		
+		return coletor;
+	}
+
+	public List<Coletor> findAll() {
+		List<Coletor> coletor = new ArrayList<>();
+		conn = DB.getConnection();					
+		try {
+			st = conn.createStatement();
+			rs = st.executeQuery("SELECT * FROM alfaestoque.tb_coletor;");
+			while (rs.next())  
+				coletor.add(Coletor.parceColetor(rs));
 		
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -12,6 +12,7 @@ import com.hrodriguesdev.controller.EquipamentoController;
 import com.hrodriguesdev.controller.OrcamentoController;
 import com.hrodriguesdev.dao.db.DB;
 import com.hrodriguesdev.dao.db.DbException;
+import com.hrodriguesdev.dao.repository.OrcamentoRepository;
 import com.hrodriguesdev.entities.Anotations;
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.gui.alert.Alerts;
@@ -189,11 +190,9 @@ public class MainViewController implements Initializable{
 		pdf.setImage(image);
 		
 		beginTimer();
-//		EquipamentoRepository repo = new EquipamentoRepository();
-//		repo.updatedeAllDate();
-//		Itens itens = new Itens();
-//		
-//		itens.setSaida(89l);
+		OrcamentoRepository repo = new OrcamentoRepository();
+		repo.updatedeColetor();
+
 	}	 	
 	
 	

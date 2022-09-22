@@ -23,6 +23,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -32,6 +33,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public class RelatoriosController implements Initializable{
@@ -40,10 +42,16 @@ public class RelatoriosController implements Initializable{
 	private Itens itens = new Itens();
 
 	@FXML
+	protected ComboBox<String> empressaCombobox;
+	
+	@FXML
 	protected DatePicker inicioDatePiker, finalDatePiker;
 	
 	@FXML
-	private VBox nsVbox, patVbox, modeloVbox, calVbox, coletaVbox, coletorVbox, empressaColetaVbox, empressaVbox;
+	private VBox empressaVbox;
+	
+	@FXML
+	private HBox coletorHbox, equipamentoHbox;
 	
 	@FXML
 	private TextField ns, pat, empressaName,
@@ -82,93 +90,79 @@ public class RelatoriosController implements Initializable{
 	@FXML
 	public void clickOrcamento(MouseEvent event) throws SQLException {
 			if(tableOrcamentos.getSelectionModel().getSelectedItem() != null) {
-					Coletor coletor = new Coletor();
 					Orcamento orcamento = orcamentoController.getOrcamento( tableOrcamentos.getSelectionModel().getSelectedItem().getId() ); 
+					if(orcamento == null)
+						return;
 					
 					if(orcamento.getStatus() == 20 && orcamento.getEquipamento_id() == 0 )  {
-						 nsVbox.setVisible(false); 
-						 patVbox.setVisible(false);
-						 modeloVbox.setVisible(false);
-						 calVbox.setVisible(false);
+						 equipamentoHbox.setVisible(false);
+						 
 						 empressaVbox.setVisible(false);
 						 
-						 empressaColetaVbox.setVisible(true);
-						 coletaVbox.setVisible(true);
-						 coletorVbox.setVisible(true);
+						 coletorHbox.setVisible(true);
+						 coletor(orcamento);
 						 
 					}else if(orcamento.getStatus() == 20 && orcamento.getEquipamento_id() != 0 )  {
-						 nsVbox.setVisible(true); 
-						 patVbox.setVisible(true);
-						 modeloVbox.setVisible(true);
-						 calVbox.setVisible(true);
+						equipamentoHbox.setVisible(true);						 
 						 empressaVbox.setVisible(true);
+						 equipamento(orcamento);
 						 
-						 coletaVbox.setVisible(false);
-						 coletorVbox.setVisible(false);
-						 empressaColetaVbox.setVisible(false);
+						 coletorHbox.setVisible(false);
 						 
 					}else if(orcamento.getStatus() == 7) {
-						 nsVbox.setVisible(true); 
-						 patVbox.setVisible(true);
-						 modeloVbox.setVisible(true);
-						 calVbox.setVisible(true);
-						 coletaVbox.setVisible(true);
-						 coletorVbox.setVisible(true);
-						 empressaColetaVbox.setVisible(true);
+						 equipamentoHbox.setVisible(true);						 
 						 empressaVbox.setVisible(true);
+						 equipamento(orcamento);
+						 
+						 coletorHbox.setVisible(true);
+						 coletor(orcamento);
 						 
 					}else {
-						 nsVbox.setVisible(true); 
-						 patVbox.setVisible(true);
-						 modeloVbox.setVisible(true);
-						 calVbox.setVisible(true);
+						equipamentoHbox.setVisible(true);						
 						 empressaVbox.setVisible(true);
+						 equipamento(orcamento);
 						 
-						 coletaVbox.setVisible(false);
-						 coletorVbox.setVisible(false);
-						 empressaColetaVbox.setVisible(false);
-					}
-					if(orcamento.getStatus() != 20 || (orcamento.getStatus() == 20 && orcamento.getEquipamento_id() != 0) ) {
-						Equipamento equipamento =  equipamentoController.findById(orcamento.getEquipamento_id());
-						if(equipamento != null) {
-							ns.setText(equipamento.getNs());
-							pat.setText(equipamento.getPat());
-							modelo.setText(equipamento.getModelo());
-							empressaName.setText(equipamento.getEmpressaName());
-							if(equipamento.getUltimaCalibDate() != null) 
-								ultimaCal.setText( Format.formatData.format(equipamento.getUltimaCalibDate() ) );
-							else
-								ultimaCal.setText("");
-						}
-						
-					}
-											
-					
-					
-					if( orcamento.getColetor_id() != null && orcamento.getColetor_id() != 0 ) {						
-						coletor = MainViewController.coletorController.findById( orcamento.getColetor_id() );
-						dataColeta.setText( Format.formatData.format(coletor.getDate()));
-						nomeColetor.setText( coletor.getNomeColetor() );
-						nomeEmpressa.setText(coletor.getEmpressaName());
-					}else {
-						dataColeta.setText( "" );
-						nomeColetor.setText( "" );
-						nomeEmpressa.setText( "" );
-					}
-					if(orcamento.getId()!=0 && orcamento.getId()!=null) {
+						 coletorHbox.setVisible(false);
+					}		
+
 						obsMateriais = itens.getAllItens(orcamento.getId(), orcamento.getItem() );
 						tableOrcamento.setItems(obsMateriais);
 						tableOrcamento.refresh();
-						
-					}
-					else {
-						obsMateriais = FXCollections.observableArrayList();
-						tableOrcamento.setItems(obsMateriais);
-						tableOrcamento.refresh();
-					}
+
 			}
 	}
 	
+	private void coletor(Orcamento orcamento) {
+		if( orcamento.getColetor_id() != null && orcamento.getColetor_id() != 0 ) {						
+			Coletor coletor = MainViewController.coletorController.findById( orcamento.getColetor_id() );
+			dataColeta.setText( Format.formatData.format(coletor.getDate()));
+			nomeColetor.setText( coletor.getNomeColetor() );
+			nomeEmpressa.setText(coletor.getEmpressaName());
+		}else {
+			dataColeta.setText( "" );
+			nomeColetor.setText( "" );
+			nomeEmpressa.setText( "" );
+		}
+		
+	}
+	
+	private void equipamento(Orcamento orcamento) {
+		if( orcamento.getEquipamento_id() != 0 ) {
+			Equipamento equipamento =  equipamentoController.findById(orcamento.getEquipamento_id());
+			if(equipamento != null) {
+				ns.setText(equipamento.getNs());
+				pat.setText(equipamento.getPat());
+				modelo.setText(equipamento.getModelo());
+				empressaName.setText(equipamento.getEmpressaName());
+				if(equipamento.getUltimaCalibDate() != null) 
+					ultimaCal.setText( Format.formatData.format(equipamento.getUltimaCalibDate() ) );
+				else
+					ultimaCal.setText("");
+			}
+			
+		}
+	}
+
 	private void startTableOrcamentos() {
 		tableOrcamentos.setEditable(false);	 
 		
@@ -241,13 +235,9 @@ public class RelatoriosController implements Initializable{
 		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-pesquisar.png").toString() );
 		buscarImg.setImage(image);
 		
-		 nsVbox.setVisible(false); 
-		 patVbox.setVisible(false);
-		 modeloVbox.setVisible(false);
-		 calVbox.setVisible(false);
-		 coletaVbox.setVisible(false);
-		 coletorVbox.setVisible(false);
-		 empressaColetaVbox.setVisible(false);
+		 coletorHbox.setVisible(false);
+		 equipamentoHbox.setVisible(false);
+		 empressaVbox.setVisible(false);
 		
 		
 	}
