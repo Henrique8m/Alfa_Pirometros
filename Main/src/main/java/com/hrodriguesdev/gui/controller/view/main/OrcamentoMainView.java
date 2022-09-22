@@ -34,8 +34,10 @@ public class OrcamentoMainView extends TableMainView{
 				return;
 			}
     		if(orcamento != null) {
-//    			NewView.getNewView("Entrada Equipamento", "orcamentoView", new OrcamentoViewController() );
-    			NewView.addChildren((Node) NewView.loadFXML("orcamentoViewDois" , new OrcamentoView(tableFilaEquipamentos.getSelectionModel().getSelectedItem(), orcamento ) ));
+	    		if(orcamento.getStatus()>1){
+	//    			NewView.getNewView("Entrada Equipamento", "orcamentoView", new OrcamentoViewController() );
+	    			NewView.addChildren((Node) NewView.loadFXML("orcamentoViewDois" , new OrcamentoView(tableFilaEquipamentos.getSelectionModel().getSelectedItem(), orcamento ) ));
+	    		}
     		}else
     			Alerts.showAlert("Orcamento" , "Status Orcamento", "Não consta orçamento para este equipamento" , AlertType.INFORMATION);
     		

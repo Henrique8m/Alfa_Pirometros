@@ -105,8 +105,17 @@ public class OrcamentoView implements Initializable {
 		case 4:
 			liberado.setVisible(true);
 			break;
+		case 5:			
+			break;
+		case 6:			
+			break;		
 		case 8:
 			liberadoSemOrcamento.setVisible(true);
+			break;
+		case 9:			
+			break;
+		case 12:	
+			orcamentoEnviado.setVisible(true);
 			break;
 		default:
 			orcamentoEnviado.setVisible(true);
