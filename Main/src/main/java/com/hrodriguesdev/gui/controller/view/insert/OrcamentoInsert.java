@@ -110,7 +110,7 @@ public class OrcamentoInsert implements Initializable {
 	
 	@FXML
 	protected void addItem(ActionEvent event) {
-		if(newItem.getValue() != null && quantidadeItem.getValue()!= null) {
+		if(newItem.getValue() != null && !newItem.getValue().isBlank() && quantidadeItem.getValue()!= null) {
 			obsMateriais.add(new Orcamento(newItem.getValue(), Integer.parseInt( quantidadeItem.getValue() ) ) );
 			tableOrcamento.refresh();
 			
@@ -119,9 +119,7 @@ public class OrcamentoInsert implements Initializable {
 			
 			newItem.setValue("");
 			quantidadeItem.setValue("1");
-			conboBoxInit();
-			
-			
+			conboBoxInit();			
 			
 		}else if( !obs.getText().isEmpty() ) {
 			obsMateriais.add( new Orcamento(obs.getText(), 0 ) );
@@ -152,15 +150,17 @@ public class OrcamentoInsert implements Initializable {
 		if(obsMateriais.size()>0) {
 			obsMateriais.forEach((orcamento)-> {	
 
-			if( !itens.addItem(orcamento.getItemRealString(), orcamento.getQuantidade() ) )	{
+				if( !itens.addItem(orcamento.getItemRealString(), orcamento.getQuantidade() ) )	{
 					String itemStr = orcamento.getItem();
 					this.nova = this.list + itemStr  + "\n";
 					this.list = nova;
 				}				
 			});
+			
 			if(!this.list.isEmpty())
-				orcamento.setItem(list);		
-			orcamento.setStatus(2);
+				orcamento.setItem(list);	
+			if(orcamento.getStatus() == 1)
+				orcamento.setStatus(2);
 			if(itens.saveAll( orcamento) ) {
 				try {
 					NewView.fecharView();
