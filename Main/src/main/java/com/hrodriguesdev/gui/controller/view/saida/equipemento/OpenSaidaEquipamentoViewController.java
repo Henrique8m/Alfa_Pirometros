@@ -4,7 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.hrodriguesdev.entities.Coletor;
-import com.hrodriguesdev.entities.Empressa;
+import com.hrodriguesdev.entities.Empresa;
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.entities.Orcamento;
 import com.hrodriguesdev.relatorio.GeneratorPDF;
@@ -28,7 +28,7 @@ public class OpenSaidaEquipamentoViewController extends SaidaEquipamentoViewCont
 	protected void gerarPDF(ActionEvent event) {
 		GeneratorPDF pdf = new GeneratorPDF();	
 		Coletor coletor = getColetor();
-		Empressa empressa = empressaController.find( equipamento.getEmpressa() );			
+		Empresa empressa = empressaController.find( equipamento.getEmpressa() );			
 		
 		pdf.newDocument(coletor, equipamento, empressa, orcamento);
 		Stage stage = (Stage) salvar.getScene().getWindow();

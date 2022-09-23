@@ -12,7 +12,6 @@ import com.hrodriguesdev.controller.EquipamentoController;
 import com.hrodriguesdev.controller.OrcamentoController;
 import com.hrodriguesdev.dao.db.DB;
 import com.hrodriguesdev.dao.db.DbException;
-import com.hrodriguesdev.entities.Anotations;
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.gui.alert.Alerts;
 import com.hrodriguesdev.gui.controller.view.insert.EquipamentoInsert;
@@ -27,6 +26,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -84,20 +84,13 @@ public class MainViewController implements Initializable{
 	public TableView<Equipamento> tableFilaEquipamentos;
     public static ObservableList<Equipamento> obsListTableFilaEquipamentos = FXCollections.observableArrayList();
     
-    @FXML
-	private TableColumn<Anotations, String> descricao;
-	@FXML
-	private TableColumn<Anotations, String> referencia;
-	@FXML
-	private TableView<Anotations> tabelaAnotacoes;
-    public static ObservableList<Anotations> obsListTableAnotacoes = FXCollections.observableArrayList();
-    
-
     
     
 	@FXML
 	protected TextField filtro;
-    
+	
+	@FXML
+	protected Tab empresa;
     
     
     //------------------------------------- Página de Busca --------------------------------------------------------

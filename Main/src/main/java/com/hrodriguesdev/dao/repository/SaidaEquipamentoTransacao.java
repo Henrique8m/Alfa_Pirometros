@@ -82,4 +82,59 @@ public class SaidaEquipamentoTransacao {
 		return ok;
 
 	}
+	
+	public boolean updateSaidaEquipamento(Equipamento equipamento, Orcamento orcamento) {
+		boolean ok = false;
+		
+		try {
+			conn = DB.getConnection();
+			conn.setAutoCommit(false);
+			pst = conn.prepareStatement("UPDATE tb_equipamento "
+											+ "SET laboratorio = "
+											+ false 
+											+ " WHERE "
+											+"(id = ?)");		
+	
+			pst.setLong( 1, equipamento.getId() );			
+			
+			conn2 = DB.getConnection();
+			conn2.setAutoCommit(false);
+			pst2 = conn2.prepareStatement("UPDATE tb_orcamento "
+												+ "SET laboratorio = "
+												+ false
+												+ " WHERE "
+												+ "(id = ?)");
+										
+			pst2.setLong(1, orcamento.getId() );
+			
+			int rowsAccepted2 = pst2.executeUpdate();			
+			int rowsAccepted = pst.executeUpdate();
+			
+			conn.commit();
+			conn2.commit();
+			
+			if(rowsAccepted>0)
+				if(rowsAccepted2>0)
+					ok=true;
+		
+		}catch (DbException | SQLException e) {
+			ok=false;
+			e.printStackTrace();
+			try {
+				conn.rollback();
+				conn2.rollback();
+				throw new DbException("Transaction rolled back! Caused by: " + e.getMessage() );
+			}catch (SQLException e1) {
+				throw new DbException("Error trying to rollback! Caused by: \" + e1.getMessage()");
+			}
+		}
+		finally {
+			DB.closeStatement(pst);
+			DB.closeStatement(pst2);
+			DB.closeConnection();
+			
+		}
+		return ok;
+
+	}
 }

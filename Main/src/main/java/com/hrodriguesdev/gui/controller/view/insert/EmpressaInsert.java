@@ -5,7 +5,7 @@ import java.util.ResourceBundle;
 
 import com.hrodriguesdev.AlfaPirometrosApplication;
 import com.hrodriguesdev.controller.EmpressaController;
-import com.hrodriguesdev.entities.Empressa;
+import com.hrodriguesdev.entities.Empresa;
 import com.hrodriguesdev.gui.alert.Alerts;
 import com.hrodriguesdev.gui.controller.view.main.MainViewController;
 import com.hrodriguesdev.gui.controller.view.saida.equipemento.SaidaEquipamentoViewController;
@@ -44,7 +44,7 @@ public class EmpressaInsert implements Initializable {
 	
 	@FXML
 	public void salvar(ActionEvent event) {
-		Empressa empressa = new Empressa();
+		Empresa empressa = new Empresa();
 		try {
 			if(nomeEmpressa.getText() != null && nomeEmpressa.getText() != "")
 				empressa.setName(nomeEmpressa.getText());	
@@ -54,7 +54,7 @@ public class EmpressaInsert implements Initializable {
 			}
 				empressa.setCidade( cidade.getText() );
 				empressa.setEstado( estado.getText());
-				empressa.setEndereço( endereco.getText() );
+				empressa.setEndereco( endereco.getText() );
 				empressa.setCep( cep.getText() );
 			
 		}catch(NullPointerException e) {

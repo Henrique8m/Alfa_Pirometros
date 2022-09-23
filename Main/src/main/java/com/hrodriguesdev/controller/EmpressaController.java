@@ -2,7 +2,7 @@ package com.hrodriguesdev.controller;
 
 import java.util.List;
 
-import com.hrodriguesdev.entities.Empressa;
+import com.hrodriguesdev.entities.Empresa;
 import com.hrodriguesdev.service.EmpressaService;
 
 import javafx.collections.FXCollections;
@@ -22,11 +22,11 @@ public class EmpressaController {
 	
 	}
 	
-	public Long add(Empressa empressa) {
+	public Long add(Empresa empressa) {
 		return empresaService.addEmpressa(empressa);
 		
 	}
-	public Empressa find(Long empressa) {
+	public Empresa find(Long empressa) {
 		return empresaService.findEmpressa(empressa);
 	}
 

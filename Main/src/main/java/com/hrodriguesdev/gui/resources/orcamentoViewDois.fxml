@@ -134,7 +134,7 @@
                               </VBox>
                               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="226.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
-                                    <Button fx:id="aprovadoSemOrca" alignment="CENTER" mnemonicParsing="false" onAction="#aguardandoReparo" prefHeight="53.0" prefWidth="191.0" style="-fx-cursor: hand; -fx-background-radius: 10; -fx-background-color: #cdbbbb;" text="Aprovado sem orcamento, &#10;aquardando Reparo!" textAlignment="CENTER" visible="false">
+                                    <Button fx:id="aprovadoSemOrca" alignment="CENTER" mnemonicParsing="false" onAction="#aguardandoReparoSemOrca" prefHeight="53.0" prefWidth="191.0" style="-fx-cursor: hand; -fx-background-radius: 10; -fx-background-color: #cdbbbb;" text="Aprovado sem orcamento, &#10;aquardando Reparo!" textAlignment="CENTER" visible="false">
                                        <font>
                                           <Font size="14.0" />
                                        </font>

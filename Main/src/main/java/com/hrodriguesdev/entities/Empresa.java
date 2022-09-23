@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 //@Entity
 //@Table(name = "tb_empressa")
-public class Empressa implements Serializable {	
+public class Empresa implements Serializable {	
 
 	public String getCep() {
 		return cep;
@@ -46,12 +46,12 @@ public class Empressa implements Serializable {
 		this.estado = estado;
 	}
 
-	public String getEndereço() {
-		return endereço;
+	public String getEndereco() {
+		return endereco;
 	}
 
-	public void setEndereço(String endereço) {
-		this.endereço = endereço;
+	public void setEndereco(String endereco) {
+		this.endereco = endereco;
 	}
 
 	public int getNivelConfianca() {
@@ -69,11 +69,11 @@ public class Empressa implements Serializable {
 	private String name;
 	private String cidade;
 	private String estado;
-	private String endereço;
+	private String endereco;
 	private String cep;
 	private int nivelConfianca;
 	
-	public Empressa() {}
+	public Empresa() {}
 	
 	
 	

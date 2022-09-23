@@ -3,13 +3,13 @@ package com.hrodriguesdev.service;
 import java.util.List;
 
 import com.hrodriguesdev.dao.repository.EmpressaRepository;
-import com.hrodriguesdev.entities.Empressa;
+import com.hrodriguesdev.entities.Empresa;
 
 //@Service
 public class EmpressaService {
 	private EmpressaRepository repository = new EmpressaRepository();
 	
-	public Long addEmpressa(Empressa empressa) {
+	public Long addEmpressa(Empresa empressa) {
 		return repository.addEmpressa(empressa);
 		
 	}
@@ -23,7 +23,7 @@ public class EmpressaService {
 		
 	}
 
-	public Empressa findEmpressa(Long empressa) {
+	public Empresa findEmpressa(Long empressa) {
 		return repository.findEmpressa(empressa);
 	}
 	

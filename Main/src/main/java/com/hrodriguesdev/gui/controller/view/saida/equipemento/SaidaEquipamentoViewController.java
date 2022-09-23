@@ -13,7 +13,7 @@ import com.hrodriguesdev.controller.OrcamentoController;
 import com.hrodriguesdev.dao.db.DbException;
 import com.hrodriguesdev.dao.repository.SaidaEquipamentoTransacao;
 import com.hrodriguesdev.entities.Coletor;
-import com.hrodriguesdev.entities.Empressa;
+import com.hrodriguesdev.entities.Empresa;
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.entities.Orcamento;
 import com.hrodriguesdev.gui.alert.Alerts;
@@ -95,7 +95,7 @@ public class SaidaEquipamentoViewController implements Initializable {
 		if(coleta.getValue() != "" &&  nomeColetor.getText() != "" ) {
 			GeneratorPDF pdf = new GeneratorPDF();	
 			Coletor coletor = getColetor();
-			Empressa empressa = empressaController.find( equipamento.getEmpressa() );			
+			Empresa empressa = empressaController.find( equipamento.getEmpressa() );			
 			if( equipamentoController.updatedeNsPatModelo(equipamento) ) {
 				pdf.newDocument(coletor, equipamento, empressa, orcamento);
 				Stage stage = (Stage) salvar.getScene().getWindow();
@@ -143,15 +143,22 @@ public class SaidaEquipamentoViewController implements Initializable {
 			case 2:
 				equipamento.setStatus( 12 );
 				orcamento.setStatus(12);
-				equipamento.setLaboratorio(false);
-				orcamento.setLaboratorio(false);
+				equipamento.setLaboratorio(true);
+				orcamento.setLaboratorio(true);
 				break;
 			case 3:
 				equipamento.setStatus( 13 );
 				orcamento.setStatus(13);
-				equipamento.setLaboratorio(false);
-				orcamento.setLaboratorio(false);
+				equipamento.setLaboratorio(true);
+				orcamento.setLaboratorio(true);
 				break;
+			case 9:
+				equipamento.setStatus( 12 );
+				orcamento.setStatus(12);
+				equipamento.setLaboratorio(true);
+				orcamento.setLaboratorio(true);
+				break;
+			
 			default:
 				equipamento.setLaboratorio(false);
 				orcamento.setLaboratorio(false);

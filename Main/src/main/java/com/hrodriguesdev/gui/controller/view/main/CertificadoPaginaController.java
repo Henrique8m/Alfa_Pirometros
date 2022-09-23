@@ -27,7 +27,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
-public class CertificadoPaginaController extends MainViewController{
+public class CertificadoPaginaController extends EmpresaViewController{
 	
 	private CertificadoRepository repositoryCertificado = new CertificadoRepository();
 	private Equipamento equipamento;

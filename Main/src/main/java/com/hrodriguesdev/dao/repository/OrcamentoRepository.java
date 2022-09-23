@@ -332,13 +332,8 @@ public class OrcamentoRepository {
 	}
 
 	public boolean updatedeStatusRelatorio(Long id, int status, Orcamento orcamento) {
-		int statusEquip = orcamento.getStatus();
 		boolean ok = false;
-		if ( status == 4 ||	status == 5  ) {
-			if ( statusEquip == 12 || statusEquip == 13)			
-				status = 7;
-		}		
-		if (status == 20) 
+		if (status == 20 || status == 7) 
 			orcamento.setLaboratorio(false);			
 		else
 			orcamento.setLaboratorio(true);		

@@ -10,7 +10,7 @@ import java.util.List;
 
 import com.hrodriguesdev.dao.db.DB;
 import com.hrodriguesdev.dao.db.DbException;
-import com.hrodriguesdev.entities.Empressa;
+import com.hrodriguesdev.entities.Empresa;
 
 public class EmpressaRepository {
 	Connection conn = null;
@@ -20,8 +20,8 @@ public class EmpressaRepository {
 	
 
 
-	public Empressa findEmpressa(Long empressaId) {
-		Empressa empressa = new Empressa();		
+	public Empresa findEmpressa(Long empressaId) {
+		Empresa empressa = new Empresa();		
 		try {
 			conn = DB.getConnection();			
 			st = conn.createStatement();			
@@ -48,14 +48,14 @@ public class EmpressaRepository {
 	}
 	
 	
-	private Empressa empressaParce(ResultSet rs2) {
-		Empressa empressa = new Empressa();
+	private Empresa empressaParce(ResultSet rs2) {
+		Empresa empressa = new Empresa();
 		
 		try {
 			empressa.setName(rs.getString(2));
 			empressa.setCidade(rs.getString(3));
 			empressa.setEstado(rs.getString(4));
-			empressa.setEndereço(rs.getString(5));
+			empressa.setEndereco(rs.getString(5));
 			empressa.setCep(rs.getString(6));  
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -93,7 +93,7 @@ public class EmpressaRepository {
 	}
 	
 
-	public Long addEmpressa(Empressa empressa) {
+	public Long addEmpressa(Empresa empressa) {
 		Long id = 0l;		
 		try {
 			conn = DB.getConnection();
@@ -107,7 +107,7 @@ public class EmpressaRepository {
 			pst.setString(1, empressa.getName());
 			pst.setString(2, empressa.getCidade());
 			pst.setString(3, empressa.getEstado());
-			pst.setString(4, empressa.getEndereço());			
+			pst.setString(4, empressa.getEndereco());			
 			pst.setString(5, empressa.getCep());
 			
 			int rowsAffected = pst.executeUpdate();

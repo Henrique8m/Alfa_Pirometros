@@ -7,7 +7,7 @@ import java.util.Date;
 
 import com.hrodriguesdev.AlfaPirometrosApplication;
 import com.hrodriguesdev.entities.Coletor;
-import com.hrodriguesdev.entities.Empressa;
+import com.hrodriguesdev.entities.Empresa;
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.entities.Orcamento;
 import com.hrodriguesdev.utilitary.Format;
@@ -21,7 +21,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 public class GeneratorPDF {
 	
 	
-	public Boolean newDocument(Coletor coletor, Equipamento equipamento, Empressa empressa, Orcamento orcamento) {
+	public Boolean newDocument(Coletor coletor, Equipamento equipamento, Empresa empressa, Orcamento orcamento) {
 		String data = Format.formatData2.format(new Date( System.currentTimeMillis() ) );
 		Paragraph paragraph;
 		Document document = new Document();
@@ -157,9 +157,9 @@ public class GeneratorPDF {
 			
 	}
 
-	private String empressaStr(Empressa empressa) {
+	private String empressaStr(Empresa empressa) {
 		return "CLIENTE: " + empressa.getName() +  "   CEP: " + empressa.getCep() + "\n"
-				+ "ENDEREÇO: " + empressa.getEndereço()
+				+ "ENDEREÇO: " + empressa.getEndereco()
 				+ "  CIDADE: " + empressa.getCidade() 
 				+ "  ESTADO: " + empressa.getEstado();
 	}

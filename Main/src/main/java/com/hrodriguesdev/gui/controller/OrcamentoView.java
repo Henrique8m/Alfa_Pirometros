@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 import com.hrodriguesdev.AlfaPirometrosApplication;
 import com.hrodriguesdev.dao.db.DbException;
 import com.hrodriguesdev.dao.repository.ItensRepositoryFind;
+import com.hrodriguesdev.dao.repository.SaidaEquipamentoTransacao;
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.entities.Orcamento;
 import com.hrodriguesdev.gui.alert.Alerts;
@@ -42,7 +43,7 @@ public class OrcamentoView implements Initializable {
 	private Equipamento equipamento;
 	private Orcamento orcamento;
 	private Itens itens;
-	;
+	protected SaidaEquipamentoTransacao transaction = new SaidaEquipamentoTransacao();
 	
 	public OrcamentoView(Equipamento equipamento, Orcamento orcamento) {
 		this.equipamento = equipamento;
@@ -98,10 +99,6 @@ public class OrcamentoView implements Initializable {
 		case 3:
 			aprovado.setVisible(true);
 			break;
-		case 13:
-			aprovado.setVisible(true);
-			naoAprovado.setVisible(true);
-			break;
 		case 4:
 			liberado.setVisible(true);
 			break;
@@ -111,11 +108,16 @@ public class OrcamentoView implements Initializable {
 			break;		
 		case 8:
 			liberadoSemOrcamento.setVisible(true);
+			orcamentoEnviado.setVisible(true);
 			break;
 		case 9:			
+			orcamentoEnviado.setVisible(true);
 			break;
 		case 12:	
 			orcamentoEnviado.setVisible(true);
+			break;
+		case 13:
+			aprovado.setVisible(true);
 			break;
 		default:
 			orcamentoEnviado.setVisible(true);
@@ -173,21 +175,50 @@ public class OrcamentoView implements Initializable {
 		aprovadoSemOrca.setVisible(false);
 	}
 	
-
-
+//	Botao Orcamento enviado
 	@FXML
 	private void aguardandoAprovacao(ActionEvent e) {
-		update(3);
+//		Status 3 = Aguardando Aprovação
+		switch (orcamento.getStatus()) {
+		case 2:
+			update(3);
+			orcamentoEnviado.setVisible(false);
+			aprovadoSemOrca.setVisible(false);
+			manutencaoArea.setVisible(false);
+			break;
+		case 8:
+			update(4);
+			liberadoSemOrcamento.setVisible(false);
+			break;
+		case 9:
+			update(5);
+			orcamentoEnviado.setVisible(false);
+			break;
+		case 12:
+			update(13);
+			orcamentoEnviado.setVisible(false);
+			break;
+		case 13:
+			update(7);
+			if(! transaction.updateSaidaEquipamento(equipamento, orcamento)) {
+				Alerts.showAlert( "SQL Exeption " ,"Error ao Salvar, id não teve retorno", "",AlertType.ERROR);		
+				return;				
+			}
+			aprovado.setVisible(false);
+			
+		}
+		
+
+	}
+	
+//	Botao aprovado sem orcamento	
+	@FXML
+	private void aguardandoReparoSemOrca(ActionEvent e) {
+//		Status 8 = Aprovado sem orcamento, aquardando reparo!
+		update(8);
 		orcamentoEnviado.setVisible(false);
 		aprovadoSemOrca.setVisible(false);
 		manutencaoArea.setVisible(false);
-	}
-	
-	@FXML
-	private void aguardandoReparo(ActionEvent e) {
-		update(4);
-		aprovado.setVisible(false);
-		naoAprovado.setVisible(false);
 	}
 	
 	@FXML
@@ -197,6 +228,7 @@ public class OrcamentoView implements Initializable {
 			Alerts.showAlert("Erro", "Falha ao dar saida no banco de dados", "Ocorreu uma falha ao atualizar o orcamento", AlertType.ERROR);
 		}
 		data.setEditable(true);
+//		Status 20 = fora do laboratorio
 		update(20);	
 		equipamento.setLaboratorio(false);
 		orcamentoEnviado.setVisible(false);
@@ -204,6 +236,25 @@ public class OrcamentoView implements Initializable {
 		manutencaoArea.setVisible(false);
 		
 	}
+	
+	@FXML
+	private void aguardandoReparo(ActionEvent e) {
+		switch(orcamento.getStatus()) {
+		case 13:
+			update(7);
+			if(! transaction.updateSaidaEquipamento(equipamento, orcamento)) {
+				Alerts.showAlert( "SQL Exeption " ,"Error ao Salvar, id não teve retorno", "",AlertType.ERROR);		
+				return;				
+			}
+			break;
+		default:
+			update(4);	
+			break;
+		}
+		aprovado.setVisible(false);
+		naoAprovado.setVisible(false);
+	}
+	
 	
 	@FXML
 	private void naoAprovado(ActionEvent e) {
@@ -221,7 +272,8 @@ public class OrcamentoView implements Initializable {
 		}
 		
 		update(9);
-		liberado.setVisible(false);
+		liberadoSemOrcamento.setVisible(false);
+		orcamentoEnviado.setVisible(false);
 	}
 			
 	@FXML
