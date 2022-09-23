@@ -2,12 +2,12 @@ package com.hrodriguesdev.service;
 
 import java.util.List;
 
-import com.hrodriguesdev.dao.repository.EmpressaRepository;
+import com.hrodriguesdev.dao.repository.EmpresaRepository;
 import com.hrodriguesdev.entities.Empresa;
 
 //@Service
-public class EmpressaService {
-	private EmpressaRepository repository = new EmpressaRepository();
+public class EmpresaService {
+	private EmpresaRepository repository = new EmpresaRepository();
 	
 	public Long addEmpressa(Empresa empressa) {
 		return repository.addEmpressa(empressa);

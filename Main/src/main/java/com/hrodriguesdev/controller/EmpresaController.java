@@ -3,13 +3,13 @@ package com.hrodriguesdev.controller;
 import java.util.List;
 
 import com.hrodriguesdev.entities.Empresa;
-import com.hrodriguesdev.service.EmpressaService;
+import com.hrodriguesdev.service.EmpresaService;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class EmpressaController {
-	private EmpressaService empresaService = new EmpressaService();
+public class EmpresaController {
+	private EmpresaService empresaService = new EmpresaService();
 	
 	public ObservableList<String> findAll(){	
 		ObservableList<String> obs = FXCollections.observableArrayList();

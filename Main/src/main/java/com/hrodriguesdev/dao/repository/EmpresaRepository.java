@@ -12,7 +12,7 @@ import com.hrodriguesdev.dao.db.DB;
 import com.hrodriguesdev.dao.db.DbException;
 import com.hrodriguesdev.entities.Empresa;
 
-public class EmpressaRepository {
+public class EmpresaRepository {
 	Connection conn = null;
 	Statement st = null;
 	ResultSet rs = null;

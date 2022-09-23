@@ -7,7 +7,7 @@ import java.util.ResourceBundle;
 
 import com.hrodriguesdev.AlfaPirometrosApplication;
 import com.hrodriguesdev.controller.ColetorController;
-import com.hrodriguesdev.controller.EmpressaController;
+import com.hrodriguesdev.controller.EmpresaController;
 import com.hrodriguesdev.controller.EquipamentoController;
 import com.hrodriguesdev.controller.OrcamentoController;
 import com.hrodriguesdev.dao.db.DB;
@@ -43,7 +43,7 @@ public class MainViewController implements Initializable{
 	public static OrcamentoController orcamentoController = new OrcamentoController();
 	public static ColetorController coletorController = new ColetorController();
 	public static EquipamentoController equipamentoController = new EquipamentoController();
-	public static EmpressaController empressaController = new EmpressaController();
+	public static EmpresaController empressaController = new EmpresaController();
 	public static EquipamentoInsert equipamentoInsert = new EquipamentoInsert();
 	
 //	public static OrcamentoViewControllerDois OrcamentoViewControllerDois = new OrcamentoViewControllerDois();

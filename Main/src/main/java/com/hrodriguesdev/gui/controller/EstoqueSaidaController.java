@@ -6,7 +6,7 @@ import java.sql.Date;
 import java.util.ResourceBundle;
 
 import com.hrodriguesdev.controller.ColetorController;
-import com.hrodriguesdev.controller.EmpressaController;
+import com.hrodriguesdev.controller.EmpresaController;
 import com.hrodriguesdev.controller.OrcamentoController;
 import com.hrodriguesdev.dao.db.DbException;
 import com.hrodriguesdev.entities.Coletor;
@@ -36,7 +36,7 @@ public class EstoqueSaidaController  extends OrcamentoInsert implements Initiali
 
 	private Orcamento orcamento;
 	private OrcamentoController orcamentoController;
-	private EmpressaController empressaController = new EmpressaController();
+	private EmpresaController empressaController = new EmpresaController();
 	private ColetorController coletorController = new ColetorController();
 	
 	private Long orcamento_id;

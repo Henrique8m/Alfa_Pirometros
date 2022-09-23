@@ -7,7 +7,7 @@ import java.util.ResourceBundle;
 
 import com.hrodriguesdev.AlfaPirometrosApplication;
 import com.hrodriguesdev.controller.ColetorController;
-import com.hrodriguesdev.controller.EmpressaController;
+import com.hrodriguesdev.controller.EmpresaController;
 import com.hrodriguesdev.controller.EquipamentoController;
 import com.hrodriguesdev.controller.OrcamentoController;
 import com.hrodriguesdev.dao.db.DbException;
@@ -50,7 +50,7 @@ public class SaidaEquipamentoViewController implements Initializable {
 	protected OrcamentoController controller = MainViewController.orcamentoController;
 	protected EquipamentoController equipamentoController = MainViewController.equipamentoController;
 	protected ColetorController coletorController = MainViewController.coletorController;
-	protected EmpressaController empressaController = MainViewController.empressaController;
+	protected EmpresaController empressaController = MainViewController.empressaController;
 	protected Equipamento equipamento;
 	protected Orcamento orcamento;
 	protected SaidaEquipamentoTransacao transaction = new SaidaEquipamentoTransacao();

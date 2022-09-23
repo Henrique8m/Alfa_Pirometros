@@ -4,7 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.hrodriguesdev.AlfaPirometrosApplication;
-import com.hrodriguesdev.controller.EmpressaController;
+import com.hrodriguesdev.controller.EmpresaController;
 import com.hrodriguesdev.entities.Empresa;
 import com.hrodriguesdev.gui.alert.Alerts;
 import com.hrodriguesdev.gui.controller.view.main.MainViewController;
@@ -24,7 +24,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class EmpressaInsert implements Initializable {
-	private EmpressaController empressaController = MainViewController.empressaController;
+	private EmpresaController empressaController = MainViewController.empressaController;
 	private SaidaEquipamentoViewController saidaView;
 	
 	@FXML

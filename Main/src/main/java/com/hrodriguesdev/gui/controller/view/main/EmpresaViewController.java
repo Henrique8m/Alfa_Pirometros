@@ -3,6 +3,7 @@ package com.hrodriguesdev.gui.controller.view.main;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import com.hrodriguesdev.controller.EmpresaController;
 import com.hrodriguesdev.entities.Empresa;
 
 import javafx.collections.FXCollections;
@@ -17,6 +18,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 
 public class EmpresaViewController extends MainViewController{
+	
+	private EmpresaController empresaController = new EmpresaController();
 
 	@FXML
 	private ImageView salvarImg, buscarImg;
@@ -59,8 +62,8 @@ public class EmpresaViewController extends MainViewController{
 		cepEmpresa.setCellValueFactory(new PropertyValueFactory<Empresa,String>("cep"));
 		enderecoEmpresa.setCellValueFactory(new PropertyValueFactory<Empresa, String>("endereco"));
 		estadoEmpresa.setCellValueFactory(new PropertyValueFactory<Empresa, String>("estado"));
-//		cidadeEmpresa
-//		nomeEmpresa
+		cidadeEmpresa.setCellValueFactory(new PropertyValueFactory<Empresa, String>("cidade"));
+		nomeEmpresa.setCellValueFactory(new PropertyValueFactory<Empresa, String>("name"));
 		
 	}
 
