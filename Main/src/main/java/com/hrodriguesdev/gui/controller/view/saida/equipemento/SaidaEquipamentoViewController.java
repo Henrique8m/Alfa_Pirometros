@@ -62,7 +62,7 @@ public class SaidaEquipamentoViewController implements Initializable {
 	@FXML
 	protected ImageView addEmpressaImg;
 	@FXML
-	private Text erro;
+	protected Text erro;
 	@FXML
 	public TextField data, ultimaCal, modelo, ns, pat, nomeEmpressa;
 	@FXML
@@ -196,14 +196,14 @@ public class SaidaEquipamentoViewController implements Initializable {
 		return coletor;
 	}	
 	
-	private void error(String titulo, String mensagem) {
+	protected void error(String titulo, String mensagem) {
 		Alerts.showAlert(titulo, "", mensagem, AlertType.ERROR);
 		Stage stage = (Stage) cancelar.getScene().getWindow(); 
 		stage.close();
 	}
 	
 	@FXML
-	public void cancelar(ActionEvent event) {
+	protected void cancelar(ActionEvent event) {
 		try {
 			Stage stage = (Stage) cancelar.getScene().getWindow(); 
 			stage.close();

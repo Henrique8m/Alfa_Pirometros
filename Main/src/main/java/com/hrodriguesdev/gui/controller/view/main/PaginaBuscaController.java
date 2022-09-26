@@ -9,8 +9,11 @@ import java.util.ResourceBundle;
 import com.hrodriguesdev.entities.Coletor;
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.entities.Orcamento;
+import com.hrodriguesdev.gui.controller.view.updatede.ColetorUpdatede;
+import com.hrodriguesdev.gui.controller.view.updatede.OrcamentoUpdatedeDois;
 import com.hrodriguesdev.utilitary.Format;
 import com.hrodriguesdev.utilitary.InputFilter;
+import com.hrodriguesdev.utilitary.NewView;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -31,6 +34,7 @@ import javafx.scene.input.MouseEvent;
 public class PaginaBuscaController extends EquipamentoMainView implements Initializable{
   
 	private Equipamento equipamento;
+	private Orcamento orcamento;
 	
 	@FXML
 	private TextField nomeEmpressaClick, nsClick, patClick,
@@ -171,7 +175,7 @@ public class PaginaBuscaController extends EquipamentoMainView implements Initia
 		if(equipamento != null)
 			if(tableOrcamentos.getSelectionModel().getSelectedItem() != null) {
 					Coletor coletor = new Coletor();
-					Orcamento orcamento = orcamentoController.getOrcamento( tableOrcamentos.getSelectionModel().getSelectedItem().getId() ); 
+					orcamento = orcamentoController.getOrcamento( tableOrcamentos.getSelectionModel().getSelectedItem().getId() ); 
 					
 					if( orcamento.getColetor_id() != null && orcamento.getColetor_id() != 0 ) {						
 						coletor = MainViewController.coletorController.findById( orcamento.getColetor_id() );
@@ -205,11 +209,13 @@ public class PaginaBuscaController extends EquipamentoMainView implements Initia
 					if( orcamento.getItem() != null ) itensOrcamentoClick.setText(orcamento.getItem());
 					else itensOrcamentoClick.setText("");
 				}
+			else orcamento = null;
 	}
 	
 	@FXML
 	protected void enter(KeyEvent event) {
 		super.enter(event);
+//		Busca pelo nome da empresa com enter
 		if(event.getTarget() == textEmpresa)
 			try {
 				buscar(new ActionEvent());
@@ -218,6 +224,18 @@ public class PaginaBuscaController extends EquipamentoMainView implements Initia
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+//		Editar orçamento e tambem saida
+		else if(event.getTarget() == tableOrcamentos) {
+			if(event.getCode().toString() == "F2") {
+				if(orcamento!=null){
+					NewView.getNewView("Editar Orcamento", "orcamento", new OrcamentoUpdatedeDois(equipamento, orcamento));
+				}
+			}
+			else if(event.getCode().toString() == "F3") {
+				if(orcamento.getColetor_id()!= null && orcamento.getColetor_id() != 0)
+					NewView.getNewView("Editar coletor", "saidaEquipamento", new ColetorUpdatede(equipamento, orcamento));
+			}
+		}
 	}
 		
 	public void addListener() {

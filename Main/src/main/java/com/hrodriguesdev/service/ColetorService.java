@@ -13,6 +13,10 @@ public class ColetorService {
 	public Coletor findColetor(Long coletor_id) {
 		return repository.findColetor(coletor_id);
 	}
+
+	public boolean update(Coletor coletor) {
+		return repository.update(coletor);
+	}
 	
 	
 }

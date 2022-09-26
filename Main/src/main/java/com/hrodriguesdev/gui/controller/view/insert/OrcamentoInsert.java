@@ -168,6 +168,7 @@ public class OrcamentoInsert implements Initializable {
 			if(itens.saveAll( orcamento) ) {
 				try {
 					NewView.fecharView();
+				
 				} catch (NumberFormatException e) {
 					e.printStackTrace();
 				}

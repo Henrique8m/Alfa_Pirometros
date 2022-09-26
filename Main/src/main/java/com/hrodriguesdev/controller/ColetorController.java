@@ -12,4 +12,8 @@ public class ColetorController {
 	public Long add(Coletor coletor) {		
 		return coletorService.addColetor(coletor);
 	}
+	
+	public boolean update(Coletor coletor) {
+		return coletorService.update(coletor);
+	}
 }

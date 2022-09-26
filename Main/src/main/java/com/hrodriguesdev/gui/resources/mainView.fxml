@@ -399,7 +399,7 @@
                                        <children>
                                           <HBox prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                              <children>
-                                                <TableView fx:id="tableOrcamentos" onMouseClicked="#clickOrcamento" prefHeight="803.0" prefWidth="312.0">
+                                                <TableView fx:id="tableOrcamentos" onKeyPressed="#enter" onMouseClicked="#clickOrcamento" prefHeight="803.0" prefWidth="312.0">
                                                   <columns>
                                                     <TableColumn fx:id="relatorioTable" prefWidth="97.0" text="Relatorio" />
                                                       <TableColumn fx:id="chegadaTable" prefWidth="95.0" text="Chegada" />
@@ -409,7 +409,7 @@
                                                       <Insets left="10.0" top="10.0" />
                                                    </padding>
                                                 </TableView>
-                                                <TextArea fx:id="itensOrcamentoClick" focusTraversable="false" minWidth="225.0" prefHeight="456.0" prefWidth="300.0">
+                                                <TextArea fx:id="itensOrcamentoClick" editable="false" focusTraversable="false" minWidth="225.0" prefHeight="456.0" prefWidth="300.0">
                                                    <padding>
                                                       <Insets left="10.0" top="10.0" />
                                                    </padding>

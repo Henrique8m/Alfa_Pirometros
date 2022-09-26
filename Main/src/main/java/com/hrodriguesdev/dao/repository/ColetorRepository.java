@@ -160,4 +160,42 @@ public class ColetorRepository {
 		return coletor;
 	}
 
+	public boolean update(Coletor coletor) {	
+		try {
+			conn = DB.getConnection();
+			conn.setAutoCommit(false);
+			pst = conn.prepareStatement("UPDATE tb_coletor "
+											+ "SET nomeColetor = ?,"
+											+ "dateColeta = ?"
+											+ " WHERE "
+											+ "(id = ?)");
+			
+			pst.setString( 1, coletor.getNomeColetor() );
+			pst.setDate(2, coletor.getDate());
+			pst.setLong( 3, coletor.getId() );
+			pst.executeUpdate();
+			conn.commit();
+			return true;
+			
+		}catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println(e.getMessage());	
+			try {
+				conn.rollback();
+				e.printStackTrace();
+				return false;
+			}catch (SQLException e1) {
+				return false;
+			}
+		}
+		finally {
+			DB.closeStatement(pst);
+			DB.closeConnection();
+		
+		}	
+		
+
+		
+	}
+
 }

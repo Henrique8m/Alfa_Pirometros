@@ -371,4 +371,33 @@ public class OrcamentoRepository {
 
 	}
 	
+	public boolean updateDataSaida(Orcamento orcamento) {
+
+		try {
+			conn = DB.getConnection();
+			pst = conn.prepareStatement("UPDATE tb_orcamento "
+											+ "SET data_saida = ?" 
+											+ " WHERE "
+											+ "(id = ?)");
+
+			pst.setDate( 1, orcamento.getData_saida());
+			pst.setLong( 2, orcamento.getId() );
+			
+			int rowsAccepted = pst.executeUpdate();
+			if(rowsAccepted>0)
+				return true;
+		
+		}catch (SQLException e) {
+			System.out.println(e.getMessage());	
+			return false;
+		}
+		finally {
+			DB.closeStatement(pst);
+			DB.closeConnection();
+			
+		}		
+		return false;
+
+	}
+	
 }
