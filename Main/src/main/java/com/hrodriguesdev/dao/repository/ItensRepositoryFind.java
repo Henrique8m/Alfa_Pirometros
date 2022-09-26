@@ -334,4 +334,92 @@ public class ItensRepositoryFind {
 		return list;
 	}
 	
+	
+	public void UpdateSinal() {
+		List<EstoqueConsumo> list = new ArrayList<>();
+		try {
+			conn = DB.getConnection();			
+			st = conn.createStatement();			
+			rs = st.executeQuery("SELECT * FROM alfaestoque.tb_itens_consumo;");			
+			
+			while (rs.next())  
+				list.add( new EstoqueConsumo(rs) );
+						
+		}catch(DbException | SQLException e) {
+			e.printStackTrace();
+			throw new DbException(e.getMessage());
+
+		}finally {
+			DB.closeResultSet(rs);
+			DB.closeStatement(st);
+			DB.closeConnection();
+			
+		}
+		
+		
+		List<EstoqueSinal> listSinal = new ArrayList<>();
+		try {
+			conn = DB.getConnection();			
+			st = conn.createStatement();			
+			rs = st.executeQuery("SELECT * FROM alfaestoque.tb_itens_sinal;");			
+
+			while (rs.next())  
+				listSinal.add( new EstoqueSinal(rs) );
+						
+		}catch(DbException | SQLException e) {
+			e.printStackTrace();
+			throw new DbException(e.getMessage());
+
+		}finally {
+			DB.closeResultSet(rs);
+			DB.closeStatement(st);
+			DB.closeConnection();
+			
+		}
+		
+		
+		list.forEach((iten) -> {
+			
+			if(iten.getSaida() == true) {
+				listSinal.forEach((sinal) -> {
+					if(sinal.getId() == iten.getId() && !sinal.getSaida()) {
+						try {
+							conn = DB.getConnection();
+							conn.setAutoCommit(false);
+							pst = conn.prepareStatement("UPDATE tb_itens_sinal "
+															+ "SET saida = "
+															+ true
+															+ " WHERE "
+															+ "(id = ?)");
+							
+							pst.setLong(1, sinal.getId());
+							pst.executeUpdate();
+							conn.commit();
+						
+						}catch(DbException | SQLException e) {
+							e.printStackTrace();
+							try {
+								conn.rollback();
+								throw new DbException("Transaction rolled back! Caused by: " + e.getMessage() );
+							}catch (SQLException e1) {
+								throw new DbException("Error trying to rollback! Caused by: \" + e1.getMessage()");
+							}
+							
+						}
+						finally {
+							DB.closeStatement(pst);
+							DB.closeConnection();
+							
+						}
+						
+						
+					}
+				});
+			
+			}
+		});
+		
+		
+	}
+	
 }
