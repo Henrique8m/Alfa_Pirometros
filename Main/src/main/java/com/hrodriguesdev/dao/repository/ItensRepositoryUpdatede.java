@@ -271,8 +271,8 @@ public class ItensRepositoryUpdatede {
 											+ "(id = ?)");
 			
 			pst.setLong(1, sinal.getOrcamento_id());
-			pst.setInt(2, sinal.getNfe());
-			pst.setBoolean(3, sinal.getSaida());
+			pst.setBoolean(2, sinal.getSaida());
+			pst.setInt(3, sinal.getNfe());
 			pst.setInt(4, sinal.getReceptaculoS());
 			pst.setInt(5, sinal.getReceptaculoSU());
 			pst.setInt(6, sinal.getReceptaculoEcil());
