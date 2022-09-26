@@ -65,7 +65,7 @@ public class EmpresaRepository {
 	}
 
 
-	public List<String> getAllEmpressa() {
+	public List<String> getAll() {
 		List<String> list = new ArrayList<>();		
 		try {
 			conn = DB.getConnection();			
@@ -75,6 +75,32 @@ public class EmpresaRepository {
 			while (rs.next())  
 				if( !rs.getString("name").isEmpty() )
 					list.add(rs.getString("name"));	
+			
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		finally {
+			DB.closeResultSet(rs);
+			DB.closeStatement(st);
+
+			conn = null;
+			st = null;
+			rs = null;
+		}
+
+		return list;
+	}
+	
+	public List<Empresa> getAllEmpresa() {
+		List<Empresa> list = new ArrayList<>();		
+		try {
+			conn = DB.getConnection();			
+			st = conn.createStatement();			
+			rs = st.executeQuery("SELECT * FROM alfaestoque.tb_empressa;");			
+			
+			while (rs.next())  
+					list.add(new Empresa(rs));	
 			
 		}
 		catch (SQLException e) {
@@ -167,6 +193,9 @@ public class EmpresaRepository {
 	
 		return null;
 	}
+
+
+
 		
 		
 }

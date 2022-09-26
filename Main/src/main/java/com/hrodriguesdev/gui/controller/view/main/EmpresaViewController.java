@@ -65,6 +65,9 @@ public class EmpresaViewController extends MainViewController{
 		cidadeEmpresa.setCellValueFactory(new PropertyValueFactory<Empresa, String>("cidade"));
 		nomeEmpresa.setCellValueFactory(new PropertyValueFactory<Empresa, String>("name"));
 		
+		obsEmpresa = empresaController.findAllEmpresa();
+		tableEmpresa.setItems(obsEmpresa);
+		
 	}
 
 

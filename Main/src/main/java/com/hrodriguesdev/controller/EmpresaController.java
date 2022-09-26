@@ -13,12 +13,22 @@ public class EmpresaController {
 	
 	public ObservableList<String> findAll(){	
 		ObservableList<String> obs = FXCollections.observableArrayList();
-		List<String> list = empresaService.getAllEmpressa();
+		List<String> list = empresaService.getAll();
 		if(list!=null) {
 			obs.addAll(list);
 			return obs;
 		}
 		return null;
+	
+	}
+	
+	public ObservableList<Empresa> findAllEmpresa(){	
+		ObservableList<Empresa> obs = FXCollections.observableArrayList();
+		List<Empresa> list = empresaService.getAllEmpresa();
+		list.sort((x,y)-> x.getName().compareTo(y.getName()) );
+		if(list!=null) 
+			obs.addAll(list);
+		return obs;
 	
 	}
 	

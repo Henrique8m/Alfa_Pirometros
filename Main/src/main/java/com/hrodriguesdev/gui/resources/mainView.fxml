@@ -610,9 +610,9 @@
             </Tab>
             <Tab fx:id="empresa" text="Empresas">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                <AnchorPane minHeight="500.0" minWidth="500.0">
                      <children>
-                        <HBox>
+                        <HBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="500.0" minWidth="500.0" prefHeight="1031.0" prefWidth="1055.0" style="-fx-background-color: #c9c9c9; -fx-background-radius: 15;">
                                  <children>
@@ -630,7 +630,7 @@
                                           <VBox minWidth="225.0" prefHeight="67.0" prefWidth="300.0" style="-fx-background-color: #c9c9c9;">
                                              <children>
                                                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Empresa" wrappingWidth="154.13671875" />
-                                                <ComboBox fx:id="textEmpresa1" editable="true" minWidth="225.0" onKeyPressed="#enter" prefHeight="25.0" prefWidth="300.0" />
+                                                <ComboBox fx:id="findEmpresaComboBox" editable="true" minWidth="225.0" onKeyPressed="#enter" prefHeight="25.0" prefWidth="300.0" />
                                              </children>
                                           </VBox>
                                           <Button mnemonicParsing="false" onAction="#buscarEmpresa" prefHeight="35.0" prefWidth="135.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Buscar">

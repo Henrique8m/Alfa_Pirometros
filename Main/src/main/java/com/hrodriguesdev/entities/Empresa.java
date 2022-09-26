@@ -1,6 +1,8 @@
 package com.hrodriguesdev.entities;
 
 import java.io.Serializable;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 //@Entity
 //@Table(name = "tb_empressa")
@@ -74,8 +76,17 @@ public class Empresa implements Serializable {
 	private int nivelConfianca;
 	
 	public Empresa() {}
-	
-	
-	
+
+	public Empresa(ResultSet rs) {
+		try {
+			name = (rs.getString(2));
+			cidade = (rs.getString(3));
+			estado = (rs.getString(4));
+			endereco = (rs.getString(5));
+			cep = (rs.getString(6));  
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 
 }

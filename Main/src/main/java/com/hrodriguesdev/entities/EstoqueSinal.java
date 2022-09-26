@@ -74,8 +74,11 @@ public class EstoqueSinal implements Serializable {
 
 	public void remove(ResultSet rs) {
 		try {			
-
+//			System.out.println("Antes " + ReceptaculoS);
+//			System.out.println("Rs " + rs.getInt("receptaculo_s"));
 			ReceptaculoS -= rs.getInt("receptaculo_s");
+//			System.out.println("Depois " + ReceptaculoS);
+//			System.out.println();
 			ReceptaculoSU -= rs.getInt("receptaculo_su");
 			ReceptaculoEcil -= rs.getInt("receptaculo_ecil");	
 			ReceptaculoK -= rs.getInt("receptaculo_k");
