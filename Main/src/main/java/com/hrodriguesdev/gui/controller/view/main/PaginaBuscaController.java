@@ -11,6 +11,7 @@ import com.hrodriguesdev.entities.Coletor;
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.entities.Orcamento;
 import com.hrodriguesdev.gui.controller.view.updatede.ColetorUpdatede;
+import com.hrodriguesdev.gui.controller.view.updatede.NumeroRelatorioUpdate;
 import com.hrodriguesdev.gui.controller.view.updatede.OrcamentoUpdatedeDois;
 import com.hrodriguesdev.utilitary.Format;
 import com.hrodriguesdev.utilitary.InputFilter;
@@ -175,8 +176,15 @@ public class PaginaBuscaController extends EquipamentoMainView implements Initia
 	public void clickOrcamento(MouseEvent event) throws SQLException {
 		if(equipamento != null)
 			if(tableOrcamentos.getSelectionModel().getSelectedItem() != null) {
+				orcamento = orcamentoController.getOrcamento( tableOrcamentos.getSelectionModel().getSelectedItem().getId() ); 
+				if(orcamento == null)
+					return;
+				
+				if(event.getClickCount()>1) {
+					NewView.getNewView("Numero Relatorio", "numeroRelatorio", new NumeroRelatorioUpdate(orcamento));
+				}else {		
 					Coletor coletor = new Coletor();
-					orcamento = orcamentoController.getOrcamento( tableOrcamentos.getSelectionModel().getSelectedItem().getId() ); 
+					
 					
 					if( orcamento.getColetor_id() != null && orcamento.getColetor_id() != 0 ) {						
 						coletor = MainViewController.coletorController.findById( orcamento.getColetor_id() );
@@ -212,6 +220,7 @@ public class PaginaBuscaController extends EquipamentoMainView implements Initia
 					itensOrcamentoClick.setText(allItens(orcamento.getId(), orcamento));
 					
 				}
+			}
 			else orcamento = null;
 	}
 	
