@@ -44,9 +44,9 @@ public class Orcamento {
 			quantidade = rs.getInt("quantidade");			
 			equipamento_id = rs.getLong("equipamento_id");
 			if(rs.getDate("data_saida") != null)
-				setData_saida( rs.getDate("data_saida"));
+				data_saida( rs.getDate("data_saida"));
 			
-			setData_chegada( rs.getDate("data_chegada"));
+			data_chegada( rs.getDate("data_chegada"));
 			laboratorio = rs.getBoolean("laboratorio");
 			coletor_id = rs.getLong("coletor_id");
 			relatorio = rs.getString("relatorio");
@@ -284,22 +284,29 @@ public class Orcamento {
 		return data_chegada;
 	}
 
-	@SuppressWarnings("deprecation")
 	public void setData_chegada(Date data_chegada) {
+		this.data_chegada = data_chegada ;
+
+	}
+
+	@SuppressWarnings("deprecation")
+	public void data_chegada(Date data_chegada) {
 		int date = data_chegada.getDate() + 1;
 		data_chegada.setDate(date);
 		this.data_chegada = data_chegada ;
 
 	}
 
-
 	public Date getData_saida() {
 		return data_saida;
 	}
 
-
-	@SuppressWarnings("deprecation")
 	public void setData_saida(Date data_saida) {
+		this.data_saida = data_saida ;
+	}
+	
+	@SuppressWarnings("deprecation")
+	public void data_saida(Date data_saida) {
 		int date = data_saida.getDate() + 1;
 		data_saida.setDate(date);
 		this.data_saida = data_saida ;

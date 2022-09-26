@@ -71,7 +71,7 @@ public class Coletor implements Serializable{
 				coletor.setOrcamento_id( rs.getLong("orcamento_id") );	
 				
 				Date date = rs.getDate("dateColeta");
-				if(date != null)coletor.setDate(date);
+				if(date != null)coletor.date(date);
 
 				coletor.setHoraColeta(rs.getInt("horaColeta") );
 			
@@ -88,9 +88,12 @@ public class Coletor implements Serializable{
 		return date;
 	}
 
-
-	@SuppressWarnings("deprecation")
 	public void setDate(Date date) {
+		this.date = date;
+	}
+	
+	@SuppressWarnings("deprecation")
+	public void date(Date date) {
 		int datee = date.getDate() + 1;
 		date.setDate(datee);
 		this.date = date;

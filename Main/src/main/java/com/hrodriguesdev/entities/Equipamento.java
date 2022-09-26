@@ -54,7 +54,7 @@ public class Equipamento implements Serializable {
 			obj.setOrcamento_id( rs.getLong("orcamento_id"));
 			obj.setLaboratorio( rs.getBoolean( "laboratorio" ));
 			if(rs.getDate( "ultimaCalibDate" )!= null)
-				obj.setUltimaCalibDate( rs.getDate( "ultimaCalibDate" ));
+				obj.ultimaCalibDate( rs.getDate( "ultimaCalibDate" ));
 			obj.setCertificado_id( rs.getLong( "certificado" ));
 			
 		} catch (SQLException e) {
@@ -180,10 +180,7 @@ public class Equipamento implements Serializable {
 		return dateChegada;
 	}
 
-//	@SuppressWarnings("deprecation")
 	public void setDateChegada(Date dateChegada) {
-//		int date = dateChegada.getDate() + 1;
-//		dateChegada.setDate(date);
 		this.dateChegada = dateChegada;
 	}
 	
@@ -191,10 +188,7 @@ public class Equipamento implements Serializable {
 		return dateSaida;
 	}
 	
-//	@SuppressWarnings("deprecation")
 	public void setDateSaida(Date dateSaida) {
-//		int date = dateSaida.getDate() + 1;
-//		dateSaida.setDate(date);
 		this.dateSaida = dateSaida;
 	}
 	
@@ -202,13 +196,16 @@ public class Equipamento implements Serializable {
 		return ultimaCalibDate;
 	}
 
-	@SuppressWarnings("deprecation")
 	public void setUltimaCalibDate(Date ultimaCalibDate) {
-		int date = ultimaCalibDate.getDate() + 1;
-		ultimaCalibDate.setDate(date);
 		this.ultimaCalibDate = ultimaCalibDate ;
 	}
 	
+	@SuppressWarnings("deprecation")
+	public void ultimaCalibDate(Date ultimaCalibDate) {
+		int date = ultimaCalibDate.getDate() + 1;
+		ultimaCalibDate.setDate(date);
+		this.ultimaCalibDate = ultimaCalibDate ;
+	}	
 
 	public Boolean getLaboratorio() {
 		return laboratorio;
