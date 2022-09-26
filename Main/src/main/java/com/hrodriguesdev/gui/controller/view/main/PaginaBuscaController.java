@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.Date;
 import java.util.ResourceBundle;
 
+import com.hrodriguesdev.dao.repository.ItensRepositoryFind;
 import com.hrodriguesdev.entities.Coletor;
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.entities.Orcamento;
@@ -206,11 +207,32 @@ public class PaginaBuscaController extends EquipamentoMainView implements Initia
 						dataSaidaClick.setText( "" );
 					if( orcamento.getRelatorio() != null ) relatorioClick.setText(orcamento.getRelatorio() );	
 					else  relatorioClick.setText("");	
-					if( orcamento.getItem() != null ) itensOrcamentoClick.setText(orcamento.getItem());
-					else itensOrcamentoClick.setText("");
+					
+					
+					itensOrcamentoClick.setText(allItens(orcamento.getId(), orcamento));
+					
 				}
 			else orcamento = null;
 	}
+	
+	private String allItens(Long orcamento_id, Orcamento orcamento) {
+		ItensRepositoryFind find = new ItensRepositoryFind();
+		String output = "";
+		try{
+			output = output + find.consumoByOrcamentoId(orcamento_id).toString();
+			output = output + find.eletricosByOrcamentoId(orcamento_id).toString();
+			output = output + find.eletronicosByOrcamentoId(orcamento_id).toString();
+			output = output + find.esteticoByOrcamentoId(orcamento_id).toString();
+			output = output + find.sinalByOrcamentoId(orcamento_id).toString();
+		
+			output = output + find.cabosByOrcamentoId(orcamento_id).toString();
+		}catch (NullPointerException e) {
+		}
+		
+		output = output + orcamento.toString();
+		return output;
+	}
+	
 	
 	@FXML
 	protected void enter(KeyEvent event) {
