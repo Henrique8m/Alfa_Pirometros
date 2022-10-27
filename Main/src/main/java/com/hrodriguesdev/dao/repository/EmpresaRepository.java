@@ -195,8 +195,54 @@ public class EmpresaRepository {
 	}
 
 
-
+	public boolean delete(Empresa empresa) {	
+		conn = DB.getConnection();					
+		try {
+			st = conn.createStatement();
+			rs = st.executeQuery("SELECT * FROM alfaestoque.tb_equipamento;");
+			while (rs.next())  
+				if(rs.getLong("empresa_id") == empresa.getId())
+					return false;
 		
+		} catch (SQLException e) {			
+			e.printStackTrace();
+			return false;
+		}			
+		finally {
+			DB.closeResultSet(rs);
+			DB.closeStatement(st);
+			DB.closeConnection();
+			
+		}
+		
+		try {
+			conn = DB.getConnection();
+			conn.setAutoCommit(false);
+			pst = conn.prepareStatement("DELETE FROM tb_empressa WHERE (id = "+ empresa.getId() +" )");	
+			
+			int rowsAccepted = pst.executeUpdate();
+			conn.commit();
+			
+			if(rowsAccepted>0)
+				return true;
+		
+		}catch (SQLException e) {
+			e.printStackTrace();
+			try {
+				conn.rollback();
+				throw new DbException("Transaction rolled back! Caused by: " + e.getMessage() );
+			}catch (SQLException | DbException e2) {
+				e.printStackTrace();
+				return false;
+			}
+		}
+		finally {
+			DB.closeStatement(pst);
+			DB.closeConnection();
+			
+		}
+		return false;
+	}	
 		
 }
 		

@@ -9,6 +9,7 @@ import java.util.ResourceBundle;
 import com.hrodriguesdev.dao.repository.CertificadoRepository;
 import com.hrodriguesdev.entities.Certificado;
 import com.hrodriguesdev.entities.Equipamento;
+import com.hrodriguesdev.gui.alert.Alerts;
 import com.hrodriguesdev.utilitary.Format;
 import com.hrodriguesdev.utilitary.Geral;
 import com.hrodriguesdev.utilitary.InputFilter;
@@ -17,8 +18,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DialogEvent;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -31,6 +36,7 @@ public class CertificadoPaginaController extends EmpresaViewController{
 	
 	private CertificadoRepository repositoryCertificado = new CertificadoRepository();
 	private Equipamento equipamento;
+	private Alert alert;
 	
 	@FXML
 	private ComboBox<String> textEmpresaCertificado;
@@ -223,5 +229,35 @@ public class CertificadoPaginaController extends EmpresaViewController{
     		dataCalibracaoNovo.end();
     	}
     }
+    
+    @FXML
+    private void delete(KeyEvent event) {
+    	if(!tableCertificado.getSelectionModel().isEmpty() && event.isAltDown() && event.getCode().toString() == "DELETE")
+    		showAlert("Deletar Certificado", "Deletara certificado de numero " + tableCertificado.getSelectionModel().getSelectedItem().getNumero()+ "?", "", AlertType.CONFIRMATION);    		
+    }
+    
+	private void showAlert(String title, String header, String content, AlertType type) {
+		if(alert!=null) 
+			if(alert.isShowing())
+				alert.close();
+		alert = new Alert(type);
+		alert.setTitle(title);
+		alert.setHeaderText(header);
+		alert.setContentText(content);
+		alert.setOnCloseRequest( new EventHandler<DialogEvent>() {
+			public void handle(DialogEvent e) { 
+				if(alert.getResult().getButtonData().toString() == "OK_DONE") {
+					if(deletarCertificado(tableCertificado.getSelectionModel().getSelectedItem() ) )
+						Alerts.showAlert("Deletar Certificado", "Deletado com sucesso","", AlertType.CONFIRMATION);
+					tableCertUpdate();
+				}
+			}	});
+		alert.show();		
+
+	}
 	
+	private boolean deletarCertificado(Certificado certificado) {		
+		return repositoryCertificado.delete(certificado);
+	}
+
 }

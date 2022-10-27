@@ -414,6 +414,11 @@
                                                       <Insets left="10.0" top="10.0" />
                                                    </padding>
                                                 </TextArea>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Duplo click&#10;no relatorio,&#10;abre edição &#10;do numero&#10;dele&#10;" textAlignment="CENTER" wrappingWidth="92.13671875">
+                                                   <font>
+                                                      <Font size="20.0" />
+                                                   </font>
+                                                </Text>
                                              </children>
                                           </HBox>
                                        </children>
@@ -592,7 +597,7 @@
                                     </AnchorPane>
                                     <AnchorPane minHeight="300.0" prefHeight="831.0" style="-fx-background-color: #e1e1e1; -fx-background-radius: 15;">
                                        <children>
-                                          <TableView fx:id="tableCertificado" focusTraversable="false" style="-fx-background-radius: 10;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                          <TableView fx:id="tableCertificado" onKeyPressed="#delete" style="-fx-background-radius: 10;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                                             <columns>
                                               <TableColumn fx:id="dataCalibracao" prefWidth="178.0" text="DATA DA CALIBRAÇÂO" />
                                               <TableColumn fx:id="numeroCertificado" minWidth="0.0" prefWidth="194.0" text="NUMERO DO CERTIFICADO" />
@@ -652,7 +657,7 @@
                                           <Insets left="20.0" />
                                        </padding>
                                     </HBox>
-                                    <TableView fx:id="tableEmpresa" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="300.0" minWidth="500.0" onKeyPressed="#updatedEquipamento" onMousePressed="#click" prefHeight="924.0" prefWidth="1056.0" style="-fx-background-radius: 10;">
+                                    <TableView fx:id="tableEmpresa" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="300.0" minWidth="500.0" onKeyPressed="#deleteEmpresa" onMousePressed="#click" prefHeight="924.0" prefWidth="1056.0" style="-fx-background-radius: 10;">
                                        <columns>
                                           <TableColumn fx:id="nomeEmpresa" maxWidth="200.0" minWidth="150.0" prefWidth="200.0" text="Nome" />
                                           <TableColumn fx:id="cidadeEmpresa" maxWidth="137.5" minWidth="87.5" prefWidth="137.5" text="Cidade" />

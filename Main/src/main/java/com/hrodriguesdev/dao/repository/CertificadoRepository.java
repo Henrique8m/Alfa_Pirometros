@@ -128,4 +128,35 @@ public class CertificadoRepository {
 		}
 		return ok;
 	}
+
+	public boolean delete(Certificado certificado) {
+		boolean ok = false;		
+		try {
+			conn = DB.getConnection();
+			conn.setAutoCommit(false);
+			pst = conn.prepareStatement("DELETE FROM tb_certificado WHERE (id = "+ certificado.getId() +" )");	
+			
+			int rowsAccepted = pst.executeUpdate();
+			conn.commit();
+			
+			if(rowsAccepted>0)
+				ok=true;
+		
+		}catch (SQLException e) {
+			ok=false;
+			e.printStackTrace();
+			try {
+				conn.rollback();
+				throw new DbException("Transaction rolled back! Caused by: " + e.getMessage() );
+			}catch (SQLException e1) {
+				throw new DbException("Error trying to rollback! Caused by: \" + e1.getMessage()");
+			}
+		}
+		finally {
+			DB.closeStatement(pst);
+			DB.closeConnection();
+			
+		}
+		return ok;
+	}
 }

@@ -79,6 +79,7 @@ public class Empresa implements Serializable {
 
 	public Empresa(ResultSet rs) {
 		try {
+			id = (rs.getLong(1));
 			name = (rs.getString(2));
 			cidade = (rs.getString(3));
 			estado = (rs.getString(4));
