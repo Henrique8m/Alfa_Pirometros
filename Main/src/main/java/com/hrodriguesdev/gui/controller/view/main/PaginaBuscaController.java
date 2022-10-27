@@ -24,6 +24,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -70,11 +71,35 @@ public class PaginaBuscaController extends EquipamentoMainView implements Initia
 	@FXML
 	private TableColumn<Orcamento, Date>  saidaTable;
 	
+	@FXML
+	private Tab tabBuscar;
+	
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		super.initialize(location, resources);
-		addListener();
+		
+		/*
+		 * Adciona um listener do tipo Charge Listener, que seria um ouvinte das
+		 * variaveis, caso a tab fique no foco, é ativo e aloca os valores do comboBox
+		 */
+		
+		tabBuscar.selectedProperty().addListener((observable, oldValue, newValue) -> {
+			if(newValue) {
+				addListener();
+				if(comboBoxBusca != "") {
+					textEmpresa.setValue(comboBoxBusca);
+					try {
+						buscar(new ActionEvent());
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}else
+				removeListener();
+		});
+		
 		startTableOrcamentos();
 	}
 
@@ -128,12 +153,9 @@ public class PaginaBuscaController extends EquipamentoMainView implements Initia
             };        
          } );		
 		
-		
-		
 		tableOrcamentos.setItems(obsOrcamento);
 		
 	}
-
 
 	@FXML
 	public void click(MouseEvent event) throws SQLException {
@@ -250,8 +272,6 @@ public class PaginaBuscaController extends EquipamentoMainView implements Initia
 		if(event.getTarget() == textEmpresa)
 			try {
 				buscar(new ActionEvent());
-				removeListener();
-				addListener();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -285,8 +305,7 @@ public class PaginaBuscaController extends EquipamentoMainView implements Initia
 	}
 	
 	@FXML
-    private void buscar(ActionEvent e) throws IOException {
-		
+    private void buscar(ActionEvent e) throws IOException {		
 		Equipamento equipamento = new Equipamento();
 		if(textEmpresa.getValue()!= null)
 			if( !textEmpresa.getValue().isEmpty() ) {
@@ -299,12 +318,15 @@ public class PaginaBuscaController extends EquipamentoMainView implements Initia
     		equipamento.setPat(textPatEquip.getText());
     	}    	
     	
-    	ObservableList<Equipamento> obs = equipamentoController.findAll(equipamento);
+    	ObservableList<Equipamento> obs = equipamentoController.findAll(equipamento);   	
+    	
     	if(obs.size()>0 ) {
-    		obsListTableFindEquipamentos = obs;    	
+    		obsListTableFindEquipamentos = obs;
+    		comboBoxBusca = textEmpresa.getValue();
 ;
     	}else { 		
-    		obsListTableFindEquipamentos = equipamentoController.findAll(); 		
+    		obsListTableFindEquipamentos = equipamentoController.findAll(); 
+    		comboBoxBusca = "";
     	}
     	tableFindEquipamentos.setItems(obsListTableFindEquipamentos);
 		removeListener();

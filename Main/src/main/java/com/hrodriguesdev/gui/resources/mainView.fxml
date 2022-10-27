@@ -165,7 +165,7 @@
                   <ImageView fx:id="home" fitHeight="23.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true" />
                </graphic>
             </Tab>
-          <Tab text="Busca">
+          <Tab fx:id="tabBuscar" text="Busca">
                <content>
                   <AnchorPane minHeight="300.0" minWidth="400.0" prefHeight="700.0" prefWidth="1250.0">
                      <children>
@@ -434,7 +434,7 @@
                   <ImageView fx:id="buscar" fitHeight="22.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true" />
                </graphic>
             </Tab>
-            <Tab text="Certificados">
+            <Tab fx:id="tabCertificado" text="Certificados">
               <content>
                 <AnchorPane minHeight="300.0" minWidth="400.0" prefHeight="700.0" prefWidth="1250.0">
                      <children>
@@ -613,7 +613,7 @@
                   </AnchorPane>
               </content>
             </Tab>
-            <Tab fx:id="empresa" text="Empresas">
+            <Tab fx:id="tabEmpresa" text="Empresas">
               <content>
                 <AnchorPane minHeight="500.0" minWidth="500.0">
                      <children>
@@ -635,7 +635,7 @@
                                           <VBox minWidth="225.0" prefHeight="67.0" prefWidth="300.0" style="-fx-background-color: #c9c9c9;">
                                              <children>
                                                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Empresa" wrappingWidth="154.13671875" />
-                                                <ComboBox fx:id="findEmpresaComboBox" editable="true" minWidth="225.0" onKeyPressed="#enter" prefHeight="25.0" prefWidth="300.0" />
+                                                <ComboBox fx:id="findEmpresaComboBox" editable="true" minWidth="225.0" onKeyPressed="#enterBusca" prefHeight="25.0" prefWidth="300.0" />
                                              </children>
                                           </VBox>
                                           <Button mnemonicParsing="false" onAction="#buscarEmpresa" prefHeight="35.0" prefWidth="135.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Buscar">

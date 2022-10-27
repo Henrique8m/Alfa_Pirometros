@@ -38,6 +38,9 @@ import javafx.scene.input.KeyEvent;
 
 //@Component
 public class MainViewController implements Initializable{
+	
+	protected String comboBoxBusca = "";	
+	
 		
 //	private GeneratorPDF generator = new GeneratorPDF();	
 	public static OrcamentoController orcamentoController = new OrcamentoController();

@@ -20,10 +20,11 @@ import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DialogEvent;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -80,12 +81,29 @@ public class CertificadoPaginaController extends EmpresaViewController{
 	@FXML
 	private TextField numeroCertificadoNovo, dataCalibracaoNovo;
 	
-		
+	@FXML
+	private Tab tabCertificado;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		super.initialize(location, resources);
-		addListener();
+		/*
+		 * Adciona um listener do tipo Charge Listener, que seria um ouvinte das
+		 * variaveis, caso a tab fique no foco, é ativo e aloca os valores do comboBox
+		 */
+		
+		tabCertificado.selectedProperty().addListener((observable, oldValue, newValue) -> {
+			if(newValue) {
+				addListener();
+				if(comboBoxBusca != "") {
+					if(comboBoxBusca != "") {
+						textEmpresaCertificado.setValue(comboBoxBusca);
+					buscar();
+					}
+				}
+			}else
+				removeListener();
+		});
 		strartTableCertificado();
 	}
 	
@@ -186,10 +204,14 @@ public class CertificadoPaginaController extends EmpresaViewController{
     	}    	
     	
     	ObservableList<Equipamento> obs = equipamentoController.findAll(equipamento);
-    	if(obs.size()>0 ) 
+    	if(obs.size()>0 ) {
     		osbListEquipamento = obs;    	
-    	else 		
+    		comboBoxBusca = textEmpresaCertificado.getValue();
+    	}
+    	else {
     		osbListEquipamento = equipamentoController.findAll(); 		
+    		comboBoxBusca = "";
+    	}
     	
     	tableEquipamentosCertificados.setItems(osbListEquipamento);
     	
