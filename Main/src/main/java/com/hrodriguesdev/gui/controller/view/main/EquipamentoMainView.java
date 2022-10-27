@@ -113,18 +113,23 @@ public class EquipamentoMainView extends LogoutMainView {
      		
      	}else showAlerts("Seleção ", "", "Nada Selecionado ", AlertType.INFORMATION );
     }
-	
-	
+
+	/*
+	* evento do click na tabela principal	
+	*/
 	@FXML
 	public void tableFilaEquipamentoClick(MouseEvent event) throws IOException, SQLException {
 		if(event.getClickCount() >= 2) {
 			if(tableFilaEquipamentos.getSelectionModel().getSelectedItem() != null) {
 				int status = tableFilaEquipamentos.getSelectionModel().getSelectedItem().getStatus();
+				
+//				Status 1, equipamento nao tem orcamento, ir para a pagina para adcionar
 				if(status == 1) 
 					addOrcamento(new ActionEvent());
 
-				else if(status == 2 || status == 3 || status == 4 || status == 8 || status == 12 || status == 13) 
+				else if(status == 2 || status == 3 || status == 4 || status == 8 || status == 12 || status == 13 || status == 15 || status == 16) 
 					super.openOrcamento(new ActionEvent());
+				
 				else if( status == 5 || status == 6 || status == 9)
 					addColeta(new ActionEvent());
 			}

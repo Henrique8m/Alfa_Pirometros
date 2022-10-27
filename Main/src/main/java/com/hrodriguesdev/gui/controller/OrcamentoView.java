@@ -74,7 +74,12 @@ public class OrcamentoView implements Initializable {
 		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-salvar-arquivo.png").toString() );
 		salvarImg.setImage(image);
 	}	
-		
+
+	/*
+	 * Varre o orcamento e formata o mesmo para ser passado em formato de texto oque
+	 * vai ser feito no equipamento
+	 */
+	
 	private String allItens(Long orcamento_id, Orcamento orcamento) {
 		ItensRepositoryFind find = new ItensRepositoryFind();
 		String output = "";
@@ -93,6 +98,8 @@ public class OrcamentoView implements Initializable {
 		return output;
 	}
 
+//	Atraves do status em que se encontra o relatorio,
+//	Libera o botão pertinente
 	
 	private void switchStatus(int status) {
 		switch (status) {
@@ -119,6 +126,9 @@ public class OrcamentoView implements Initializable {
 		case 13:
 			aprovado.setVisible(true);
 			break;
+		case 15:
+			orcamentoEnviado.setVisible(true);
+			break;
 		default:
 			orcamentoEnviado.setVisible(true);
 			aprovadoSemOrca.setVisible(true);
@@ -128,6 +138,20 @@ public class OrcamentoView implements Initializable {
 		}
 		
 	}
+
+	protected void update(int status) {		
+		orcamento.setStatus(status);
+	}
+	
+	/*
+	 * 
+	 * 
+	 * Botão de salvar, faz toda uma atualização nos dados do orcamento
+	 * 
+	 * 
+	 * 
+	 * 
+	 */
 	
 	@FXML
 	private void salvar(ActionEvent event) {
@@ -142,12 +166,18 @@ public class OrcamentoView implements Initializable {
 			orcamento.setRelatorio(relatorioN.getText() );
 		}
 		try {
+			
+//			Passa laboratorio para falso, e o retira da fila
+//			No cado de manutenção na area, com o orçamento aprovado
+			
 			if(orcamento.getStatus() == 20) {
 				if(!MainViewController.equipamentoController.updateSaida(equipamento) ) {
 					Alerts.showAlert("Equipamento ", "Falha em dar saida no equipamento", "" , AlertType.ERROR);
 					return;
 				}
 			}
+			
+			
 			MainViewController.orcamentoController.updatedeStatusRelatorio( orcamento.getId(), orcamento.getStatus(), orcamento );
 			Alerts.showAlert("Status ", "Status Alterado com sucesso", "Equipamento da Empressa " + equipamento.getEmpressaName() , AlertType.INFORMATION);
 		} catch (DbException e1) {
@@ -156,11 +186,19 @@ public class OrcamentoView implements Initializable {
 		AlfaPirometrosApplication.viewController.refreshTable();
 		NewView.fecharView();
 	}
+
+	/*
+	 * 
+	 * 
+	 * 
+	 * Botões para troca de status do orçamento
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 */
 	
-	protected void update(int status) {		
-		orcamento.setStatus(status);
-	}
-		
 	@FXML
 	protected void liberado(ActionEvent e) {
 		
@@ -205,7 +243,9 @@ public class OrcamentoView implements Initializable {
 				return;				
 			}
 			aprovado.setVisible(false);
-			
+		case 15:
+			update(16);
+			orcamentoEnviado.setVisible(false);
 		}
 		
 
@@ -228,9 +268,7 @@ public class OrcamentoView implements Initializable {
 			Alerts.showAlert("Erro", "Falha ao dar saida no banco de dados", "Ocorreu uma falha ao atualizar o orcamento", AlertType.ERROR);
 		}
 		data.setEditable(true);
-//		Status 20 = fora do laboratorio
-		update(20);	
-		equipamento.setLaboratorio(false);
+		update(15);			
 		orcamentoEnviado.setVisible(false);
 		aprovadoSemOrca.setVisible(false);
 		manutencaoArea.setVisible(false);
@@ -246,6 +284,10 @@ public class OrcamentoView implements Initializable {
 				Alerts.showAlert( "SQL Exeption " ,"Error ao Salvar, id não teve retorno", "",AlertType.ERROR);		
 				return;				
 			}
+			break;
+		case 16:
+			update(20);
+			equipamento.setLaboratorio(false);
 			break;
 		default:
 			update(4);	
