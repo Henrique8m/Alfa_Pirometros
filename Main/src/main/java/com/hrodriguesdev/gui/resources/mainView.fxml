@@ -657,7 +657,7 @@
                                           <Insets left="20.0" />
                                        </padding>
                                     </HBox>
-                                    <TableView fx:id="tableEmpresa" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="300.0" minWidth="500.0" onKeyPressed="#deleteEmpresa" onMousePressed="#click" prefHeight="924.0" prefWidth="1056.0" style="-fx-background-radius: 10;">
+                                    <TableView fx:id="tableEmpresa" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="300.0" minWidth="500.0" onKeyPressed="#deleteEmpresa" onMouseClicked="#clickEmpresa" onMousePressed="#click" prefHeight="924.0" prefWidth="1056.0" style="-fx-background-radius: 10;">
                                        <columns>
                                           <TableColumn fx:id="nomeEmpresa" maxWidth="200.0" minWidth="150.0" prefWidth="200.0" text="Nome" />
                                           <TableColumn fx:id="cidadeEmpresa" maxWidth="137.5" minWidth="87.5" prefWidth="137.5" text="Cidade" />
@@ -706,7 +706,7 @@
                                                       <VBox prefHeight="47.0" prefWidth="42.0">
                                                          <children>
                                                             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ESTADO" wrappingWidth="46.13671875" />
-                                                            <TextField fx:id="estadoEmpresaEdit" onKeyReleased="#format" prefHeight="25.0" prefWidth="59.0" />
+                                                            <TextField fx:id="estadoEmpresaEdit" onKeyPressed="#formatarCep" prefHeight="25.0" prefWidth="59.0" />
                                                          </children>
                                                          <HBox.margin>
                                                             <Insets left="20.0" />
@@ -728,7 +728,7 @@
                                                       <VBox prefHeight="47.0" prefWidth="97.0">
                                                          <children>
                                                             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="CEP" wrappingWidth="39.13671875" />
-                                                            <TextField fx:id="cepEmpresaEdit" onKeyReleased="#format" prefHeight="25.0" prefWidth="63.0" />
+                                                            <TextField fx:id="cepEmpresaEdit" onKeyPressed="#formatarCep" prefHeight="25.0" prefWidth="63.0" />
                                                          </children>
                                                          <HBox.margin>
                                                             <Insets left="20.0" />
@@ -739,11 +739,34 @@
                                                       <Insets left="20.0" right="20.0" top="20.0" />
                                                    </padding>
                                                 </HBox>
-                                                <Button mnemonicParsing="false" onAction="#salvarEmpresa" prefHeight="35.0" prefWidth="135.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Salvar">
-                                                   <graphic>
-                                                      <ImageView fx:id="salvarImg" fitHeight="23.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true" />
-                                                   </graphic>
-                                                </Button>
+                                                <HBox prefHeight="96.0" prefWidth="422.0">
+                                                   <children>
+                                                      <Button mnemonicParsing="false" onAction="#salvarEmpresa" prefHeight="35.0" prefWidth="135.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Salvar">
+                                                         <graphic>
+                                                            <ImageView fx:id="salvarImg" fitHeight="23.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true" />
+                                                         </graphic>
+                                                         <HBox.margin>
+                                                            <Insets left="40.0" />
+                                                         </HBox.margin>
+                                                      </Button>
+                                                      <Button mnemonicParsing="false" onAction="#adcionarEmpresa" prefHeight="35.0" prefWidth="135.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Adcionar">
+                                                         <graphic>
+                                                            <ImageView fx:id="adcionarImg" fitHeight="23.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true" />
+                                                         </graphic>
+                                                         <HBox.margin>
+                                                            <Insets left="40.0" />
+                                                         </HBox.margin>
+                                                      </Button>
+                                                      <Button mnemonicParsing="false" onAction="#limp" prefHeight="35.0" prefWidth="135.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Clear">
+                                                         <graphic>
+                                                            <ImageView fx:id="clearImg" fitHeight="23.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true" />
+                                                         </graphic>
+                                                         <HBox.margin>
+                                                            <Insets left="40.0" />
+                                                         </HBox.margin>
+                                                      </Button>
+                                                   </children>
+                                                </HBox>
                                              </children>
                                           </VBox>
                                        </children>

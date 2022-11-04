@@ -126,31 +126,6 @@ public class CertificadoPaginaController extends EmpresaViewController{
 		}
 	}
 	
-	@FXML
-	protected void clickCertificado(MouseEvent event) throws SQLException {
-		if(tableEquipamentosCertificados.getSelectionModel().getSelectedItem() != null) {
-			equipamento = tableEquipamentosCertificados.getSelectionModel().getSelectedItem();
-			
-			tableCertUpdate();
-			
-			nomeEmpressaClickCertificado.setText(equipamento.getEmpressaName());
-			if( equipamento.getNs()!= null ) nsClickCertificado.setText(equipamento.getNs() );
-			if( equipamento.getPat()!= null ) patClickCertificado.setText(equipamento.getPat() );
-			if( equipamento.getModelo()!= null ) modeloClickCertificado.setText( equipamento.getModelo() );
-			
-		}
-	}
-	
-	
-	private void tableCertUpdate() {
-		List<Certificado> certificado = repositoryCertificado.findAllByEquipamento(equipamento.getId());
-		ObservableList<Certificado> obs = FXCollections.observableArrayList();
-		obs.addAll(certificado);
-		tableCertificado.setItems(obs);
-		tableCertificado.refresh();
-		
-	}
-
 	private void strartTableCertificado() {		
 		tableEquipamentosCertificados.setEditable(false);	 
 		
@@ -188,9 +163,32 @@ public class CertificadoPaginaController extends EmpresaViewController{
 		tableCertificado.setItems(osbListCertificado);
 		
 	}
-
-    private void buscar(){
+	
+	private void tableCertUpdate() {
+		List<Certificado> certificado = repositoryCertificado.findAllByEquipamento(equipamento.getId());
+		ObservableList<Certificado> obs = FXCollections.observableArrayList();
+		obs.addAll(certificado);
+		tableCertificado.setItems(obs);
+		tableCertificado.refresh();
 		
+	}
+	
+	@FXML
+	protected void clickCertificado(MouseEvent event) throws SQLException {
+		if(tableEquipamentosCertificados.getSelectionModel().getSelectedItem() != null) {
+			equipamento = tableEquipamentosCertificados.getSelectionModel().getSelectedItem();
+			
+			tableCertUpdate();
+			
+			nomeEmpressaClickCertificado.setText(equipamento.getEmpressaName());
+			if( equipamento.getNs()!= null ) nsClickCertificado.setText(equipamento.getNs() );
+			if( equipamento.getPat()!= null ) patClickCertificado.setText(equipamento.getPat() );
+			if( equipamento.getModelo()!= null ) modeloClickCertificado.setText( equipamento.getModelo() );
+			
+		}
+	}
+	
+    private void buscar(){		
 		Equipamento equipamento = new Equipamento();
 		if(textEmpresaCertificado.getValue()!= null)
 			if( !textEmpresaCertificado.getValue().isEmpty() ) {
@@ -244,6 +242,8 @@ public class CertificadoPaginaController extends EmpresaViewController{
     		}
     }
     
+//    Formatar em tempo real a data inserida
+    
     @FXML
     private void formatarData(KeyEvent event) {
     	if(!dataCalibracaoNovo.getText().isBlank()) {
@@ -252,11 +252,17 @@ public class CertificadoPaginaController extends EmpresaViewController{
     	}
     }
     
+	/*
+	 * Logicaa para o delete de Certificado, tecla alt tem que estar apertada!!
+	 */
+    
     @FXML
     private void delete(KeyEvent event) {
     	if(!tableCertificado.getSelectionModel().isEmpty() && event.isAltDown() && event.getCode().toString() == "DELETE")
     		showAlert("Deletar Certificado", "Deletara certificado de numero " + tableCertificado.getSelectionModel().getSelectedItem().getNumero()+ "?", "", AlertType.CONFIRMATION);    		
     }
+    
+//    Confirmar deletar
     
 	private void showAlert(String title, String header, String content, AlertType type) {
 		if(alert!=null) 
@@ -281,5 +287,5 @@ public class CertificadoPaginaController extends EmpresaViewController{
 	private boolean deletarCertificado(Certificado certificado) {		
 		return repositoryCertificado.delete(certificado);
 	}
-
+	
 }

@@ -1,6 +1,7 @@
 package com.hrodriguesdev.gui.controller.view.main;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import com.hrodriguesdev.controller.EmpresaController;
@@ -26,6 +27,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 
 public class EmpresaViewController extends MainViewController{
 	
@@ -34,7 +36,7 @@ public class EmpresaViewController extends MainViewController{
 	private Alert alert;
 
 	@FXML
-	private ImageView salvarImg, buscarImg;
+	private ImageView salvarImg, buscarImg, adcionarImg, clearImg;
 	
 	@FXML
 	private TableView<Empresa> tableEmpresa;
@@ -59,7 +61,7 @@ public class EmpresaViewController extends MainViewController{
 	private TextField cepEmpresaEdit, enderecoEmpresaEdit, estadoEmpresaEdit, cidadeEmpresaEdit, nomeEmpresaEdit;
 	
 	@FXML
-	private ComboBox<String> findEmpresaComboBox;
+	private ComboBox<String> findEmpresaComboBox = new ComboBox<>();
 	
     private static ObservableList<String> obsString = FXCollections.observableArrayList();
     private FilteredList<String> filteredList;
@@ -110,15 +112,62 @@ public class EmpresaViewController extends MainViewController{
 	 */
 	
 	private void tableEmprUpdate() {
-
+		tableEmpresa.setItems(FXCollections.observableArrayList());
 	}
 
+
+	
 
 	@FXML
 	private void salvarEmpresa(ActionEvent event) {
-		System.out.println("Salvar");
+		if(validacaoCampos()) {
+				System.out.println("Salvar");
+		}
+		
+	
 	}
 	
+	@FXML
+	private void adcionarEmpresa(ActionEvent event) {
+		if(repository.exist(nomeEmpresaEdit.getText())) {
+			Alerts.showAlert("Falha", "Empresa já existe", "", AlertType.INFORMATION);
+			return;
+		}
+		if(validacaoCampos()) {			
+			Empresa empresa = new Empresa();
+			empresa.setName(nomeEmpresaEdit.getText());
+			empresa.setCidade(cidadeEmpresaEdit.getText());
+			empresa.setEstado(estadoEmpresaEdit.getText());
+			empresa.setEndereco(enderecoEmpresaEdit.getText());
+			empresa.setCep(cepEmpresaEdit.getText());
+			repository.addEmpressa(empresa);
+			findEmpresaComboBox.setValue(empresa.getName());
+			buscarEmpresa(new ActionEvent());
+			limp(new ActionEvent());
+			
+		}
+		else Alerts.showAlert("Falha", "Todos os campos deven esta preenchidos", "", AlertType.INFORMATION);
+		
+	}
+	
+	@FXML
+	private void limp(ActionEvent event){
+		nomeEmpresaEdit.setText("");
+		cidadeEmpresaEdit.setText("");
+		estadoEmpresaEdit.setText("");
+		enderecoEmpresaEdit.setText("");
+		cepEmpresaEdit.setText("");
+	}
+	
+	private boolean validacaoCampos() {
+		if(!nomeEmpresaEdit.getText().isBlank() &&
+				!cidadeEmpresaEdit.getText().isBlank() &&
+				!estadoEmpresaEdit.getText().isBlank() &&
+				!enderecoEmpresaEdit.getText().isBlank() &&
+				!cepEmpresaEdit.getText().isBlank()) 
+			return true;
+		return false;
+	}
 	
 	
     @FXML
@@ -143,6 +192,7 @@ public class EmpresaViewController extends MainViewController{
 					else
 						Alerts.showAlert("Error", "Por motivos desconhecidos, não foi possível completar sua solicitação", "", AlertType.ERROR);
 					tableEmprUpdate();
+					limp(new ActionEvent());
 				}
 			}	});
 		alert.show();		
@@ -153,8 +203,10 @@ public class EmpresaViewController extends MainViewController{
 		return repository.delete(empresa);
 	}
 	
-	
-//	listener do comboBox
+	/*
+	 * listener do comboBox, para que sesja alimentada e filtrada em tempo real, de
+	 * acordo com a digitação
+	 */
 
 	private void addListener() {
 		if( dbConection ) {
@@ -170,10 +222,14 @@ public class EmpresaViewController extends MainViewController{
 		findEmpresaComboBox.getEditor().textProperty().removeListener(inputFilter);
 		findEmpresaComboBox.setValue("");
 	}
+
+	/*
+	 * Quando precionado a tecla enter dentro do comboBox faz a busca
+	 * automaticamente
+	 */
 	
 	@FXML
 	private void enterBusca(KeyEvent event) {
-//		Busca pelo nome da empresa com enter
 			if(event.getTarget() == findEmpresaComboBox) 
 				if(event.getCode().toString() == "ENTER") {					
 					buscarEmpresa(new ActionEvent());
@@ -202,5 +258,34 @@ public class EmpresaViewController extends MainViewController{
     	removeListener();
 		addListener();
 	}
+
+	/*
+	 * Alimenta as linha de edição quando clicamos em empresa na lista de busca
+	 * 
+	 */
+	@FXML
+	public void clickEmpresa(MouseEvent event) throws SQLException {		
+			if(!tableEmpresa.getSelectionModel().isEmpty()) {
+				Empresa empresa = tableEmpresa.getSelectionModel().getSelectedItem(); 
+				if(empresa == null)
+					return;
+				nomeEmpresaEdit.setText(empresa.getName());
+				cidadeEmpresaEdit.setText(empresa.getCidade());
+				estadoEmpresaEdit.setText(empresa.getEstado());
+				enderecoEmpresaEdit.setText(empresa.getEndereco());
+				cepEmpresaEdit.setText(empresa.getCep());
+			}
+	}
+	
+	@FXML
+	private void formatarCep(KeyEvent event) {
+		
+	}
+	
+	@FXML
+	private void formatarEstado(KeyEvent event) {
+		
+	}
+	
 	
 }

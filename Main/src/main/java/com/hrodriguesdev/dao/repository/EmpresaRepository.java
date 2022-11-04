@@ -29,7 +29,7 @@ public class EmpresaRepository {
 			
 			while (rs.next())  
 				if( rs.getLong("id") == empressaId)
-					empressa = empressaParce( rs );	
+					empressa = new Empresa(rs);
 			
 		}
 		catch (SQLException e) {
@@ -47,23 +47,6 @@ public class EmpresaRepository {
 		return empressa;
 	}
 	
-	
-	private Empresa empressaParce(ResultSet rs2) {
-		Empresa empressa = new Empresa();
-		
-		try {
-			empressa.setName(rs.getString(2));
-			empressa.setCidade(rs.getString(3));
-			empressa.setEstado(rs.getString(4));
-			empressa.setEndereco(rs.getString(5));
-			empressa.setCep(rs.getString(6));  
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return empressa;
-	}
-
 
 	public List<String> getAll() {
 		List<String> list = new ArrayList<>();		
@@ -120,6 +103,8 @@ public class EmpresaRepository {
 	
 
 	public Long addEmpressa(Empresa empressa) {
+		if(exist(empressa.getName()))
+			return 0l;
 		Long id = 0l;		
 		try {
 			conn = DB.getConnection();
@@ -242,7 +227,40 @@ public class EmpresaRepository {
 			
 		}
 		return false;
-	}	
+	}
+
+
+	public boolean exist(String text) {
+		String text2 = text.replaceAll("[^A-Z]+", "");
+		try {
+			conn = DB.getConnection();			
+			st = conn.createStatement();			
+			rs = st.executeQuery("SELECT * FROM alfaestoque.tb_empressa;");			
+			
+			while (rs.next())  {
+				if( rs.getString(2).equalsIgnoreCase(text) )
+					return true;
+				else {
+					String busca = rs.getString(2).replaceAll("[^A-Z]+", "");
+					if(busca.equalsIgnoreCase(text2))
+						return true;
+				}
+			}
+			return false;
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		finally {
+			DB.closeResultSet(rs);
+			DB.closeStatement(st);
+	
+			conn = null;
+			st = null;
+			rs = null;
+		}
+	}
 		
 }
 		
