@@ -612,6 +612,9 @@
                      </children>
                   </AnchorPane>
               </content>
+               <graphic>
+                  <ImageView fx:id="certificadoImg" fitHeight="23.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true" />
+               </graphic>
             </Tab>
             <Tab fx:id="tabEmpresa" text="Empresas">
               <content>
@@ -706,7 +709,7 @@
                                                       <VBox prefHeight="47.0" prefWidth="42.0">
                                                          <children>
                                                             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ESTADO" wrappingWidth="46.13671875" />
-                                                            <TextField fx:id="estadoEmpresaEdit" onKeyPressed="#formatarCep" prefHeight="25.0" prefWidth="59.0" />
+                                                            <TextField fx:id="estadoEmpresaEdit" onKeyReleased="#formatarDados" prefHeight="25.0" prefWidth="59.0" />
                                                          </children>
                                                          <HBox.margin>
                                                             <Insets left="20.0" />
@@ -728,7 +731,7 @@
                                                       <VBox prefHeight="47.0" prefWidth="97.0">
                                                          <children>
                                                             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="CEP" wrappingWidth="39.13671875" />
-                                                            <TextField fx:id="cepEmpresaEdit" onKeyPressed="#formatarCep" prefHeight="25.0" prefWidth="63.0" />
+                                                            <TextField fx:id="cepEmpresaEdit" onKeyReleased="#formatarDados" prefHeight="25.0" prefWidth="63.0" />
                                                          </children>
                                                          <HBox.margin>
                                                             <Insets left="20.0" />
@@ -782,6 +785,9 @@
                         </HBox>
                      </children></AnchorPane>
               </content>
+               <graphic>
+                  <ImageView fx:id="empresaImg" fitHeight="23.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true" />
+               </graphic>
             </Tab>
         </tabs>
       </TabPane>

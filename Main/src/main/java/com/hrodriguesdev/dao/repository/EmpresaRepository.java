@@ -261,6 +261,51 @@ public class EmpresaRepository {
 			rs = null;
 		}
 	}
+
+
+	public boolean updateEmpresa(Empresa empresa) {		
+		try {
+			conn = DB.getConnection();
+			conn.setAutoCommit(false);
+			pst = conn.prepareStatement("UPDATE tb_empressa "
+											+ "SET name = ?,"
+											+ " cidade = ?,"
+											+ " estado = ?,"
+											+ " endereco = ?,"
+											+ " cep = ?"
+											+" WHERE "
+											+"(id = ?)");		
+	
+			pst.setString(1, empresa.getName());
+			pst.setString(2, empresa.getCidade());
+			pst.setString(3, empresa.getEstado());
+			pst.setString(4, empresa.getEndereco());			
+			pst.setString(5, empresa.getCep());
+			pst.setLong(6, empresa.getId());
+					
+			int rowsAccepted = pst.executeUpdate();
+			conn.commit();
+			if(rowsAccepted>0)
+				return true;
+		
+		}catch(DbException | SQLException e) {
+			e.printStackTrace();
+			try {
+				conn.rollback();
+				throw new DbException("Transaction rolled back! Caused by: " + e.getMessage() );
+			}catch (SQLException e1) {
+				throw new DbException("Error trying to rollback! Caused by: \" + e1.getMessage()");
+			}
+			
+		}
+		finally {
+			DB.closeStatement(pst);
+			DB.closeConnection();
+			
+		}
+		return false;
+		
+	}
 		
 }
 		

@@ -4,10 +4,12 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+import com.hrodriguesdev.AlfaPirometrosApplication;
 import com.hrodriguesdev.controller.EmpresaController;
 import com.hrodriguesdev.dao.repository.EmpresaRepository;
 import com.hrodriguesdev.entities.Empresa;
 import com.hrodriguesdev.gui.alert.Alerts;
+import com.hrodriguesdev.utilitary.Format;
 import com.hrodriguesdev.utilitary.InputFilter;
 
 import javafx.collections.FXCollections;
@@ -25,6 +27,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -36,7 +39,7 @@ public class EmpresaViewController extends MainViewController{
 	private Alert alert;
 
 	@FXML
-	private ImageView salvarImg, buscarImg, adcionarImg, clearImg;
+	private ImageView salvarImg, buscarImg, adcionarImg, clearImg, empresaImg;
 	
 	@FXML
 	private TableView<Empresa> tableEmpresa;
@@ -70,9 +73,21 @@ public class EmpresaViewController extends MainViewController{
 	@FXML
 	private Tab tabEmpresa;
 	
+	private Empresa empresa;
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		super.initialize(location, resources);
+		Image image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-adicionar.png").toString() );
+		adcionarImg.setImage(image);
+		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-salvar-arquivo.png").toString() );
+		salvarImg.setImage(image);
+		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-pesquisar.png").toString() );
+		buscarImg.setImage(image);
+		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-vassoura.png").toString() );
+		clearImg.setImage(image);
+		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-empresa.png").toString() );
+		empresaImg.setImage(image);
 		
 		/*
 		 * Adciona um listener do tipo Charge Listener, que seria um ouvinte das
@@ -116,17 +131,47 @@ public class EmpresaViewController extends MainViewController{
 	}
 
 
-	
-
 	@FXML
 	private void salvarEmpresa(ActionEvent event) {
 		if(validacaoCampos()) {
-				System.out.println("Salvar");
+			if(empresa != null) {
+				empresa = updateCampoEmpresa(empresa);
+				if(!repository.updateEmpresa(empresa))	
+					Alerts.showAlert("Atualização de empresa", "", "Erro ao atualizar", AlertType.ERROR);
+				else Alerts.showAlert("Atualização de empresa", "", "Atualizado com sucesso, a atualização so acontece um campo por vez!", AlertType.INFORMATION);
+				limp(new ActionEvent());
+				buscarEmpresa(new ActionEvent());
+				removeListener();
+				addListener();
+			}
 		}
 		
-	
 	}
 	
+	private Empresa updateCampoEmpresa(Empresa empresa2) {
+		if(!empresa.getName().equals(nomeEmpresaEdit.getText())) {
+			empresa.setName(nomeEmpresaEdit.getText());
+			return empresa;
+		}
+		if(!empresa.getCidade().equals(cidadeEmpresaEdit.getText())) {
+			empresa.setCidade(cidadeEmpresaEdit.getText());
+			return empresa;
+		}
+		if(!empresa.getEstado().equals(estadoEmpresaEdit.getText())) {
+			empresa.setEstado(estadoEmpresaEdit.getText());
+			return empresa;
+		}
+		if(!empresa.getEndereco().equals(enderecoEmpresaEdit.getText())) {
+			empresa.setEndereco(enderecoEmpresaEdit.getText());
+			return empresa;
+		}
+		if(!empresa.getCep().equals(cepEmpresaEdit.getText())) {
+			empresa.setCep(cepEmpresaEdit.getText());
+			return empresa;
+		}
+		return empresa;
+	}
+
 	@FXML
 	private void adcionarEmpresa(ActionEvent event) {
 		if(repository.exist(nomeEmpresaEdit.getText())) {
@@ -157,6 +202,7 @@ public class EmpresaViewController extends MainViewController{
 		estadoEmpresaEdit.setText("");
 		enderecoEmpresaEdit.setText("");
 		cepEmpresaEdit.setText("");
+		empresa = null;
 	}
 	
 	private boolean validacaoCampos() {
@@ -202,26 +248,6 @@ public class EmpresaViewController extends MainViewController{
 	private boolean deletarEmpresa(Empresa empresa) {		
 		return repository.delete(empresa);
 	}
-	
-	/*
-	 * listener do comboBox, para que sesja alimentada e filtrada em tempo real, de
-	 * acordo com a digitação
-	 */
-
-	private void addListener() {
-		if( dbConection ) {
-			obsString = empressaController.findAll();
-			filteredList = new FilteredList<>(obsString);  
-			inputFilter = new InputFilter<String>( findEmpresaComboBox, filteredList );
-			findEmpresaComboBox.getEditor().textProperty().addListener(inputFilter);	
-		}
-
-	}	
-	
-	private void removeListener() {
-		findEmpresaComboBox.getEditor().textProperty().removeListener(inputFilter);
-		findEmpresaComboBox.setValue("");
-	}
 
 	/*
 	 * Quando precionado a tecla enter dentro do comboBox faz a busca
@@ -240,19 +266,19 @@ public class EmpresaViewController extends MainViewController{
 
 	@FXML
 	private void buscarEmpresa(ActionEvent event) {	
-		if(!findEmpresaComboBox.getValue().isEmpty()) {
-			ObservableList<Empresa> obs = FXCollections.observableArrayList();
-			Long id = repository.findEmpresaId(findEmpresaComboBox.getValue());			
-			obs.add( repository.findEmpressa( id ));			
-			obsEmpresa = obs;
-			if(obs.size() >0 )
-				comboBoxBusca = findEmpresaComboBox.getValue();
-		}else {
-    		obsEmpresa = empresaController.findAllEmpresa();
-    		tableEmpresa.setItems(obsEmpresa);
-    		comboBoxBusca = "";
-    	}
-    	
+		if(findEmpresaComboBox != null)					
+			if(!findEmpresaComboBox.getValue().isEmpty()) {
+				ObservableList<Empresa> obs = FXCollections.observableArrayList();
+				Long id = repository.findEmpresaId(findEmpresaComboBox.getValue());			
+				obs.add( repository.findEmpressa( id ));			
+				obsEmpresa = obs;
+				if(obs.size() >0 )
+					comboBoxBusca = findEmpresaComboBox.getValue();
+			}else {
+	    		obsEmpresa = empresaController.findAllEmpresa();
+	    		tableEmpresa.setItems(obsEmpresa);
+	    		comboBoxBusca = "";
+	    	}
     	
     	tableEmpresa.setItems(obsEmpresa);
     	removeListener();
@@ -264,9 +290,10 @@ public class EmpresaViewController extends MainViewController{
 	 * 
 	 */
 	@FXML
-	public void clickEmpresa(MouseEvent event) throws SQLException {		
+	public void clickEmpresa(MouseEvent event) throws SQLException {	
+		if(tableEmpresa != null)
 			if(!tableEmpresa.getSelectionModel().isEmpty()) {
-				Empresa empresa = tableEmpresa.getSelectionModel().getSelectedItem(); 
+				empresa = tableEmpresa.getSelectionModel().getSelectedItem(); 
 				if(empresa == null)
 					return;
 				nomeEmpresaEdit.setText(empresa.getName());
@@ -275,17 +302,47 @@ public class EmpresaViewController extends MainViewController{
 				enderecoEmpresaEdit.setText(empresa.getEndereco());
 				cepEmpresaEdit.setText(empresa.getCep());
 			}
+			else empresa = null;
 	}
 	
 	@FXML
-	private void formatarCep(KeyEvent event) {
-		
+	private void formatarDados(KeyEvent event) {
+		if(event.getCode().toString() != "BACK_SPACE" ) {
+			if(event.getTarget().equals(estadoEmpresaEdit)){
+				 String input = estadoEmpresaEdit.getText().toUpperCase().replaceAll("[^A-Z]+", "");
+				 if(input.length() > 2) {
+					 StringBuilder stringBuilder = new StringBuilder(input);
+					 input = stringBuilder.replace(input.length()-1, input.length(), "").toString();
+				 }
+				 estadoEmpresaEdit.setText(input);
+				 estadoEmpresaEdit.end();	
+				 
+			}else if(event.getTarget().equals(cepEmpresaEdit)){
+				cepEmpresaEdit.setText(Format.replaceCep( cepEmpresaEdit.getText() ) );
+				cepEmpresaEdit.end();
+				
+			 }
+		}
 	}
 	
-	@FXML
-	private void formatarEstado(KeyEvent event) {
-		
-	}
+	/*
+	 * listener do comboBox, para que sesja alimentada e filtrada em tempo real, de
+	 * acordo com a digitação
+	 */
 	
+	private void addListener() {
+		if( dbConection ) {
+			obsString = empressaController.findAll();
+			filteredList = new FilteredList<>(obsString);  
+			inputFilter = new InputFilter<String>( findEmpresaComboBox, filteredList );
+			findEmpresaComboBox.getEditor().textProperty().addListener(inputFilter);	
+		}
+		
+	}	
+	
+	private void removeListener() {
+		findEmpresaComboBox.getEditor().textProperty().removeListener(inputFilter);
+		findEmpresaComboBox.setValue("");
+	}
 	
 }

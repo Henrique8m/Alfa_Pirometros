@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import com.hrodriguesdev.AlfaPirometrosApplication;
 import com.hrodriguesdev.dao.repository.CertificadoRepository;
 import com.hrodriguesdev.entities.Certificado;
 import com.hrodriguesdev.entities.Equipamento;
@@ -30,6 +31,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
@@ -84,9 +87,14 @@ public class CertificadoPaginaController extends EmpresaViewController{
 	@FXML
 	private Tab tabCertificado;
 	
+	@FXML
+	private ImageView certificadoImg;
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		super.initialize(location, resources);
+		Image image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-certificado.png").toString() );
+		certificadoImg.setImage(image);
 		/*
 		 * Adciona um listener do tipo Charge Listener, que seria um ouvinte das
 		 * variaveis, caso a tab fique no foco, é ativo e aloca os valores do comboBox
