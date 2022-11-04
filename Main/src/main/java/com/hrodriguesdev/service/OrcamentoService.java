@@ -1,6 +1,7 @@
 package com.hrodriguesdev.service;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.hrodriguesdev.dao.repository.ItensRepositoryFind;
@@ -40,21 +41,85 @@ public class OrcamentoService {
 		
 	}
 	
-	public ObservableList<Orcamento> findAll() {
-		ObservableList<Orcamento> obs = FXCollections.observableArrayList();
-		obs.addAll(repository.findAll());
+	public ObservableList<Orcamento> findAll(boolean entrada, boolean saida, boolean mRealizada, boolean mCurso) {
+		List<Orcamento> listaFmCurso = new ArrayList<>();		
+		List<Orcamento> listaBruta = repository.findAll();	
+		
+		listaBruta.forEach((listaBru) -> {
+			if(!mCurso) {						
+				if(!listaBru.getLaboratorio())
+					listaFmCurso.add(listaBru);
+			}else
+				listaFmCurso.add(listaBru);
+				
+		});
+		
+		List<Orcamento> listaFCE = listaFmCurso;
 		List<EstoqueConsumo> consumoList = itensFind.findAllConsumo();
+		List<Orcamento> listaFES = new ArrayList<>();
+		
+		listaFCE.forEach((listaFEntrada)->{
+			if(!entrada) {
+					consumoList.forEach((consumo)->{						
+						if(consumo.getOrcamento_id() == listaFEntrada.getId()) {
+							if(!consumo.getEntrada())
+								listaFES.add(listaFEntrada);
+						}
+		
+					});
+				
+			}else listaFES.add(listaFEntrada);
+		});
+		
+		List<Orcamento> listaFESR = new ArrayList<>();
+		
+		listaFES.forEach((listaFEntradaSaida)->{
+			if(!saida) {
+				if(listaFEntradaSaida.getEquipamento_id() == 0) {
+					consumoList.forEach((consumo)->{						
+						if(consumo.getOrcamento_id() == listaFEntradaSaida.getId()) {							
+							if(!consumo.getSaida())
+								listaFESR.add(listaFEntradaSaida);							
+						}
+		
+					});
+					
+				}else listaFESR.add(listaFEntradaSaida);
+			}else listaFESR.add(listaFEntradaSaida);
+		});
+		
+		
+		ObservableList<Orcamento> obs = FXCollections.observableArrayList();
+		
+		listaFESR.forEach((listaFEntradaSaidaMrealizada)->{
+			if(!mRealizada) {
+				if(listaFEntradaSaidaMrealizada.getEquipamento_id() != 0) {
+					consumoList.forEach((consumo)->{						
+						if(consumo.getOrcamento_id() == listaFEntradaSaidaMrealizada.getId()) {							
+							if(!consumo.getSaida()){
+								obs.add(listaFEntradaSaidaMrealizada);
+//								System.out.println("Teste 01 ");
+							}
+						}		
+					});
+					
+				}else {
+					obs.add(listaFEntradaSaidaMrealizada);
+//					System.out.println("Teste 02 ");
+				}
+			}else obs.add(listaFEntradaSaidaMrealizada);
+		});
+						
 		obs.forEach((orcamento)->{
 			
-			consumoList.forEach((consumo)->{
-				
+			consumoList.forEach((consumo)->{				
 				if(consumo.getOrcamento_id() == orcamento.getId()) {
 					if(consumo.getNfe()!= null)
 						orcamento.setNfe(consumo.getNfe());
 					if(consumo.getEntrada())
 						orcamento.setSituation("Entrada para Estoque");
 					else if(orcamento.getEquipamento_id() != 0) {
-						if(orcamento.getStatus() == 20)
+						if(orcamento.getStatus() > 13)
 							orcamento.setSituation("Manutenção de equipamento na área");
 						else 
 							orcamento.setSituation("Manutenção de equipamento em laboratorio");
@@ -65,6 +130,7 @@ public class OrcamentoService {
 				}
 
 			});
+		
 			
 		});
 		

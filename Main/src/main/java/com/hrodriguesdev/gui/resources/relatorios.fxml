@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.SplitPane?>
@@ -166,7 +167,8 @@
             <RowConstraints maxHeight="110.0" minHeight="60.0" prefHeight="80.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="110.0" minHeight="60.0" prefHeight="80.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="110.0" minHeight="60.0" prefHeight="80.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="500.0" minHeight="244.0" prefHeight="279.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="110.0" minHeight="60.0" prefHeight="80.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="500.0" minHeight="60.0" prefHeight="80.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="60.0" minHeight="60.0" prefHeight="60.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
@@ -178,8 +180,7 @@
                   <Font size="14.0" />
                </font>
             </Button>
-            <ImageView fx:id="logoYgg" fitHeight="244.0" fitWidth="313.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="5" />
-            <Button mnemonicParsing="false" onAction="#buscar" prefHeight="45.0" prefWidth="185.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Buscar" GridPane.rowIndex="4">
+            <Button mnemonicParsing="false" onAction="#buscar" prefHeight="45.0" prefWidth="185.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Buscar" GridPane.rowIndex="5">
                <graphic>
                   <ImageView fx:id="buscarImg" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" />
                </graphic>
@@ -237,6 +238,45 @@
                   </Text>
                   <ComboBox fx:id="empressaCombobox" editable="true" prefHeight="25.0" prefWidth="198.0" />
                </children>
+            </VBox>
+            <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="4">
+               <children>
+                  <CheckBox fx:id="manutencaoEmCurco" mnemonicParsing="false" selected="true" style="-fx-background-color: #ffff; -fx-background-radius: 3;" text="Manutenção em curso">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="5.0" />
+                     </VBox.margin>
+                  </CheckBox>
+                  <CheckBox fx:id="manutencaoRealizada" mnemonicParsing="false" selected="true" style="-fx-background-color: #ffff; -fx-border-radius: 3;" text="Manutenção já realizada">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="5.0" />
+                     </VBox.margin>
+                  </CheckBox>
+                  <CheckBox fx:id="saidaMaterial" mnemonicParsing="false" selected="true" style="-fx-background-color: #ffff; -fx-background-radius: 3;" text="Saída de material">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="5.0" />
+                     </VBox.margin>
+                  </CheckBox>
+                  <CheckBox fx:id="entradaMaterial" mnemonicParsing="false" selected="true" style="-fx-background-color: #ffff; -fx-background-radius: 3;" text="Entrada de material">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </CheckBox>
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <GridPane.margin>
+                  <Insets left="40.0" />
+               </GridPane.margin>
             </VBox>
          </children>
          <padding>

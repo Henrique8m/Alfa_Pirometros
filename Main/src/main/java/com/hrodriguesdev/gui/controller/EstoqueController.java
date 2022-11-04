@@ -116,7 +116,7 @@ public class EstoqueController implements Initializable{
 	
 	@FXML
 	protected void relatorios(ActionEvent event) throws IOException {
-		NewView.addChildren((Node) NewView.loadFXML("orcamentos" , new RelatoriosController( ) ));
+		NewView.addChildren((Node) NewView.loadFXML("relatorios" , new RelatoriosController( ) ));
 	}
 	
 	@FXML

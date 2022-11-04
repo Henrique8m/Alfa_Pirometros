@@ -23,6 +23,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableCell;
@@ -85,7 +86,10 @@ public class RelatoriosController implements Initializable{
 	protected TableColumn<Orcamento, Integer> quantidade;
 		
 	@FXML
-	private ImageView cancelarImg, buscarImg, logoYgg;
+	private ImageView cancelarImg, buscarImg;
+	
+	@FXML
+	private CheckBox manutencaoEmCurco, manutencaoRealizada, saidaMaterial, entradaMaterial;
 	
 	@FXML
 	public void clickOrcamento(MouseEvent event) throws SQLException {
@@ -226,10 +230,7 @@ public class RelatoriosController implements Initializable{
 	public void initialize(URL location, ResourceBundle resources) {
 		startTableOrcamentos();
 
-		Image image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/Yggdrasilicon.jpg").toString() );
-		logoYgg.setImage(image);
-		
-		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-excluir.png").toString() );
+		Image image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-excluir.png").toString() );
 		cancelarImg.setImage(image);
 		
 		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-pesquisar.png").toString() );
@@ -249,7 +250,13 @@ public class RelatoriosController implements Initializable{
 	
 	@FXML
 	private void buscar(ActionEvent event) throws IOException {
-		obsOrcamento = orcamentoController.findAll();
+		Boolean entrada = entradaMaterial.selectedProperty().getValue();
+		Boolean saida = saidaMaterial.selectedProperty().getValue();
+		Boolean mRealizada = manutencaoRealizada.selectedProperty().getValue();
+		Boolean mCurso = manutencaoEmCurco.selectedProperty().getValue();
+		
+		
+		obsOrcamento = orcamentoController.findAll(entrada, saida, mRealizada, mCurso);
 		
 		if(inicioDatePiker.getValue() != null ) {			
 			java.sql.Date gettedDatePickerDateStart = java.sql.Date.valueOf(inicioDatePiker.getValue());						

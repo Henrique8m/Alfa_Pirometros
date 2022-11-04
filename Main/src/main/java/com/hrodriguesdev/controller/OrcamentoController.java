@@ -37,8 +37,8 @@ public class OrcamentoController {
 		
 	}
 	
-	public ObservableList<Orcamento> findAll() {
-		return orcamentoService.findAll();
+	public ObservableList<Orcamento> findAll(boolean entrada, boolean saida, boolean mRealizada, boolean mCurso) {
+		return orcamentoService.findAll(entrada, saida, mRealizada, mCurso);
 	}
 	
 	public boolean existOrcamento(Long equipamento_id) {		
