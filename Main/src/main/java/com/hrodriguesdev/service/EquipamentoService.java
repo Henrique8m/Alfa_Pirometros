@@ -3,6 +3,7 @@ package com.hrodriguesdev.service;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import com.hrodriguesdev.dao.repository.EquipamentoRepository;
 import com.hrodriguesdev.entities.Equipamento;
@@ -98,13 +99,24 @@ public class EquipamentoService {
 			equipamento_id.add(orc.getEquipamento_id());
 		
 		List<Equipamento> list = repository.findByIdOrcamento(equipamento_id) ;
-		list.forEach((equipamento)-> {
-			orcamento.forEach( (orcament)-> {
-				if( orcament.getEquipamento_id() == equipamento.getId() ) {
-					equipamento.setOrcamento(orcament);
-				}				
-			});			
-		});
+		
+//		list.forEach((equipamento)-> {
+//			orcamento.forEach( (orcament)-> {
+//				if( orcament.getEquipamento_id() == equipamento.getId() ) {
+//					equipamento.setOrcamento(orcament);
+//				}				
+//			});			
+//		});
+		
+		list.forEach((x) -> {
+			 try{
+				x.setOrcamento(orcamento.stream().filter(y -> y.getEquipamento_id().equals(x.getId() ) ).findFirst().get());	
+			}
+			catch(NoSuchElementException e) {
+				e.printStackTrace();
+				}
+		} );
+		
 		
 		list.sort( (a, b) -> a.getEmpressaName().compareTo(b.getEmpressaName()));
 		obs.addAll(list);
@@ -152,13 +164,24 @@ public class EquipamentoService {
 			orcamento_id.add(equi.getOrcamento_id());
 		
 		List<Orcamento> orcamentolist = orcamentoService.findById(orcamento_id);
-		equipamentoList.forEach((equip)-> {
-			orcamentolist.forEach( (orcament)-> {
-				if( orcament.getEquipamento_id() == equip.getId() ) {
-					equip.setOrcamento(orcament);
-				}				
-			});			
-		});
+//		equipamentoList.forEach((equip)-> {
+//			orcamentolist.forEach( (orcament)-> {
+//				if( orcament.getEquipamento_id().equals(equip.getId()) ) {
+//					equip.setOrcamento(orcament);
+//				}				
+//			});			
+//		});
+		
+		equipamentoList.forEach((x) -> {
+			 try{
+				x.setOrcamento(orcamentolist.stream().filter(y -> y.getEquipamento_id().equals(x.getId() ) ).findFirst().get());	
+			}
+			catch(NoSuchElementException e) {
+				System.out.println("\n\n" + x.getEmpressaName() + " - " + x.getNs() + "\n");
+				e.printStackTrace();
+				}
+		} );
+		
 		return equipamentoList;
 	}
 

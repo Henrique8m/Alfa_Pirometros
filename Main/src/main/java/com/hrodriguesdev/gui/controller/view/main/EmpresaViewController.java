@@ -37,6 +37,7 @@ public class EmpresaViewController extends MainViewController{
 	private EmpresaController empresaController = new EmpresaController();
 	private EmpresaRepository repository = new EmpresaRepository();
 	private Alert alert;
+	private Boolean nameUpdate = false;
 
 	@FXML
 	private ImageView salvarImg, buscarImg, adcionarImg, clearImg, empresaImg;
@@ -64,7 +65,7 @@ public class EmpresaViewController extends MainViewController{
 	private TextField cepEmpresaEdit, enderecoEmpresaEdit, estadoEmpresaEdit, cidadeEmpresaEdit, nomeEmpresaEdit;
 	
 	@FXML
-	private ComboBox<String> findEmpresaComboBox = new ComboBox<>();
+	private ComboBox<String> findEmpresaComboBox;
 	
     private static ObservableList<String> obsString = FXCollections.observableArrayList();
     private FilteredList<String> filteredList;
@@ -136,13 +137,14 @@ public class EmpresaViewController extends MainViewController{
 		if(validacaoCampos()) {
 			if(empresa != null) {
 				empresa = updateCampoEmpresa(empresa);
-				if(!repository.updateEmpresa(empresa))	
+				if(!repository.updateEmpresa(empresa, nameUpdate))	
 					Alerts.showAlert("Atualização de empresa", "", "Erro ao atualizar", AlertType.ERROR);
 				else Alerts.showAlert("Atualização de empresa", "", "Atualizado com sucesso, a atualização so acontece um campo por vez!", AlertType.INFORMATION);
 				limp(new ActionEvent());
 				buscarEmpresa(new ActionEvent());
 				removeListener();
 				addListener();
+				nameUpdate = false;
 			}
 		}
 		
@@ -151,6 +153,7 @@ public class EmpresaViewController extends MainViewController{
 	private Empresa updateCampoEmpresa(Empresa empresa2) {
 		if(!empresa.getName().equals(nomeEmpresaEdit.getText())) {
 			empresa.setName(nomeEmpresaEdit.getText());
+			nameUpdate = true;
 			return empresa;
 		}
 		if(!empresa.getCidade().equals(cidadeEmpresaEdit.getText())) {

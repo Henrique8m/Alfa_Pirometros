@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 import com.hrodriguesdev.controller.OrcamentoController;
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.entities.Orcamento;
+import com.hrodriguesdev.gui.alert.Alerts;
 import com.hrodriguesdev.gui.controller.view.insert.OrcamentoInsert;
 import com.hrodriguesdev.utilitary.Itens;
 import com.hrodriguesdev.utilitary.NewView;
@@ -16,6 +17,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Alert.AlertType;
 
 public class EstoqueEntradaController extends OrcamentoInsert implements Initializable{
 
@@ -60,10 +62,17 @@ public class EstoqueEntradaController extends OrcamentoInsert implements Initial
 				erro.setText("Erro ao salvar orcamento");
 				return;
 			}
-			
-			int nfe = Integer.parseInt( nfeText.getText() );
+			int nfe = 0;
+			try {
+				nfe = Integer.parseInt( nfeText.getText() );
+			}catch(NumberFormatException e) {
+				Alerts.showAlert("NFE", "Numero da nota errado! Certifique de colocar somente numeros", "", AlertType.ERROR);
+				return;
+			}
+
 			boolean entrada = true;
-			
+			orcamento.setNfe(nfe);
+						
 			Itens itens = new Itens(orcamento_id, false , nfe , entrada);
 			
 			if(obsMateriais.size()>0) {

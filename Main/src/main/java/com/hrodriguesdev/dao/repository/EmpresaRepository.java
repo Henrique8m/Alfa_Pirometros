@@ -11,13 +11,14 @@ import java.util.List;
 import com.hrodriguesdev.dao.db.DB;
 import com.hrodriguesdev.dao.db.DbException;
 import com.hrodriguesdev.entities.Empresa;
+import com.hrodriguesdev.entities.Equipamento;
 
 public class EmpresaRepository {
 	Connection conn = null;
 	Statement st = null;
 	ResultSet rs = null;
 	PreparedStatement pst = null;
-	
+	EquipamentoRepository eqRepository = new EquipamentoRepository();
 
 
 	public Empresa findEmpressa(Long empressaId) {
@@ -231,19 +232,22 @@ public class EmpresaRepository {
 
 
 	public boolean exist(String text) {
-		String text2 = text.replaceAll("[^A-Z]+", "");
+		String text2 = text.replaceAll("[^A-Za-z]", "");
 		try {
 			conn = DB.getConnection();			
 			st = conn.createStatement();			
 			rs = st.executeQuery("SELECT * FROM alfaestoque.tb_empressa;");			
 			
 			while (rs.next())  {
-				if( rs.getString(2).equalsIgnoreCase(text) )
+				if( rs.getString(2).equalsIgnoreCase(text) ) {
+					System.out.println(rs.getString(2) + " Igual " + text);
 					return true;
+				}
 				else {
-					String busca = rs.getString(2).replaceAll("[^A-Z]+", "");
-					if(busca.equalsIgnoreCase(text2))
+					String busca = rs.getString(2).replaceAll("[^A-Za-z]", "");
+					if(busca.equalsIgnoreCase(text2)) {
 						return true;
+					}
 				}
 			}
 			return false;
@@ -263,7 +267,19 @@ public class EmpresaRepository {
 	}
 
 
-	public boolean updateEmpresa(Empresa empresa) {		
+	public boolean updateEmpresa(Empresa empresa, boolean nameUpdate) {		
+		try {
+			if(nameUpdate) {
+				List<Equipamento> list = eqRepository.findEmpresaUpdate(empresa);
+				list.forEach((equip)->{
+					eqRepository.updatedeEmpresaName(empresa.getName(), equip.getId());				
+				});
+			}
+		}catch(DbException e) {
+			e.printStackTrace();
+			return false;
+		}
+		
 		try {
 			conn = DB.getConnection();
 			conn.setAutoCommit(false);

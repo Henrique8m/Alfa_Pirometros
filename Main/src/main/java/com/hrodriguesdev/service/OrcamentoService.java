@@ -61,7 +61,7 @@ public class OrcamentoService {
 		listaFCE.forEach((listaFEntrada)->{
 			if(!entrada) {
 					consumoList.forEach((consumo)->{						
-						if(consumo.getOrcamento_id() == listaFEntrada.getId()) {
+						if(consumo.getOrcamento_id().equals(listaFEntrada.getId())) {
 							if(!consumo.getEntrada())
 								listaFES.add(listaFEntrada);
 						}
@@ -72,22 +72,27 @@ public class OrcamentoService {
 		});
 		
 		List<Orcamento> listaFESR = new ArrayList<>();
+		if(!saida) {
+			listaFES.forEach((listaFEntradaSaida)->{
+				
+					if(listaFEntradaSaida.getEquipamento_id() == 0) {
+						consumoList.forEach((consumo)->{						
+							if(consumo.getOrcamento_id().equals(listaFEntradaSaida.getId())) {							
+								if(!consumo.getSaida())
+									listaFESR.add(listaFEntradaSaida);							
+							}
+			
+						});
+						
+					}else listaFESR.add(listaFEntradaSaida);
+				
+			});
+			
+		}else listaFESR.addAll(listaFES);
 		
-		listaFES.forEach((listaFEntradaSaida)->{
-			if(!saida) {
-				if(listaFEntradaSaida.getEquipamento_id() == 0) {
-					consumoList.forEach((consumo)->{						
-						if(consumo.getOrcamento_id() == listaFEntradaSaida.getId()) {							
-							if(!consumo.getSaida())
-								listaFESR.add(listaFEntradaSaida);							
-						}
-		
-					});
-					
-				}else listaFESR.add(listaFEntradaSaida);
-			}else listaFESR.add(listaFEntradaSaida);
-		});
-		
+//		listaFES.forEach((objList)-> {
+//			consumoList.stream().findFirst().filter((consumo)-> consumo.getOrcamento_id().equals(objList.getId( )) )
+//		} );
 		
 		ObservableList<Orcamento> obs = FXCollections.observableArrayList();
 		
@@ -95,7 +100,7 @@ public class OrcamentoService {
 			if(!mRealizada) {
 				if(listaFEntradaSaidaMrealizada.getEquipamento_id() != 0) {
 					consumoList.forEach((consumo)->{						
-						if(consumo.getOrcamento_id() == listaFEntradaSaidaMrealizada.getId()) {							
+						if(consumo.getOrcamento_id().equals(listaFEntradaSaidaMrealizada.getId())) {							
 							if(!consumo.getSaida()){
 								obs.add(listaFEntradaSaidaMrealizada);
 //								System.out.println("Teste 01 ");
@@ -113,7 +118,7 @@ public class OrcamentoService {
 		obs.forEach((orcamento)->{
 			
 			consumoList.forEach((consumo)->{				
-				if(consumo.getOrcamento_id() == orcamento.getId()) {
+				if(consumo.getOrcamento_id().equals(orcamento.getId())) {
 					if(consumo.getNfe()!= null)
 						orcamento.setNfe(consumo.getNfe());
 					if(consumo.getEntrada())

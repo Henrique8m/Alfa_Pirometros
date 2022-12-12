@@ -37,10 +37,10 @@ public class EstoqueConsumo implements Serializable {
 	
 	public EstoqueConsumo(ResultSet rs) {
 		try {			
-			this.id = rs.getLong("id");
-			this.orcamento_id = rs.getLong("orcamento_id");	
-			this.saida = rs.getBoolean("saida");
-			this.nfe = rs.getInt("nfe");
+			id = rs.getLong("id");
+			orcamento_id = rs.getLong("orcamento_id");	
+			saida = rs.getBoolean("saida");
+			nfe = rs.getInt("nfe");
 			BotaoLiga = rs.getInt("b_liga");
 			BoMeFIIFIIIIndicmax = rs.getInt("b_m_forneros");
 			CaixaBat = rs.getInt("caixa_bateria");	

@@ -105,6 +105,7 @@ public class OrcamentoView implements Initializable {
 		switch (status) {
 		case 3:
 			aprovado.setVisible(true);
+			naoAprovado.setVisible(true);
 			break;
 		case 4:
 			liberado.setVisible(true);
@@ -128,6 +129,9 @@ public class OrcamentoView implements Initializable {
 			break;
 		case 15:
 			orcamentoEnviado.setVisible(true);
+			break;
+		case 16:
+			aprovado.setVisible(true);
 			break;
 		default:
 			orcamentoEnviado.setVisible(true);
@@ -269,12 +273,14 @@ public class OrcamentoView implements Initializable {
 		}
 		data.setEditable(true);
 		update(15);			
+		aprovado.setVisible(false);
 		orcamentoEnviado.setVisible(false);
 		aprovadoSemOrca.setVisible(false);
 		manutencaoArea.setVisible(false);
 		
 	}
 	
+//	Botao aprovado
 	@FXML
 	private void aguardandoReparo(ActionEvent e) {
 		switch(orcamento.getStatus()) {

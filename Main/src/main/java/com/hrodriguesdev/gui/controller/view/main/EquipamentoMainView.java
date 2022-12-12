@@ -51,6 +51,7 @@ public class EquipamentoMainView extends LogoutMainView {
 			
 		    	try{
 					obsListTableFilaEquipamentos = equipamentoController.findByName( filtro.getText() );
+					
 		    		oldObs = obsListTableFilaEquipamentos;
 					tableFilaEquipamentos.setItems(obsListTableFilaEquipamentos);			
 		    		dbConection = true;  
@@ -134,7 +135,69 @@ public class EquipamentoMainView extends LogoutMainView {
 					addColeta(new ActionEvent());
 			}
 				
+			
 		}
+//		status.setSortType(SortType.DESCENDING);
+//		status.isSortable();
+//
+//		tableFilaEquipamentos.sort();
+//
+//		tableFilaEquipamentos.sortPolicyProperty().set( new Callback<TableView<Equipamento>, Boolean>() {
+//		    @Override
+//		    public Boolean call(TableView<Equipamento> param) {
+//		            Comparator<Equipamento> comparator = new Comparator<Equipamento>() {
+//		                @Override
+//		                public int compare(Equipamento r1, Equipamento r2) {
+//		                
+//							return "";
+//		            }
+//		        };
+//		        FXCollections.sort(tableFilaEquipamentos.getItems(), comparator);
+//		        return true;
+//		    }
+//		});
+//		
+//		
+//		System.out.println(tableFilaEquipamentos.getColumns().get(0).getColumns().get(1).sortTypeProperty().getName()  );
+//		tableFilaEquipamentos.refresh();
+//		
+//		
+//		
+//		tableFilaEquipamentos.viewOrderProperty().addListener( (observable, oldValue, newValue) -> {
+//			System.out.println("Observable = " + observable.toString()
+//			+ "\nOld Value = " + oldValue.toString() +
+//			"\nNew Value = " + newValue);
+//		});
+//		
+//		status.cellFactoryProperty().addListener( (observable, oldValue, newValue) -> {
+//			System.out.println("Observable = " + observable.toString()
+//			+ "\nOld Value = " + oldValue.toString() +
+//			"\nNew Value = " + newValue);
+//		});
+//		tableFilaEquipamentos.onSortProperty().addListener( (observable, oldValue, newValue) -> {
+//			System.out.println("Observable = " + observable.toString()
+//			+ "\nOld Value = " + oldValue.toString() +
+//			"\nNew Value = " + newValue);
+//		});
+//		
+//		tableFilaEquipamentos.sortPolicyProperty().addListener( (observable, oldValue, newValue) -> {
+//			System.out.println("Observable = " + observable.toString()
+//			+ "\nOld Value = " + oldValue.toString() +
+//			"\nNew Value = " + newValue);
+//		});
+//		
+//		status.addEventHandler(MouseEvent.MOUSE_PRESSED , (key) -> {
+//				    System.out.println("ENTER pressed");
+//				    System.out.println(key.toString());
+//				    System.out.println(key.getTarget().toString());
+//				  }); 
+//		
+//		
+//		tableFilaEquipamentos.selectionModelProperty().addListener( (observable, oldValue, newValue) -> {
+//			System.out.println("Observable = " + observable.toString()
+//			+ "\nOld Value = " + oldValue.toString() +
+//			"\nNew Value = " + newValue);
+//		});
 	
 }
 }

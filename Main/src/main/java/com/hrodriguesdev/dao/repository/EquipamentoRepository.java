@@ -10,6 +10,7 @@ import java.util.List;
 
 import com.hrodriguesdev.dao.db.DB;
 import com.hrodriguesdev.dao.db.DbException;
+import com.hrodriguesdev.entities.Empresa;
 import com.hrodriguesdev.entities.Equipamento;
 
 public class EquipamentoRepository {
@@ -367,6 +368,30 @@ public class EquipamentoRepository {
 
 	}
 	
+	
+	public List<Equipamento> findEmpresaUpdate(Empresa empresa){
+		
+//	Buscar equipamentos com o nome da empressa quando tiver alteração de nomes
+	List<Equipamento> list = new ArrayList<>();
+	conn = DB.getConnection();					
+	try {
+		st = conn.createStatement();
+		rs = st.executeQuery("SELECT * FROM alfaestoque.tb_equipamento;");
+		while (rs.next()) {
+			Long id = rs.getLong("empresa_id");
+			if( id != null ) {						
+				if(id.equals(empresa.getId())) 
+					list.add( Equipamento.parseEquipamentoDois( rs ) );							
+			}
+	}
+	return list;
+	} catch (SQLException e) {			
+		e.printStackTrace();
+		return list;
+	}			
+	
+	}
+	
 	public void updatedeAllDate() {
 		
 //	ItensRepositoryFind findItens = new ItensRepositoryFind();
@@ -604,6 +629,46 @@ public class EquipamentoRepository {
 			DB.closeConnection();
 			
 		}
+		return ok;
+	}
+
+
+
+	public boolean updatedeEmpresaName(String empresaName, Long id) {
+		boolean ok = false;
+		
+		try {
+			conn = DB.getConnection();
+			conn.setAutoCommit(false);
+			pst = conn.prepareStatement("UPDATE tb_equipamento "
+											+ "SET empressaName = ?"
+											+" WHERE "
+											+"(id = ?)");
+			
+			pst.setString(1, empresaName);
+			pst.setLong( 2, id );			
+			
+			int rowsAccepted = pst.executeUpdate();
+			conn.commit();
+			
+			if(rowsAccepted>0)
+				ok=true;
+		
+		}catch (DbException | SQLException e) {
+			ok=false;
+			e.printStackTrace();
+			try {
+				conn.rollback();
+				throw new DbException("Transaction rolled back! Caused by: " + e.getMessage() );
+			}catch (SQLException e1) {
+				throw new DbException("Error trying to rollback! Caused by: \" + e1.getMessage()");
+			}
+		}
+		finally {
+			DB.closeStatement(pst);
+			DB.closeConnection();
+			
+		}		
 		return ok;
 	}
 

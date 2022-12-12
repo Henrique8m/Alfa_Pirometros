@@ -187,7 +187,7 @@ public class MainViewController implements Initializable{
 		beginTimer();
 //		ItensRepositoryFind repo = new ItensRepositoryFind();
 //		repo.UpdateSinal();
-
+		
 	}	 	
 	
 	
