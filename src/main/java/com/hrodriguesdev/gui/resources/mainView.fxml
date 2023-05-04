@@ -1,0 +1,846 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane minHeight="300.0" minWidth="400.0" prefHeight="1060.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TabPane minHeight="400.0" minWidth="400.0" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <tabs>
+          <Tab text="Principal">
+               <content>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0" />
+               </content>
+               <content>
+                  <AnchorPane minHeight="300.0" minWidth="400.0" prefHeight="700.0" prefWidth="1250.0">
+                     <children>
+                        <HBox minHeight="300.0" minWidth="100.0" prefHeight="697.0" prefWidth="1250.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <VBox prefHeight="1031.0" prefWidth="1506.0">
+                                 <children>
+                                    <AnchorPane minHeight="-Infinity" minWidth="844.0" prefHeight="70.0" prefWidth="1500.0">
+                                       <children>
+                                          <HBox alignment="CENTER_LEFT" minHeight="35.0" prefHeight="35.0" AnchorPane.bottomAnchor="35.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <children>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Filtro por nome da empresa">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets right="10.0" />
+                                                   </HBox.margin>
+                                                </Text>
+                                                <TextField fx:id="filtro" onKeyReleased="#updatedEquipamento" prefHeight="25.0" prefWidth="215.0">
+                                                   <HBox.margin>
+                                                      <Insets right="20.0" />
+                                                   </HBox.margin>
+                                                </TextField>
+                                                <Button mnemonicParsing="false" onAction="#clear" text="Clear" />
+                                             </children>
+                                             <padding>
+                                                <Insets left="40.0" />
+                                             </padding>
+                                          </HBox>
+                                          <HBox alignment="CENTER_LEFT" minHeight="35.0" minWidth="200.0" prefHeight="35.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="35.0">
+                                             <children>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Organizar lista">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets right="10.0" />
+                                                   </HBox.margin>
+                                                </Text>
+                                                <CheckBox fx:id="sortEmpresa" mnemonicParsing="false" selected="true" text="Empresa">
+                                                   <HBox.margin>
+                                                      <Insets left="20.0" />
+                                                   </HBox.margin>
+                                                </CheckBox>
+                                                <CheckBox fx:id="sortStatus" mnemonicParsing="false" text="Status">
+                                                   <HBox.margin>
+                                                      <Insets left="20.0" />
+                                                   </HBox.margin>
+                                                </CheckBox>
+                                                <CheckBox fx:id="sortChegada" mnemonicParsing="false" text="Data Chegada">
+                                                   <HBox.margin>
+                                                      <Insets left="20.0" />
+                                                   </HBox.margin>
+                                                </CheckBox>
+                                                <CheckBox fx:id="sortModelo" mnemonicParsing="false" text="Modelo">
+                                                   <HBox.margin>
+                                                      <Insets left="20.0" />
+                                                   </HBox.margin>
+                                                </CheckBox>
+                                                <CheckBox fx:id="sortNS" mnemonicParsing="false" text="Numero de Serie">
+                                                   <HBox.margin>
+                                                      <Insets left="20.0" />
+                                                   </HBox.margin>
+                                                </CheckBox>
+                                                <CheckBox fx:id="sortPat" mnemonicParsing="false" text="Patrimonio">
+                                                   <HBox.margin>
+                                                      <Insets left="20.0" />
+                                                   </HBox.margin>
+                                                </CheckBox>
+                                                <CheckBox fx:id="sortCal" mnemonicParsing="false" text="Ultima Calibração">
+                                                   <HBox.margin>
+                                                      <Insets left="20.0" />
+                                                   </HBox.margin>
+                                                </CheckBox>
+                                             </children>
+                                             <padding>
+                                                <Insets left="40.0" />
+                                             </padding>
+                                          </HBox>
+                                       </children>
+                                    </AnchorPane>
+                                    <TableView fx:id="tableFilaEquipamentos" cache="true" depthTest="DISABLE" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="200.0" minWidth="844.0" onKeyPressed="#updatedEquipamento" onMouseClicked="#tableFilaEquipamentoClick" prefHeight="978.0" prefWidth="1500.0" style="-fx-background-radius: 10;" tableMenuButtonVisible="true">
+                                      <columns>
+                                          <TableColumn editable="false" maxWidth="-Infinity" minWidth="500.0" prefWidth="1500.0" sortable="false" text="Equipamentos em Laboratorio">
+                                             <columns>
+                                              <TableColumn fx:id="empressa" editable="false" minWidth="160.0" prefWidth="350.0" text="Empresa" />
+                                                <TableColumn fx:id="status" editable="false" minWidth="120.0" prefWidth="300.0" text="Status" />
+                                                <TableColumn fx:id="dateChegada" editable="false" minWidth="40.0" prefWidth="150.0" text="Data Chegada" />
+                                                <TableColumn fx:id="modelo" editable="false" minWidth="40.0" prefWidth="150.0" text="Modelo" />
+                                                <TableColumn fx:id="ns" editable="false" minWidth="40.0" prefWidth="150.0" text="Numero de Serie" />
+                                                <TableColumn fx:id="pat" editable="false" minWidth="40.0" prefWidth="150.0" text="Patrimonio" />
+                                                <TableColumn fx:id="ultimaCal" editable="false" minWidth="40.0" prefWidth="75.0" text="Ultima Clibração" />
+                                                <TableColumn fx:id="relatorio" editable="false" minWidth="40.0" prefWidth="75.0" text="Relatório Nº" />
+                                             </columns>
+                                          </TableColumn>
+                                      </columns>
+                                       <padding>
+                                          <Insets left="10.0" right="10.0" />
+                                       </padding>
+                                       <columnResizePolicy>
+                                          <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                       </columnResizePolicy>
+                                    </TableView>
+                                 </children>
+                              </VBox>
+                              <VBox prefWidth="313.0">
+                                 <children>
+                                    <GridPane alignment="CENTER" minHeight="500.0" minWidth="244.0" prefHeight="1000.0" prefWidth="500.0" style="-fx-background-color: #a8a8a8; -fx-background-radius: 10;">
+                                      <columnConstraints>
+                                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="314.0" prefWidth="100.0" />
+                                      </columnConstraints>
+                                      <rowConstraints>
+                                        <RowConstraints maxHeight="110.0" minHeight="60.0" prefHeight="80.0" valignment="CENTER" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="110.0" minHeight="60.0" prefHeight="80.0" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="110.0" minHeight="60.0" prefHeight="80.0" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="110.0" minHeight="60.0" prefHeight="80.0" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="110.0" minHeight="60.0" prefHeight="80.0" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="500.0" minHeight="244.0" prefHeight="300.0" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="60.0" minHeight="60.0" prefHeight="60.0" vgrow="SOMETIMES" />
+                                      </rowConstraints>
+                                       <children>
+                                          <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#addEquipamento" prefHeight="45.0" prefWidth="185.0" style="-fx-background-radius: 10; -fx-cursor: hand;" text="Cadastrar Chegada">
+                                             <font>
+                                                <Font size="15.0" />
+                                             </font>
+                                             <graphic>
+                                                <ImageView fx:id="cadastrar" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" />
+                                             </graphic>
+                                          </Button>
+                                          <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#openOrcamento" prefHeight="45.0" prefWidth="185.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Abrir Orçamento" GridPane.rowIndex="2">
+                                             <graphic>
+                                                <ImageView fx:id="abrir" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" />
+                                             </graphic>
+                                             <font>
+                                                <Font size="15.0" />
+                                             </font>
+                                          </Button>
+                                          <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#addColeta" prefHeight="45.0" prefWidth="185.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Inserir Coleta" GridPane.rowIndex="3">
+                                             <graphic>
+                                                <ImageView fx:id="inserirColeta" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" />
+                                             </graphic>
+                                             <font>
+                                                <Font size="15.0" />
+                                             </font>
+                                          </Button>
+                                          <ImageView fx:id="logoYgg" fitHeight="244.0" fitWidth="313.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="5" />
+                                          <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#estoque" prefHeight="45.0" prefWidth="185.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Estoque" GridPane.rowIndex="4">
+                                             <graphic>
+                                                <ImageView fx:id="refresh" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" />
+                                             </graphic>
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Button>
+                                          <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#addOrcamento" prefHeight="45.0" prefWidth="185.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Inserir Orçamento" GridPane.rowIndex="1">
+                                             <graphic>
+                                                <ImageView fx:id="cadastrar2" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" />
+                                             </graphic>
+                                             <font>
+                                                <Font size="15.0" />
+                                             </font>
+                                          </Button>
+                                          <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#logout" prefHeight="45.0" prefWidth="185.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Logout" GridPane.rowIndex="6">
+                                             <graphic>
+                                                <ImageView fx:id="logout" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" />
+                                             </graphic>
+                                          </Button>
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                    </GridPane>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets left="10.0" right="10.0" top="10.0" />
+                                 </HBox.margin>
+                              </VBox>
+                           </children>
+                        </HBox>
+                     </children>
+                  </AnchorPane>
+               </content>
+               <graphic>
+                  <ImageView fx:id="home" fitHeight="23.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true" />
+               </graphic>
+            </Tab>
+          <Tab fx:id="tabBuscar" text="Busca">
+               <content>
+                  <AnchorPane minHeight="300.0" minWidth="400.0" prefHeight="700.0" prefWidth="1250.0">
+                     <children>
+                        <HBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="500.0" minWidth="500.0" prefHeight="1031.0" prefWidth="726.0" style="-fx-background-color: #c9c9c9; -fx-background-radius: 15;">
+                                 <children>
+                                    <HBox alignment="CENTER" minWidth="500.0" prefHeight="36.0" prefWidth="750.0">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="BUSCA DE EQUIPAMENTOS / EMPRESA " textAlignment="CENTER" wrappingWidth="403.27734375">
+                                             <font>
+                                                <Font name="Comic Sans MS" size="20.0" />
+                                             </font>
+                                          </Text>
+                                       </children>
+                                    </HBox>
+                                    <HBox minHeight="50.0" minWidth="500.0" prefHeight="50.0" prefWidth="726.0">
+                                       <children>
+                                          <VBox minWidth="225.0" prefHeight="67.0" prefWidth="300.0" style="-fx-background-color: #c9c9c9;">
+                                             <children>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Empresa" wrappingWidth="154.13671875" />
+                                                <ComboBox fx:id="textEmpresa" editable="true" minWidth="225.0" onKeyPressed="#enter" prefHeight="25.0" prefWidth="300.0" />
+                                             </children>
+                                          </VBox>
+                                          <VBox minWidth="100.0" prefHeight="67.0" prefWidth="170.0">
+                                             <children>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ns: Equipamento" wrappingWidth="110.13671875" />
+                                                <TextField fx:id="textNsEquip" minWidth="95.0" onKeyReleased="#enter" prefHeight="25.0" prefWidth="170.0" />
+                                             </children>
+                                             <HBox.margin>
+                                                <Insets left="20.0" />
+                                             </HBox.margin>
+                                          </VBox>
+                                          <VBox minWidth="100.0" prefHeight="67.0" prefWidth="170.0">
+                                             <children>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Pat Equipamento" wrappingWidth="91.13671875" />
+                                                <TextField fx:id="textPatEquip" minWidth="86.0" onKeyReleased="#enter" prefHeight="25.0" prefWidth="170.0" />
+                                             </children>
+                                             <opaqueInsets>
+                                                <Insets />
+                                             </opaqueInsets>
+                                             <HBox.margin>
+                                                <Insets left="20.0" right="10.0" />
+                                             </HBox.margin>
+                                          </VBox>
+                                       </children>
+                                       <opaqueInsets>
+                                          <Insets />
+                                       </opaqueInsets>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                       <padding>
+                                          <Insets left="20.0" />
+                                       </padding>
+                                    </HBox>
+                                    <HBox alignment="CENTER" minHeight="50.0" minWidth="500.0" prefHeight="50.0" prefWidth="726.0">
+                                       <children>
+                                          <Button mnemonicParsing="false" onAction="#buscar" prefHeight="35.0" prefWidth="135.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Buscar">
+                                             <graphic>
+                                                <ImageView fx:id="buscar1" fitHeight="23.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true" />
+                                             </graphic>
+                                             <HBox.margin>
+                                                <Insets right="30.0" />
+                                             </HBox.margin>
+                                          </Button>
+                                          <Button mnemonicParsing="false" onAction="#gerarPDF" prefHeight="35.0" prefWidth="207.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Gerar Relatorio PDF">
+                                             <graphic>
+                                                <ImageView fx:id="pdf" fitHeight="23.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true" />
+                                             </graphic>
+                                             <padding>
+                                                <Insets left="10.0" />
+                                             </padding>
+                                             <HBox.margin>
+                                                <Insets left="30.0" />
+                                             </HBox.margin>
+                                          </Button>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="10.0" />
+                                       </padding>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                    </HBox>
+                                    <TableView fx:id="tableFindEquipamentos" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="300.0" minWidth="500.0" onKeyPressed="#updatedEquipamento" onMousePressed="#click" prefHeight="924.0" prefWidth="750.0" style="-fx-background-radius: 10;">
+                                       <columns>
+                                          <TableColumn fx:id="empressaFind" maxWidth="200.0" minWidth="150.0" prefWidth="200.0" text="Empresa" />
+                                          <TableColumn fx:id="nsFind" maxWidth="137.5" minWidth="87.5" prefWidth="137.5" text="Ns" />
+                                          <TableColumn fx:id="patFind" maxWidth="137.5" minWidth="87.5" prefWidth="137.5" text="Pat" />
+                                          <TableColumn fx:id="dateChegadaFind" maxWidth="137.5" minWidth="87.5" prefWidth="137.5" text="Data Chegada" />
+                                          <TableColumn fx:id="dataSaidaFind" maxWidth="137.5" minWidth="87.5" prefWidth="137.5" text="Data Saída" />
+                                       </columns>
+                                       <opaqueInsets>
+                                          <Insets />
+                                       </opaqueInsets>
+                                       <columnResizePolicy>
+                                          <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                       </columnResizePolicy>
+                                    </TableView>
+                                 </children>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                              </VBox>
+                              <SplitPane dividerPositions="0.2468415937803693" focusTraversable="false" minWidth="500.0" orientation="VERTICAL" prefHeight="1031.0" prefWidth="687.0">
+                                 <items>
+                                    <AnchorPane maxHeight="220.0" minHeight="220.0">
+                                       <children>
+                                          <VBox alignment="CENTER" minHeight="220.0" minWidth="500.0" prefHeight="220.0" prefWidth="726.0" style="-fx-background-color: #e1e1e1; -fx-background-radius: 15;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <children>
+                                                <HBox>
+                                                   <children>
+                                                      <VBox minWidth="225.0" prefWidth="294.0">
+                                                         <children>
+                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="NOME DA EMPRESSA" wrappingWidth="174.13671875" />
+                                                            <TextField fx:id="nomeEmpressaClick" editable="false" focusTraversable="false" minWidth="225.0" prefWidth="300.0" />
+                                                         </children>
+                                                      </VBox>
+                                                      <VBox minWidth="100.0" prefWidth="147.0">
+                                                         <children>
+                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="NS" wrappingWidth="39.13671875" />
+                                                            <TextField fx:id="nsClick" editable="false" focusTraversable="false" minWidth="100.0" prefHeight="25.0" prefWidth="170.0" />
+                                                         </children>
+                                                         <HBox.margin>
+                                                            <Insets left="20.0" />
+                                                         </HBox.margin>
+                                                      </VBox>
+                                                      <VBox minWidth="100.0" prefWidth="164.0">
+                                                         <children>
+                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="PAT" wrappingWidth="65.13671875" />
+                                                            <TextField fx:id="patClick" editable="false" focusTraversable="false" prefHeight="25.0" prefWidth="79.0" />
+                                                         </children>
+                                                         <HBox.margin>
+                                                            <Insets left="20.0" />
+                                                         </HBox.margin>
+                                                      </VBox>
+                                                   </children>
+                                                   <padding>
+                                                      <Insets left="20.0" right="20.0" top="20.0" />
+                                                   </padding>
+                                                </HBox>
+                                                <HBox>
+                                                   <children>
+                                                      <VBox minWidth="102.5" prefWidth="138.0">
+                                                         <children>
+                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="MODELO" wrappingWidth="75.13671875" />
+                                                            <TextField fx:id="modeloClick" editable="false" focusTraversable="false" minWidth="102.5" prefHeight="25.0" prefWidth="138.0" />
+                                                         </children>
+                                                      </VBox>
+                                                      <VBox minWidth="102.5" prefWidth="138.0">
+                                                         <children>
+                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="DATA CHEGADA" wrappingWidth="92.13671875" />
+                                                            <TextField fx:id="dataChegadaClick" editable="false" focusTraversable="false" minWidth="102.5" prefHeight="25.0" prefWidth="138.0" />
+                                                         </children>
+                                                         <HBox.margin>
+                                                            <Insets left="20.0" />
+                                                         </HBox.margin>
+                                                      </VBox>
+                                                      <VBox minWidth="100.0" prefWidth="147.0">
+                                                         <children>
+                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="RELATORIO" wrappingWidth="75.13671875" />
+                                                            <TextField fx:id="relatorioClick" editable="false" focusTraversable="false" prefHeight="25.0" prefWidth="161.0" />
+                                                         </children>
+                                                         <HBox.margin>
+                                                            <Insets left="20.0" />
+                                                         </HBox.margin>
+                                                      </VBox>
+                                                      <VBox minWidth="100.0" prefWidth="164.0">
+                                                         <HBox.margin>
+                                                            <Insets left="20.0" />
+                                                         </HBox.margin>
+                                                         <children>
+                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ULTIMA CAL" wrappingWidth="69.13671875" />
+                                                            <TextField fx:id="ultimaCalClick" editable="false" focusTraversable="false" prefHeight="25.0" prefWidth="160.0" />
+                                                         </children>
+                                                      </VBox>
+                                                   </children>
+                                                   <padding>
+                                                      <Insets left="20.0" right="20.0" top="20.0" />
+                                                   </padding>
+                                                </HBox>
+                                                <HBox prefHeight="71.0" prefWidth="685.0">
+                                                   <children>
+                                                      <VBox minWidth="102.5" prefWidth="138.0">
+                                                         <children>
+                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="DATA SAÍDA" wrappingWidth="75.13671875" />
+                                                            <TextField fx:id="dataSaidaClick" editable="false" focusTraversable="false" prefHeight="25.0" prefWidth="166.0" />
+                                                         </children>
+                                                      </VBox>
+                                                      <VBox minWidth="102.5" prefWidth="138.0">
+                                                         <children>
+                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="EMPRESSA / COLETA" wrappingWidth="117.13671875" />
+                                                            <TextField fx:id="empressaColetaClick" editable="false" focusTraversable="false" prefHeight="25.0" prefWidth="79.0" />
+                                                         </children>
+                                                         <HBox.margin>
+                                                            <Insets left="20.0" />
+                                                         </HBox.margin>
+                                                      </VBox>
+                                                      <VBox minWidth="100.0" prefWidth="147.0">
+                                                         <HBox.margin>
+                                                            <Insets left="20.0" />
+                                                         </HBox.margin>
+                                                         <children>
+                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="DATA COLETA" wrappingWidth="91.13671875" />
+                                                            <TextField fx:id="dataColetaClick" editable="false" focusTraversable="false" prefHeight="25.0" prefWidth="147.0" />
+                                                         </children>
+                                                      </VBox>
+                                                      <VBox minWidth="100.0" prefWidth="164.0">
+                                                         <children>
+                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="NOME COLETOR" wrappingWidth="102.13671875" />
+                                                            <TextField fx:id="nomeColetorClick" editable="false" focusTraversable="false" prefHeight="25.0" prefWidth="147.0" />
+                                                         </children>
+                                                         <HBox.margin>
+                                                            <Insets left="20.0" />
+                                                         </HBox.margin>
+                                                      </VBox>
+                                                   </children>
+                                                   <padding>
+                                                      <Insets left="20.0" right="20.0" top="20.0" />
+                                                   </padding>
+                                                </HBox>
+                                             </children>
+                                             <opaqueInsets>
+                                                <Insets />
+                                             </opaqueInsets>
+                                          </VBox>
+                                       </children>
+                                    </AnchorPane>
+                                    <AnchorPane minHeight="300.0" prefHeight="831.0" style="-fx-background-color: #e1e1e1; -fx-background-radius: 15;">
+                                       <children>
+                                          <HBox prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <children>
+                                                <TableView fx:id="tableOrcamentos" onKeyPressed="#enter" onMouseClicked="#clickOrcamento" prefHeight="803.0" prefWidth="312.0">
+                                                  <columns>
+                                                    <TableColumn fx:id="relatorioTable" prefWidth="97.0" text="Relatorio" />
+                                                      <TableColumn fx:id="chegadaTable" prefWidth="95.0" text="Chegada" />
+                                                      <TableColumn fx:id="saidaTable" prefWidth="86.0" text="Saída" />
+                                                  </columns>
+                                                   <padding>
+                                                      <Insets left="10.0" top="10.0" />
+                                                   </padding>
+                                                </TableView>
+                                                <TextArea fx:id="itensOrcamentoClick" editable="false" focusTraversable="false" minWidth="225.0" prefHeight="456.0" prefWidth="300.0">
+                                                   <padding>
+                                                      <Insets left="10.0" top="10.0" />
+                                                   </padding>
+                                                </TextArea>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Duplo click&#10;no relatorio,&#10;abre edição &#10;do numero&#10;dele&#10;" textAlignment="CENTER" wrappingWidth="92.13671875">
+                                                   <font>
+                                                      <Font size="20.0" />
+                                                   </font>
+                                                </Text>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </AnchorPane>
+                                 </items>
+                              </SplitPane>
+                           </children>
+                        </HBox>
+                     </children>
+                  </AnchorPane>
+               </content>
+               <graphic>
+                  <ImageView fx:id="buscar" fitHeight="22.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true" />
+               </graphic>
+            </Tab>
+            <Tab fx:id="tabCertificado" text="Certificados">
+              <content>
+                <AnchorPane minHeight="300.0" minWidth="400.0" prefHeight="700.0" prefWidth="1250.0">
+                     <children>
+                        <HBox prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="500.0" minWidth="500.0" prefHeight="1031.0" prefWidth="726.0" style="-fx-background-color: #c9c9c9; -fx-background-radius: 15;">
+                                 <children>
+                                    <HBox alignment="CENTER" minWidth="500.0" prefHeight="36.0" prefWidth="750.0">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="BUSCA DE EQUIPAMENTOS / EMPRESA " textAlignment="CENTER" wrappingWidth="403.27734375">
+                                             <font>
+                                                <Font name="Comic Sans MS" size="20.0" />
+                                             </font>
+                                          </Text>
+                                       </children>
+                                    </HBox>
+                                    <HBox minHeight="50.0" minWidth="500.0" prefHeight="50.0" prefWidth="726.0">
+                                       <children>
+                                          <VBox minWidth="225.0" prefHeight="67.0" prefWidth="300.0" style="-fx-background-color: #c9c9c9;">
+                                             <children>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Empresa" wrappingWidth="154.13671875" />
+                                                <ComboBox fx:id="textEmpresaCertificado" editable="true" minWidth="225.0" onKeyPressed="#enter" prefHeight="25.0" prefWidth="300.0" />
+                                             </children>
+                                          </VBox>
+                                          <VBox minWidth="100.0" prefHeight="67.0" prefWidth="170.0">
+                                             <children>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ns: Equipamento" wrappingWidth="110.13671875" />
+                                                <TextField fx:id="textNsEquipCertificado" minWidth="95.0" onKeyReleased="#enter" prefHeight="25.0" prefWidth="170.0" />
+                                             </children>
+                                             <HBox.margin>
+                                                <Insets left="20.0" />
+                                             </HBox.margin>
+                                          </VBox>
+                                          <VBox minWidth="100.0" prefHeight="67.0" prefWidth="170.0">
+                                             <children>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Pat Equipamento" wrappingWidth="91.13671875" />
+                                                <TextField fx:id="textPatEquipCertificado" minWidth="86.0" onKeyReleased="#enter" prefHeight="25.0" prefWidth="170.0" />
+                                             </children>
+                                             <opaqueInsets>
+                                                <Insets />
+                                             </opaqueInsets>
+                                             <HBox.margin>
+                                                <Insets left="20.0" right="10.0" />
+                                             </HBox.margin>
+                                          </VBox>
+                                       </children>
+                                       <opaqueInsets>
+                                          <Insets />
+                                       </opaqueInsets>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                       <padding>
+                                          <Insets left="20.0" />
+                                       </padding>
+                                    </HBox>
+                                    <TableView fx:id="tableEquipamentosCertificados" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="300.0" minWidth="500.0" onMouseClicked="#clickCertificado" onMousePressed="#click" prefHeight="924.0" prefWidth="750.0" style="-fx-background-radius: 10;">
+                                       <columns>
+                                          <TableColumn fx:id="empressaCertificado" maxWidth="200.0" minWidth="150.0" prefWidth="200.0" text="Empresa" />
+                                          <TableColumn fx:id="nsCertificado" maxWidth="137.5" minWidth="87.5" prefWidth="137.5" text="Ns" />
+                                          <TableColumn fx:id="patCertificado" maxWidth="137.5" minWidth="87.5" prefWidth="137.5" text="Pat" />
+                                          <TableColumn fx:id="modeloCertificado" maxWidth="195.0" prefWidth="170.0" text="modelo" />
+                                       </columns>
+                                       <opaqueInsets>
+                                          <Insets />
+                                       </opaqueInsets>
+                                       <columnResizePolicy>
+                                          <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                       </columnResizePolicy>
+                                    </TableView>
+                                 </children>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                              </VBox>
+                              <SplitPane dividerPositions="0.21671525753158405" focusTraversable="false" minWidth="500.0" orientation="VERTICAL" prefHeight="1031.0" prefWidth="687.0">
+                                 <items>
+                                    <AnchorPane maxHeight="220.0" minHeight="220.0">
+                                       <children>
+                                          <VBox alignment="CENTER" minHeight="220.0" minWidth="500.0" prefHeight="220.0" prefWidth="726.0" style="-fx-background-color: #e1e1e1; -fx-background-radius: 15;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <children>
+                                                <HBox>
+                                                   <children>
+                                                      <VBox minWidth="179.0" prefHeight="42.0" prefWidth="216.0">
+                                                         <children>
+                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="NOME DA EMPRESSA" wrappingWidth="174.13671875" />
+                                                            <TextField fx:id="nomeEmpressaClickCertificado" editable="false" focusTraversable="false" minWidth="154.0" prefHeight="25.0" prefWidth="154.0" />
+                                                         </children>
+                                                      </VBox>
+                                                      <VBox minWidth="100.0" prefHeight="42.0" prefWidth="104.0">
+                                                         <children>
+                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="NS" wrappingWidth="39.13671875" />
+                                                            <TextField fx:id="nsClickCertificado" editable="false" focusTraversable="false" minWidth="100.0" prefHeight="25.0" prefWidth="107.0" />
+                                                         </children>
+                                                         <HBox.margin>
+                                                            <Insets left="20.0" />
+                                                         </HBox.margin>
+                                                      </VBox>
+                                                      <VBox minWidth="100.0" prefHeight="42.0" prefWidth="115.0">
+                                                         <children>
+                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="PAT" wrappingWidth="65.13671875" />
+                                                            <TextField fx:id="patClickCertificado" editable="false" focusTraversable="false" prefHeight="25.0" prefWidth="120.0" />
+                                                         </children>
+                                                         <HBox.margin>
+                                                            <Insets left="20.0" />
+                                                         </HBox.margin>
+                                                      </VBox>
+                                                      <VBox minWidth="102.5" prefWidth="138.0">
+                                                         <children>
+                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="MODELO" wrappingWidth="75.13671875" />
+                                                            <TextField fx:id="modeloClickCertificado" editable="false" focusTraversable="false" minWidth="102.5" prefHeight="25.0" prefWidth="138.0" />
+                                                         </children>
+                                                         <HBox.margin>
+                                                            <Insets left="20.0" />
+                                                         </HBox.margin>
+                                                      </VBox>
+                                                   </children>
+                                                   <padding>
+                                                      <Insets left="20.0" right="20.0" top="20.0" />
+                                                   </padding>
+                                                </HBox>
+                                                <HBox>
+                                                   <padding>
+                                                      <Insets left="20.0" right="20.0" top="20.0" />
+                                                   </padding>
+                                                </HBox>
+                                                <HBox prefHeight="74.0" prefWidth="685.0">
+                                                   <children>
+                                                      <VBox minWidth="102.5" prefWidth="138.0">
+                                                         <children>
+                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Numero Certificado" wrappingWidth="135.13671875" />
+                                                            <TextField fx:id="numeroCertificadoNovo" minWidth="102.5" prefHeight="25.0" prefWidth="138.0" />
+                                                         </children>
+                                                         <HBox.margin>
+                                                            <Insets left="20.0" />
+                                                         </HBox.margin>
+                                                      </VBox>
+                                                      <VBox minWidth="102.5" prefWidth="138.0">
+                                                         <children>
+                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Data Calibração" wrappingWidth="135.13671875" />
+                                                            <TextField fx:id="dataCalibracaoNovo" minWidth="102.5" onKeyReleased="#formatarData" prefHeight="25.0" prefWidth="138.0" promptText="dd/mm/aaaa" />
+                                                         </children>
+                                                         <HBox.margin>
+                                                            <Insets left="20.0" />
+                                                         </HBox.margin>
+                                                      </VBox>
+                                                      <Button mnemonicParsing="false" onAction="#salvarCertificado" prefHeight="42.0" prefWidth="181.0" style="-fx-background-radius: 10;" text="Salvar Certificado">
+                                                         <HBox.margin>
+                                                            <Insets left="20.0" />
+                                                         </HBox.margin>
+                                                      </Button>
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                             <opaqueInsets>
+                                                <Insets />
+                                             </opaqueInsets>
+                                          </VBox>
+                                       </children>
+                                    </AnchorPane>
+                                    <AnchorPane minHeight="300.0" prefHeight="831.0" style="-fx-background-color: #e1e1e1; -fx-background-radius: 15;">
+                                       <children>
+                                          <TableView fx:id="tableCertificado" onKeyPressed="#delete" style="-fx-background-radius: 10;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                            <columns>
+                                              <TableColumn fx:id="dataCalibracao" prefWidth="178.0" text="DATA DA CALIBRAÇÂO" />
+                                              <TableColumn fx:id="numeroCertificado" minWidth="0.0" prefWidth="194.0" text="NUMERO DO CERTIFICADO" />
+                                            </columns>
+                                          </TableView>
+                                       </children>
+                                    </AnchorPane>
+                                 </items>
+                              </SplitPane>
+                           </children>
+                        </HBox>
+                     </children>
+                  </AnchorPane>
+              </content>
+               <graphic>
+                  <ImageView fx:id="certificadoImg" fitHeight="23.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true" />
+               </graphic>
+            </Tab>
+            <Tab fx:id="tabEmpresa" text="Empresas">
+              <content>
+                <AnchorPane minHeight="500.0" minWidth="500.0">
+                     <children>
+                        <HBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="500.0" minWidth="500.0" prefHeight="1031.0" prefWidth="1055.0" style="-fx-background-color: #c9c9c9; -fx-background-radius: 15;">
+                                 <children>
+                                    <HBox alignment="CENTER" minWidth="500.0" prefHeight="36.0" prefWidth="750.0">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="BUSCA DE EQUIPAMENTOS / EMPRESA " textAlignment="CENTER" wrappingWidth="403.27734375">
+                                             <font>
+                                                <Font name="Comic Sans MS" size="20.0" />
+                                             </font>
+                                          </Text>
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" minHeight="50.0" minWidth="500.0" prefHeight="61.0" prefWidth="726.0">
+                                       <children>
+                                          <VBox minWidth="225.0" prefHeight="67.0" prefWidth="300.0" style="-fx-background-color: #c9c9c9;">
+                                             <children>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Empresa" wrappingWidth="154.13671875" />
+                                                <ComboBox fx:id="findEmpresaComboBox" editable="true" minWidth="225.0" onKeyPressed="#enterBusca" prefHeight="25.0" prefWidth="300.0" />
+                                             </children>
+                                          </VBox>
+                                          <Button mnemonicParsing="false" onAction="#buscarEmpresa" prefHeight="35.0" prefWidth="135.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Buscar">
+                                             <graphic>
+                                                <ImageView fx:id="buscarImg" fitHeight="23.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true" />
+                                             </graphic>
+                                             <HBox.margin>
+                                                <Insets left="30.0" />
+                                             </HBox.margin>
+                                          </Button>
+                                       </children>
+                                       <opaqueInsets>
+                                          <Insets />
+                                       </opaqueInsets>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                       <padding>
+                                          <Insets left="20.0" />
+                                       </padding>
+                                    </HBox>
+                                    <TableView fx:id="tableEmpresa" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="300.0" minWidth="500.0" onKeyPressed="#deleteEmpresa" onMouseClicked="#clickEmpresa" onMousePressed="#click" prefHeight="924.0" prefWidth="1056.0" style="-fx-background-radius: 10;">
+                                       <columns>
+                                          <TableColumn fx:id="nomeEmpresa" maxWidth="200.0" minWidth="150.0" prefWidth="200.0" text="Nome" />
+                                          <TableColumn fx:id="cidadeEmpresa" maxWidth="137.5" minWidth="87.5" prefWidth="137.5" text="Cidade" />
+                                          <TableColumn fx:id="estadoEmpresa" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" text="Estado" />
+                                          <TableColumn fx:id="enderecoEmpresa" maxWidth="530.0" minWidth="300.0" prefWidth="530.0" text="Endereço" />
+                                          <TableColumn fx:id="cepEmpresa" maxWidth="137.5" minWidth="0.0" prefWidth="0.0" text="cep" />
+                                       </columns>
+                                       <opaqueInsets>
+                                          <Insets />
+                                       </opaqueInsets>
+                                       <columnResizePolicy>
+                                          <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                       </columnResizePolicy>
+                                    </TableView>
+                                 </children>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                              </VBox>
+                              <SplitPane dividerPositions="0.2468415937803693" focusTraversable="false" minWidth="500.0" orientation="VERTICAL" prefHeight="1031.0" prefWidth="687.0">
+                                 <items>
+                                    <AnchorPane maxHeight="220.0" minHeight="220.0">
+                                       <children>
+                                          <VBox alignment="CENTER" minHeight="220.0" minWidth="500.0" prefHeight="220.0" prefWidth="726.0" style="-fx-background-color: #e1e1e1; -fx-background-radius: 15;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <opaqueInsets>
+                                                <Insets />
+                                             </opaqueInsets>
+                                             <children>
+                                                <HBox prefHeight="67.0" prefWidth="610.0">
+                                                   <children>
+                                                      <VBox prefHeight="47.0" prefWidth="222.0">
+                                                         <children>
+                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="NOME DA EMPRESSA" wrappingWidth="121.13671875" />
+                                                            <TextField fx:id="nomeEmpresaEdit" onKeyReleased="#format" prefHeight="25.0" prefWidth="84.0" />
+                                                         </children>
+                                                      </VBox>
+                                                      <VBox prefHeight="47.0" prefWidth="97.0">
+                                                         <children>
+                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="CIDADE" wrappingWidth="89.13671875" />
+                                                            <TextField fx:id="cidadeEmpresaEdit" onKeyReleased="#format" prefHeight="25.0" prefWidth="84.0" />
+                                                         </children>
+                                                         <HBox.margin>
+                                                            <Insets left="20.0" />
+                                                         </HBox.margin>
+                                                      </VBox>
+                                                      <VBox prefHeight="47.0" prefWidth="42.0">
+                                                         <children>
+                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ESTADO" wrappingWidth="46.13671875" />
+                                                            <TextField fx:id="estadoEmpresaEdit" onKeyReleased="#formatarDados" prefHeight="25.0" prefWidth="59.0" />
+                                                         </children>
+                                                         <HBox.margin>
+                                                            <Insets left="20.0" />
+                                                         </HBox.margin>
+                                                      </VBox>
+                                                   </children>
+                                                   <padding>
+                                                      <Insets left="20.0" right="20.0" top="20.0" />
+                                                   </padding>
+                                                </HBox>
+                                                <HBox prefHeight="67.0" prefWidth="446.0">
+                                                   <children>
+                                                      <VBox prefHeight="47.0" prefWidth="301.0">
+                                                         <children>
+                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ENDEREÇO" wrappingWidth="75.13671875" />
+                                                            <TextField fx:id="enderecoEmpresaEdit" onKeyReleased="#format" prefHeight="25.0" prefWidth="166.0" />
+                                                         </children>
+                                                      </VBox>
+                                                      <VBox prefHeight="47.0" prefWidth="97.0">
+                                                         <children>
+                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="CEP" wrappingWidth="39.13671875" />
+                                                            <TextField fx:id="cepEmpresaEdit" onKeyReleased="#formatarDados" prefHeight="25.0" prefWidth="63.0" />
+                                                         </children>
+                                                         <HBox.margin>
+                                                            <Insets left="20.0" />
+                                                         </HBox.margin>
+                                                      </VBox>
+                                                   </children>
+                                                   <padding>
+                                                      <Insets left="20.0" right="20.0" top="20.0" />
+                                                   </padding>
+                                                </HBox>
+                                                <HBox prefHeight="96.0" prefWidth="422.0">
+                                                   <children>
+                                                      <Button mnemonicParsing="false" onAction="#salvarEmpresa" prefHeight="35.0" prefWidth="135.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Salvar">
+                                                         <graphic>
+                                                            <ImageView fx:id="salvarImg" fitHeight="23.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true" />
+                                                         </graphic>
+                                                         <HBox.margin>
+                                                            <Insets left="40.0" />
+                                                         </HBox.margin>
+                                                      </Button>
+                                                      <Button mnemonicParsing="false" onAction="#adcionarEmpresa" prefHeight="35.0" prefWidth="135.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Adcionar">
+                                                         <graphic>
+                                                            <ImageView fx:id="adcionarImg" fitHeight="23.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true" />
+                                                         </graphic>
+                                                         <HBox.margin>
+                                                            <Insets left="40.0" />
+                                                         </HBox.margin>
+                                                      </Button>
+                                                      <Button mnemonicParsing="false" onAction="#limp" prefHeight="35.0" prefWidth="135.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Clear">
+                                                         <graphic>
+                                                            <ImageView fx:id="clearImg" fitHeight="23.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true" />
+                                                         </graphic>
+                                                         <HBox.margin>
+                                                            <Insets left="40.0" />
+                                                         </HBox.margin>
+                                                      </Button>
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </AnchorPane>
+                                    <AnchorPane minHeight="300.0" prefHeight="831.0" style="-fx-background-color: #e1e1e1; -fx-background-radius: 15;">
+                                       <children>
+                                          <HBox prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                       </children>
+                                    </AnchorPane>
+                                 </items>
+                              </SplitPane>
+                           </children>
+                        </HBox>
+                     </children></AnchorPane>
+              </content>
+               <graphic>
+                  <ImageView fx:id="empresaImg" fitHeight="23.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true" />
+               </graphic>
+            </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>

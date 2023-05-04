@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="226.0" prefWidth="446.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane prefHeight="229.0" prefWidth="446.0">
+         <children>
+            <VBox layoutX="-6.0" prefHeight="348.0" prefWidth="610.0" style="-fx-background-color: #c9c9c9;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <HBox prefHeight="67.0" prefWidth="610.0" style="-fx-background-color: #c9c9c9;">
+                     <children>
+                        <VBox prefHeight="47.0" prefWidth="222.0" style="-fx-background-color: #c9c9c9;">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="NOME DA EMPRESSA" wrappingWidth="121.13671875" />
+                              <TextField fx:id="nomeEmpressa" onKeyReleased="#format" prefHeight="25.0" prefWidth="84.0" />
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="47.0" prefWidth="97.0">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="CIDADE" wrappingWidth="89.13671875" />
+                              <TextField fx:id="cidade" onKeyReleased="#format" prefHeight="25.0" prefWidth="84.0" />
+                           </children>
+                           <HBox.margin>
+                              <Insets left="20.0" />
+                           </HBox.margin>
+                        </VBox>
+                        <VBox prefHeight="47.0" prefWidth="42.0">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ESTADO" wrappingWidth="46.13671875" />
+                              <TextField fx:id="estado" onKeyReleased="#format" prefHeight="25.0" prefWidth="59.0" />
+                           </children>
+                           <HBox.margin>
+                              <Insets left="20.0" />
+                           </HBox.margin>
+                        </VBox>
+                     </children>
+                     <padding>
+                        <Insets left="20.0" right="20.0" top="20.0" />
+                     </padding>
+                  </HBox>
+                  <HBox prefHeight="67.0" prefWidth="446.0" style="-fx-background-color: #c9c9c9;">
+                     <children>
+                        <VBox prefHeight="47.0" prefWidth="301.0">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ENDEREÇO" wrappingWidth="75.13671875" />
+                              <TextField fx:id="endereco" onKeyReleased="#format" prefHeight="25.0" prefWidth="166.0" />
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="47.0" prefWidth="97.0">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="CEP" wrappingWidth="39.13671875" />
+                              <TextField fx:id="cep" onKeyReleased="#format" prefHeight="25.0" prefWidth="63.0" />
+                           </children>
+                           <HBox.margin>
+                              <Insets left="20.0" />
+                           </HBox.margin>
+                        </VBox>
+                     </children>
+                     <padding>
+                        <Insets left="20.0" right="20.0" top="20.0" />
+                     </padding>
+                  </HBox>
+                  <HBox prefHeight="67.0" prefWidth="610.0" style="-fx-background-color: #c9c9c9;">
+                     <children>
+                        <AnchorPane prefHeight="53.0" prefWidth="372.0">
+                           <children>
+                              <Button fx:id="salvar" layoutX="54.0" layoutY="6.0" mnemonicParsing="false" onAction="#salvar" prefHeight="45.0" prefWidth="113.0" style="-fx-cursor: hand;" text="Salvar">
+                                 <graphic>
+                                    <ImageView fx:id="salvarImg" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" />
+                                 </graphic>
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="cancelar" layoutX="212.0" layoutY="6.0" mnemonicParsing="false" onAction="#cancelar" prefHeight="45.0" prefWidth="113.0" style="-fx-cursor: hand;" text="Cancelar">
+                                 <graphic>
+                                    <ImageView fx:id="cancelarImg" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" />
+                                 </graphic>
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Button>
+                              <Text fx:id="erro" fill="RED" layoutX="21.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="39.13671875" />
+                           </children>
+                        </AnchorPane>
+                     </children>
+                     <padding>
+                        <Insets left="20.0" right="20.0" top="20.0" />
+                     </padding>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+   </children>
+</Pane>
