@@ -178,7 +178,7 @@ public class EquipamentoEntradaViewController implements Initializable{
 	@FXML
 	public void addEquipamento(ActionEvent event) {
 		try {
-			NewView.addChildren((Node) NewView.loadFXML("cadastroEquipamento", new EquipamentoInsert() ) );
+			NewView.addChildrenn((Node) NewView.loadFXML("cadastroEquipamento", new EquipamentoInsert() ) );
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

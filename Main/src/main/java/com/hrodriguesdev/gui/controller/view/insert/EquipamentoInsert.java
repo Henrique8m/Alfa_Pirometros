@@ -193,7 +193,7 @@ public class EquipamentoInsert implements Initializable{
 			
 		}
 		try {
-			NewView.addChildren((Node) NewView.loadFXML("entradaEquipamentoDois" , new EquipamentoEntradaViewController( nomeEmpressa.getValue() ) ));
+			NewView.addChildrenn((Node) NewView.loadFXML("entradaEquipamentoDois" , new EquipamentoEntradaViewController( nomeEmpressa.getValue() ) ));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

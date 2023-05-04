@@ -36,7 +36,7 @@ public class OrcamentoMainView extends TableMainView{
     		if(orcamento != null) {
 	    		if(orcamento.getStatus()>1){
 	//    			NewView.getNewView("Entrada Equipamento", "orcamentoView", new OrcamentoViewController() );
-	    			NewView.addChildren((Node) NewView.loadFXML("orcamentoViewDois" , new OrcamentoView(tableFilaEquipamentos.getSelectionModel().getSelectedItem(), orcamento ) ));
+	    			NewView.addChildrenToMain((Node) NewView.loadFXML("orcamentoViewDois" , new OrcamentoView(tableFilaEquipamentos.getSelectionModel().getSelectedItem(), orcamento ) ));
 	    		}
     		}else
     			Alerts.showAlert("Orcamento" , "Status Orcamento", "Não consta orçamento para este equipamento" , AlertType.INFORMATION);
@@ -55,7 +55,7 @@ public class OrcamentoMainView extends TableMainView{
 			{
 				
 //				NewView.getNewView("Entrada Equipamento", "orcamentoDois", new OrcamentoInsert() );
-				NewView.addChildren((Node) NewView.loadFXML("orcamentoDois" , new OrcamentoInsert(
+				NewView.addChildrenToMain((Node) NewView.loadFXML("orcamentoDois" , new OrcamentoInsert(
 						tableFilaEquipamentos.getSelectionModel().getSelectedItem(),
 						controller.findById( tableFilaEquipamentos.getSelectionModel().getSelectedItem().getOrcamento_id() ) ) ));
 
@@ -75,7 +75,7 @@ public class OrcamentoMainView extends TableMainView{
 			{
 				try {
 					orcamento = controller.findById( tableFilaEquipamentos.getSelectionModel().getSelectedItem().getOrcamento_id() );
-					NewView.addChildren((Node) NewView.loadFXML( "orcamentoDois", new OrcamentoUpdatedeDois(
+					NewView.addChildrenToMain((Node) NewView.loadFXML( "orcamentoDois", new OrcamentoUpdatedeDois(
 							tableFilaEquipamentos.getSelectionModel().getSelectedItem(),
 							orcamento
 							) ));
@@ -90,7 +90,7 @@ public class OrcamentoMainView extends TableMainView{
 			{
 				try {
 					orcamento = controller.findById( tableFindEquipamentos.getSelectionModel().getSelectedItem().getOrcamento_id() );
-					NewView.addChildren((Node) NewView.loadFXML("orcamentoDois", new OrcamentoUpdatedeDois(
+					NewView.addChildrenToMain((Node) NewView.loadFXML("orcamentoDois", new OrcamentoUpdatedeDois(
 							tableFilaEquipamentos.getSelectionModel().getSelectedItem(),
 							orcamento
 							)));
@@ -102,6 +102,26 @@ public class OrcamentoMainView extends TableMainView{
 	
 			}
 			 		
+	    }
+	    else if(keyEvent.getCode().toString() == "F2" ) {
+	    	
+	    	if(tableFilaEquipamentos.getSelectionModel().getSelectedItem() != null) {
+	    		try {
+					orcamento = controller.findById( tableFilaEquipamentos.getSelectionModel().getSelectedItem().getOrcamento_id() );
+					dbConection = true;
+				} catch (SQLException e1) {
+					showAlerts("DB exception ", "Erro na comunicação com banco de dados", e1.getMessage(), AlertType.ERROR );
+					dbConection = false;
+					return;
+				}
+	    		if(orcamento != null) {
+		    		if(orcamento.getStatus()>1){
+		    			orcamento.setStatus(100);
+		    			NewView.addChildrenToMain((Node) NewView.loadFXML("orcamentoViewDois" , new OrcamentoView(tableFilaEquipamentos.getSelectionModel().getSelectedItem(), orcamento ) ));
+		    		}
+	    		}	    		
+	    	}		       
+	    	refreshTable();
 	    }
     }
     

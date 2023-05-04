@@ -53,12 +53,12 @@ public class OrcamentoView implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		itens = new Itens();
-		if( equipamento.getRelatorio() != null && relatorioN.getText() != "" ) 
+		if( equipamento.getRelatorio() != null) 
 			relatorioN.setText( equipamento.getRelatorio() );
 		
 		if(equipamento.getUltimaCalibDate() != null) 
 			ultimaCal.setText( Format.formatData.format(equipamento.getUltimaCalibDate()) );
-		switchStatus(equipamento.getStatus());		
+		switchStatus(orcamento.getStatus());		
 		nomeEmpressa.setText(equipamento.getEmpressaName());
 		data.setText(Format.formatData.format(orcamento.getData_chegada()));
 		
@@ -133,6 +133,15 @@ public class OrcamentoView implements Initializable {
 		case 16:
 			aprovado.setVisible(true);
 			break;
+		case 100:
+			cancelar.setVisible(true);
+			orcamentoEnviado.setVisible(true);
+			aprovado.setVisible(true);
+			aprovadoSemOrca.setVisible(true);
+			liberado.setVisible(true); 
+			naoAprovado.setVisible(true); 
+			liberadoSemOrcamento.setVisible(true); 
+			manutencaoArea.setVisible(true);
 		default:
 			orcamentoEnviado.setVisible(true);
 			aprovadoSemOrca.setVisible(true);
@@ -159,10 +168,12 @@ public class OrcamentoView implements Initializable {
 	
 	@FXML
 	private void salvar(ActionEvent event) {
+		if(orcamento.getStatus() == 100)
+			return;
 		if(data.getText().length()==10) {
 			orcamento.setData_chegada( Geral.dateParceString( data.getText() ) );
 		}else{
-			Alerts.showAlert("Data", "Data de entrada errada", null, AlertType.ERROR);
+//			Alerts.showAlert("Data", "Data de entrada errada", null, AlertType.ERROR);
 			return;
 		}
 			
@@ -176,18 +187,23 @@ public class OrcamentoView implements Initializable {
 			
 			if(orcamento.getStatus() == 20) {
 				if(!MainViewController.equipamentoController.updateSaida(equipamento) ) {
-					Alerts.showAlert("Equipamento ", "Falha em dar saida no equipamento", "" , AlertType.ERROR);
+//					Alerts.showAlert("Equipamento ", "Falha em dar saida no equipamento", "" , AlertType.ERROR);
 					return;
 				}
 			}
 			
 			
 			MainViewController.orcamentoController.updatedeStatusRelatorio( orcamento.getId(), orcamento.getStatus(), orcamento );
-			Alerts.showAlert("Status ", "Status Alterado com sucesso", "Equipamento da Empressa " + equipamento.getEmpressaName() , AlertType.INFORMATION);
+//			Alerts.showAlert("Status ", "Status Alterado com sucesso", "Equipamento da Empressa " + equipamento.getEmpressaName() , AlertType.INFORMATION);
 		} catch (DbException e1) {
-			Alerts.showAlert("DB exception ", "Erro na comunicação com banco de dados", e1.getMessage(), AlertType.ERROR);
+//			Alerts.showAlert("DB exception ", "Erro na comunicação com banco de dados", e1.getMessage(), AlertType.ERROR);
 		}
 		AlfaPirometrosApplication.viewController.refreshTable();
+		try{
+			Thread.sleep(200);
+		}catch(InterruptedException e) {
+			e.printStackTrace();
+		}
 		NewView.fecharView();
 	}
 

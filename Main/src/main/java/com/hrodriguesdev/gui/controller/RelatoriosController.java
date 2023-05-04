@@ -245,7 +245,7 @@ public class RelatoriosController implements Initializable{
 	
 	@FXML
 	private void voltar(ActionEvent event) throws IOException {
-		NewView.addChildren((Node) NewView.loadFXML("estoque" , new EstoqueController() ));	
+		NewView.addChildrenn((Node) NewView.loadFXML("estoque" , new EstoqueController() ));	
 	}
 	
 	@FXML

@@ -98,7 +98,7 @@ public class EstoqueEntradaController extends OrcamentoInsert implements Initial
 				}
 			}
 			
-			NewView.addChildren((Node) NewView.loadFXML("estoque" , new EstoqueController() ));	
+			NewView.addChildrenn((Node) NewView.loadFXML("estoque" , new EstoqueController() ));	
 		}else 
 			erro.setText("numero da nfe nao pode estar em branco");
 		
@@ -106,7 +106,7 @@ public class EstoqueEntradaController extends OrcamentoInsert implements Initial
 	
 	@FXML
 	protected void cancelar(ActionEvent event) throws IOException {
-		NewView.addChildren((Node) NewView.loadFXML("estoque" , new EstoqueController() ));	
+		NewView.addChildrenn((Node) NewView.loadFXML("estoque" , new EstoqueController() ));	
 	}
 	
 	protected Orcamento createOrcamento() {

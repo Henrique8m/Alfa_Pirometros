@@ -3,16 +3,25 @@ package com.hrodriguesdev.gui.controller.view.main;
 import java.sql.SQLException;
 
 import com.hrodriguesdev.dao.db.DbException;
+import com.hrodriguesdev.entities.Equipamento;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class TableMainView extends CertificadoPaginaController{
 	
 
     public void refreshTable() {
+		ObservableList<Equipamento> obsList = FXCollections.observableArrayList();
     	try{
     		if(!filtro.getText().isEmpty() && !filtro.getText().isBlank() )   			
-				obsListTableFilaEquipamentos = equipamentoController.findByName( filtro.getText() );
+    			obsList = equipamentoController.findByName( filtro.getText() );
     		else
-    			obsListTableFilaEquipamentos = orcamentoController.findAllLaboratorio(true);
+    			obsList = orcamentoController.findAllLaboratorio(true);
+    		
+    		listShort(obsList); 		
+    		
+    		obsListTableFilaEquipamentos = obsList;
     		oldObs = obsListTableFilaEquipamentos;
 			tableFilaEquipamentos.setItems(obsListTableFilaEquipamentos);			
     		dbConection = true;  
@@ -23,5 +32,6 @@ public class TableMainView extends CertificadoPaginaController{
 			e1.printStackTrace();
 		}
     }
+    
 
 }

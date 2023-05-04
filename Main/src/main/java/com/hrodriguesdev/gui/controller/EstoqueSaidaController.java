@@ -121,7 +121,7 @@ public class EstoqueSaidaController  extends OrcamentoInsert implements Initiali
 							}
 				}
 				
-			NewView.addChildren((Node) NewView.loadFXML("estoque" , new EstoqueController() ));	
+			NewView.addChildrenn((Node) NewView.loadFXML("estoque" , new EstoqueController() ));	
 		}else 
 			erro.setText("Cambos obrigatorios em branco");
 		
@@ -129,7 +129,7 @@ public class EstoqueSaidaController  extends OrcamentoInsert implements Initiali
 	
 	@FXML
 	protected void cancelar(ActionEvent event) throws IOException {
-		NewView.addChildren((Node) NewView.loadFXML("estoque" , new EstoqueController() ));	
+		NewView.addChildrenn((Node) NewView.loadFXML("estoque" , new EstoqueController() ));	
 	}
 
 	protected Coletor getColetor() {

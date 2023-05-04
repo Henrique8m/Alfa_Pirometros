@@ -31,6 +31,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
@@ -276,6 +277,14 @@ public class PaginaBuscaController extends EquipamentoMainView implements Initia
 				e.printStackTrace();
 			}
 //		Editar orçamento e tambem saida
+		else if(event.getTarget() == textNsEquip) {
+			if(event.getCode().equals(KeyCode.ENTER))
+				System.out.println(textNsEquip.getText());			
+		}
+		else if(event.getTarget() == textPatEquip) {
+			if(event.getCode().equals(KeyCode.ENTER))
+				System.out.println(textPatEquip.getText());
+		}
 		else if(event.getTarget() == tableOrcamentos) {
 			if(event.getCode().toString() == "F2") {
 				if(orcamento!=null){

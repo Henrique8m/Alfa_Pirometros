@@ -33,6 +33,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
@@ -130,8 +131,18 @@ public class CertificadoPaginaController extends EmpresaViewController{
 	
 	protected void enter(KeyEvent event) {
 		if(event.getTarget() == textEmpresaCertificado) {
+			
 			buscar();
 		}
+		if(event.getTarget() == textPatEquipCertificado) {
+			if(event.getCode().equals(KeyCode.ENTER))
+				System.out.println(textPatEquipCertificado.getText());
+		}
+		if(event.getTarget() == textNsEquipCertificado) {
+			if(event.getCode().equals(KeyCode.ENTER))
+				System.out.println(textNsEquipCertificado);
+		}
+		
 	}
 	
 	private void strartTableCertificado() {		

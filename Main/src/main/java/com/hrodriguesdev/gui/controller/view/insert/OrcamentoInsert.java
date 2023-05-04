@@ -116,16 +116,18 @@ public class OrcamentoInsert implements Initializable {
 			obsMateriais.add(new Orcamento(newItem.getValue(), Integer.parseInt( quantidadeItem.getValue() ) ) );
 			tableOrcamento.refresh();
 			
-			quantidadeItem.getEditor().textProperty().removeListener( listener );	
+//			quantidadeItem.getEditor().textProperty().removeListener( listener );	
 			newItem.getEditor().textProperty().removeListener( inputFilterNewItem );
 			
 			newItem.setValue("");
 			quantidadeItem.setValue("1");
-			conboBoxInit();			
+			conboBoxInit();	
+			newItem.requestFocus();
 			
 		}else if( !obs.getText().isEmpty() ) {
 			obsMateriais.add( new Orcamento(obs.getText(), 0 ) );
 			obs.setText("");
+			newItem.requestFocus();
 			
 		}else {
 			erro.setText("Novo item com valor vazio");
@@ -207,12 +209,12 @@ public class OrcamentoInsert implements Initializable {
 
 	protected void conboBoxInit() {
 		inputFilterNewItem = new InputFilter<String>( newItem,  new FilteredList<>(AlfaPirometrosApplication.obsPecasEstoque) );
-		listener = new InputFilter<String>( quantidadeItem,  new FilteredList<>(AlfaPirometrosApplication.obsQuantidade) );
+//		listener = new InputFilter<String>( quantidadeItem,  new FilteredList<>(AlfaPirometrosApplication.obsQuantidade) );
 		
 		quantidadeItem.setEditable(true);
 		newItem.setEditable(true);	
 		
-		quantidadeItem.getEditor().textProperty().addListener(listener );		
+//		quantidadeItem.getEditor().textProperty().addListener(listener );		
 		newItem.getEditor().textProperty().addListener( inputFilterNewItem );
 	}
 	

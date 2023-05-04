@@ -34,7 +34,7 @@ public class EquipamentoMainView extends LogoutMainView {
     
     @FXML
     private void addEquipamento(ActionEvent e) throws IOException {
-    	NewView.addChildren((Node) NewView.loadFXML("entradaEquipamentoDois" , new EquipamentoEntradaViewController() ));
+    	NewView.addChildrenToMain((Node) NewView.loadFXML("entradaEquipamentoDois" , new EquipamentoEntradaViewController() ));
     }
     
 	
@@ -92,7 +92,7 @@ public class EquipamentoMainView extends LogoutMainView {
 	
 	@FXML
     private void estoque(ActionEvent e) throws IOException {
-		NewView.addChildren((Node) NewView.loadFXML("estoque" , new EstoqueController() ));
+		NewView.addChildrenToMain((Node) NewView.loadFXML("estoque" , new EstoqueController() ));
     }
 			
 	@FXML

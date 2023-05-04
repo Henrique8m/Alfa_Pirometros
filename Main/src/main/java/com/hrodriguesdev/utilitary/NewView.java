@@ -19,11 +19,20 @@ public class NewView {
 	
 	public static Scene scene;
 	public static TabPane TABPANE;
+	public static AnchorPane anchorPane;
+
 	
 	public static synchronized <T> Object loadFXML(String fxml, Object controller) throws IOException {
 		FXMLLoader fxmlLoader = new FXMLLoader(AlfaPirometrosApplication.class.getResource("gui/resources/" + fxml + ".fxml"));
 		fxmlLoader.setController(controller);
 		return fxmlLoader.load();
+	}
+	
+	public static synchronized <T> Object loadMainView(String fxml, Object controller) throws IOException {
+		FXMLLoader fxmlLoader = new FXMLLoader(AlfaPirometrosApplication.class.getResource("gui/resources/" + fxml + ".fxml"));
+		fxmlLoader.setController(controller);
+		anchorPane = fxmlLoader.load();
+		return anchorPane;
 	}
 	
 	public static void getNewViewModall(String title, Pane pane, Stage stageEvent){
@@ -89,28 +98,40 @@ public class NewView {
 	public static void fecharView() {
 		try {
 	    	AnchorPane pane = (AnchorPane) NewView.scene.getRoot();
-	    	pane.getChildren().remove(0);
+	    	pane.getChildren().clear();	    	
 	    	pane.getChildren().add(NewView.TABPANE);
-		} catch (NumberFormatException e) {
+
+	    	
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
 	@SuppressWarnings("static-access")
-	public static void addChildren(Node node) {
+	public static void addChildrenToMain(Node node) {
     	AnchorPane pane = (AnchorPane) NewView.scene.getRoot();
-    	
+    	NewView.TABPANE = (TabPane) pane.getChildren().get(0);
 	   	pane.getChildren().clear(); 
     	pane.getChildren().add(node);
     	pane.setBottomAnchor(pane.getChildren().get(0), (double) 0);
     	pane.setTopAnchor(pane.getChildren().get(0), (double) 0);
     	pane.setLeftAnchor(pane.getChildren().get(0), (double) 0);
     	pane.setRightAnchor(pane.getChildren().get(0), (double) 0);
-//    	pane.getChildren().get(0).layoutBoundsProperty().
-    	
+//    	pane.getChildren().get(0).layoutBoundsProperty().    	
 //    	pane.getChildren().get(0).getLayoutBounds().contains(0, 0, 0, 0);
-
-
+	}
+	
+	@SuppressWarnings("static-access")
+	public static void addChildrenn(Node node) {
+    	AnchorPane pane = (AnchorPane) NewView.scene.getRoot();
+	   	pane.getChildren().clear(); 
+    	pane.getChildren().add(node);
+    	pane.setBottomAnchor(pane.getChildren().get(0), (double) 0);
+    	pane.setTopAnchor(pane.getChildren().get(0), (double) 0);
+    	pane.setLeftAnchor(pane.getChildren().get(0), (double) 0);
+    	pane.setRightAnchor(pane.getChildren().get(0), (double) 0);
+//    	pane.getChildren().get(0).layoutBoundsProperty().    	
+//    	pane.getChildren().get(0).getLayoutBounds().contains(0, 0, 0, 0);
 	}
 	
 

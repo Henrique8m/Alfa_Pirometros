@@ -11,7 +11,6 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -29,15 +28,16 @@ public class LoadViewController implements Initializable {
 
 	private void beginTimer() {
 		
-		timeline = new Timeline(new KeyFrame(javafx.util.Duration.seconds(10), ev -> {
+		timeline = new Timeline(new KeyFrame(javafx.util.Duration.seconds(5), ev -> {
 			if (AlfaPirometrosApplication.springStart) {
 				//System.out.println("spring Start true ");
 				try {
-					AnchorPane anchorPane = (AnchorPane) NewView.loadFXML("mainView", AlfaPirometrosApplication.viewController);
+					AnchorPane anchorPane = (AnchorPane) NewView.loadMainView("mainView", AlfaPirometrosApplication.viewController);
 					NewView.scene = new Scene(anchorPane);
 					NewView.getNewView("Controle de Estoque", NewView.scene, stage);
-					NewView.TABPANE = (TabPane) anchorPane.getChildren().get(0);
-				} catch (IOException e) {
+					Thread.sleep(100);
+//					NewView.TABPANE = (TabPane) anchorPane.getChildren().get(0);
+				} catch (IOException | InterruptedException e) {
 					e.printStackTrace();
 					System.exit(1);
 				}

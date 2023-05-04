@@ -118,7 +118,7 @@ public class EquipamentoService {
 		} );
 		
 		
-		list.sort( (a, b) -> a.getEmpressaName().compareTo(b.getEmpressaName()));
+//		list.sort( (a, b) -> a.getEmpressaName().compareTo(b.getEmpressaName()));
 		obs.addAll(list);
 		return obs;
 		

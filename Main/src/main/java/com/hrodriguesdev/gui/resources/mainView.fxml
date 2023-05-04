@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
@@ -35,9 +36,9 @@
                            <children>
                               <VBox prefHeight="1031.0" prefWidth="1506.0">
                                  <children>
-                                    <AnchorPane minHeight="-Infinity" minWidth="844.0" prefHeight="33.0" prefWidth="1500.0">
+                                    <AnchorPane minHeight="-Infinity" minWidth="844.0" prefHeight="70.0" prefWidth="1500.0">
                                        <children>
-                                          <HBox alignment="CENTER_LEFT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                          <HBox alignment="CENTER_LEFT" minHeight="35.0" prefHeight="35.0" AnchorPane.bottomAnchor="35.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                              <children>
                                                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Filtro por nome da empresa">
                                                    <font>
@@ -53,6 +54,56 @@
                                                    </HBox.margin>
                                                 </TextField>
                                                 <Button mnemonicParsing="false" onAction="#clear" text="Clear" />
+                                             </children>
+                                             <padding>
+                                                <Insets left="40.0" />
+                                             </padding>
+                                          </HBox>
+                                          <HBox alignment="CENTER_LEFT" minHeight="35.0" minWidth="200.0" prefHeight="35.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="35.0">
+                                             <children>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Organizar lista">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets right="10.0" />
+                                                   </HBox.margin>
+                                                </Text>
+                                                <CheckBox fx:id="sortEmpresa" mnemonicParsing="false" selected="true" text="Empresa">
+                                                   <HBox.margin>
+                                                      <Insets left="20.0" />
+                                                   </HBox.margin>
+                                                </CheckBox>
+                                                <CheckBox fx:id="sortStatus" mnemonicParsing="false" text="Status">
+                                                   <HBox.margin>
+                                                      <Insets left="20.0" />
+                                                   </HBox.margin>
+                                                </CheckBox>
+                                                <CheckBox fx:id="sortChegada" mnemonicParsing="false" text="Data Chegada">
+                                                   <HBox.margin>
+                                                      <Insets left="20.0" />
+                                                   </HBox.margin>
+                                                </CheckBox>
+                                                <CheckBox fx:id="sortModelo" mnemonicParsing="false" text="Modelo">
+                                                   <HBox.margin>
+                                                      <Insets left="20.0" />
+                                                   </HBox.margin>
+                                                </CheckBox>
+                                                <CheckBox fx:id="sortNS" mnemonicParsing="false" text="Numero de Serie">
+                                                   <HBox.margin>
+                                                      <Insets left="20.0" />
+                                                   </HBox.margin>
+                                                </CheckBox>
+                                                <CheckBox fx:id="sortPat" mnemonicParsing="false" text="Patrimonio">
+                                                   <HBox.margin>
+                                                      <Insets left="20.0" />
+                                                   </HBox.margin>
+                                                </CheckBox>
+                                                <CheckBox fx:id="sortCal" mnemonicParsing="false" text="Ultima Calibração">
+                                                   <HBox.margin>
+                                                      <Insets left="20.0" />
+                                                   </HBox.margin>
+                                                </CheckBox>
                                              </children>
                                              <padding>
                                                 <Insets left="40.0" />
@@ -193,7 +244,7 @@
                                           <VBox minWidth="100.0" prefHeight="67.0" prefWidth="170.0">
                                              <children>
                                                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ns: Equipamento" wrappingWidth="110.13671875" />
-                                                <TextField fx:id="textNsEquip" minWidth="95.0" onKeyReleased="#format" prefHeight="25.0" prefWidth="170.0" />
+                                                <TextField fx:id="textNsEquip" minWidth="95.0" onKeyReleased="#enter" prefHeight="25.0" prefWidth="170.0" />
                                              </children>
                                              <HBox.margin>
                                                 <Insets left="20.0" />
@@ -202,7 +253,7 @@
                                           <VBox minWidth="100.0" prefHeight="67.0" prefWidth="170.0">
                                              <children>
                                                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Pat Equipamento" wrappingWidth="91.13671875" />
-                                                <TextField fx:id="textPatEquip" minWidth="86.0" onKeyReleased="#format" prefHeight="25.0" prefWidth="170.0" />
+                                                <TextField fx:id="textPatEquip" minWidth="86.0" onKeyReleased="#enter" prefHeight="25.0" prefWidth="170.0" />
                                              </children>
                                              <opaqueInsets>
                                                 <Insets />
@@ -462,7 +513,7 @@
                                           <VBox minWidth="100.0" prefHeight="67.0" prefWidth="170.0">
                                              <children>
                                                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ns: Equipamento" wrappingWidth="110.13671875" />
-                                                <TextField fx:id="textNsEquipCertificado" minWidth="95.0" onKeyReleased="#format" prefHeight="25.0" prefWidth="170.0" />
+                                                <TextField fx:id="textNsEquipCertificado" minWidth="95.0" onKeyReleased="#enter" prefHeight="25.0" prefWidth="170.0" />
                                              </children>
                                              <HBox.margin>
                                                 <Insets left="20.0" />
@@ -471,7 +522,7 @@
                                           <VBox minWidth="100.0" prefHeight="67.0" prefWidth="170.0">
                                              <children>
                                                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Pat Equipamento" wrappingWidth="91.13671875" />
-                                                <TextField fx:id="textPatEquipCertificado" minWidth="86.0" onKeyReleased="#format" prefHeight="25.0" prefWidth="170.0" />
+                                                <TextField fx:id="textPatEquipCertificado" minWidth="86.0" onKeyReleased="#enter" prefHeight="25.0" prefWidth="170.0" />
                                              </children>
                                              <opaqueInsets>
                                                 <Insets />

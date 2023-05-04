@@ -106,17 +106,17 @@ public class EstoqueController implements Initializable{
 	
 	@FXML
 	protected void saidaMaterial(ActionEvent event) throws IOException {
-		NewView.addChildren((Node) NewView.loadFXML("orcamentoDois" , new EstoqueSaidaController(new Equipamento(), new Orcamento() ) ));
+		NewView.addChildrenn((Node) NewView.loadFXML("orcamentoDois" , new EstoqueSaidaController(new Equipamento(), new Orcamento() ) ));
 	}
 	
 	@FXML
 	protected void entradaMaterial(ActionEvent event) throws IOException {
-		NewView.addChildren((Node) NewView.loadFXML("orcamentoDois" , new EstoqueEntradaController(new Equipamento(), new Orcamento() ) ));
+		NewView.addChildrenn((Node) NewView.loadFXML("orcamentoDois" , new EstoqueEntradaController(new Equipamento(), new Orcamento() ) ));
 	}
 	
 	@FXML
 	protected void relatorios(ActionEvent event) throws IOException {
-		NewView.addChildren((Node) NewView.loadFXML("relatorios" , new RelatoriosController( ) ));
+		NewView.addChildrenn((Node) NewView.loadFXML("relatorios" , new RelatoriosController( ) ));
 	}
 	
 	@FXML

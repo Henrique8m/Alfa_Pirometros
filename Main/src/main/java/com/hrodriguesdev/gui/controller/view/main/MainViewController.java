@@ -26,6 +26,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -87,7 +88,7 @@ public class MainViewController implements Initializable{
 	public TableView<Equipamento> tableFilaEquipamentos;
     public static ObservableList<Equipamento> obsListTableFilaEquipamentos = FXCollections.observableArrayList();
     
-    
+    public CheckBox sortCal, sortPat, sortNS, sortChegada, sortModelo, sortStatus, sortEmpresa;
     
 	@FXML
 	protected TextField filtro;
@@ -183,10 +184,13 @@ public class MainViewController implements Initializable{
 		buscar1.setImage(image);
 		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-pdf.png").toString() );
 		pdf.setImage(image);
+		sortTable();
 		
 		beginTimer();
 //		ItensRepositoryFind repo = new ItensRepositoryFind();
 //		repo.UpdateSinal();
+		
+		
 		
 	}	 	
 	
@@ -316,41 +320,9 @@ public class MainViewController implements Initializable{
 		timeline = new Timeline(new KeyFrame(javafx.util.Duration.seconds(AlfaPirometrosApplication.UPDATETIME), ev -> {
 			if(dbConection) {
 				if(FILTER) {
-					try {
-						obsListTableFilaEquipamentos = orcamentoController.findAllLaboratorio(true);
-		    		oldObs = obsListTableFilaEquipamentos;
-					tableFilaEquipamentos.setItems(obsListTableFilaEquipamentos);			
-		    		dbConection = true;  
-		    		tableFilaEquipamentos.refresh();
-		    		
-	//					obsListTableFilaEquipamentos = equipamentoController.findAllByLaboratorio(true);
-	//					if(obsListTableFilaEquipamentos.size() > oldObs.size() ) {						
-	//						List<Equipamento> list1 = obsListTableFilaEquipamentos.stream().filter(item1 -> {
-	//							return oldObs.stream().filter(item2 -> item2.equals(item1) ).findAny().isPresent();
-	//						}).collect( Collectors.toList() );
-	//						obsListTableFilaEquipamentos.addAll(list1);
-	//						
-	////					        List<Integer> interseccao = lista1.stream().filter(item1 -> {
-	////					            return lista2.stream().filter(item2 -> new Integer(item2).equals(item1)).findAny().isPresent();
-	////					        }).collect(Collectors.toList());
-	//
-	////						showAlerts("Updatede Lista", "", "Equipamento da empressa " + obsListTableFilaEquipamentos.get(obsListTableFilaEquipamentos.size()-1).getEmpressaName() + " foi adcionado equipamento na lista ", AlertType.INFORMATION);
-	//						oldObs = obsListTableFilaEquipamentos;
-	//						return;
-	//					}
-	//					if(obsListTableFilaEquipamentos.size() < oldObs.size() ) {
-	//						oldObs = obsListTableFilaEquipamentos;
-	//						return;
-	//					}
-	//					for(int i =0; i< oldObs.size(); i++) {
-	//						if( obsListTableFilaEquipamentos.get(i).getStatus() != oldObs.get(i).getStatus() ) {
-	////							showAlerts("Updatede Lista", "", "Equipamento da empressa " + obsListTableFilaEquipamentos.get(obsListTableFilaEquipamentos.size()-1).getEmpressaName() + " teve o status alterado ", AlertType.ERROR);
-	//						}
-	//					}
-	//					oldObs = obsListTableFilaEquipamentos;
-					} catch (DbException e) {
-	//					showAlerts("begin Timer ", "", e.getMessage(), AlertType.INFORMATION );
-					}			
+					
+					updateTable();
+					
 				}
 			}else {
 		    	showAlerts("DB exception ", "","Erro na comunicação com banco de dados, reiniciar App", AlertType.ERROR );
@@ -363,8 +335,158 @@ public class MainViewController implements Initializable{
 	}
 	
 	
+	public void updateTable() {
+		try {
+			
+			ObservableList<Equipamento> obsList = FXCollections.observableArrayList();
+			obsList = orcamentoController.findAllLaboratorio(true);
+			listShort(obsList);
+	    	obsListTableFilaEquipamentos = obsList;
+						
+		oldObs = obsListTableFilaEquipamentos;
+		tableFilaEquipamentos.setItems(obsListTableFilaEquipamentos);			
+		dbConection = true;  
+		tableFilaEquipamentos.refresh();
+		
+//					obsListTableFilaEquipamentos = equipamentoController.findAllByLaboratorio(true);
+//					if(obsListTableFilaEquipamentos.size() > oldObs.size() ) {						
+//						List<Equipamento> list1 = obsListTableFilaEquipamentos.stream().filter(item1 -> {
+//							return oldObs.stream().filter(item2 -> item2.equals(item1) ).findAny().isPresent();
+//						}).collect( Collectors.toList() );
+//						obsListTableFilaEquipamentos.addAll(list1);
+//						
+////					        List<Integer> interseccao = lista1.stream().filter(item1 -> {
+////					            return lista2.stream().filter(item2 -> new Integer(item2).equals(item1)).findAny().isPresent();
+////					        }).collect(Collectors.toList());
+//
+////						showAlerts("Updatede Lista", "", "Equipamento da empressa " + obsListTableFilaEquipamentos.get(obsListTableFilaEquipamentos.size()-1).getEmpressaName() + " foi adcionado equipamento na lista ", AlertType.INFORMATION);
+//						oldObs = obsListTableFilaEquipamentos;
+//						return;
+//					}
+//					if(obsListTableFilaEquipamentos.size() < oldObs.size() ) {
+//						oldObs = obsListTableFilaEquipamentos;
+//						return;
+//					}
+//					for(int i =0; i< oldObs.size(); i++) {
+//						if( obsListTableFilaEquipamentos.get(i).getStatus() != oldObs.get(i).getStatus() ) {
+////							showAlerts("Updatede Lista", "", "Equipamento da empressa " + obsListTableFilaEquipamentos.get(obsListTableFilaEquipamentos.size()-1).getEmpressaName() + " teve o status alterado ", AlertType.ERROR);
+//						}
+//					}
+//					oldObs = obsListTableFilaEquipamentos;
+		} catch (DbException e) {
+//					showAlerts("begin Timer ", "", e.getMessage(), AlertType.INFORMATION );
+		}
+	}
+	
 	protected void showAlerts(String title, String mensage, String error, AlertType alertType) {
 		Alerts.showAlert( title , mensage, error , alertType);
 	}
 
+	
+	public ObservableList<Equipamento> listShort(ObservableList<Equipamento> list){
+		if(sortCal.isSelected()) {
+			try {
+				list.sort( (a, b) -> a.getUltimaCalibDate().compareTo(b.getUltimaCalibDate()) );
+			}catch(NullPointerException e) {
+				
+			}			
+		}else if(sortPat.isSelected()){
+			list.sort( (a, b) -> a.getPat().compareTo(b.getPat()));
+		}else if(sortNS.isSelected()) {
+			list.sort( (a, b) -> a.getNs().compareTo(b.getNs()));
+		}else if(sortChegada.isSelected()) {
+			list.sort( (a, b) -> a.getDateChegada().compareTo(b.getDateChegada()));
+		}else if(sortModelo.isSelected()) {
+			list.sort( (a, b) -> a.getModelo().compareTo(b.getModelo()));
+		}else if(sortStatus.isSelected()) {
+			list.sort( (a, b) -> a.getStatusStr().compareTo(b.getStatusStr()));
+		}else{
+			list.sort( (a, b) -> a.getEmpressaName().compareTo(b.getEmpressaName()));
+		}    
+		return list;
+	}
+	
+    public void sortTable() {
+		sortCal.selectedProperty().addListener((value)->{
+			if(sortCal.isSelected()){
+				sortPat.setSelected(false);
+				sortNS.setSelected(false);
+				sortChegada.setSelected(false);
+				sortModelo.setSelected(false);
+				sortStatus.setSelected(false);
+				sortEmpresa.setSelected(false);
+				updateTable();
+			};
+		});
+		sortPat.selectedProperty().addListener((value)->{
+			if(sortPat.isSelected()){
+				sortCal.setSelected(false);
+				sortNS.setSelected(false);
+				sortChegada.setSelected(false);
+				sortModelo.setSelected(false);
+				sortStatus.setSelected(false);
+				sortEmpresa.setSelected(false);
+				updateTable();
+			};
+		});
+		sortNS.selectedProperty().addListener((value)->{
+			if(sortNS.isSelected()){
+				sortPat.setSelected(false);
+				sortCal.setSelected(false);
+				sortChegada.setSelected(false);
+				sortModelo.setSelected(false);
+				sortStatus.setSelected(false);
+				sortEmpresa.setSelected(false);
+				updateTable();
+			};
+		});
+		sortChegada.selectedProperty().addListener((value)->{
+			if(sortChegada.isSelected()){
+				sortPat.setSelected(false);
+				sortNS.setSelected(false);
+				sortCal.setSelected(false);
+				sortModelo.setSelected(false);
+				sortStatus.setSelected(false);
+				sortEmpresa.setSelected(false);
+				updateTable();
+			};
+		});
+		sortModelo.selectedProperty().addListener((value)->{
+			if(sortModelo.isSelected()){
+				sortPat.setSelected(false);
+				sortNS.setSelected(false);
+				sortChegada.setSelected(false);
+				sortCal.setSelected(false);
+				sortStatus.setSelected(false);
+				sortEmpresa.setSelected(false);
+				updateTable();
+			};
+		});
+		
+		sortStatus.selectedProperty().addListener((value)->{
+			if(sortStatus.isSelected()){
+				sortPat.setSelected(false);
+				sortNS.setSelected(false);
+				sortChegada.setSelected(false);
+				sortModelo.setSelected(false);
+				sortCal.setSelected(false);
+				sortEmpresa.setSelected(false);
+				updateTable();
+			};
+		});
+		sortEmpresa.selectedProperty().addListener((value)->{
+			if(sortEmpresa.isSelected()){
+				sortPat.setSelected(false);
+				sortNS.setSelected(false);
+				sortChegada.setSelected(false);
+				sortModelo.setSelected(false);
+				sortStatus.setSelected(false);
+				sortCal.setSelected(false);
+				updateTable();
+			};
+		});
+		
+		
+    }
+	
 }
