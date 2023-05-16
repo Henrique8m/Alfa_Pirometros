@@ -188,31 +188,31 @@ public class EstoqueEstetico implements Serializable {
 		String list = "";
 
 		if( MascaraFII > 0) 
-			list = list + "Mascara Fornero II, quantidade = " + MascaraFII + "\n";
+			list = list + MascaraFII + " Mascara Fornero II\n";
 		
 		if( MascaraFKal > 0) 
-			list = list + "Mascara Fornero kal, quantidade = " + MascaraFKal + "\n";
+			list = list + MascaraFKal + " Mascara Fornero kal\n";
 		
 		if( MascaraFIII > 0) 
-			list = list + "Mascara Fornero III, quantidade = " + MascaraFIII + "\n";
+			list = list + MascaraFIII + " Mascara Fornero III\n";
 		
 		if( MascaraCarbo > 0) 
-			list = list + "Mascara carbomax II, quantidade = " + MascaraCarbo + "\n";
+			list = list + MascaraCarbo + " Mascara carbomax II\n";
 		
 		if( MascaraIndic > 0) 
-			list = list + "Mascara Indicmax II, quantidade = " + MascaraIndic + "\n";
+			list = list + MascaraIndic + " Mascara Indicmax II\n";
 		
 		if( EtiqLatFII > 0) 
-			list = list + "Etiqueta lateral fornero II, quantidade = " + EtiqLatFII + "\n";
+			list = list + EtiqLatFII + " Etiqueta lateral fornero II\n";
 		
 		if( EtiqLatFIII > 0) 
-			list = list + "Etiqueta lateral fornero III, quantidade = " + EtiqLatFIII + "\n";
+			list = list + EtiqLatFIII + " Etiqueta lateral fornero III\n";
 		
 		if( EtiqTrasFII > 0) 
-			list = list + "Etiqueta traseira fornero II, quantidade = " + EtiqTrasFII + "\n";
+			list = list + EtiqTrasFII + " Etiqueta traseira fornero II\n";
 		
 		if( Punho > 0) 
-			list = list + "Punho, quantidade = " + Punho + "\n";
+			list = list + Punho + "Punho\n";
 		
 		
 		return list;

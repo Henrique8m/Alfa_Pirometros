@@ -273,31 +273,31 @@ public class EstoqueSinal implements Serializable {
 		String list = "";
 		
 		if( ReceptaculoS > 0) 
-			list = list + "Receptaculo S, quantidade = " + ReceptaculoS + "\n";
+			list = list + ReceptaculoS + " Receptaculo S\n";
 		
 		if( ReceptaculoSU > 0) 
-			list = list + "Receptaculo SU, quantidade = " + ReceptaculoSU + "\n";
+			list = list + ReceptaculoSU + " Receptaculo SU\n";
 		
 		if( ReceptaculoEcil > 0) 
-			list = list + "Receptaculo Ecil, quantidade = " + ReceptaculoEcil + "\n";
+			list = list + ReceptaculoEcil + " Receptaculo Ecil\n";
 		
 		if( ReceptaculoK > 0) 
-			list = list + "Receptaculo K, quantidade = " + ReceptaculoK + "\n";
+			list = list + ReceptaculoK + " Receptaculo K\n";
 		
 		if( PlugFS > 0) 
-			list = list + "Plug Fêmea S, quantidade = " + PlugFS + "\n";
+			list = list + PlugFS + " Plug Fêmea S\n";
 		
 		if( PlugFK > 0) 
-			list = list + "Plug Fêmea K, quantidade = " + PlugFK + "\n";
+			list = list + PlugFK + " Plug Fêmea K\n";
 		
 		if( PlugMS > 0) 
-			list = list + "Plug Macho S, quantidade = " + PlugMS + "\n";
+			list = list + PlugMS + " Plug Macho S\n";
 		
 		if( PlugMK > 0) 
-			list = list + "Plug Macho K, quantidade = " + PlugMK + "\n";
+			list = list + PlugMK + " Plug Macho K\n";
 		
 		if( TomadaS > 0) 
-			list = list + "Tomada S, quantidade = " + TomadaS + "\n";
+			list = list + TomadaS + " Tomada S\n";
 
 		return list;
 	}

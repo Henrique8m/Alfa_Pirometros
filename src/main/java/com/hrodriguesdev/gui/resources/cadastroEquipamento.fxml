@@ -54,7 +54,7 @@
                         <Insets left="20.0" />
                      </HBox.margin>
                   </VBox>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Pagina para cadastro/edição&#10; de equipamento na empressa selecionada" textAlignment="CENTER" wrappingWidth="314.49737548828125">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Pagina para cadastro/edição&#10; de equipamento na empressa selecionada" textAlignment="CENTER" wrappingWidth="437.49737548828125">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -64,7 +64,32 @@
                   <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                </padding>
             </HBox>
-            <HBox minHeight="200.0" minWidth="500.0">
+            <HBox minHeight="60.0" prefHeight="56.0" prefWidth="996.0" style="-fx-background-color: FFFF; -fx-background-radius: 10;">
+               <children>
+                  <VBox prefHeight="43.0" prefWidth="94.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="FABRICANTE" wrappingWidth="75.13671875" />
+                        <TextField fx:id="fabricanteTxt" prefHeight="25.0" prefWidth="166.0" />
+                     </children>
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </VBox>
+                  <VBox prefHeight="300.0" prefWidth="253.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="INSTRUMENTO" wrappingWidth="96.13671875" />
+                        <TextField fx:id="instrumentoTxt" prefHeight="25.0" prefWidth="140.0" />
+                     </children>
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </VBox>
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </HBox>
+            <HBox>
                <children>
                   <VBox minHeight="200.0" minWidth="500.0" prefHeight="800.0" prefWidth="1700.0" style="-fx-background-color: #c9c9c9;">
                      <children>

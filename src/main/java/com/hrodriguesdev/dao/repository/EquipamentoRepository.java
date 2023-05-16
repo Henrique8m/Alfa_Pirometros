@@ -21,72 +21,88 @@ public class EquipamentoRepository {
 
 	public Equipamento findById(Long id) {
 		try {
-			conn = DB.getConnection();	
-			st = conn.createStatement();			
-			rs = st.executeQuery("SELECT * FROM alfaestoque.tb_equipamento;");			
-			
-			while (rs.next())  
-				if( rs.getLong("id") == id)
-					return Equipamento.parseEquipamentoDois(rs);	
-			
-		}catch(DbException | SQLException e) {
+			conn = DB.getConnection();
+			st = conn.createStatement();
+			rs = st.executeQuery("SELECT * FROM alfaestoque.tb_equipamento;");
+
+			while (rs.next())
+				if (rs.getLong("id") == id)
+					return Equipamento.parseEquipamentoDois(rs);
+
+		} catch (DbException | SQLException e) {
 			e.printStackTrace();
 			throw new DbException(e.getMessage());
-		}finally{
+		} finally {
 			DB.closeResultSet(rs);
 			DB.closeStatement(st);
 			DB.closeConnection();
-			
+
 		}
 		return null;
 	}
 
-	
-	
-	public List<Equipamento> findAllByLaboratorio(boolean laboratorio) throws DbException, SQLException{
-		List<Equipamento> list = new ArrayList<>();		
+	public Equipamento table() {
 		try {
-			conn = DB.getConnection();	
-			st = conn.createStatement();			
-			rs = st.executeQuery("SELECT * FROM alfaestoque.tb_equipamento;");			
-			
-			while (rs.next())  
-				if( rs.getBoolean("laboratorio")== true)
-					list.add(Equipamento.parseEquipamentoDois(rs));	
-			
-		}catch(DbException | SQLException e) {
+			conn = DB.getConnection();
+			st = conn.createStatement();
+			rs = st.executeQuery(
+					" ALTER TABLE alfaestoque.tb_equipamento, ADD COLUMN Instrumento VARCHAR(45) NULL DEFAULT   AFTER certificado, ADD COLUMN Fabricante VARCHAR(45) NULL DEFAULT   AFTER Instrumento;");
+
+		} catch (DbException | SQLException e) {
 			e.printStackTrace();
 			throw new DbException(e.getMessage());
-		}finally{
+		} finally {
 			DB.closeResultSet(rs);
 			DB.closeStatement(st);
 			DB.closeConnection();
-			
+
+		}
+		return null;
+	}
+
+	public List<Equipamento> findAllByLaboratorio(boolean laboratorio) throws DbException, SQLException {
+		List<Equipamento> list = new ArrayList<>();
+		try {
+			conn = DB.getConnection();
+			st = conn.createStatement();
+			rs = st.executeQuery("SELECT * FROM alfaestoque.tb_equipamento;");
+
+			while (rs.next())
+				if (rs.getBoolean("laboratorio") == true)
+					list.add(Equipamento.parseEquipamentoDois(rs));
+
+		} catch (DbException | SQLException e) {
+			e.printStackTrace();
+			throw new DbException(e.getMessage());
+		} finally {
+			DB.closeResultSet(rs);
+			DB.closeStatement(st);
+			DB.closeConnection();
+
 		}
 		return list;
-		
+
 	}
-	
+
 	public List<Equipamento> findAll(String empressaName) {
 		List<Equipamento> list = new ArrayList<>();
-		conn = DB.getConnection();					
+		conn = DB.getConnection();
 		try {
 			st = conn.createStatement();
 			rs = st.executeQuery("SELECT * FROM alfaestoque.tb_equipamento;");
-			while (rs.next())  
-				if( rs.getString(2)!=null )
-					if( rs.getString(2).equalsIgnoreCase(empressaName) )
-						list.add( Equipamento.parseEquipamentoDois( rs ) );	
-		
-		} catch (SQLException e) {			
+			while (rs.next())
+				if (rs.getString(2) != null)
+					if (rs.getString(2).equalsIgnoreCase(empressaName))
+						list.add(Equipamento.parseEquipamentoDois(rs));
+
+		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
-		}			
-		finally {
+		} finally {
 			DB.closeResultSet(rs);
 			DB.closeStatement(st);
 			DB.closeConnection();
-			
+
 		}
 		return list;
 
@@ -94,23 +110,21 @@ public class EquipamentoRepository {
 
 	public List<Equipamento> findByName(String name) {
 		List<Equipamento> list = new ArrayList<>();
-		conn = DB.getConnection();					
+		conn = DB.getConnection();
 		try {
 			st = conn.createStatement();
 			rs = st.executeQuery("SELECT * FROM alfaestoque.tb_equipamento;");
-			while (rs.next())  
-				if( rs.getString(2)!= null ) {
+			while (rs.next())
+				if (rs.getString(2) != null) {
 					String nameEmpresa = rs.getString(2).toUpperCase();
-					if( nameEmpresa.contains(name.toUpperCase()) && rs.getBoolean("laboratorio") == true) 
-						list.add( Equipamento.parseEquipamentoDois( rs ) );	
+					if (nameEmpresa.contains(name.toUpperCase()) && rs.getBoolean("laboratorio") == true)
+						list.add(Equipamento.parseEquipamentoDois(rs));
 				}
 
-		
-		} catch (SQLException e) {			
+		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
-		}			
-		finally {
+		} finally {
 			DB.closeResultSet(rs);
 			DB.closeStatement(st);
 			DB.closeConnection();
@@ -121,27 +135,25 @@ public class EquipamentoRepository {
 
 	public List<Equipamento> findByIdEmpressa(Long id, Boolean laboratorio) {
 		List<Equipamento> list = new ArrayList<>();
-		conn = DB.getConnection();					
+		conn = DB.getConnection();
 		try {
 			st = conn.createStatement();
 			rs = st.executeQuery("SELECT * FROM alfaestoque.tb_equipamento;");
-			while (rs.next())  
-				if( rs.getString("empresa_id")!= null ) {					
-					if(rs.getLong("empresa_id") == id ) 
-						if(laboratorio) {
-								if(!rs.getBoolean( "laboratorio" ))
-									list.add( Equipamento.parseEquipamentoDois( rs ) );
-						}else 
-							list.add( Equipamento.parseEquipamentoDois( rs ) );
-						
+			while (rs.next())
+				if (rs.getString("empresa_id") != null) {
+					if (rs.getLong("empresa_id") == id)
+						if (laboratorio) {
+							if (!rs.getBoolean("laboratorio"))
+								list.add(Equipamento.parseEquipamentoDois(rs));
+						} else
+							list.add(Equipamento.parseEquipamentoDois(rs));
+
 				}
 
-		
-		} catch (SQLException e) {			
+		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
-		}			
-		finally {
+		} finally {
 			DB.closeResultSet(rs);
 			DB.closeStatement(st);
 			DB.closeConnection();
@@ -152,20 +164,19 @@ public class EquipamentoRepository {
 
 	public List<Equipamento> findAllNs(String ns) {
 		List<Equipamento> list = new ArrayList<>();
-		conn = DB.getConnection();					
+		conn = DB.getConnection();
 		try {
 			st = conn.createStatement();
 			rs = st.executeQuery("SELECT * FROM alfaestoque.tb_equipamento;");
-			while (rs.next())  
-				if( rs.getString("ns")!=null )
-					if( rs.getString("ns").equalsIgnoreCase(ns) )
-						list.add( Equipamento.parseEquipamentoDois( rs ) );	
-		
-		} catch (SQLException e) {			
+			while (rs.next())
+				if (rs.getString("ns") != null)
+					if (rs.getString("ns").equalsIgnoreCase(ns))
+						list.add(Equipamento.parseEquipamentoDois(rs));
+
+		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
-		}			
-		finally {
+		} finally {
 			DB.closeResultSet(rs);
 			DB.closeStatement(st);
 			DB.closeConnection();
@@ -177,46 +188,43 @@ public class EquipamentoRepository {
 
 	public List<Equipamento> findAllPat(String pat) {
 		List<Equipamento> list = new ArrayList<>();
-		conn = DB.getConnection();					
+		conn = DB.getConnection();
 		try {
 			st = conn.createStatement();
 			rs = st.executeQuery("SELECT * FROM alfaestoque.tb_equipamento;");
-			while (rs.next())  
-				if( rs.getString(8)!=null )
-					if( rs.getString(8).equalsIgnoreCase(pat) )
-						list.add( Equipamento.parseEquipamentoDois( rs ) );	
-		
-		} catch (SQLException e) {			
+			while (rs.next())
+				if (rs.getString(8) != null)
+					if (rs.getString(8).equalsIgnoreCase(pat))
+						list.add(Equipamento.parseEquipamentoDois(rs));
+
+		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
-		}			
-		finally {
+		} finally {
 			DB.closeResultSet(rs);
 			DB.closeStatement(st);
 			DB.closeConnection();
-			
+
 		}
 		return list;
 
 	}
-	
+
 	public List<Equipamento> findByIdOrcamento(List<Long> equipamento_id) {
 		List<Equipamento> list = new ArrayList<>();
-		conn = DB.getConnection();					
+		conn = DB.getConnection();
 		try {
 			st = conn.createStatement();
 			rs = st.executeQuery("SELECT * FROM alfaestoque.tb_equipamento;");
-			while (rs.next())  		
-				for(Long id: equipamento_id)
-					if(rs.getLong("id") == id ) 
-						list.add( Equipamento.parseEquipamentoDois( rs ) );							
+			while (rs.next())
+				for (Long id : equipamento_id)
+					if (rs.getLong("id") == id)
+						list.add(Equipamento.parseEquipamentoDois(rs));
 
-		
-		} catch (SQLException e) {			
+		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
-		}			
-		finally {
+		} finally {
 			DB.closeResultSet(rs);
 			DB.closeStatement(st);
 			DB.closeConnection();
@@ -224,176 +232,295 @@ public class EquipamentoRepository {
 
 		return list;
 	}
-	
-	public List<Equipamento> findAll() {
-		List<Equipamento> list = new ArrayList<>();		
-		try {
-			conn = DB.getConnection();			
-			st = conn.createStatement();			
-			rs = st.executeQuery("SELECT * FROM alfaestoque.tb_equipamento;");			
 
-			int i=0;			
-			while ( rs.next() ) {}			
-			while (rs.previous() && i<100) {				
+	public List<Equipamento> findAll() {
+		List<Equipamento> list = new ArrayList<>();
+		try {
+			conn = DB.getConnection();
+			st = conn.createStatement();
+			rs = st.executeQuery("SELECT * FROM alfaestoque.tb_equipamento;");
+
+			int i = 0;
+			while (rs.next()) {
+			}
+			while (rs.previous() && i < 100) {
 //					if(rs.getBoolean("fila") == false){
-						i++;
-						list.add(Equipamento.parseEquipamentoDois(rs));
+				i++;
+				list.add(Equipamento.parseEquipamentoDois(rs));
 //					}				
-				}	
-		}catch (SQLException e) {	
+			}
+		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
-		}
-		finally {
+		} finally {
 			DB.closeResultSet(rs);
 			DB.closeStatement(st);
 			DB.closeConnection();
-			
-		}	
+
+		}
 		return list;
 	}
 
 	public Equipamento findByNs(String ns) {
 		Equipamento equipamento = null;
-		conn = DB.getConnection();					
+		conn = DB.getConnection();
 		try {
 			st = conn.createStatement();
 			rs = st.executeQuery("SELECT * FROM alfaestoque.tb_equipamento;");
-			while (rs.next())  
-				if( rs.getString(7)!=null )
-					if( rs.getString("ns").equalsIgnoreCase(ns) )
-						equipamento = Equipamento.parseEquipamentoDois( rs );	
-		
+			while (rs.next())
+				if (rs.getString(7) != null)
+					if (rs.getString("ns").equalsIgnoreCase(ns))
+						equipamento = Equipamento.parseEquipamentoDois(rs);
+
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}			
-		finally {
+		} finally {
 			DB.closeResultSet(rs);
 			DB.closeStatement(st);
 			DB.closeConnection();
-			
+
 		}
 		return equipamento;
 	}
-	
+
 	public Long add(Equipamento equipamento) {
-		Long id = 0l;		
+		Long id = 0l;
 		try {
 			conn = DB.getConnection();
 			conn.setAutoCommit(false);
 			pst = conn.prepareStatement("INSERT INTO tb_equipamento "
-					+ "(empressaName, modelo, ns, pat, empresa_id, laboratorio) "
-					+ "VALUES "
-					+ "(?, ?, ?, ?, ?, ?)",
-					Statement.RETURN_GENERATED_KEYS);			
-			
+					+ "(empressaName, modelo, ns, pat, empresa_id, laboratorio, fabricante, instrumento) " + "VALUES " + "(?, ?, ?, ?, ?, ?, ?, ?)",
+					Statement.RETURN_GENERATED_KEYS);
+
 			pst.setString(1, equipamento.getEmpressaName());
 			pst.setString(2, equipamento.getModelo());
 			pst.setString(3, equipamento.getNs());
 			pst.setString(4, equipamento.getPat());
 			pst.setLong(5, equipamento.getEmpressa());
 			pst.setBoolean(6, false);
-			
+			pst.setString(7, equipamento.getFabricante());
+			pst.setString(8, equipamento.getInstrumento());
+
 			int rowsAffected = pst.executeUpdate();
 			conn.commit();
-			
-			if(rowsAffected> 0) {
+
+			if (rowsAffected > 0) {
 				ResultSet rs = pst.getGeneratedKeys();
-				while(rs.next()) {
+				while (rs.next()) {
 					id = rs.getLong(1);
-					
+
 				}
-				
-			}
-			else System.out.println("No rown affected");
-		}
-		catch (SQLException e) {
-			System.out.println(e.getMessage());	
+
+			} else
+				System.out.println("No rown affected");
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
 			try {
 				conn.rollback();
-				throw new DbException("Transaction rolled back! Caused by: " + e.getMessage() );
-			}catch (SQLException e1) {
+				throw new DbException("Transaction rolled back! Caused by: " + e.getMessage());
+			} catch (SQLException e1) {
 				throw new DbException("Error trying to rollback! Caused by: \" + e1.getMessage()");
 			}
-		}
-		finally {
+		} finally {
 			DB.closeResultSet(rs);
 			DB.closeStatement(pst);
 			DB.closeConnection();
 
-		}		
+		}
 		return id;
 	}
-	
+
 	public boolean updatedeNsPatModelo(Equipamento equipamento) {
 		boolean ok = false;
-		
+
 		try {
 			conn = DB.getConnection();
 			conn.setAutoCommit(false);
-			pst = conn.prepareStatement("UPDATE tb_equipamento "
-											+ "SET modelo = ? ,"
-											+ " ns = ? ,"
-											+ " pat = ? "										
-											+ " WHERE "
-											+"(id = ?)");		
-	
+			pst = conn.prepareStatement(
+					"UPDATE tb_equipamento " + "SET modelo = ? ," + " ns = ? ," + " pat = ? " + " WHERE " + "(id = ?)");
+
 			pst.setString(1, equipamento.getModelo());
 			pst.setString(2, equipamento.getNs());
 			pst.setString(3, equipamento.getPat());
-			pst.setLong( 4, equipamento.getId() );
-			
+			pst.setLong(4, equipamento.getId());
+
 			int rowsAccepted = pst.executeUpdate();
 			conn.commit();
-			
-			if(rowsAccepted>0)
-				ok=true;
-		
-		}catch (DbException | SQLException e) {
-			ok=false;
+
+			if (rowsAccepted > 0)
+				ok = true;
+
+		} catch (DbException | SQLException e) {
+			ok = false;
 			e.printStackTrace();
 			try {
 				conn.rollback();
-				throw new DbException("Transaction rolled back! Caused by: " + e.getMessage() );
-			}catch (SQLException e1) {
+				throw new DbException("Transaction rolled back! Caused by: " + e.getMessage());
+			} catch (SQLException e1) {
 				throw new DbException("Error trying to rollback! Caused by: \" + e1.getMessage()");
 			}
-		}
-		finally {
+		} finally {
 			DB.closeStatement(pst);
 			DB.closeConnection();
-			
+
 		}
 		return ok;
 
 	}
-	
-	
-	public List<Equipamento> findEmpresaUpdate(Empresa empresa){
-		
+
+	public List<Equipamento> findEmpresaUpdate(Empresa empresa) {
+
 //	Buscar equipamentos com o nome da empressa quando tiver alteração de nomes
-	List<Equipamento> list = new ArrayList<>();
-	conn = DB.getConnection();					
-	try {
-		st = conn.createStatement();
-		rs = st.executeQuery("SELECT * FROM alfaestoque.tb_equipamento;");
-		while (rs.next()) {
-			Long id = rs.getLong("empresa_id");
-			if( id != null ) {						
-				if(id.equals(empresa.getId())) 
-					list.add( Equipamento.parseEquipamentoDois( rs ) );							
+		List<Equipamento> list = new ArrayList<>();
+		conn = DB.getConnection();
+		try {
+			st = conn.createStatement();
+			rs = st.executeQuery("SELECT * FROM alfaestoque.tb_equipamento;");
+			while (rs.next()) {
+				Long id = rs.getLong("empresa_id");
+				if (id != null) {
+					if (id.equals(empresa.getId()))
+						list.add(Equipamento.parseEquipamentoDois(rs));
+				}
 			}
+			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return list;
+		}
+
 	}
-	return list;
-	} catch (SQLException e) {			
-		e.printStackTrace();
-		return list;
-	}			
+
+
+	public boolean updatede(Long id, Boolean laboratorioo, Long orcamento_id) {
+		boolean ok = false;
+
+		try {
+			conn = DB.getConnection();
+			conn.setAutoCommit(false);
+			pst = conn.prepareStatement("UPDATE tb_equipamento " + "SET laboratorio = " + laboratorioo + ", "
+					+ "orcamento_id = ?" + " WHERE " + "(id = ?)");
+
+			pst.setLong(1, orcamento_id);
+			pst.setLong(2, id);
+
+			int rowsAccepted = pst.executeUpdate();
+			conn.commit();
+
+			if (rowsAccepted > 0)
+				ok = true;
+
+		} catch (DbException | SQLException e) {
+			ok = false;
+			e.printStackTrace();
+			try {
+				conn.rollback();
+				throw new DbException("Transaction rolled back! Caused by: " + e.getMessage());
+			} catch (SQLException e1) {
+				throw new DbException("Error trying to rollback! Caused by: \" + e1.getMessage()");
+			}
+		} finally {
+			DB.closeStatement(pst);
+			DB.closeConnection();
+
+		}
+		return ok;
+
+	}
+
+	public Boolean updateSaida(Equipamento equipamento) {
+		try {
+			conn = DB.getConnection();
+			conn.setAutoCommit(false);
+			pst = conn.prepareStatement("UPDATE tb_equipamento " + "SET laboratorio = " + equipamento.getLaboratorio()
+					+ " WHERE " + "(id = ?)");
+
+			pst.setLong(1, equipamento.getId());
+
+			int rowsAccepted = pst.executeUpdate();
+			conn.commit();
+
+			if (rowsAccepted > 0)
+				return true;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+
+		return true;
+	}
+
+	public Boolean delete(Long id) {
+		boolean ok = false;
+		try {
+			conn = DB.getConnection();
+			conn.setAutoCommit(false);
+			pst = conn.prepareStatement("DELETE FROM tb_equipamento WHERE (id = " + id + " )");
+
+			int rowsAccepted = pst.executeUpdate();
+			conn.commit();
+
+			if (rowsAccepted > 0)
+				ok = true;
+
+		} catch (SQLException e) {
+			ok = false;
+			e.printStackTrace();
+			try {
+				conn.rollback();
+				throw new DbException("Transaction rolled back! Caused by: " + e.getMessage());
+			} catch (SQLException e1) {
+				throw new DbException("Error trying to rollback! Caused by: \" + e1.getMessage()");
+			}
+
+		} finally {
+			DB.closeStatement(pst);
+			DB.closeConnection();
+
+		}
+		return ok;
+	}
+
+	public boolean updatedeEmpresaName(String empresaName, Long id) {
+		boolean ok = false;
+
+		try {
+			conn = DB.getConnection();
+			conn.setAutoCommit(false);
+			pst = conn.prepareStatement("UPDATE tb_equipamento " + "SET empressaName = ?" + " WHERE " + "(id = ?)");
+
+			pst.setString(1, empresaName);
+			pst.setLong(2, id);
+
+			int rowsAccepted = pst.executeUpdate();
+			conn.commit();
+
+			if (rowsAccepted > 0)
+				ok = true;
+
+		} catch (DbException | SQLException e) {
+			ok = false;
+			e.printStackTrace();
+			try {
+				conn.rollback();
+				throw new DbException("Transaction rolled back! Caused by: " + e.getMessage());
+			} catch (SQLException e1) {
+				throw new DbException("Error trying to rollback! Caused by: \" + e1.getMessage()");
+			}
+		} finally {
+			DB.closeStatement(pst);
+			DB.closeConnection();
+
+		}
+		return ok;
+	}
 	
-	}
+	
+	
 	
 	public void updatedeAllDate() {
-		
+				
 //	ItensRepositoryFind findItens = new ItensRepositoryFind();
 //	
 //		List<Orcamento> listOrcamento = new ArrayList<>();		
@@ -496,7 +623,7 @@ public class EquipamentoRepository {
 //					
 //			
 //		});
-			
+				
 //		
 //		try {
 //			for(Equipamento equipamento: list) {				
@@ -523,162 +650,14 @@ public class EquipamentoRepository {
 //			
 //			pst.executeUpdate();
 //			}
-		
+				
 //		}catch (SQLException e) {
 //		System.out.println(e.getMessage());	
 //		}
 //		finally {
-
+				
 //			
 //		}		
-
-
-	}
-	
-	public boolean updatede(Long id, Boolean laboratorioo, Long orcamento_id) {
-		boolean ok = false;
-		
-		try {
-			conn = DB.getConnection();
-			conn.setAutoCommit(false);
-			pst = conn.prepareStatement("UPDATE tb_equipamento "
-											+ "SET laboratorio = " + laboratorioo + ", "
-											+ "orcamento_id = ?"
-											+" WHERE "
-											+"(id = ?)");
-			
-			pst.setLong(1, orcamento_id);
-			pst.setLong( 2, id );			
-			
-			int rowsAccepted = pst.executeUpdate();
-			conn.commit();
-			
-			if(rowsAccepted>0)
-				ok=true;
-		
-		}catch (DbException | SQLException e) {
-			ok=false;
-			e.printStackTrace();
-			try {
-				conn.rollback();
-				throw new DbException("Transaction rolled back! Caused by: " + e.getMessage() );
-			}catch (SQLException e1) {
-				throw new DbException("Error trying to rollback! Caused by: \" + e1.getMessage()");
-			}
-		}
-		finally {
-			DB.closeStatement(pst);
-			DB.closeConnection();
-			
-		}		
-		return ok;
-
-	}
-
-	public Boolean updateSaida(Equipamento equipamento) {
-		try {
-			conn = DB.getConnection();
-			conn.setAutoCommit(false);
-			pst = conn.prepareStatement("UPDATE tb_equipamento "
-											+ "SET laboratorio = " 
-											+ equipamento.getLaboratorio()
-											+ " WHERE "
-											+"(id = ?)");
-			
-			pst.setLong( 1, equipamento.getId() );
-			
-			int rowsAccepted = pst.executeUpdate();
-			conn.commit();
-			
-			if(rowsAccepted>0)
-				return true;
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return false;
-		}		
-
-		return true;
-	}
-	
-	public Boolean delete(Long id) {
-		boolean ok = false;		
-		try {
-			conn = DB.getConnection();
-			conn.setAutoCommit(false);
-			pst = conn.prepareStatement("DELETE FROM tb_equipamento WHERE (id = "+ id +" )");	
-			
-			int rowsAccepted = pst.executeUpdate();
-			conn.commit();
-			
-			if(rowsAccepted>0)
-				ok=true;
-		
-		}catch (SQLException e) {
-			ok=false;
-			e.printStackTrace();
-			try {
-				conn.rollback();
-				throw new DbException("Transaction rolled back! Caused by: " + e.getMessage() );
-			}catch (SQLException e1) {
-				throw new DbException("Error trying to rollback! Caused by: \" + e1.getMessage()");
-			}
-		}
-		finally {
-			DB.closeStatement(pst);
-			DB.closeConnection();
-			
-		}
-		return ok;
-	}
-
-
-
-	public boolean updatedeEmpresaName(String empresaName, Long id) {
-		boolean ok = false;
-		
-		try {
-			conn = DB.getConnection();
-			conn.setAutoCommit(false);
-			pst = conn.prepareStatement("UPDATE tb_equipamento "
-											+ "SET empressaName = ?"
-											+" WHERE "
-											+"(id = ?)");
-			
-			pst.setString(1, empresaName);
-			pst.setLong( 2, id );			
-			
-			int rowsAccepted = pst.executeUpdate();
-			conn.commit();
-			
-			if(rowsAccepted>0)
-				ok=true;
-		
-		}catch (DbException | SQLException e) {
-			ok=false;
-			e.printStackTrace();
-			try {
-				conn.rollback();
-				throw new DbException("Transaction rolled back! Caused by: " + e.getMessage() );
-			}catch (SQLException e1) {
-				throw new DbException("Error trying to rollback! Caused by: \" + e1.getMessage()");
-			}
-		}
-		finally {
-			DB.closeStatement(pst);
-			DB.closeConnection();
-			
-		}		
-		return ok;
-	}
-
-
+				
+	}	
 }
-		
-			
-			
-			
-			
-			
-			
-			

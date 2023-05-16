@@ -41,6 +41,8 @@ public class EquipamentoUpdatede extends EquipamentoInsert implements Initializa
 			equipamento.setModelo( modeloTxt.getText() );  	
 			equipamento.setNs( nsTxt.getText() );
 			equipamento.setPat( patTxt.getText() );
+			equipamento.setFabricante(fabricanteTxt.getText());
+			equipamento.setInstrumento(instrumentoTxt.getText());
 			
 		}catch(NullPointerException e) {
 			e.printStackTrace();

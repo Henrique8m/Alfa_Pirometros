@@ -66,5 +66,6 @@ public class Format {
 	public static final SimpleDateFormat formataTimeInt = new SimpleDateFormat("HHmm");
 	public static final SimpleDateFormat formataDateTimeString = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 	public static final SimpleDateFormat formatData = new SimpleDateFormat("dd/MM/yyyy");
+	public static final SimpleDateFormat formatYear = new SimpleDateFormat("yyyy");
 	
 }

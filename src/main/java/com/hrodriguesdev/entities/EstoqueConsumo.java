@@ -87,13 +87,13 @@ public class EstoqueConsumo implements Serializable {
 		String list = "";
 		
 		if( BotaoLiga > 0) 
-			list = list + "Botao Liga, quantidade = " + BotaoLiga + "\n";
+			list = list + BotaoLiga + " Botao Liga\n";
 		
 		if( BoMeFIIFIIIIndicmax > 0) 
-			list = list + "Botao Memoria, quantidade = " + BoMeFIIFIIIIndicmax + "\n";
+			list = list + BoMeFIIFIIIIndicmax + " Botao Memoria\n";
 		
 		if( CaixaBat > 0) 
-			list = list + "Caixa para bateria, quantidade = " + CaixaBat + "\n";
+			list = list +  CaixaBat + " Caixa para bateria\n";
 		
 		return list;
 	}

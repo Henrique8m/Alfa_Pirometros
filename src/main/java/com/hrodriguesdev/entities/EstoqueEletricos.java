@@ -192,34 +192,34 @@ public class EstoqueEletricos implements Serializable {
 		String list = "";
 
 		if( FontCarbIndic > 0) 
-			list = list + "Fonte italterm universal, quantidade = " + FontCarbIndic + "\n";
+			list = list + FontCarbIndic + " Fonte italterm universal\n";
 		
 		if( FontCarbDelta > 0) 
-			list = list + "Font carbomax delta, quantidade = " + FontCarbDelta + "\n";
+			list = list + FontCarbDelta + " Font carbomax delta\n";
 		
 		if( PinFemeAliFII > 0) 
-			list = list + "Pino fêmea alimentacao Fornero II, quantidade = " + PinFemeAliFII + "\n";
+			list = list + PinFemeAliFII + " Pino fêmea alimentacao Fornero II\n";
 		
 		if( PinFemeAliFIII > 0) 
-			list = list + "Pino fêmea alimentacao Fornero III, quantidade = " + PinFemeAliFIII + "\n";
+			list = list + PinFemeAliFIII + " Pino fêmea alimentacao Fornero III\n";
 		
 		if( BatFIIFIII > 0) 
-			list = list + "Bateria de fornero, quantidade = " + BatFIIFIII + "\n";
+			list = list + BatFIIFIII + " Bateria de fornero\n";
 		
 		if( BatDescartavel > 0) 
-			list = list + "Bateria 9V, quantidade = " + BatDescartavel + "\n";
+			list = list + BatDescartavel + " Bateria 9V\n";
 		
 		if( BatInditemp > 0) 
-			list = list + "Bateria inditemp II, quantidade = " + BatInditemp + "\n";
+			list = list + BatInditemp + " Bateria inditemp II\n";
 		
 		if( BatLitio > 0) 
-			list = list + "Bateria inditemp II Plus - litio, quantidade = " + BatLitio + "\n";
+			list = list + BatLitio + " Bateria inditemp II Plus - litio\n";
 		
 		if( CarrEcil > 0) 
-			list = list + "Carregador ecil, quantidade = " + CarrEcil + "\n";
+			list = list + CarrEcil + "Carregador ecil\n";
 		
 		if( CarrItalterm > 0) 
-			list = list + "Carregador Italterm, quantidade = " + CarrItalterm + "\n";
+			list = list + CarrItalterm + " Carregador Italterm\n" ;
 		
 		return list;
 	}

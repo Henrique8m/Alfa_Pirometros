@@ -31,15 +31,20 @@ public class Equipamento implements Serializable {
 	private Date dateChegada;
 	private Date dateSaida;
 	
+	private String fabricante;
+	private String instrumento;
+	
 	public Equipamento() {}
 
-	public Equipamento(String empressaName, String modelo, String ns, String pat, Long empressa) {
+	public Equipamento(String empressaName, String modelo, String ns, String pat, Long empressa, String fabricante, String instrumento) {
 		super();
 		this.empressaName = empressaName;
 		this.modelo = modelo;
 		this.ns = ns;
 		this.pat = pat;
 		this.empressa = empressa;
+		this.fabricante = fabricante;
+		this.instrumento = instrumento;
 	}
 	
 	public static Equipamento parseEquipamentoDois(ResultSet rs) {
@@ -56,6 +61,8 @@ public class Equipamento implements Serializable {
 			if(rs.getDate( "ultimaCalibDate" )!= null)
 				obj.ultimaCalibDate( rs.getDate( "ultimaCalibDate" ));
 			obj.setCertificado_id( rs.getLong( "certificado" ));
+			obj.setFabricante(rs.getString("fabricante"));
+			obj.setInstrumento(rs.getString("instrumento"));
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -72,6 +79,22 @@ public class Equipamento implements Serializable {
 				setDateSaida(orcamento.getData_saida());
 	}
 	
+	public String getFabricante() {
+		return fabricante;
+	}
+
+	public void setFabricante(String fabricante) {
+		this.fabricante = fabricante;
+	}
+
+	public String getInstrumento() {
+		return instrumento;
+	}
+
+	public void setInstrumento(String instrumento) {
+		this.instrumento = instrumento;
+	}
+
 	public Long getId() {
 		return id;
 	}

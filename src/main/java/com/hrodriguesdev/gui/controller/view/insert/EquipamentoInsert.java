@@ -58,7 +58,10 @@ public class EquipamentoInsert implements Initializable{
 	protected TextField nsTxt;
 	@FXML
 	protected TextField patTxt;
-	
+	@FXML
+	protected TextField fabricanteTxt;
+	@FXML
+	protected TextField instrumentoTxt;
 	
 	@FXML
 	private ComboBox<String> nomeEmpressa;
@@ -150,6 +153,8 @@ public class EquipamentoInsert implements Initializable{
 		String ns;
 		String pat;
 		Long empressa;
+		String instrumento;
+		String fabricante;
 		
 		
 		if(nomeEmpressa.getValue()== "" ||  modeloTxt.getText()== "" ) {
@@ -171,6 +176,8 @@ public class EquipamentoInsert implements Initializable{
 			modelo = modeloTxt.getText();  		
 			ns = nsTxt.getText();
 			pat = patTxt.getText();
+			instrumento = instrumentoTxt.getText();
+			fabricante = fabricanteTxt.getText();
 			
 			
 		}catch(NullPointerException e) {
@@ -179,7 +186,7 @@ public class EquipamentoInsert implements Initializable{
 			return;
 		}
 		try {
-			id = equipamentoController.add(new Equipamento(empressaName, modelo, ns, pat, empressa));
+			id = equipamentoController.add(new Equipamento(empressaName, modelo, ns, pat, empressa, fabricante, instrumento));
 			if(id != 0l) {
 				NewView.fecharView();
 			}else {

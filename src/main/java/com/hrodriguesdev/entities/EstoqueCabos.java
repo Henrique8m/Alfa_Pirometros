@@ -236,22 +236,22 @@ public class EstoqueCabos implements Serializable {
 		String list = "";
 		
 		if( s_borracha > 0) 
-			list = list + "Cabo_S_borracha = " + s_borracha + "\n";
+			list = list + s_borracha + " Cabo S borracha\n";
 		
 		if( s_miolo > 0) 
-			list = list + "Cabo_S_fibra_fibra, quantidade = " + s_miolo + "\n";
+			list = list + s_miolo +  " Cabo S fibra fibra\n";
 		
 		if( s_extensao > 0) 
-			list = list + "Cabo_S_extensao, quantidade = " + s_extensao + "\n";
+			list = list + s_extensao + " Cabo S extensao\n";
 		
 		if( k_borracha > 0) 
-			list = list + "Cabo_K_borracha, quantidade = " + k_borracha + "\n";
+			list = list + k_borracha + " Cabo K borracha\n";
 		
 		if( k_miolo > 0) 
-			list = list + "Cabo_K_fibra_fibra, quantidade = " + k_miolo + "\n";
+			list = list + k_miolo + " Cabo K fibra fibra\n";
 		
 		if( k_extensao > 0) 
-			list = list + "Cabo_K_Fibra_Silicone, quantidade = " + k_extensao + "\n";
+			list = list + k_extensao + " Cabo K Fibra Silicone\n";
 			
 
 		return list;

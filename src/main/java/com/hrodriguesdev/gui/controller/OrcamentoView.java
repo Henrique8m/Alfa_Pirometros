@@ -7,6 +7,7 @@ import com.hrodriguesdev.AlfaPirometrosApplication;
 import com.hrodriguesdev.dao.db.DbException;
 import com.hrodriguesdev.dao.repository.ItensRepositoryFind;
 import com.hrodriguesdev.dao.repository.SaidaEquipamentoTransacao;
+import com.hrodriguesdev.entities.Ensaios;
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.entities.Orcamento;
 import com.hrodriguesdev.gui.alert.Alerts;
@@ -360,7 +361,11 @@ public class OrcamentoView implements Initializable {
 	
 	@FXML
 	private void relatorio(ActionEvent event) {
-		pdf.printPdf();
+		Ensaios ensaios = new Ensaios();
+		ensaios.setReferencia("1200\n1450\n1600");
+		ensaios.setPrimeiro("1201\n1451\n1600");
+		pdf.printRelatorioPdf(equipamento, ensaios, orcamento, obs.getText());
+		
 	}
 
 	
