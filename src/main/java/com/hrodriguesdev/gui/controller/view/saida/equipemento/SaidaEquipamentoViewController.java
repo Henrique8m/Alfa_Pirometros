@@ -1,6 +1,5 @@
 package com.hrodriguesdev.gui.controller.view.saida.equipemento;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.Date;
 import java.util.ResourceBundle;
@@ -17,12 +16,10 @@ import com.hrodriguesdev.entities.Empresa;
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.entities.Orcamento;
 import com.hrodriguesdev.gui.alert.Alerts;
-import com.hrodriguesdev.gui.controller.view.insert.EmpressaInsert;
 import com.hrodriguesdev.gui.controller.view.main.MainViewController;
 import com.hrodriguesdev.relatorio.GeneratorPDF;
 import com.hrodriguesdev.utilitary.Format;
 import com.hrodriguesdev.utilitary.InputFilter;
-import com.hrodriguesdev.utilitary.NewView;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -60,13 +57,11 @@ public class SaidaEquipamentoViewController implements Initializable {
 	@FXML
 	protected ImageView salvarImg;
 	@FXML
-	protected ImageView addEmpressaImg;
-	@FXML
 	protected Text erro;
 	@FXML
 	public TextField data, ultimaCal, modelo, ns, pat, nomeEmpressa;
 	@FXML
-	protected Button salvar, cancelar, addEmpressa;
+	protected Button salvar, cancelar;
 
 	//--------------
 	
@@ -80,14 +75,7 @@ public class SaidaEquipamentoViewController implements Initializable {
 	
 	private FilteredList<String> filteredList;
 	private InputFilter<String> inputFilter;
-		
-	
-	@FXML
-	protected void addEmpressa(ActionEvent e) throws IOException {
-		removeListener();
-		NewView.getNewView("Adcionar Empressa", "newEmpressa", new EmpressaInsert(this) );
-		
-	}
+
 	
 	@FXML
 	protected void gerarPDF(ActionEvent event) {
@@ -235,8 +223,6 @@ public class SaidaEquipamentoViewController implements Initializable {
 		salvarImg.setImage(image);
 		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-excluir.png").toString() );
 		cancelarImg.setImage(image);
-		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-adicionar.png").toString() );
-		addEmpressaImg.setImage(image);
 		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-pdf.png").toString() );
 		pdf.setImage(image);
 	}
@@ -248,6 +234,7 @@ public class SaidaEquipamentoViewController implements Initializable {
 		coleta.getEditor().textProperty().addListener(inputFilter);	
 	}
 	
+	@SuppressWarnings("unused")
 	private void removeListener() {
 		coleta.getEditor().textProperty().removeListener(inputFilter);
 		coleta.setValue("");

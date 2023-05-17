@@ -56,7 +56,6 @@ public class OpenSaidaEquipamentoViewController extends SaidaEquipamentoViewCont
 		nomeColetor.setEditable(false);
 		coleta.setEditable(false);
 		salvar.setVisible(false);
-		addEmpressa.setVisible(false);
 				
 	}	
 

@@ -5,7 +5,6 @@ import java.sql.SQLException;
 
 import com.hrodriguesdev.controller.EquipamentoController;
 import com.hrodriguesdev.dao.db.DbException;
-import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.entities.Orcamento;
 import com.hrodriguesdev.gui.alert.Alerts;
 import com.hrodriguesdev.gui.controller.EquipamentoEntradaViewController;
@@ -34,7 +33,7 @@ public class EquipamentoMainView extends LogoutMainView {
     
     @FXML
     private void addEquipamento(ActionEvent e) throws IOException {
-    	NewView.addChildrenToMain((Node) NewView.loadFXML("entradaEquipamentoDois" , new EquipamentoEntradaViewController() ));
+    	NewView.addChildrenToMain((Node) NewView.loadFXML("entradaEquipamento" , new EquipamentoEntradaViewController() ));
     }
     
 	
@@ -70,24 +69,7 @@ public class EquipamentoMainView extends LogoutMainView {
 		
 		if(keyEvent.getCode().toString() == "F5" )
 			refreshTable();
-		
-    	else if(keyEvent.getCode().toString() == "DELETE" ) {    		
-    		if(tableFilaEquipamentos.getSelectionModel().getSelectedItem() != null) 
-    		{
-    			Equipamento equipament = tableFilaEquipamentos.getSelectionModel().getSelectedItem();
-    			if(equipament.getOrcamento_id() == null || equipament.getOrcamento_id() == 0l) {
-    				if (equipamentoController.delete( equipament.getId() ) ) {
-    					refreshTable();
-    				}else {
-    					System.out.println("Nao deletado");
-    				}
-    					
-    			}else 
-    				System.out.println("orcamento id " + equipament.getOrcamento_id() );
-    		}
-    		
-    	}    
-    	
+		    	
     }
 	
 	@FXML

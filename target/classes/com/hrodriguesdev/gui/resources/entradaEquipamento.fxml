@@ -30,7 +30,7 @@
                               <VBox prefHeight="47.0" prefWidth="215.0">
                                  <children>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="NOME DA EMPRESSA" wrappingWidth="174.13671875" />
-                                    <ComboBox fx:id="nomeEmpressa" editable="true" onKeyReleased="#keyEventCombobox" prefHeight="25.0" prefWidth="177.0" />
+                                    <ComboBox fx:id="nomeEmpressa" editable="true" focusTraversable="false" onKeyReleased="#keyEventCombobox" prefHeight="25.0" prefWidth="177.0" />
                                  </children>
                                  <padding>
                                     <Insets right="10.0" />
@@ -115,19 +115,6 @@
                            </font>
                         </Button>
                         <ImageView fx:id="logoYgg" fitHeight="244.0" fitWidth="313.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="5" />
-                        <Button mnemonicParsing="false" onAction="#addEquipamento" prefHeight="45.0" prefWidth="185.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Adcionar Equipamento" GridPane.rowIndex="2">
-                           <graphic>
-                              <ImageView fx:id="addEmpressaImg" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" />
-                           </graphic>
-                        </Button>
-                        <Button mnemonicParsing="false" onAction="#addEmpressa" prefHeight="45.0" prefWidth="185.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Adcionar Empressa" GridPane.rowIndex="3">
-                           <graphic>
-                              <ImageView fx:id="addEquipamento" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" />
-                           </graphic>
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Button>
                      </children>
                      <padding>
                         <Insets left="20.0" right="40.0" />

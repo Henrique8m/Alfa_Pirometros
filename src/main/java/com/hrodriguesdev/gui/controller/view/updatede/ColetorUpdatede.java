@@ -57,7 +57,6 @@ public class ColetorUpdatede extends SaidaEquipamentoViewController{
 		
 		cancelar.setVisible(false);
 		coleta.setEditable(false);
-		addEmpressa.setVisible(false);
 		
 		dataColeta.setEditable(true);
 		nomeColetor.setEditable(true);

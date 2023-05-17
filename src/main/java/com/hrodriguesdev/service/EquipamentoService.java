@@ -171,16 +171,18 @@ public class EquipamentoService {
 //				}				
 //			});			
 //		});
-		
-		equipamentoList.forEach((x) -> {
-			 try{
-				x.setOrcamento(orcamentolist.stream().filter(y -> y.getEquipamento_id().equals(x.getId() ) ).findFirst().get());	
-			}
-			catch(NoSuchElementException e) {
-				System.out.println("\n\n" + x.getEmpressaName() + " - " + x.getNs() + "\n");
-				e.printStackTrace();
+		if(equipamentoList.isEmpty())
+			equipamentoList.forEach((x) -> {
+				 try{
+					if(! orcamentolist.isEmpty())
+						if(x.getId()!=null)
+							x.setOrcamento(orcamentolist.stream().filter(y -> y.getEquipamento_id().equals(x.getId() ) ).findFirst().get());	
 				}
-		} );
+				catch(NoSuchElementException e) {
+					System.out.println("\n\n" + x.getEmpressaName() + " - " + x.getNs() + "\n");
+					e.printStackTrace();
+					}
+			} );
 		
 		return equipamentoList;
 	}

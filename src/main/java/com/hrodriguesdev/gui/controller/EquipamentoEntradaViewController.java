@@ -1,6 +1,5 @@
 package com.hrodriguesdev.gui.controller;
 
-import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -11,8 +10,6 @@ import com.hrodriguesdev.dao.db.DbException;
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.entities.Orcamento;
 import com.hrodriguesdev.gui.alert.Alerts;
-import com.hrodriguesdev.gui.controller.view.insert.EmpressaInsert;
-import com.hrodriguesdev.gui.controller.view.insert.EquipamentoInsert;
 import com.hrodriguesdev.gui.controller.view.main.MainViewController;
 import com.hrodriguesdev.utilitary.Format;
 import com.hrodriguesdev.utilitary.Geral;
@@ -25,7 +22,6 @@ import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -40,10 +36,13 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 
+
+//Chamado atraves do EquipamentoMainView
+//Chamado atraves do EquipamentoInsert
 public class EquipamentoEntradaViewController implements Initializable{
 	private String empressa;
 	@FXML
-	protected ImageView cancelarImg, salvarImg, addEmpressaImg, addEquipamento, logoYgg;
+	protected ImageView cancelarImg, salvarImg,  logoYgg;
 	@FXML
 	protected Button salvar, cancelar, buscar;
 	@FXML
@@ -94,10 +93,6 @@ public class EquipamentoEntradaViewController implements Initializable{
 		salvarImg.setImage(image);
 		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-excluir.png").toString() );
 		cancelarImg.setImage(image);
-		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-adicionar.png").toString() );
-		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-adicionar.png").toString() );
-		addEmpressaImg.setImage(image);
-		addEquipamento.setImage(image);
 		
 	    data.setText(Format.formatData.format(new Date(System.currentTimeMillis())));
 	}
@@ -174,21 +169,7 @@ public class EquipamentoEntradaViewController implements Initializable{
 		NewView.fecharView();
 	}
 	
-	
-	@FXML
-	public void addEquipamento(ActionEvent event) {
-		try {
-			NewView.addChildrenn((Node) NewView.loadFXML("cadastroEquipamento", new EquipamentoInsert() ) );
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}	
-	
-	@FXML
-	public void addEmpressa(ActionEvent event) {
-		NewView.getNewView("Adcionar empressa", "newEmpressa", new EmpressaInsert() );
-	}	
-		
+				
 	@FXML
 	private void equipamentoClick(MouseEvent event) {
 		if(event.getClickCount() >= 2) 

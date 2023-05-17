@@ -79,9 +79,17 @@ public class InputFilter<T> implements ChangeListener<String>{
 //	    System.out.println(oldValue);
 //	    System.out.println(newValue);
 //	    System.out.println( observable.getValue() );
-	    T selected = box.getSelectionModel().getSelectedItem() != null
-	            ? box.getSelectionModel().getSelectedItem() : null;
-	
+	    T selected = null;
+	    if(newValue != oldValue + " " ) {
+	    	selected = box.getSelectionModel().getSelectedItem() != null
+	    			? box.getSelectionModel().getSelectedItem() : null;	    	    	
+	    }
+	    
+	    if(selected != null)
+	    	if(newValue != selected.toString()) {
+	    		selected = null;
+	    }
+	    
 	    @SuppressWarnings("unused")
 		String selectedString = null;
 	    

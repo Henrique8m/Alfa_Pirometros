@@ -154,11 +154,6 @@
                               <Insets left="20.0" right="20.0" top="10.0" />
                            </padding>
                            <children>
-                              <Button fx:id="addEmpressa" mnemonicParsing="false" onAction="#addEmpressa" prefHeight="31.0" prefWidth="205.0" text="Adcionar Empressa">
-                                 <graphic>
-                                    <ImageView fx:id="addEmpressaImg" fitHeight="23.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true" />
-                                 </graphic>
-                              </Button>
                               <Button mnemonicParsing="false" onAction="#gerarPDF" prefHeight="31.0" prefWidth="205.0" text="Gerar PDF">
                                  <graphic>
                                     <ImageView fx:id="pdf" fitHeight="23.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true" />

@@ -1,6 +1,5 @@
 package com.hrodriguesdev.gui.controller.view.main;
 
-import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
 import java.util.ResourceBundle;
@@ -14,7 +13,6 @@ import com.hrodriguesdev.dao.db.DB;
 import com.hrodriguesdev.dao.db.DbException;
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.gui.alert.Alerts;
-import com.hrodriguesdev.gui.controller.view.insert.EquipamentoInsert;
 import com.hrodriguesdev.utilitary.Format;
 
 import javafx.animation.Animation;
@@ -22,7 +20,6 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert.AlertType;
@@ -48,7 +45,6 @@ public class MainViewController implements Initializable{
 	public static ColetorController coletorController = new ColetorController();
 	public static EquipamentoController equipamentoController = new EquipamentoController();
 	public static EmpresaController empressaController = new EmpresaController();
-	public static EquipamentoInsert equipamentoInsert = new EquipamentoInsert();
 	
 //	public static OrcamentoViewControllerDois OrcamentoViewControllerDois = new OrcamentoViewControllerDois();
 	private Timeline timeline;
@@ -109,8 +105,8 @@ public class MainViewController implements Initializable{
 	}
 	
 	
-	@FXML
-    private void gerarPDF(ActionEvent e) throws IOException {
+//	@FXML
+//    private void gerarPDF(ActionEvent e) throws IOException {
 //	   	 if(tableFindEquipamentos.getSelectionModel().getSelectedItem() != null) {
 //	  		equipamentoEdit = tableFindEquipamentos.getSelectionModel().getSelectedItem();   	
 //	  		
@@ -130,7 +126,7 @@ public class MainViewController implements Initializable{
 //	  		}
 //	  		
 //	  	}
-	 }
+//	 }
     
 	@FXML
 	private TableColumn<Equipamento, String> empressaFind;
