@@ -5,8 +5,10 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.hrodriguesdev.AlfaPirometrosApplication;
+import com.hrodriguesdev.controller.EnsaiosController;
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.entities.Orcamento;
+import com.hrodriguesdev.gui.controller.EnsaioViewController;
 import com.hrodriguesdev.utilitary.Format;
 import com.hrodriguesdev.utilitary.Geral;
 import com.hrodriguesdev.utilitary.InputFilter;
@@ -40,6 +42,7 @@ public class OrcamentoInsert implements Initializable {
 	
 	protected Equipamento equipamento;
 	protected Orcamento orcamento;
+	protected EnsaiosController controllerEnsaios = new EnsaiosController();
 
 	protected Long orcamentoId;
 	protected String list = "";
@@ -149,6 +152,10 @@ public class OrcamentoInsert implements Initializable {
 	@FXML
 	protected void salvar(ActionEvent event) throws IOException {
 		orcamentoId = orcamento.getId();
+		if(!controllerEnsaios.isExistByOrcamentoId(orcamentoId)) {
+			erro.setText("Falta inserir os ensaios");
+			return;
+		}
 		Itens itens = new Itens(orcamentoId, false , 0, false);
 		
 		if(obsMateriais.size()>0) {
@@ -235,6 +242,11 @@ public class OrcamentoInsert implements Initializable {
 		if(equipamento.getUltimaCalibDate() != null) 
 			ultimaCal.setText( Format.formatData.format(equipamento.getUltimaCalibDate()) );
 //		ultimaCal.setText(equipamento.getUltimaCalib());	
+	}
+	
+	@FXML
+	private void ensaio() {
+		NewView.getNewView("Ensaios","ensaioInserts" , new EnsaioViewController(equipamento, orcamento));
 	}
 		
 //	private boolean listManutencao(String value, int intValue) {

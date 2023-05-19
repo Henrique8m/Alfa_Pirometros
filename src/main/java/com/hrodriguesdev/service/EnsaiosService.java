@@ -1,0 +1,23 @@
+package com.hrodriguesdev.service;
+
+import com.hrodriguesdev.dao.repository.EnsaioRepository;
+import com.hrodriguesdev.entities.Ensaios;
+
+public class EnsaiosService {
+	private EnsaioRepository repository = new EnsaioRepository();
+	
+	public Ensaios getEnsaio(Long idOrcamento) {
+		return repository.getEnsaio(idOrcamento);
+	}
+	
+	public long saveEnsaio(Ensaios ensaio) {
+		return repository.saveEnsaio(ensaio);
+	}
+
+	public boolean isExistByOrcamentoId(Long orcamentoId) {
+		return repository.isExistByOrcamentoId(orcamentoId);
+	}
+	
+	
+
+}

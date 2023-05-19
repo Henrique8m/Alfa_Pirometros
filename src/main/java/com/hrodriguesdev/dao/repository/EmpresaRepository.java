@@ -310,7 +310,7 @@ public class EmpresaRepository {
 				conn.rollback();
 				throw new DbException("Transaction rolled back! Caused by: " + e.getMessage() );
 			}catch (SQLException e1) {
-				throw new DbException("Error trying to rollback! Caused by: \" + e1.getMessage()");
+				throw new DbException("Error trying to rollback! Caused by: " + e1.getMessage() );
 			}
 			
 		}

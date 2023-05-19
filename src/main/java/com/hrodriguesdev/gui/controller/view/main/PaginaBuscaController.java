@@ -193,7 +193,7 @@ public class PaginaBuscaController extends EquipamentoMainView implements Initia
 	
 	@FXML
     protected void deletEquipamento(KeyEvent keyEvent) throws IOException {
-		super.updatedEquipamento(keyEvent);
+//		super.updatedEquipamento(keyEvent);
 		 if(keyEvent.getCode().toString() == "DELETE" ) {    		
 	    	if(tableFindEquipamentos.getSelectionModel().getSelectedItem() != null) 
 	    		{

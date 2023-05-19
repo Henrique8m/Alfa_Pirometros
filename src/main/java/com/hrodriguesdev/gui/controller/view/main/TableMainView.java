@@ -8,10 +8,24 @@ import com.hrodriguesdev.entities.Equipamento;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class TableMainView extends CertificadoPaginaController{
-	
 
-    public void refreshTable() {
+@SuppressWarnings("deprecation")
+public class TableMainView extends CertificadoPaginaController implements Runnable{
+	private Thread thread = new Thread(this);
+	
+	public void refreshTable() {    	
+		if(thread.getState().toString() == "NEW")
+			thread.start();
+		else 
+			thread.resume();
+					
+		
+    }
+
+
+	@Override
+	public void run() {
+		while(true) {
 		ObservableList<Equipamento> obsList = FXCollections.observableArrayList();
     	try{
     		if(!filtro.getText().isEmpty() && !filtro.getText().isBlank() )   			
@@ -31,7 +45,9 @@ public class TableMainView extends CertificadoPaginaController{
 			dbConection = false;
 			e1.printStackTrace();
 		}
-    }
+    	thread.suspend();
+		}
+	}
     
 
 }

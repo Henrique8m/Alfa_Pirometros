@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import com.hrodriguesdev.controller.EquipamentoController;
-import com.hrodriguesdev.dao.db.DbException;
 import com.hrodriguesdev.entities.Orcamento;
 import com.hrodriguesdev.gui.alert.Alerts;
 import com.hrodriguesdev.gui.controller.EquipamentoEntradaViewController;
@@ -39,7 +38,7 @@ public class EquipamentoMainView extends LogoutMainView {
 	
 	@FXML
     protected void updatedEquipamento(KeyEvent keyEvent) throws IOException {
-		super.updatedEquipamento(keyEvent);
+//		super.updatedEquipamento(keyEvent);
 		
 		if(keyEvent.getTarget() == filtro) {
 			if(keyEvent.getCode().toString() == "ENTER") {
@@ -47,8 +46,8 @@ public class EquipamentoMainView extends LogoutMainView {
 				
 		    }else if( filtro.getText() != "" ){
 		    	FILTER = false;
-			
-		    	try{
+		    	refreshTable();
+		    	/*try{
 					obsListTableFilaEquipamentos = equipamentoController.findByName( filtro.getText() );
 					
 		    		oldObs = obsListTableFilaEquipamentos;
@@ -59,7 +58,7 @@ public class EquipamentoMainView extends LogoutMainView {
 				} catch (DbException | SQLException e1) {
 					dbConection = false;
 					e1.printStackTrace();
-				}
+				}*/
 			
 		    }else if(filtro.getText() == "") {
 		    	FILTER = true;

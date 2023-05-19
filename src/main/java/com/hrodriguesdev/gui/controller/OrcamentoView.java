@@ -360,6 +360,11 @@ public class OrcamentoView implements Initializable {
 	}
 	
 	@FXML
+	private void ensaioOpen(ActionEvent e) {
+		NewView.getNewView("Ensaios","ensaioInserts" , new EnsaioViewController(equipamento, orcamento));
+	}
+	
+	@FXML
 	private void relatorio(ActionEvent event) {
 		Ensaios ensaios = new Ensaios();
 		ensaios.setReferencia("1200\n1450\n1600");
