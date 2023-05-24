@@ -61,6 +61,7 @@ public class AlfaPirometrosApplication extends Application{
 	public static String caminhoDbProperties2 = "C:\\Program Files (x86)\\Java\\resources\\dbAlfa.properties";
 	public static String properties = "Properties.properties";
 	public static String strDiretorioYggDrasil = "\\AppData\\Local\\YggDrasil";
+	public static String areaDeTrabalho = System.getProperty("user.home").toString() + "\\Desktop"; 
 	
 	public static PaginaBuscaController viewController = new PaginaBuscaController();
 	
