@@ -381,7 +381,7 @@
                                                       <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="64.0" prefHeight="45.0" prefWidth="138.0">
                                                          <children>
                                                             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="MODELO" wrappingWidth="75.13671875" />
-                                                            <TextField fx:id="modeloClick" editable="false" focusTraversable="false" onKeyPressed="#onKeyModelo" prefHeight="25.0" prefWidth="138.0" />
+                                                            <TextField fx:id="modeloClick" editable="false" focusTraversable="false" onKeyReleased="#onKeyModelo" prefHeight="25.0" prefWidth="138.0" />
                                                          </children>
                                                          <HBox.margin>
                                                             <Insets />

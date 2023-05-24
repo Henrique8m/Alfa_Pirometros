@@ -17,4 +17,8 @@ public class EnsaiosController {
 	public boolean isExistByOrcamentoId(Long orcamentoId) {
 		return service.isExistByOrcamentoId(orcamentoId);
 	}
+
+	public boolean updatedeEnsaio(Ensaios ensaio) {
+		return service.updatedeEnsaio(ensaio);
+	}
 }

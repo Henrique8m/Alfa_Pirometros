@@ -17,6 +17,10 @@ public class EnsaiosService {
 	public boolean isExistByOrcamentoId(Long orcamentoId) {
 		return repository.isExistByOrcamentoId(orcamentoId);
 	}
+
+	public boolean updatedeEnsaio(Ensaios ensaio) {
+		return repository.updatedeEnsaio(ensaio);
+	}
 	
 	
 

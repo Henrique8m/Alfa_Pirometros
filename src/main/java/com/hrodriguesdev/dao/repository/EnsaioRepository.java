@@ -9,6 +9,7 @@ import java.sql.Statement;
 import com.hrodriguesdev.dao.db.DB;
 import com.hrodriguesdev.dao.db.DbException;
 import com.hrodriguesdev.entities.Ensaios;
+import com.hrodriguesdev.gui.controller.EnsaioViewController;
 
 public class EnsaioRepository {
 	private Connection conn = null;
@@ -17,14 +18,14 @@ public class EnsaioRepository {
 	private PreparedStatement pst = null;
 	
 	public Ensaios getEnsaio(Long idOrcamento) {
-		Ensaios ensaio = new Ensaios();
+		Ensaios ensaio = null;
 		try {
 			conn = DB.getConnection();
 			st = conn.createStatement();
 			rs = st.executeQuery("SELECT * FROM alfaestoque.tb_ensaio;");
 			
 			while(rs.next())
-				if(rs.getLong("id")== idOrcamento) 
+				if(rs.getLong("orcamento_id") == idOrcamento) 
 					ensaio = new Ensaios(rs);
 				
 					
@@ -49,21 +50,26 @@ public class EnsaioRepository {
 			conn = DB.getConnection();
 			conn.setAutoCommit(false);
 			pst = conn.prepareStatement("INSERT INTO alfaestoque.tb_ensaio "
-					+ "( orcamento_id, referencia1, valor1, valor2, valor3 )"
+					+ "( equipamento_id, orcamento_id, referencia1, valor1, valor2, valor3 )"
 					+ "VALUES "
-					+ "(?, ?, ?, ?, ?)",
+					+ "(?, ?, ?, ?, ?, ?)",
 					Statement.RETURN_GENERATED_KEYS);
-			pst.setLong(1, ensaio.getOrcamento_id());
-			pst.setString(2, ensaio.getReferencia());
-			pst.setString(3, ensaio.getPrimeiro());
-			pst.setString(4, ensaio.getSegundo());
-			pst.setString(5, ensaio.getTerceiro());
+			pst.setLong(1, ensaio.getEquipamento_id());
+			pst.setLong(2, ensaio.getOrcamento_id());
+			pst.setString(3, ensaio.getReferencia());
+			pst.setString(4, ensaio.getPrimeiro());
+			pst.setString(5, ensaio.getSegundo());
+			pst.setString(6, ensaio.getTerceiro());
 			
-			conn.commit();
-			ResultSet rs = pst.getGeneratedKeys();
-			while(rs.next())
-				return rs.getLong(1);
-			
+			int rowsAffected = pst.executeUpdate();
+			conn.commit();			
+			if(rowsAffected> 0) {
+				ResultSet rs = pst.getGeneratedKeys();
+				while(rs.next())
+					return rs.getLong(1);
+			}
+			else 
+				EnsaioViewController.logger.error("No rown affected");
 			
 		}catch(SQLException e) {
 			System.out.println(e.getMessage());	
@@ -83,21 +89,22 @@ public class EnsaioRepository {
 		
 	}
 	
-	public boolean editEnsaio(Ensaios ensaio) {
+	public boolean updatedeEnsaio(Ensaios ensaio) {
 		try {
 			conn = DB.getConnection();
 			conn.setAutoCommit(false);
 			pst = conn.prepareStatement("UPDATE alfaestoque.tb_ensaio "
 					+ "SET referencia1 = ?,"
-					+ "SET valor1 = ?,"
-					+ "SET valor2 = ?,"
-					+ "SET valor3 = ? "
+					+ "valor1 = ?,"
+					+ "valor2 = ?,"
+					+ "valor3 = ? "
 					+ "WHERE (id = ?)");
 			
 			pst.setString(1, ensaio.getReferencia());
 			pst.setString(2, ensaio.getPrimeiro());
 			pst.setString(3, ensaio.getSegundo());
 			pst.setString(4, ensaio.getTerceiro());
+			pst.setLong(5, ensaio.getId());
 			
 			int rowsAccepted = pst.executeUpdate();
 			conn.commit();
@@ -127,7 +134,7 @@ public class EnsaioRepository {
 			rs = st.executeQuery("SELECT * FROM alfaestoque.tb_ensaio;");
 			
 			while(rs.next())
-				if(rs.getLong("id")==id)
+				if(rs.getLong("orcamento_id")==id)
 					return true;
 		}catch(SQLException e) {
 			e.printStackTrace();

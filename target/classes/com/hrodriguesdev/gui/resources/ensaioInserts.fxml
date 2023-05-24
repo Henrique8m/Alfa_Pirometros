@@ -2,6 +2,9 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.image.ImageView?>
@@ -14,7 +17,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="329.0" prefWidth="600.0" style="-fx-background-color: #ffff;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <GridPane alignment="CENTER" gridLinesVisible="true" layoutX="21.0" layoutY="19.0" prefHeight="225.0" prefWidth="561.0">
+      <GridPane alignment="CENTER" gridLinesVisible="true" layoutX="20.0" layoutY="39.0" prefHeight="225.0" prefWidth="561.0">
         <columnConstraints>
             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="159.0" minWidth="10.0" prefWidth="159.0" />
           <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="133.0" minWidth="10.0" prefWidth="122.0" />
@@ -32,30 +35,30 @@
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
                <children>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="1º Valor" />
-                  <TextField fx:id="refeVal1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="25.0" prefWidth="100.0" />
+                  <TextField fx:id="refeVal1" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="25.0" prefWidth="100.0" />
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="2">
                <children>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="2º Valor" />
-                  <TextField fx:id="refeVal2" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="25.0" prefWidth="100.0" />
+                  <TextField fx:id="refeVal2" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="25.0" prefWidth="100.0" />
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="3">
                <children>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="3º Valor" />
-                  <TextField fx:id="refeVal3" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="25.0" prefWidth="100.0" />
+                  <TextField fx:id="refeVal3" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="25.0" prefWidth="100.0" />
                </children>
             </HBox>
-            <TextField fx:id="aplicado1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="25.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField fx:id="aplicado2" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="25.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField fx:id="aplicado3" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="25.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField fx:id="sinalCalibr11" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="25.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <TextField fx:id="sinalCalibr12" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="25.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <TextField fx:id="sinalCalibr13" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="25.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-            <TextField fx:id="sinalCalibr21" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="25.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-            <TextField fx:id="sinalCalibr22" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="25.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-            <TextField fx:id="sinalCalibr23" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="25.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+            <TextField fx:id="aplicado1" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="25.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="aplicado2" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="25.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="aplicado3" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="25.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="sinalCalibr11" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="25.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <TextField fx:id="sinalCalibr12" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="25.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <TextField fx:id="sinalCalibr13" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="25.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+            <TextField fx:id="sinalCalibr21" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="25.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <TextField fx:id="sinalCalibr22" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="25.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+            <TextField fx:id="sinalCalibr23" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="25.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="1º Sinal Aplicado" GridPane.columnIndex="1" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="1º Sinal Calibração" GridPane.columnIndex="2" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="2º Sinal Calibração" GridPane.columnIndex="3" />
@@ -81,5 +84,14 @@
             <Insets left="20.0" />
          </padding>
       </ToolBar>
+      <MenuBar prefHeight="25.0" prefWidth="600.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#salvarReferencia" text="Salvar Referencia" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
    </children>
 </Pane>

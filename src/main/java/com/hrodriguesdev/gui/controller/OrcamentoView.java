@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.hrodriguesdev.AlfaPirometrosApplication;
+import com.hrodriguesdev.controller.EnsaiosController;
 import com.hrodriguesdev.dao.db.DbException;
 import com.hrodriguesdev.dao.repository.ItensRepositoryFind;
 import com.hrodriguesdev.dao.repository.SaidaEquipamentoTransacao;
@@ -29,16 +30,16 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 
-public class OrcamentoView implements Initializable {
+public class OrcamentoView extends EnsaioViewController implements Initializable {
 	
 	@FXML
 	private Button cancelar, orcamentoEnviado, aprovado, aprovadoSemOrca, liberado, naoAprovado, liberadoSemOrcamento, manutencaoArea;
 	
 	@FXML
-	private ImageView cancelarImg, salvarImg, relatorioImg;
+	private ImageView cancelarImg, salvarImg, relatorioImg, ensaioImg;
 		
 	@FXML
-	public TextField nomeEmpressa, data, modelo, ns, pat, ultimaCal, relatorioN;
+	public TextField nomeEmpressa, data, modelo, ns, pat, ultimaCal, relatorioN, fabricanteTxt, equipamentoTxt;
 	@FXML
 	private TextArea obs;
 	
@@ -47,8 +48,10 @@ public class OrcamentoView implements Initializable {
 	private Orcamento orcamento;
 	private Itens itens;
 	protected SaidaEquipamentoTransacao transaction = new SaidaEquipamentoTransacao();
+	private EnsaiosController ensaioController = new EnsaiosController();
 	
 	public OrcamentoView(Equipamento equipamento, Orcamento orcamento) {
+		super(equipamento, orcamento);
 		this.equipamento = equipamento;
 		this.orcamento = orcamento;
 	}
@@ -64,6 +67,13 @@ public class OrcamentoView implements Initializable {
 		switchStatus(orcamento.getStatus());		
 		nomeEmpressa.setText(equipamento.getEmpressaName());
 		data.setText(Format.formatData.format(orcamento.getData_chegada()));
+		try {
+			fabricanteTxt.setText(equipamento.getFabricante());
+			equipamentoTxt.setText(equipamento.getInstrumento());
+			
+		}catch(NullPointerException e) {
+			System.err.println(e.getMessage());
+		}
 		
 		
 		
@@ -78,6 +88,12 @@ public class OrcamentoView implements Initializable {
 		salvarImg.setImage(image);
 		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-pdf.png").toString() );
 		relatorioImg.setImage(image);
+		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-ensaio.png").toString() );
+		ensaioImg.setImage(image);
+		ensaioGet();
+		editable(false);
+		obs.setFocusTraversable(false);
+		obs.setEditable(false);
 	}	
 
 	/*
@@ -366,9 +382,7 @@ public class OrcamentoView implements Initializable {
 	
 	@FXML
 	private void relatorio(ActionEvent event) {
-		Ensaios ensaios = new Ensaios();
-		ensaios.setReferencia("1200\n1450\n1600");
-		ensaios.setPrimeiro("1201\n1451\n1600");
+		Ensaios ensaios = ensaioController.getEnsaio(orcamento.getId());
 		pdf.printRelatorioPdf(equipamento, ensaios, orcamento, obs.getText());
 		
 	}

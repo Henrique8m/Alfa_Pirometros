@@ -223,7 +223,7 @@
             <RowConstraints maxHeight="60.0" minHeight="60.0" prefHeight="60.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Button fx:id="salvar" minHeight="30.0" minWidth="-Infinity" mnemonicParsing="false" onAction="#salvar" prefHeight="45.0" prefWidth="185.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Salvar" GridPane.rowIndex="1">
+            <Button fx:id="salvar" minHeight="30.0" minWidth="-Infinity" mnemonicParsing="false" onAction="#salvar" prefHeight="45.0" prefWidth="185.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Salvar" GridPane.rowIndex="2">
                <graphic>
                   <ImageView fx:id="salvarImg" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" />
                </graphic>
@@ -245,10 +245,13 @@
                   <Font size="13.0" />
                </font>
             </Text>
-            <Button minHeight="30.0" minWidth="-Infinity" mnemonicParsing="false" onAction="#ensaio" prefHeight="45.0" prefWidth="185.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Ensaio" GridPane.rowIndex="4">
+            <Button minHeight="30.0" minWidth="-Infinity" mnemonicParsing="false" onAction="#ensaio" prefHeight="45.0" prefWidth="185.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Ensaio" GridPane.rowIndex="1">
                <font>
                   <Font size="14.0" />
                </font>
+               <graphic>
+                  <ImageView fx:id="ensaioImg" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" />
+               </graphic>
             </Button>
          </children>
          <padding>

@@ -57,7 +57,7 @@ public class OrcamentoInsert implements Initializable {
 	
 	//Image Button
 	@FXML
-	protected ImageView cancelarImg, salvarImg;
+	protected ImageView cancelarImg, salvarImg, ensaioImg;
 	
 	@FXML
 	protected Text erro, infoText;
@@ -230,6 +230,8 @@ public class OrcamentoInsert implements Initializable {
 		salvarImg.setImage(image);
 		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-excluir.png").toString() );
 		cancelarImg.setImage(image);
+		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-ensaio.png").toString() );
+		ensaioImg.setImage(image);
 	}
 	
 	protected void textFildInserts() {

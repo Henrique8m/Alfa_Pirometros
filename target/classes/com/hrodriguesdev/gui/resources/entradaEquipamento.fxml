@@ -30,7 +30,7 @@
                               <VBox prefHeight="47.0" prefWidth="215.0">
                                  <children>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="NOME DA EMPRESSA" wrappingWidth="174.13671875" />
-                                    <ComboBox fx:id="nomeEmpressa" editable="true" focusTraversable="false" onKeyReleased="#keyEventCombobox" prefHeight="25.0" prefWidth="177.0" />
+                                    <ComboBox fx:id="nomeEmpressa" editable="true" onKeyReleased="#keyEventCombobox" prefHeight="25.0" prefWidth="177.0" />
                                  </children>
                                  <padding>
                                     <Insets right="10.0" />
