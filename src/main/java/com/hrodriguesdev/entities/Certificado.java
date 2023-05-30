@@ -9,6 +9,7 @@ public class Certificado {
 	private Long equipamento_id;
 	private Date date_cal;
 	private int numero;
+	private Long ensaio_id;
 	
 	public Certificado(Long equipamento_id, Date date_cal, int numero) {
 		super();
@@ -23,6 +24,7 @@ public class Certificado {
 			this.equipamento_id = rs.getLong("equipamento_id");
 			date_cal( rs.getDate("date_cal") );
 			this.numero = rs.getInt("numero");
+			this.ensaio_id = rs.getLong("ensaio_id");
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -59,6 +61,10 @@ public class Certificado {
 	}
 	public Long getId() {
 		return id;
+	}
+
+	public Long getEnsaio_id() {
+		return ensaio_id;
 	}
 		
 }

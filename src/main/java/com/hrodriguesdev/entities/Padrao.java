@@ -1,41 +1,64 @@
 package com.hrodriguesdev.entities;
 
 public class Padrao {
-	private String ns;
-	private String modelo;
+	private String identificacao;
+	private String instrumento;
+	private String tipo;
 	private String certificado;
 	private String validade;
 	private String rastreabilidade;
 	
-	public String getNs() {
-		return ns;
+	public Padrao(String[] fileInformation) {
+		if(fileInformation != null ) 
+			for(String info: fileInformation) {
+				String descricao = info.split("=")[0];
+				String informacao = info.split("=")[1];
+				switch (descricao.toString()) {
+				case "Identificacao":
+					this.identificacao = informacao;
+					break;
+				case "Instrumento":
+					this.instrumento = informacao;
+					break;
+				case "Tipo":
+					this.tipo = informacao;
+					break;
+				case "Validade":
+					this.validade = informacao;
+					break;
+				case "Rastreabilidade":
+					this.rastreabilidade = informacao;
+					break;
+				default:
+					break;
+				}
+			}
 	}
-	public void setNs(String ns) {
-		this.ns = ns;
+	
+	
+	public String getIdentificacao() {
+		return identificacao;
 	}
-	public String getModelo() {
-		return modelo;
+
+	public String getInstrumento() {
+		return instrumento;
 	}
-	public void setModelo(String modelo) {
-		this.modelo = modelo;
+
+	public String getTipo() {
+		return tipo;
 	}
-	public String getCertificado() {
-		return certificado;
-	}
-	public void setCertificado(String certificado) {
-		this.certificado = certificado;
-	}
+
 	public String getValidade() {
 		return validade;
 	}
-	public void setValidade(String validade) {
-		this.validade = validade;
-	}
+
 	public String getRastreabilidade() {
 		return rastreabilidade;
 	}
-	public void setRastreabilidade(String rastreabilidade) {
-		this.rastreabilidade = rastreabilidade;
+
+
+	public String getCertificado() {
+		return certificado;
 	}
 		
 }

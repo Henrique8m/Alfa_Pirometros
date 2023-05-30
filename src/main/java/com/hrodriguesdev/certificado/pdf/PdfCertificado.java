@@ -6,6 +6,7 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 
 import com.hrodriguesdev.AlfaPirometrosApplication;
+import com.hrodriguesdev.entities.CalibracaoEnsaio;
 import com.hrodriguesdev.entities.Certificado;
 import com.hrodriguesdev.entities.DescricaoInstrumento;
 import com.hrodriguesdev.entities.Empresa;
@@ -52,64 +53,68 @@ public class PdfCertificado {
 	
 	
 //	Falta range + resoluçao
-	public void generatedCertificado(Equipamento equipamento, Certificado certificado, Empresa empresa, DescricaoInstrumento descricao, Padrao padrao) {
+	public boolean generatedCertificado(Equipamento equipamento, Certificado certificado, Empresa empresa, DescricaoInstrumento descricao, Padrao padrao, CalibracaoEnsaio calEnsaio) {
 		
 			
 //		Font negritoPequena = new Font(Font. ,10, Font.BOLD);
 		
 		
-		
+//		Informacoes sobre o cliente
 		String cliente = empresa.getName();
 		String endereco = empresa.getEndereco();
 		String cidade = empresa.getCidade() + "/" + empresa.getEstado();
 		String cep = empresa.getCep();
-		
-		String instrumento = "Indicador Digital Portátil de Temperatura em Metal Líquido";
-		String modelo = equipamento.getModelo() + " " + descricao.getRange();
-		String fabricante = equipamento.getFabricante();
-		String pat;
-		if(equipamento.getPat().isBlank())
-			pat = "*********";
-		else 
+				
+//		Descricao do instrumento
+		String instrumento =descricao.getInstrumento();
+		String modelo = descricao.getModelo();
+		String fabricante = descricao.getFabricante();			
+				
+		String pat = "*********";
+		if(!equipamento.getPat().isBlank())
 			pat = equipamento.getPat();
-		String nSerie;
-		if(equipamento.getNs().isBlank())
-			nSerie = "**********";
-		else 
+		
+		String nSerie = "**********";
+		
+		if(!equipamento.getNs().isBlank())
 			nSerie = equipamento.getNs();
 		
 		String resolucao = descricao.getResolucao();
-		String unidade = descricao.getUnidade();
-		String unidadeGrandesa = descricao.getUnidadeGrandesa();
-		String fem = descricao.getFem();
 		
+//		Resultados Calibracao
+		String medida = descricao.getMedida();
+		String unidadeGrandesa = descricao.getUnidade();
+		String fem = descricao.getFem();		
 		
-		String valor1 = "1200";
-		String valor2 = "1600";
+		String valor1 = calEnsaio.getValor1();
+		String valor2 = calEnsaio.getValor2();
 		
-		String fem1 = "11,951";
-		String fem2 = "16,777";
+		String fem1 = calEnsaio.getFem1();
+		String fem2 = calEnsaio.getFem2();
 		
-		String em1 = "0";
-		String em2 = "0";
+		String em1 = calEnsaio.getEm1();
+		String em2 = calEnsaio.getEm2();
 		
-		String desvio1 = "0";
-		String desvio2 = "0";
+		String desvio1 = calEnsaio.getDesvio1();
+		String desvio2 = calEnsaio.getDesvio2();
 		
-		String em1graus = "0";
-		String em2graus = "0";
+		String emIndicada1 = calEnsaio.getEmIndicada1();
+		String emIndicada2 = calEnsaio.getEmIndicada2();
 		
-		String ism1 = "0,100";
-		String ism2 = "0,100";
+		String ism1 = calEnsaio.getIsm1();
+		String ism2 = calEnsaio.getIsm2();
 		
-		String fatorK = "1,65";
+		String fatorK = calEnsaio.getFatorK();
 		
-		String nsPadrao = padrao.getNs();
-		String modeloPadrao = padrao.getModelo();
+//		RASTREABILIDADE DO PADRAO UTILIZADO
+		String nsPadrao = padrao.getIdentificacao();
+		String modeloPadrao = padrao.getInstrumento();
 		String certificadoPadra = padrao.getCertificado();
 		String validadePadra = padrao.getValidade();
 		String rastreabilidadePadrao = padrao.getRastreabilidade();
 		
+		
+//		Data de calibracao
 		SimpleDateFormat dayString = new SimpleDateFormat("dd");
 		SimpleDateFormat yearString = new SimpleDateFormat("yyyy");
 		
@@ -117,17 +122,18 @@ public class PdfCertificado {
 		String year = yearString.format(certificado.getDate_cal());
 		
 		@SuppressWarnings("deprecation")
-		String month = Format.getMonthString(certificado.getDate_cal().getMonth());		
-		
-		String certifNumero = String.valueOf( certificado.getNumero() );
+		String month = Format.getMonthString(certificado.getDate_cal().getMonth());	
 		
 //		operador ternário
 //		Condiçao antes do ? se verdadeiro retorna aqui : se false retorna aqui
 //		(corpo) -> { metodo }
-		
-		certifNumero = certifNumero.length() == 4 ? certifNumero :  "0" + certifNumero;
-		
-		String certificadoN = "";
+				
+//		Numero do certificado total de 4 casas decimais, se faltar o for coloca
+		String certifNumero = String.valueOf( certificado.getNumero() );
+		int size = certifNumero.length();
+		for(; size >= 4; size++) 
+			certifNumero = certifNumero.length() == 4 ? certifNumero : "0" +certifNumero;	
+		String certificadoN = certifNumero + "/" + year;
 		
 		
 		try {	
@@ -136,18 +142,21 @@ public class PdfCertificado {
 //	        documento.setMargins(1, 1, 1, 1);
 	        
 			// Faz o apontamento para o arquivo de destino
-			File diretorio = new File(AlfaPirometrosApplication.areaDeTrabalho + "\\Certificados_YggDrasil");
+			File diretorio = new File(AlfaPirometrosApplication.CERTIFICADO_CAMINHO);
 			diretorio.mkdir();
+			
 			PdfWriter.getInstance(documento, new FileOutputStream(
-					"C:/Users/henri/Desktop/Relatorios/ " 
-			+ certificado.getNumero() 
-			+ " - " 
-			+ empresa.getName()
-			+ " - " 
-			+ equipamento.getNs() 
-			+ " "
-			+ equipamento.getPat() 
-			+ ".pdf"));
+			
+					AlfaPirometrosApplication.CERTIFICADO_CAMINHO
+							+ "/"
+							+ certifNumero
+							+ " - " 
+							+ empresa.getName().split(" ")[0]
+							+ " - " 
+							+ equipamento.getNs().replaceAll("/", "-") 
+							+ " "
+							+ equipamento.getPat().replaceAll("/", "-") 
+							+ ".pdf"));
 			
 			// Realiza a abertura do arquivo para escrita
 			documento.open();
@@ -393,7 +402,7 @@ public class PdfCertificado {
 			calibracao.setSpacingBefore(10);
 			
 //			Primeira linha
-			calibracao.addCell(addCellCentralizada(new Paragraph(unidade,  times_Negrito_ITALICO_10))).setBorderColor(BaseColor.BLACK);
+			calibracao.addCell(addCellCentralizada(new Paragraph(medida,  times_Negrito_ITALICO_10))).setBorderColor(BaseColor.BLACK);
 			calibracao.addCell(addCellCentralizada(new Paragraph("F.E.M.",  times_Negrito_ITALICO_10))).setBorderColor(BaseColor.BLACK);
 			calibracao.addCell(addCellCentralizada(new Paragraph("E.M",  times_Negrito_ITALICO_10))).setBorderColor(BaseColor.BLACK);
 			calibracao.addCell(addCellCentralizada(new Paragraph("σ",  times_Negrito_ITALICO_10))).setBorderColor(BaseColor.BLACK);
@@ -415,7 +424,7 @@ public class PdfCertificado {
 			calibracao.addCell(addCellCentralizadaFechada(new Paragraph(fem1,  TIMES_10))).setBorderColor(BaseColor.BLACK);
 			calibracao.addCell(addCellCentralizadaFechada(new Paragraph(em1,  TIMES_10))).setBorderColor(BaseColor.BLACK);
 			calibracao.addCell(addCellCentralizadaFechada(new Paragraph(desvio1,  TIMES_10))).setBorderColor(BaseColor.BLACK);
-			calibracao.addCell(addCellCentralizadaFechada(new Paragraph(em1graus, TIMES_10))).setBorderColor(BaseColor.BLACK);
+			calibracao.addCell(addCellCentralizadaFechada(new Paragraph(emIndicada1, TIMES_10))).setBorderColor(BaseColor.BLACK);
 			calibracao.addCell(addCellCentralizadaFechada(new Paragraph(ism1,  TIMES_10))).setBorderColor(BaseColor.BLACK);
 			calibracao.addCell(addCellCentralizadaFechada(new Paragraph(fatorK,  TIMES_10))).setBorderColor(BaseColor.BLACK);
 			
@@ -424,7 +433,7 @@ public class PdfCertificado {
 			calibracao.addCell(addCellCentralizadaFechada(new Paragraph(fem2,  TIMES_10))).setBorderColor(BaseColor.BLACK);
 			calibracao.addCell(addCellCentralizadaFechada(new Paragraph(em2,  TIMES_10))).setBorderColor(BaseColor.BLACK);
 			calibracao.addCell(addCellCentralizadaFechada(new Paragraph(desvio2,  TIMES_10))).setBorderColor(BaseColor.BLACK);
-			calibracao.addCell(addCellCentralizadaFechada(new Paragraph(em2graus, TIMES_10))).setBorderColor(BaseColor.BLACK);
+			calibracao.addCell(addCellCentralizadaFechada(new Paragraph(emIndicada2, TIMES_10))).setBorderColor(BaseColor.BLACK);
 			calibracao.addCell(addCellCentralizadaFechada(new Paragraph(ism2,  TIMES_10))).setBorderColor(BaseColor.BLACK);
 			calibracao.addCell(addCellCentralizadaFechada(new Paragraph(fatorK,  TIMES_10))).setBorderColor(BaseColor.BLACK);
 //						 		
@@ -577,7 +586,9 @@ public class PdfCertificado {
 			documento.close();
 		} catch (Exception e) {
 			e.printStackTrace();
+			return false;
 		}
+		return true;
 	}
 	
 	private static PdfPTable getTable(int columns, long percentage, float totalWidth, float[] widths) {

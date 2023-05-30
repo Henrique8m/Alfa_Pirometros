@@ -6,8 +6,8 @@ import com.hrodriguesdev.service.EnsaiosService;
 public class EnsaiosController {
 	private EnsaiosService service = new EnsaiosService();
 	
-	public Ensaios getEnsaio(Long idOrcamento) {
-		return service.getEnsaio(idOrcamento);
+	public Ensaios findByOrcamentoId(Long idOrcamento) {
+		return service.findByOrcamentoId(idOrcamento);
 	}
 	
 	public long saveEnsaio(Ensaios ensaio) {
@@ -20,5 +20,9 @@ public class EnsaiosController {
 
 	public boolean updatedeEnsaio(Ensaios ensaio) {
 		return service.updatedeEnsaio(ensaio);
+	}
+
+	public Ensaios findById(Long id) {
+		return service.findById(id);
 	}
 }

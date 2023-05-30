@@ -1,4 +1,4 @@
-package com.hrodriguesdev.gui.resources.files;
+package com.hrodriguesdev.resources.file;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

@@ -1,42 +1,87 @@
 package com.hrodriguesdev.entities;
 
+/*
+ * A descricao esta conforme o certificado que usamos de padrao
+ * onde a fem - é o sinal aplicado na entrado do equipamento
+ * e unidade sera o sinal indicado no visor do aparelho
+ * a medida é a escala ao qual o sinal é indicado no visor
+*/
 public class DescricaoInstrumento {
-	private String range;
-	private String resolucao;
-	private String unidade;
-	private String unidadeGrandesa;
-	private String fem;
+	private String modelo = "Modelo";
+	private String instrumento = "Instrumento";
+	private String fabricante = "Fabricante";
+	private String resolucao = "Resolucao";
+	private String fem = "FEM";
+	private String unidade = "Unidade";
+	private String medida = "TEMPERATURA";
 	
+	/*
+	 * O nome do sensor, sera o nome da tabela qual esta informacao de forca eletro
+	 * motris e unidade;
+	 */	
+	private String sensor = "TermoparS";
 	
-	public String getRange() {
-		return range;
+	public DescricaoInstrumento(String[] fileModelo) {
+		if(fileModelo != null ) 
+			for(String info: fileModelo) {
+				String descricao = info.split("=")[0];
+				String informacao = info.split("=")[1];
+				switch (descricao.toString()) {
+				case "Modelo":
+					this.modelo = informacao;
+					break;
+				case "Instrumento":
+					this.instrumento = informacao;
+					break;
+				case "Fabricante":
+					this.fabricante = informacao;
+					break;
+				case "Resolucao":
+					this.resolucao = informacao;
+					break;
+				case "FEM":
+					this.fem = informacao;
+					break;
+				case "Unidade":
+					this.unidade = informacao;
+					break;
+				case "Medida":
+					this.medida = informacao;
+					break;
+				case "Sensor":
+					this.sensor = informacao;
+				default:
+					break;
+				}
+			}
 	}
-	public void setRange(String range) {
-		this.range = range;
+	
+	public String getModelo() {
+		return modelo;
+	}
+	public String getInstrumento() {
+		return instrumento;
+	}
+	public String getFabricante() {
+		return fabricante;
 	}
 	public String getResolucao() {
 		return resolucao;
 	}
-	public void setResolucao(String resolucao) {
-		this.resolucao = resolucao;
+	public String getFem() {
+		return fem;
 	}
 	public String getUnidade() {
 		return unidade;
 	}
-	public void setUnidade(String unidade) {
-		this.unidade = unidade;
+
+	public String getMedida() {
+		return medida;
 	}
-	public String getUnidadeGrandesa() {
-		return unidadeGrandesa;
+
+	public String getSensor() {
+		return sensor;
 	}
-	public void setUnidadeGrandesa(String unidadeGrandesa) {
-		this.unidadeGrandesa = unidadeGrandesa;
-	}
-	public String getFem() {
-		return fem;
-	}
-	public void setFem(String fem) {
-		this.fem = fem;
-	}
+	
 
 }

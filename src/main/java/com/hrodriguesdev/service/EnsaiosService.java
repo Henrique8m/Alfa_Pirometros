@@ -6,8 +6,8 @@ import com.hrodriguesdev.entities.Ensaios;
 public class EnsaiosService {
 	private EnsaioRepository repository = new EnsaioRepository();
 	
-	public Ensaios getEnsaio(Long idOrcamento) {
-		return repository.getEnsaio(idOrcamento);
+	public Ensaios findByOrcamentoId(Long idOrcamento) {
+		return repository.findByOrcamentoId(idOrcamento);
 	}
 	
 	public long saveEnsaio(Ensaios ensaio) {
@@ -20,6 +20,10 @@ public class EnsaiosService {
 
 	public boolean updatedeEnsaio(Ensaios ensaio) {
 		return repository.updatedeEnsaio(ensaio);
+	}
+
+	public Ensaios findById(Long id) {		
+		return repository.findById(id);
 	}
 	
 	

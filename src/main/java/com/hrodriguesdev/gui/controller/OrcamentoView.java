@@ -382,7 +382,7 @@ public class OrcamentoView extends EnsaioViewController implements Initializable
 	
 	@FXML
 	private void relatorio(ActionEvent event) {
-		Ensaios ensaios = ensaioController.getEnsaio(orcamento.getId());
+		Ensaios ensaios = ensaioController.findByOrcamentoId(orcamento.getId());
 		pdf.printRelatorioPdf(equipamento, ensaios, orcamento, obs.getText());
 		
 	}

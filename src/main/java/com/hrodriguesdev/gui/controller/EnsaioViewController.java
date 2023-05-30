@@ -11,7 +11,7 @@ import com.hrodriguesdev.controller.EnsaiosController;
 import com.hrodriguesdev.entities.Ensaios;
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.entities.Orcamento;
-import com.hrodriguesdev.gui.resources.files.ReadFiles;
+import com.hrodriguesdev.resources.file.ReadFiles;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -60,7 +60,7 @@ public class EnsaioViewController implements Initializable{
 
 	protected void ensaioGet() {
 		if(controller.isExistByOrcamentoId(orcamento.getId()) ) {
-			Ensaios ensaio = controller.getEnsaio(orcamento.getId());
+			Ensaios ensaio = controller.findByOrcamentoId(orcamento.getId());
 			try {
 				writeValues(ensaio);
 			}catch(NullPointerException e) {
@@ -99,7 +99,7 @@ public class EnsaioViewController implements Initializable{
 		logger.info("id orcamento" + orcamento.getId() );
 		
 		if(controller.isExistByOrcamentoId(orcamento.getId()) ) {
-			ensaio.setId( controller.getEnsaio(orcamento.getId()).getId());
+			ensaio.setId( controller.findByOrcamentoId(orcamento.getId()).getId());
 			boolean atualizacaoEnsaio = controller.updatedeEnsaio(ensaio);
 			
 			logger.error("Atualização de ensaio bem sucedida? " + atualizacaoEnsaio);

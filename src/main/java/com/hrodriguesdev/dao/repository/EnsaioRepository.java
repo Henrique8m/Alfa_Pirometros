@@ -17,32 +17,14 @@ public class EnsaioRepository {
 	private ResultSet rs = null;
 	private PreparedStatement pst = null;
 	
-	public Ensaios getEnsaio(Long idOrcamento) {
-		Ensaios ensaio = null;
-		try {
-			conn = DB.getConnection();
-			st = conn.createStatement();
-			rs = st.executeQuery("SELECT * FROM alfaestoque.tb_ensaio;");
-			
-			while(rs.next())
-				if(rs.getLong("orcamento_id") == idOrcamento) 
-					ensaio = new Ensaios(rs);
-				
-					
-			
-		}catch(SQLException e){
-			e.printStackTrace();
-		}
-		finally {
-			DB.closeResultSet(rs);
-			DB.closeStatement(st);
-			
-			conn = null;
-			st = null;
-			rs = null;
-		}
-		return ensaio;
+	public Ensaios findByOrcamentoId(Long idOrcamento) {
+		return find("orcamento_id", idOrcamento, "SELECT * FROM alfaestoque.tb_ensaio;");
+	}	
+
+	public Ensaios findById(Long id) {
+		return find("id", id, "SELECT * FROM alfaestoque.tb_ensaio;");
 	}
+	
 	
 	public long saveEnsaio(Ensaios ensaio) {
 		long id = 0;
@@ -129,24 +111,50 @@ public class EnsaioRepository {
 	
 	public boolean isExistByOrcamentoId(Long id) {
 		try {
-			conn = DB.getConnection();
-			st = conn.createStatement();
-			rs = st.executeQuery("SELECT * FROM alfaestoque.tb_ensaio;");
-			
+			rs = getResultSet("SELECT * FROM alfaestoque.tb_ensaio;");			
 			while(rs.next())
 				if(rs.getLong("orcamento_id")==id)
 					return true;
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
+		return false;		
+	}
+	
+
+	private Ensaios find(String campoNomeCompare, Long numeroCompare, String query) {
+		Ensaios ensaio = null;
+		ResultSet rs = getResultSet(query);		
+		try {
+			while(rs.next())
+				if(rs.getLong(campoNomeCompare) == numeroCompare) 
+					ensaio = new Ensaios(rs);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}				
+				
+		return ensaio;
+	}
+	
+	
+	private ResultSet getResultSet(String query) {
+		ResultSet rs = null;
+		try {
+			conn = DB.getConnection();
+			st = conn.createStatement();
+			rs = st.executeQuery(query);
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
 		finally {
 			DB.closeResultSet(rs);
 			DB.closeStatement(st);
-			DB.closeConnection();
+			
+			conn = null;
+			st = null;
+			rs = null;
 		}
-		return false;
-		
-		
+		return rs;			
 	}
 
 }
