@@ -4,8 +4,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.hrodriguesdev.controller.EnsaiosController;
 import com.hrodriguesdev.dao.repository.ItensRepositoryFind;
 import com.hrodriguesdev.dao.repository.OrcamentoRepository;
+import com.hrodriguesdev.entities.Ensaios;
 import com.hrodriguesdev.entities.EstoqueConsumo;
 import com.hrodriguesdev.entities.Orcamento;
 
@@ -15,6 +17,7 @@ import javafx.collections.ObservableList;
 public class OrcamentoService {
 	private OrcamentoRepository repository = new OrcamentoRepository();
 	private ItensRepositoryFind itensFind = new ItensRepositoryFind();	
+	private EnsaiosController ensaioController = new EnsaiosController();
 
 	public Long addOrcamento(Orcamento orcamento) {
 		
@@ -152,6 +155,21 @@ public class OrcamentoService {
 	
 	public boolean updatedeStatusRelatorio(Long id, int status, Orcamento orcamento) {
 		return repository.updatedeStatusRelatorio(id, status, orcamento);
+	}
+
+	public ObservableList<Orcamento> findAllNoCertificado(Long id) {
+		ObservableList<Orcamento> obs = FXCollections.observableArrayList();
+		ObservableList<Orcamento> obs2 = FXCollections.observableArrayList();
+		obs.addAll(repository.findAllIdEquipamento(id));
+		
+		
+		for(Orcamento orc: obs) {
+			Ensaios ensaios = ensaioController.findByOrcamentoId(orc.getId());
+			if(ensaios==null)
+				obs2.add(orc);
+		}
+		
+		return obs2;
 	}
 
 

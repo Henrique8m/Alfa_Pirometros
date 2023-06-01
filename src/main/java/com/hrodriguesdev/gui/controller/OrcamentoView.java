@@ -12,6 +12,7 @@ import com.hrodriguesdev.entities.Ensaios;
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.entities.Orcamento;
 import com.hrodriguesdev.gui.alert.Alerts;
+import com.hrodriguesdev.gui.controller.view.insert.CertificadoInsert;
 import com.hrodriguesdev.gui.controller.view.main.MainViewController;
 import com.hrodriguesdev.relatorio.RelatorioGeneratorPDF;
 import com.hrodriguesdev.utilitary.Format;
@@ -29,6 +30,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
+
+/*
+ * chamado na main view em OrcamentoMainView linha 120 e 39
+ * 
+*/
 
 public class OrcamentoView extends EnsaioViewController implements Initializable {
 	
@@ -242,7 +248,11 @@ public class OrcamentoView extends EnsaioViewController implements Initializable
 	
 	@FXML
 	protected void liberado(ActionEvent e) {
-		
+		if(!gerarCertificado()) {
+			NewView.fecharView();
+			Alerts.showAlert("Erro", "Falha ao gerar certificado", "", AlertType.ERROR);
+			return;
+		}
 //		Manutenção executada, baixa no estoque	
 		if(!itens.setSaida(orcamento.getId()) ) {
 			NewView.fecharView();
@@ -304,6 +314,12 @@ public class OrcamentoView extends EnsaioViewController implements Initializable
 	
 	@FXML
 	private void manutencaoArea(ActionEvent e) {
+		if(!gerarCertificado()) {
+			NewView.fecharView();
+			Alerts.showAlert("Erro", "Falha ao gerar certificado", "", AlertType.ERROR);
+			return;
+		}
+		
 		if(!itens.setSaida(orcamento.getId()) ) {
 			NewView.fecharView();
 			Alerts.showAlert("Erro", "Falha ao dar saida no banco de dados", "Ocorreu uma falha ao atualizar o orcamento", AlertType.ERROR);
@@ -316,8 +332,8 @@ public class OrcamentoView extends EnsaioViewController implements Initializable
 		manutencaoArea.setVisible(false);
 		
 	}
-	
-//	Botao aprovado
+
+	//	Botao aprovado
 	@FXML
 	private void aguardandoReparo(ActionEvent e) {
 		switch(orcamento.getStatus()) {
@@ -350,7 +366,11 @@ public class OrcamentoView extends EnsaioViewController implements Initializable
 	
 	@FXML
 	private void liberadoSemOrcamento(ActionEvent e) {
-		
+		if(!gerarCertificado()) {
+			NewView.fecharView();
+			Alerts.showAlert("Erro", "Falha ao gerar certificado", "", AlertType.ERROR);
+			return;
+		}
 		if(!itens.setSaida(orcamento.getId()) ) {
 			NewView.fecharView();
 			Alerts.showAlert("Erro", "Falha ao dar saida no banco de dados", "Ocorreu uma falha ao atualizar o orcamento", AlertType.ERROR);
@@ -386,6 +406,9 @@ public class OrcamentoView extends EnsaioViewController implements Initializable
 		pdf.printRelatorioPdf(equipamento, ensaios, orcamento, obs.getText());
 		
 	}
-
 	
+	private boolean gerarCertificado() {
+		NewView.getNewView("Novo certificado", "certificadoInsert", new CertificadoInsert(equipamento, getEnsaio() ));
+		return true;
+	}	
 }

@@ -9,7 +9,6 @@ import java.sql.Statement;
 import com.hrodriguesdev.dao.db.DB;
 import com.hrodriguesdev.dao.db.DbException;
 import com.hrodriguesdev.entities.Ensaios;
-import com.hrodriguesdev.gui.controller.EnsaioViewController;
 
 public class EnsaioRepository {
 	private Connection conn = null;
@@ -50,8 +49,8 @@ public class EnsaioRepository {
 				while(rs.next())
 					return rs.getLong(1);
 			}
-			else 
-				EnsaioViewController.logger.error("No rown affected");
+			
+//				EnsaioViewController.logger.error("No rown affected");
 			
 		}catch(SQLException e) {
 			System.out.println(e.getMessage());	
@@ -118,43 +117,42 @@ public class EnsaioRepository {
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
+		finally {
+			DB.closeResultSet(rs);
+			DB.closeStatement(st);
+		}
 		return false;		
 	}
 	
 
 	private Ensaios find(String campoNomeCompare, Long numeroCompare, String query) {
 		Ensaios ensaio = null;
-		ResultSet rs = getResultSet(query);		
+		rs = getResultSet(query);		
 		try {
 			while(rs.next())
 				if(rs.getLong(campoNomeCompare) == numeroCompare) 
 					ensaio = new Ensaios(rs);
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}				
+		}		
+		finally {
+			DB.closeResultSet(rs);
+			DB.closeStatement(st);
+		}
 				
 		return ensaio;
 	}
 	
 	
 	private ResultSet getResultSet(String query) {
-		ResultSet rs = null;
 		try {
 			conn = DB.getConnection();
 			st = conn.createStatement();
-			rs = st.executeQuery(query);
+			return st.executeQuery(query);
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
-		finally {
-			DB.closeResultSet(rs);
-			DB.closeStatement(st);
-			
-			conn = null;
-			st = null;
-			rs = null;
-		}
-		return rs;			
+		return null;			
 	}
 
 }

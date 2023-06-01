@@ -9,7 +9,15 @@ public class Certificado {
 	private Long equipamento_id;
 	private Date date_cal;
 	private int numero;
-	private Long ensaio_id;
+	private Long ensaio_id = 0l;
+	
+	public Certificado(Long equipamento_id, Date date_cal, int numero, Long ensaio_id) {
+		super();
+		this.equipamento_id = equipamento_id;
+		this.date_cal = date_cal;
+		this.numero = numero;
+		this.ensaio_id = ensaio_id;
+	}
 	
 	public Certificado(Long equipamento_id, Date date_cal, int numero) {
 		super();

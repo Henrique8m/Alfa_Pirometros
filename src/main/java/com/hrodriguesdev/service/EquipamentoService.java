@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import com.hrodriguesdev.ExceptionAlfa;
+import com.hrodriguesdev.dao.db.DbException;
 import com.hrodriguesdev.dao.repository.EquipamentoRepository;
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.entities.Orcamento;
@@ -185,7 +187,7 @@ public class EquipamentoService {
 		return equipamentoList;
 	}
 
-	public Equipamento findById(Long id) {
+	public Equipamento findById(Long id) throws ExceptionAlfa , DbException{
 		return repository.findById(id);
 	}
 

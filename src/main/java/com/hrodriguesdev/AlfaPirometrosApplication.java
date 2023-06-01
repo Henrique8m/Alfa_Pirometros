@@ -1,5 +1,7 @@
 package com.hrodriguesdev;
 
+import java.io.IOException;
+
 import com.hrodriguesdev.gui.controller.LoadViewController;
 import com.hrodriguesdev.gui.controller.view.main.PaginaBuscaController;
 import com.hrodriguesdev.utilitary.NewView;
@@ -69,7 +71,7 @@ public class AlfaPirometrosApplication extends Application{
 
 	//Carregando a view de Load
 	@Override
-	public void start(Stage arg0) throws Exception {
+	public void start(Stage arg0) throws ExceptionAlfa, IOException{
 
 		loadImage(nameImageViewStarting);
 		Pane pane = (Pane) NewView.loadFXML("loadView", new LoadViewController());

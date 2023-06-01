@@ -606,7 +606,7 @@
                                     <Insets />
                                  </opaqueInsets>
                               </VBox>
-                              <SplitPane dividerPositions="0.21671525753158405" focusTraversable="false" minWidth="500.0" orientation="VERTICAL" prefHeight="1031.0" prefWidth="687.0">
+                              <SplitPane dividerPositions="0.21671525753158405, 0.7687074829931972" focusTraversable="false" minWidth="500.0" orientation="VERTICAL" prefHeight="1031.0" prefWidth="687.0">
                                  <items>
                                     <AnchorPane maxHeight="220.0" minHeight="220.0">
                                        <children>
@@ -693,14 +693,87 @@
                                     </AnchorPane>
                                     <AnchorPane minHeight="300.0" prefHeight="831.0" style="-fx-background-color: #e1e1e1; -fx-background-radius: 15;">
                                        <children>
-                                          <TableView fx:id="tableCertificado" onKeyPressed="#delete" style="-fx-background-radius: 10;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                            <columns>
-                                              <TableColumn fx:id="dataCalibracao" prefWidth="178.0" text="DATA DA CALIBRAÇÂO" />
-                                              <TableColumn fx:id="numeroCertificado" minWidth="0.0" prefWidth="194.0" text="NUMERO DO CERTIFICADO" />
-                                            </columns>
-                                          </TableView>
+                                          <HBox prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <children>
+                                                <TableView fx:id="tableCertificado" onKeyPressed="#delete" onMouseClicked="#mouseClick" prefHeight="562.0" prefWidth="386.0" style="-fx-background-radius: 10;">
+                                                  <columns>
+                                                    <TableColumn fx:id="dataCalibracao" prefWidth="159.0" text="DATA DA CALIBRAÇÂO" />
+                                                    <TableColumn fx:id="numeroCertificado" minWidth="0.0" prefWidth="184.0" text="NUMERO DO CERTIFICADO" />
+                                                  </columns>
+                                                </TableView>
+                                                <VBox alignment="TOP_CENTER" prefHeight="562.0" prefWidth="341.0">
+                                                   <children>
+                                                      <Button mnemonicParsing="false" onAction="#relacionarCertificado" prefHeight="42.0" prefWidth="181.0" style="-fx-background-radius: 10;" text="Relacionar C/Ensaio">
+                                                         <VBox.margin>
+                                                            <Insets bottom="20.0" />
+                                                         </VBox.margin>
+                                                      </Button>
+                                                      <Button mnemonicParsing="false" onAction="#printCertificado" prefHeight="42.0" prefWidth="181.0" style="-fx-background-radius: 10;" text="Print Certificado">
+                                                         <VBox.margin>
+                                                            <Insets bottom="20.0" />
+                                                         </VBox.margin>
+                                                      </Button>
+                                                      <TextArea fx:id="certificadoText" prefHeight="200.0" prefWidth="200.0" wrapText="true">
+                                                         <VBox.margin>
+                                                            <Insets bottom="20.0" />
+                                                         </VBox.margin>
+                                                      </TextArea>
+                                                   </children>
+                                                   <HBox.margin>
+                                                      <Insets left="20.0" right="20.0" top="20.0" />
+                                                   </HBox.margin>
+                                                </VBox>
+                                             </children>
+                                          </HBox>
                                        </children>
                                     </AnchorPane>
+                                    <GridPane alignment="CENTER" gridLinesVisible="true" prefHeight="338.0" prefWidth="685.0">
+                                       <columnConstraints>
+                                          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="159.0" minWidth="10.0" prefWidth="159.0" />
+                                          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="133.0" minWidth="10.0" prefWidth="122.0" />
+                                          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="25.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="25.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="25.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="25.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Referencia" wrappingWidth="57.27734375" />
+                                          <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
+                                             <children>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="1º Valor" />
+                                                <TextField fx:id="refeVal1" alignment="CENTER" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="25.0" prefWidth="100.0" />
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="2">
+                                             <children>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="2º Valor" />
+                                                <TextField fx:id="refeVal2" alignment="CENTER" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="25.0" prefWidth="100.0" />
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="3">
+                                             <children>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="3º Valor" />
+                                                <TextField fx:id="refeVal3" alignment="CENTER" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="25.0" prefWidth="100.0" />
+                                             </children>
+                                          </HBox>
+                                          <TextField fx:id="aplicado1" alignment="CENTER" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="25.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                          <TextField fx:id="aplicado2" alignment="CENTER" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="25.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                          <TextField fx:id="aplicado3" alignment="CENTER" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="25.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                          <TextField fx:id="sinalCalibr11" alignment="CENTER" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="25.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                          <TextField fx:id="sinalCalibr12" alignment="CENTER" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="25.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                                          <TextField fx:id="sinalCalibr13" alignment="CENTER" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="25.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                                          <TextField fx:id="sinalCalibr21" alignment="CENTER" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="25.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                                          <TextField fx:id="sinalCalibr22" alignment="CENTER" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="25.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                                          <TextField fx:id="sinalCalibr23" alignment="CENTER" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="25.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="1º Sinal Aplicado" GridPane.columnIndex="1" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="1º Sinal Calibração" GridPane.columnIndex="2" />
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="2º Sinal Calibração" GridPane.columnIndex="3" />
+                                       </children>
+                                    </GridPane>
                                  </items>
                               </SplitPane>
                            </children>

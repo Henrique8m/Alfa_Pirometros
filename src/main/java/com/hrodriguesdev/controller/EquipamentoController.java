@@ -3,6 +3,7 @@ package com.hrodriguesdev.controller;
 import java.sql.SQLException;
 import java.util.List;
 
+import com.hrodriguesdev.ExceptionAlfa;
 import com.hrodriguesdev.dao.db.DbException;
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.entities.Orcamento;
@@ -37,7 +38,7 @@ public class EquipamentoController {
 		return equipamentoService.findByIdOrcamento(orcamento);
 	}
 	
-	public Equipamento findById(Long id) {
+	public Equipamento findById(Long id) throws ExceptionAlfa , DbException{
 		return equipamentoService.findById(id);
 	}
 	

@@ -23,9 +23,15 @@ public class NewView {
 
 	
 	public static synchronized <T> Object loadFXML(String fxml, Object controller) throws IOException {
-		FXMLLoader fxmlLoader = new FXMLLoader(AlfaPirometrosApplication.class.getResource("gui/resources/" + fxml + ".fxml"));
-		fxmlLoader.setController(controller);
-		return fxmlLoader.load();
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(AlfaPirometrosApplication.class.getResource("gui/resources/" + fxml + ".fxml"));
+			fxmlLoader.setController(controller);
+			return fxmlLoader.load();			
+		}catch(IllegalStateException e) {
+			FXMLLoader fxmlLoader = new FXMLLoader(AlfaPirometrosApplication.class.getResource("gui/fxml/" + fxml + ".fxml"));
+			fxmlLoader.setController(controller);
+			return fxmlLoader.load();	
+		}
 	}
 	
 	public static synchronized <T> Object loadMainView(String fxml, Object controller) throws IOException {

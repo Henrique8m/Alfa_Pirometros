@@ -13,9 +13,10 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="329.0" prefWidth="600.0" style="-fx-background-color: #ffff;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="496.0" prefWidth="600.0" style="-fx-background-color: #ffff;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <GridPane alignment="CENTER" gridLinesVisible="true" layoutX="20.0" layoutY="39.0" prefHeight="225.0" prefWidth="561.0">
         <columnConstraints>
@@ -64,7 +65,7 @@
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="2º Sinal Calibração" GridPane.columnIndex="3" />
          </children>
       </GridPane>
-      <ToolBar layoutX="2.0" layoutY="275.0" prefHeight="56.0" prefWidth="600.0">
+      <ToolBar layoutX="1.0" layoutY="439.0" prefHeight="56.0" prefWidth="600.0">
         <items>
           <Button mnemonicParsing="false" onAction="#salvar" prefHeight="34.0" prefWidth="92.0" style="-fx-background-radius: 10;" text="Salvar">
                <graphic>
@@ -88,10 +89,120 @@
         <menus>
           <Menu mnemonicParsing="false" text="Edit">
             <items>
-              <MenuItem mnemonicParsing="false" onAction="#salvarReferencia" text="Salvar Referencia" />
+              <MenuItem fx:id="salvarReferencia" mnemonicParsing="false" onAction="#salvarReferencia" text="Salvar Referencia" visible="false" />
+                  <MenuItem fx:id="infoEquip" mnemonicParsing="false" onAction="#infoEquip" text="Informacao do equipamento" />
+                  <MenuItem mnemonicParsing="false" onAction="#autoCompletar" text="Auto Completed" />
             </items>
           </Menu>
         </menus>
       </MenuBar>
+      <VBox fx:id="VBoxInfo" layoutX="14.0" layoutY="264.0" prefHeight="175.0" prefWidth="574.0" visible="false">
+         <children>
+            <HBox alignment="CENTER_LEFT" prefHeight="42.0" prefWidth="574.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Instrumento" />
+                  <TextField fx:id="Instrumento" prefHeight="25.0" prefWidth="496.0" promptText="Indicador Digital Portátil de Temperatura em Metal Líquido">
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </TextField>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="42.0" prefWidth="574.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Modelo" />
+                  <TextField fx:id="Modelo" prefHeight="25.0" prefWidth="496.0" promptText="Fornero II - “S” (Range 800°C a 1760°C) – ITS 90">
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </TextField>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="42.0" prefWidth="574.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Fabricante" />
+                  <TextField fx:id="Fabricante" prefHeight="25.0" prefWidth="77.0" promptText="Italterm">
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </TextField>
+                  <HBox alignment="CENTER_LEFT" prefHeight="42.0" prefWidth="158.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Resolucao" />
+                        <TextField fx:id="Resolucao" prefHeight="25.0" prefWidth="65.0" promptText="1°C">
+                           <HBox.margin>
+                              <Insets left="20.0" />
+                           </HBox.margin>
+                        </TextField>
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="42.0" prefWidth="97.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="FEM" />
+                        <TextField fx:id="FEM" prefHeight="25.0" prefWidth="50.0" promptText="mV">
+                           <HBox.margin>
+                              <Insets left="20.0" />
+                           </HBox.margin>
+                        </TextField>
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </HBox>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="42.0" prefWidth="132.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Unidade" />
+                  <TextField fx:id="Unidade" prefHeight="25.0" prefWidth="42.0" promptText="°C">
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </TextField>
+                  <HBox alignment="CENTER_LEFT" prefHeight="42.0" prefWidth="132.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Sensor" />
+                        <TextField fx:id="Sensor" prefHeight="25.0" prefWidth="76.0" promptText="TermoparS">
+                           <HBox.margin>
+                              <Insets left="20.0" />
+                           </HBox.margin>
+                        </TextField>
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="42.0" prefWidth="151.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Medida" />
+                        <TextField fx:id="Medida" prefHeight="25.0" prefWidth="83.0" promptText="Temperatura">
+                           <HBox.margin>
+                              <Insets left="20.0" />
+                           </HBox.margin>
+                        </TextField>
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </HBox>
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </HBox>
+         </children>
+      </VBox>
    </children>
 </Pane>

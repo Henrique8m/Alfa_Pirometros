@@ -5,7 +5,9 @@ import java.sql.Date;
 import java.util.List;
 
 import com.hrodriguesdev.AlfaPirometrosApplication;
+import com.hrodriguesdev.dao.repository.CertificadoRepository;
 import com.hrodriguesdev.entities.CalibracaoEnsaio;
+import com.hrodriguesdev.entities.Certificado;
 import com.hrodriguesdev.entities.DescricaoInstrumento;
 import com.hrodriguesdev.entities.Ensaios;
 import com.hrodriguesdev.entities.Padrao;
@@ -17,13 +19,14 @@ import com.hrodriguesdev.resources.file.ReadFiles;
 public class CertificadoService {
 
 	private ReadFileExel readFile = new ReadFileExel();
+	private CertificadoRepository repository = new CertificadoRepository();
 	
 	private CalculoIncerteza incertezaLow;
 	private CalculoIncerteza incertezaHigh;
 	
 	
 //	Busca a descricao do equipamento armazenada no %appData% com o nome do modelo
-	public DescricaoInstrumento getDescricao(String modeloEquipamento) {
+	public DescricaoInstrumento getDescricao(String modeloEquipamento) throws com.hrodriguesdev.ExceptionAlfa{
 		String[] fileModelo = ReadFiles.readFile(modeloEquipamento);
 		return new DescricaoInstrumento(fileModelo);
 	}
@@ -45,11 +48,11 @@ public class CertificadoService {
 	 **/	
 	@SuppressWarnings("unchecked")
 	public List<LineTableEntradaEquipamento> getFem(String termopar){
-		File file = new File(AlfaPirometrosApplication.strDiretorioYggDrasil +"\\" + termopar + ".xls");
+		File file = new File(System.getProperty("user.home").toString() + AlfaPirometrosApplication.strDiretorioYggDrasil +"\\" + termopar + ".xls");
 		return (List<LineTableEntradaEquipamento>) readFile.getLines(file);
 	}
 	
-	public CalibracaoEnsaio getCalibracaoEnsaio(Ensaios ensaio, List<LineTableEntradaEquipamento> listEntrada) {
+	public CalibracaoEnsaio getCalibracaoEnsaio(Ensaios ensaio, List<LineTableEntradaEquipamento> listEntrada) throws NullPointerException{
 //		Todas informa�oes que vao no certificado, a calibra�aoEnsaio comtempla
 //		Vamos buscalas atraves de tabelas de termopar e informa�oes no arquivo do equipamento
 		
@@ -120,6 +123,14 @@ public class CertificadoService {
 		
 		return calEnsaio;
 			
+	}
+
+	public void updateEnsaio(Long ensaio_id, Long id) {
+		repository.updateEnsaio(ensaio_id, id);		
+	}
+
+	public Certificado findById(Long id) {
+		return repository.findById(id);
 	}
 	
 }

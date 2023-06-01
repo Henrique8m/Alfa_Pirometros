@@ -52,14 +52,15 @@ public class CertificadoRepository {
 			conn = DB.getConnection();
 			conn.setAutoCommit(false);
 			pst = conn.prepareStatement("INSERT INTO tb_certificado "
-					+ "(equipamento_id, date_cal, numero) "
+					+ "(equipamento_id, date_cal, numero, ensaio_id) "
 					+ "VALUES "
-					+ "(?, ?, ?)",
+					+ "(?, ?, ?, ?)",
 					Statement.RETURN_GENERATED_KEYS);			
 			
 			pst.setLong(1, certificado.getEquipamento_id());
 			pst.setDate(2, certificado.getDate_cal());
 			pst.setInt(3, certificado.getNumero());
+			pst.setLong(4, certificado.getEnsaio_id());
 			
 			int rowsAffected = pst.executeUpdate();
 			conn.commit();
@@ -158,5 +159,73 @@ public class CertificadoRepository {
 			
 		}
 		return ok;
+	}
+	
+	public boolean updateEnsaio(Long ensaio_id, Long certificado_id) {
+		boolean ok = false;		
+		try {
+			conn = DB.getConnection();
+			conn.setAutoCommit(false);
+			pst = conn.prepareStatement("UPDATE tb_certificado "
+											+ "SET ensaio_id = "  + ensaio_id
+											+ " WHERE "
+											+"(id = " + certificado_id +")");		
+	
+			int rowsAccepted = pst.executeUpdate();
+			conn.commit();
+			
+			if(rowsAccepted>0)
+				return true;
+		
+		}catch (DbException | SQLException e) {
+			ok=false;
+			e.printStackTrace();
+			try {
+				conn.rollback();
+				throw new DbException("Transaction rolled back! Caused by: " + e.getMessage() );
+			}catch (SQLException e1) {
+				throw new DbException("Error trying to rollback! Caused by: \" + e1.getMessage()");
+			}
+		}
+		finally {
+			DB.closeStatement(pst);
+			DB.closeConnection();
+			
+		}
+		return ok;
+	}
+
+	public Certificado findById(Long id) {	
+		return find("id", id, "SELECT * FROM alfaestoque.tb_certificado;");
+	}
+	
+	private Certificado find(String campoNomeCompare, Long numeroCompare, String query) {
+		Certificado certificado = null;
+		rs = getResultSet(query);		
+		try {
+			while(rs.next())
+				if(rs.getLong(campoNomeCompare) == numeroCompare) 
+					certificado = new Certificado(rs);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}		
+		finally {
+			DB.closeResultSet(rs);
+			DB.closeStatement(st);
+		}
+				
+		return certificado;
+	}
+	
+	
+	private ResultSet getResultSet(String query) {
+		try {
+			conn = DB.getConnection();
+			st = conn.createStatement();
+			return st.executeQuery(query);
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return null;			
 	}
 }

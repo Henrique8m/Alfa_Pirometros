@@ -24,34 +24,37 @@ public class DescricaoInstrumento {
 	public DescricaoInstrumento(String[] fileModelo) {
 		if(fileModelo != null ) 
 			for(String info: fileModelo) {
-				String descricao = info.split("=")[0];
-				String informacao = info.split("=")[1];
-				switch (descricao.toString()) {
-				case "Modelo":
-					this.modelo = informacao;
-					break;
-				case "Instrumento":
-					this.instrumento = informacao;
-					break;
-				case "Fabricante":
-					this.fabricante = informacao;
-					break;
-				case "Resolucao":
-					this.resolucao = informacao;
-					break;
-				case "FEM":
-					this.fem = informacao;
-					break;
-				case "Unidade":
-					this.unidade = informacao;
-					break;
-				case "Medida":
-					this.medida = informacao;
-					break;
-				case "Sensor":
-					this.sensor = informacao;
-				default:
-					break;
+				String[] split = info.split("=");
+				if(split.length>1) {
+					String descricao = split[0];
+					String informacao = split[1];
+					switch (descricao.toString()) {
+					case "Modelo":
+						this.modelo = informacao;
+						break;
+					case "Instrumento":
+						this.instrumento = informacao;
+						break;
+					case "Fabricante":
+						this.fabricante = informacao;
+						break;
+					case "Resolucao":
+						this.resolucao = informacao;
+						break;
+					case "FEM":
+						this.fem = informacao;
+						break;
+					case "Unidade":
+						this.unidade = informacao;
+						break;
+					case "Medida":
+						this.medida = informacao;
+						break;
+					case "Sensor":
+						this.sensor = informacao;
+					default:
+						break;
+					}
 				}
 			}
 	}

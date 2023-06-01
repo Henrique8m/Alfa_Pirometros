@@ -3,8 +3,6 @@ package com.hrodriguesdev.entities;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.hrodriguesdev.gui.controller.EnsaioViewController;
-
 public class Ensaios {
 	private Long id;
 
@@ -30,14 +28,12 @@ public class Ensaios {
 			this.primeiro = rs.getString("valor1");
 			this.segundo = rs.getString("valor2");
 			this.terceiro = rs.getString("valor3");
-			
-			EnsaioViewController.logger.error("Ensaio id = "+ id + "\n "
-			+ "Equipamento_id = " + equipamento_id + "\n " 
-					+"Orcamento id = " + orcamento_id + "\n " 
-			+"Referencia: " +  referencia + "\n " 
-					+"Valor 1: " + primeiro + "\n " 
-			+"Valor 2:" + segundo + "\n " 
-					+"Valor 3: " + terceiro);
+			/*
+			 * EnsaioViewController.logger.error("Ensaio id = "+ id + "\n " +
+			 * "Equipamento_id = " + equipamento_id + "\n " +"Orcamento id = " +
+			 * orcamento_id + "\n " +"Referencia: " + referencia + "\n " +"Valor 1: " +
+			 * primeiro + "\n " +"Valor 2:" + segundo + "\n " +"Valor 3: " + terceiro);
+			 */
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}

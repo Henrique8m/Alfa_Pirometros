@@ -53,6 +53,10 @@ public class OrcamentoController {
 		return orcamentoService.getOrcamento(id);
 	}
 
+	public ObservableList<Orcamento> findAllNoCertificado(Long id) {
+		return orcamentoService.findAllNoCertificado(id);
+	}
+
 
 	
 }

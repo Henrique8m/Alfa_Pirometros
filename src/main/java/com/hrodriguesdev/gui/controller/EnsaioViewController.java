@@ -4,7 +4,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import org.apache.log4j.BasicConfigurator;
-import org.apache.log4j.Logger;
 
 import com.hrodriguesdev.AlfaPirometrosApplication;
 import com.hrodriguesdev.controller.EnsaiosController;
@@ -16,14 +15,23 @@ import com.hrodriguesdev.resources.file.ReadFiles;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+/*
+ * Onde sao inseridos os ensaios e tambem informacoes do equipamento
+ * salvando direto no diretorio
+ * chamado por CertificadoOrcamentoEnsaio
+ * chamado por ensaio orcamentoViewController
+ * ensaioInserts.fxml
+*/
 public class EnsaioViewController implements Initializable{
 	
-	public static Logger logger = Logger.getLogger(EnsaioViewController.class);
+//	public static Logger logger = Logger.getLogger(EnsaioViewController.class);
 	
 	private Equipamento equipamento;
 	private Orcamento orcamento; 
@@ -38,6 +46,15 @@ public class EnsaioViewController implements Initializable{
 	
 	@FXML
 	private ImageView salvarImg, cancelarImg;
+	
+	@FXML
+	private TextField Sensor, Unidade, FEM,Resolucao,Fabricante,Modelo,Instrumento,Medida;
+	
+	@FXML
+	private VBox VBoxInfo;
+	
+	@FXML
+	private MenuItem salvarReferencia;
 	
 	public EnsaioViewController(Equipamento equipamento, Orcamento orcamento) {
 		this.orcamento = orcamento;
@@ -60,18 +77,22 @@ public class EnsaioViewController implements Initializable{
 
 	protected void ensaioGet() {
 		if(controller.isExistByOrcamentoId(orcamento.getId()) ) {
-			Ensaios ensaio = controller.findByOrcamentoId(orcamento.getId());
+			Ensaios ensaio = getEnsaio();
 			try {
 				writeValues(ensaio);
 			}catch(NullPointerException e) {
 				readRefPadrao();
 			}
 			
-			logger.info("Orcamento Existe");
+//			logger.info("Orcamento Existe");
 		}
 		else {			
 			readRefPadrao();
 		}
+	}
+	
+	protected Ensaios getEnsaio() {
+		return controller.findByOrcamentoId(orcamento.getId());
 	}
 
 
@@ -96,20 +117,20 @@ public class EnsaioViewController implements Initializable{
 		
 		ensaio.setOrcamento_id(orcamento.getId());
 		
-		logger.info("id orcamento" + orcamento.getId() );
+//		logger.info("id orcamento" + orcamento.getId() );
 		
 		if(controller.isExistByOrcamentoId(orcamento.getId()) ) {
 			ensaio.setId( controller.findByOrcamentoId(orcamento.getId()).getId());
 			boolean atualizacaoEnsaio = controller.updatedeEnsaio(ensaio);
 			
-			logger.error("Atualização de ensaio bem sucedida? " + atualizacaoEnsaio);
+//			logger.error("Atualização de ensaio bem sucedida? " + atualizacaoEnsaio);
 			
 			if(atualizacaoEnsaio)
 				closeStage();
 		}else {
 			long idEnsaio = controller.saveEnsaio(ensaio);
 			
-			logger.info("Add novo ensaio, id = " + idEnsaio);
+//			logger.info("Add novo ensaio, id = " + idEnsaio);
 			
 			if(idEnsaio != 0) 
 				closeStage();
@@ -125,8 +146,76 @@ public class EnsaioViewController implements Initializable{
 	
 	@FXML
 	private void salvarReferencia(ActionEvent e) {
-		String[] ensaiosRef = new String[] { refeVal1.getText(), refeVal2.getText(), refeVal3.getText() };
+		String modelo = "Modelo=" + Modelo.getText();
+		String instrumento = "Instrumento=" + Instrumento.getText();
+		String fabricante = "Fabricante=" + Fabricante.getText();
+		String resolucao = "Resolucao=" + Resolucao.getText();
+		String fem = "FEM="+ FEM.getText();
+		String unidade = "Unidade=" + Unidade.getText();
+		String sensor = "Sensor=" + Sensor.getText();
+		String medida = "Medida=" + Medida.getText();
+		
+		String[] ensaiosRef = new String[] { 
+				refeVal1.getText(),
+				refeVal2.getText(), 
+				refeVal3.getText(),
+				modelo,
+				instrumento,
+				fabricante,
+				resolucao,
+				fem,
+				unidade,
+				sensor,	
+				medida
+		};
 		ReadFiles.saveOrUpdatedeFile(equipamento.getModelo(), ensaiosRef);
+	}
+	
+	@FXML
+	private void infoEquip(ActionEvent e) {
+		VBoxInfo.setVisible(!VBoxInfo.isVisible());
+		salvarReferencia.setVisible(!salvarReferencia.isVisible());
+		try {
+			String[] ensaiosRef = ReadFiles.readFile(equipamento.getModelo());
+			if(ensaiosRef != null ) 
+				for(String info: ensaiosRef) {
+					String[] split = info.split("=");
+					if(split.length>1) {
+						String descricao = split[0];
+						String informacao = split[1];
+						switch (descricao.toString()) {
+							case "Modelo":
+								Modelo.setText(informacao);
+								break;
+							case "Instrumento":
+								Instrumento.setText(informacao);
+								break;
+							case "Fabricante":
+								Fabricante.setText(informacao);
+								break;
+							case "Resolucao":
+								Resolucao.setText(informacao);
+								break;
+							case "FEM":
+								FEM.setText(informacao);
+								break;
+							case "Unidade":
+								Unidade.setText(informacao);
+								break;
+							case "Medida":
+								Medida.setText(informacao);
+								break;
+							case "Sensor":
+								Sensor.setText(informacao);
+							default:
+								break;
+						}
+					}
+				}
+				
+		}catch (Exception e1) {
+			System.out.println(e1.getMessage());
+		}
 	}
 
 	
@@ -184,14 +273,18 @@ public class EnsaioViewController implements Initializable{
 	}
 	
 	private void readRefPadrao() {
-		String[] ensaiosRef = ReadFiles.readFile(equipamento.getModelo());
-		if(ensaiosRef != null ) 
-			if(ensaiosRef.length >= 3 ) {
-				writeRef(ensaiosRef);
-				refeVal1.setFocusTraversable(false);
-				refeVal2.setFocusTraversable(false);
-				refeVal3.setFocusTraversable(false);
-			}	
+		try {
+			String[] ensaiosRef = ReadFiles.readFile(equipamento.getModelo());
+			if(ensaiosRef != null ) 
+				if(ensaiosRef.length >= 3 ) {
+					writeRef(ensaiosRef);
+					refeVal1.setFocusTraversable(false);
+					refeVal2.setFocusTraversable(false);
+					refeVal3.setFocusTraversable(false);
+				}	
+		}catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 	}
 	
 	protected void editable(boolean editable) {
@@ -220,6 +313,20 @@ public class EnsaioViewController implements Initializable{
 		sinalCalibr21.setFocusTraversable(editable);
 		sinalCalibr22.setFocusTraversable(editable);
 		sinalCalibr23.setFocusTraversable(editable);
+	}
+	
+	@FXML
+	private void autoCompletar(ActionEvent e) {		
+		String[] ref = new String [] { 
+				refeVal1.getText(),
+				refeVal2.getText(),
+				refeVal3.getText()};
+
+		if(ref.length == 3)
+			writeRef(ref);
+			writeVal1(ref);
+			writeVal2(ref);
+			writeVal3(ref);	
 	}
 	
 }

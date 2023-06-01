@@ -25,7 +25,4 @@ public class EnsaiosService {
 	public Ensaios findById(Long id) {		
 		return repository.findById(id);
 	}
-	
-	
-
 }

@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.hrodriguesdev.ExceptionAlfa;
 import com.hrodriguesdev.dao.db.DB;
 import com.hrodriguesdev.dao.db.DbException;
 import com.hrodriguesdev.entities.Empresa;
@@ -19,7 +20,7 @@ public class EquipamentoRepository {
 	ResultSet rs = null;
 	PreparedStatement pst = null;
 
-	public Equipamento findById(Long id) {
+	public Equipamento findById(Long id) throws ExceptionAlfa , DbException{
 		try {
 			conn = DB.getConnection();
 			st = conn.createStatement();
@@ -28,8 +29,8 @@ public class EquipamentoRepository {
 			while (rs.next())
 				if (rs.getLong("id") == id)
 					return Equipamento.parseEquipamentoDois(rs);
-
-		} catch (DbException | SQLException e) {
+			throw new ExceptionAlfa("Equipamento nao encontrado");
+		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new DbException(e.getMessage());
 		} finally {
@@ -38,7 +39,6 @@ public class EquipamentoRepository {
 			DB.closeConnection();
 
 		}
-		return null;
 	}
 
 	public Equipamento table() {

@@ -19,7 +19,7 @@ public class ReadFiles {
     private static String[] line; 
        
     
-    public static String[] readFile(String nameFile){    
+    public static String[] readFile(String nameFile) throws com.hrodriguesdev.ExceptionAlfa {    
     	ReadFiles.pathToFile = System.getProperty("user.home").toString() + AlfaPirometrosApplication.strDiretorioYggDrasil +"\\" + nameFile;
     	
     	if(pathToFile!=null)
@@ -41,9 +41,10 @@ public class ReadFiles {
     			}
 				
 	    	}catch (IOException e) {
-				System.out.println(e.getMessage());
+				throw new com.hrodriguesdev.ExceptionAlfa("Falta arquivo com os dados sobre o modelo do equipamento");
 			}catch(NullPointerException e) {
 				System.out.println("Falha no caminho do arquivo\n" + e.getMessage());
+				throw new com.hrodriguesdev.ExceptionAlfa("Falha no caminho do arquivo\n" + e.getMessage());
 			}
     	return line;
 	}
