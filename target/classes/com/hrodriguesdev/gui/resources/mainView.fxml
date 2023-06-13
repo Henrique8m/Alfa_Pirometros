@@ -238,7 +238,7 @@
                                           <VBox minWidth="225.0" prefHeight="67.0" prefWidth="300.0" style="-fx-background-color: #c9c9c9;">
                                              <children>
                                                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Empresa" wrappingWidth="154.13671875" />
-                                                <ComboBox fx:id="textEmpresa" editable="true" minWidth="225.0" onKeyPressed="#enter" prefHeight="25.0" prefWidth="300.0" />
+                                                <ComboBox fx:id="textEmpresa" editable="true" focusTraversable="false" minWidth="225.0" onKeyReleased="#enter" prefHeight="25.0" prefWidth="300.0" />
                                              </children>
                                           </VBox>
                                           <VBox minWidth="100.0" prefHeight="67.0" prefWidth="170.0">
@@ -552,7 +552,7 @@
                                           <VBox minWidth="225.0" prefHeight="67.0" prefWidth="300.0" style="-fx-background-color: #c9c9c9;">
                                              <children>
                                                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Empresa" wrappingWidth="154.13671875" />
-                                                <ComboBox fx:id="textEmpresaCertificado" editable="true" minWidth="225.0" onKeyPressed="#enter" prefHeight="25.0" prefWidth="300.0" />
+                                                <ComboBox fx:id="textEmpresaCertificado" editable="true" minWidth="225.0" onKeyReleased="#enter" prefHeight="25.0" prefWidth="300.0" />
                                              </children>
                                           </VBox>
                                           <VBox minWidth="100.0" prefHeight="67.0" prefWidth="170.0">
@@ -713,6 +713,11 @@
                                                             <Insets bottom="20.0" />
                                                          </VBox.margin>
                                                       </Button>
+                                                      <Button mnemonicParsing="false" onAction="#referenciaEquipamento" prefHeight="42.0" prefWidth="181.0" style="-fx-background-radius: 10;" text="Referencia Equipamento">
+                                                         <VBox.margin>
+                                                            <Insets bottom="20.0" />
+                                                         </VBox.margin>
+                                                      </Button>
                                                       <TextArea fx:id="certificadoText" prefHeight="200.0" prefWidth="200.0" wrapText="true">
                                                          <VBox.margin>
                                                             <Insets bottom="20.0" />
@@ -807,7 +812,7 @@
                                           <VBox minWidth="225.0" prefHeight="67.0" prefWidth="300.0" style="-fx-background-color: #c9c9c9;">
                                              <children>
                                                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Empresa" wrappingWidth="154.13671875" />
-                                                <ComboBox fx:id="findEmpresaComboBox" editable="true" minWidth="225.0" onKeyPressed="#enterBusca" prefHeight="25.0" prefWidth="300.0" />
+                                                <ComboBox fx:id="findEmpresaComboBox" editable="true" minWidth="225.0" onKeyReleased="#enterBusca" prefHeight="25.0" prefWidth="300.0" />
                                              </children>
                                           </VBox>
                                           <Button mnemonicParsing="false" onAction="#buscarEmpresa" prefHeight="35.0" prefWidth="135.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Buscar">

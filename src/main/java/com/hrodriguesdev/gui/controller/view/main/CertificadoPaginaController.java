@@ -15,8 +15,10 @@ import com.hrodriguesdev.dao.repository.CertificadoRepository;
 import com.hrodriguesdev.entities.Certificado;
 import com.hrodriguesdev.entities.Ensaios;
 import com.hrodriguesdev.entities.Equipamento;
+import com.hrodriguesdev.entities.Orcamento;
 import com.hrodriguesdev.gui.alert.Alerts;
 import com.hrodriguesdev.gui.controller.CertificadoOrcamentoEnsaio;
+import com.hrodriguesdev.resources.file.FileEquipamento;
 import com.hrodriguesdev.utilitary.Format;
 import com.hrodriguesdev.utilitary.Geral;
 import com.hrodriguesdev.utilitary.InputFilter;
@@ -442,5 +444,11 @@ public class CertificadoPaginaController extends EmpresaViewController {
 			writeVal1(ref);
 			writeVal2(ref);
 			writeVal3(ref);
+	}
+	
+	@FXML
+	private void referenciaEquipamento(ActionEvent e) {
+		NewView.getNewView("Ensaios","ensaioInserts" , new FileEquipamento(new Equipamento(), new Orcamento()));
+		
 	}
 }

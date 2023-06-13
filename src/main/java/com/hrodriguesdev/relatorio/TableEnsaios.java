@@ -24,12 +24,20 @@ public class TableEnsaios {
 
 		String primeiro = ensaios.getPrimeiro();
 		String[] primeiroArray = primeiro.split("\n");
-
+		if(primeiroArray.length<3) {
+			primeiroArray = new String[3];
+		}
 		String segundo = ensaios.getSegundo();
 		String[] segundoArray = segundo.split("\n");
+		if(segundoArray.length<3) {
+			segundoArray = new String[3];
+		}
 
 		String terceiro = ensaios.getTerceiro();
 		String[] terceiroArray = terceiro.split("\n");
+		if(terceiroArray.length<3) {
+			terceiroArray = new String[3];
+		}
 
 		for (int i = 0; i < referenciaArray.length; i++) {
 			PdfPTable table = new PdfPTable(4);

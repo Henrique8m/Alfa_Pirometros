@@ -25,9 +25,11 @@ public class CertificadoController {
 		DescricaoInstrumento descricao = service.getDescricao(equipamento.getModelo());
 		Padrao padrao = service.getPadrao(certificado.getDate_cal());
 		Ensaios ensaio = ensaioController.findById(certificado.getEnsaio_id());
-		
 		if(ensaio == null)  throw new ExceptionAlfa("Nao tem ensaio para este certificado");
 		
+		if(descricao.getInstrumento().contentEquals("Analisador carboquimico")) {
+			
+		}		
 		CalibracaoEnsaio calibraco = service.getCalibracaoEnsaio(
 				ensaio,
 				service.getFem(descricao.getSensor()));

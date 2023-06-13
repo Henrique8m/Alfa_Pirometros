@@ -23,6 +23,7 @@ public class CertificadoService {
 	
 	private CalculoIncerteza incertezaLow;
 	private CalculoIncerteza incertezaHigh;
+//	private boolean carbomax = false;
 	
 	
 //	Busca a descricao do equipamento armazenada no %appData% com o nome do modelo
@@ -51,7 +52,12 @@ public class CertificadoService {
 		File file = new File(System.getProperty("user.home").toString() + AlfaPirometrosApplication.strDiretorioYggDrasil +"\\" + termopar + ".xls");
 		return (List<LineTableEntradaEquipamento>) readFile.getLines(file);
 	}
-	
+//	public CalibracaoEnsaio getCalibracaoEnsaioCarbomax(Ensaios ensaio, List<LineTableEntradaEquipamento> listEntrada) throws NullPointerException{
+//		carbomax = true;
+//		CalibracaoEnsaio calEnsaio = getCalibracaoEnsaio(ensaio, listEntrada);
+//		carbomax = false;
+//		return calEnsaio;
+//	}
 	public CalibracaoEnsaio getCalibracaoEnsaio(Ensaios ensaio, List<LineTableEntradaEquipamento> listEntrada) throws NullPointerException{
 //		Todas informa�oes que vao no certificado, a calibra�aoEnsaio comtempla
 //		Vamos buscalas atraves de tabelas de termopar e informa�oes no arquivo do equipamento
@@ -70,7 +76,6 @@ public class CertificadoService {
 		calEnsaio.setFem1(String.format("%.3f", femLow));
 		Double femHigh = listEntrada.stream().filter((x) -> x.getIndicado() >= ReferenciaHigh ).findFirst().get().getAplicado();
 		calEnsaio.setFem2(String.format("%.3f", femHigh));
-		
 //		Instanciando a clase incerteza que vai conter varios valores 
 //		que iremos utilizar
 		
@@ -88,8 +93,8 @@ public class CertificadoService {
 				
 			
 		double[] CalHigh = new double[2];
-		CalHigh[0] = Double.parseDouble( ensaio.getSegundo().split("\n")[0] );
-		CalHigh[1] = Double.parseDouble( ensaio.getTerceiro().split("\n")[0] );
+		CalHigh[0] = Double.parseDouble( ensaio.getSegundo().split("\n")[2] );
+		CalHigh[1] = Double.parseDouble( ensaio.getTerceiro().split("\n")[2] );
 		
 		incertezaHigh = new CalculoIncerteza(CalHigh, ReferenciaHigh);		
 		Double emIndicadaHigh = incertezaHigh.getErroSis();

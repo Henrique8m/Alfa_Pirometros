@@ -29,6 +29,9 @@ public class Padrao {
 				case "Rastreabilidade":
 					this.rastreabilidade = informacao;
 					break;
+				case "Certificado":
+					this.certificado = informacao;
+					break;
 				default:
 					break;
 				}

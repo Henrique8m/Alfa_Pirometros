@@ -131,8 +131,9 @@ public class PdfCertificado {
 //		Numero do certificado total de 4 casas decimais, se faltar o for coloca
 		String certifNumero = String.valueOf( certificado.getNumero() );
 		int size = certifNumero.length();
-		for(; size >= 4; size++) 
-			certifNumero = certifNumero.length() == 4 ? certifNumero : "0" +certifNumero;	
+		for(; size <= 3; size++) 
+			certifNumero = certifNumero.length()==4 ? certifNumero : "0" + certifNumero;	
+		
 		String certificadoN = certifNumero + "/" + year;
 		
 		

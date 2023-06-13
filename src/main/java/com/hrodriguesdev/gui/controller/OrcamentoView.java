@@ -194,7 +194,7 @@ public class OrcamentoView extends EnsaioViewController implements Initializable
 	 */
 	
 	@FXML
-	private void salvar(ActionEvent event) {
+	protected void salvar(ActionEvent event) {
 		if(orcamento.getStatus() == 100)
 			return;
 		if(data.getText().length()==10) {

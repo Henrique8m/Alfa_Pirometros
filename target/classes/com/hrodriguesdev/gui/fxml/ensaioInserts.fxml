@@ -77,6 +77,7 @@
                   <ImageView fx:id="cancelarImg" fitHeight="23.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true" />
                </graphic>
             </Button>
+            <TextField fx:id="ModeloFile" promptText="ModeloFile" visible="false" />
         </items>
          <opaqueInsets>
             <Insets />
@@ -87,13 +88,23 @@
       </ToolBar>
       <MenuBar prefHeight="25.0" prefWidth="600.0">
         <menus>
-          <Menu mnemonicParsing="false" text="Edit">
+          <Menu mnemonicParsing="false" text="Menu">
             <items>
               <MenuItem fx:id="salvarReferencia" mnemonicParsing="false" onAction="#salvarReferencia" text="Salvar Referencia" visible="false" />
                   <MenuItem fx:id="infoEquip" mnemonicParsing="false" onAction="#infoEquip" text="Informacao do equipamento" />
-                  <MenuItem mnemonicParsing="false" onAction="#autoCompletar" text="Auto Completed" />
             </items>
           </Menu>
+            <Menu mnemonicParsing="false" text="Insert">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#autoCompletar" text="Auto Completed" />
+                  <Menu mnemonicParsing="false" text="Completar  com Informaçoes de ">
+                     <items>
+                        <MenuItem mnemonicParsing="false" onAction="#completInfoFornero" text="Fornero II" />
+                        <MenuItem mnemonicParsing="false" onAction="#completInfoCarbomax" text="Carbomax" />
+                     </items>
+                  </Menu>
+               </items>
+            </Menu>
         </menus>
       </MenuBar>
       <VBox fx:id="VBoxInfo" layoutX="14.0" layoutY="264.0" prefHeight="175.0" prefWidth="574.0" visible="false">
