@@ -7,7 +7,6 @@ import com.hrodriguesdev.controller.EquipamentoController;
 import com.hrodriguesdev.entities.Orcamento;
 import com.hrodriguesdev.gui.alert.Alerts;
 import com.hrodriguesdev.gui.controller.EquipamentoEntradaViewController;
-import com.hrodriguesdev.gui.controller.EstoqueController;
 import com.hrodriguesdev.gui.controller.view.saida.equipemento.OpenSaidaEquipamentoViewController;
 import com.hrodriguesdev.gui.controller.view.saida.equipemento.SaidaEquipamentoViewController;
 import com.hrodriguesdev.utilitary.NewView;
@@ -69,11 +68,6 @@ public class EquipamentoMainView extends LogoutMainView {
 		if(keyEvent.getCode().toString() == "F5" )
 			refreshTable();
 		    	
-    }
-	
-	@FXML
-    private void estoque(ActionEvent e) throws IOException {
-		NewView.addChildrenToMain((Node) NewView.loadFXML("estoque" , new EstoqueController() ));
     }
 			
 	@FXML

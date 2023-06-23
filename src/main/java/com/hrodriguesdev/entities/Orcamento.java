@@ -24,6 +24,7 @@ public class Orcamento {
 	private Long estetico;
 	private Long sinal;
 	private Long cabos;
+	private String products;
 	
 	private int nfe;
 	private String situation;
@@ -57,6 +58,7 @@ public class Orcamento {
 			estetico = rs.getLong("estetico");
 			sinal = rs.getLong("sinal");
 			setCabos(rs.getLong("cabos"));
+			this.products = rs.getString("products");
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -413,6 +415,14 @@ public class Orcamento {
 				return Item;
 		
 		return "";
+	}
+
+	public String getProducts() {
+		return products;
+	}
+
+	public void setProducts(String products) {
+		this.products = products;
 	}
 
 	

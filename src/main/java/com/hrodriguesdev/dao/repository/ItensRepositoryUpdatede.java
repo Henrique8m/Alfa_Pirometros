@@ -360,5 +360,57 @@ public class ItensRepositoryUpdatede {
 		}
 		return ok;
 	}
+
+	public boolean saidaDoEstoque(EstoqueConsumo consumo, EstoqueEletricos eletricos, EstoqueEletronicos eletronico,
+			EstoqueEstetico estetico, EstoqueSinal sinal, EstoqueCabos cabos) {
+		boolean ok = false;		
+		try {
+			conn = DB.getConnection();
+			conn.setAutoCommit(false);
+			pst = conn.prepareStatement("UPDATE tb_itens_eletricos "
+											+ "SET orcamento_id = ?,"
+											+ " nfe = ?,"
+											+ " saida =? ,"
+											+ " font_carb_indic = ?,"
+											+ " font_carb_delta = ?,"
+											+ " pin_femea_ali_fii = ?,"
+											+ " pin_femea_ali_fiii = ?,"
+											+ " bat_fii_fiii = ?,"
+											+ " bat_descartavel = ?,"
+											+ " bat_inditemp = ?,"
+											+ " bat_litio = ?,"
+											+ " carr_ecil = ?,"
+											+ " carr_italterm = ?,"
+											+ " entrada = ? "											
+											+ " WHERE "
+											+ "(id = ?)");
+			
+
+			
+			
+			int rowsAccepted = pst.executeUpdate();
+			conn.commit();
+			if(rowsAccepted>0)
+				ok=true;
+		
+		}catch(DbException | SQLException e) {
+			e.printStackTrace();
+			try {
+				conn.rollback();
+				throw new DbException("Transaction rolled back! Caused by: " + e.getMessage() );
+			}catch (SQLException e1) {
+				throw new DbException("Error trying to rollback! Caused by: \" + e1.getMessage()");
+			}
+			
+		}
+		finally {
+			DB.closeStatement(pst);
+			DB.closeConnection();
+			
+		}
+		return ok;
+	}
 	
+
 }
+

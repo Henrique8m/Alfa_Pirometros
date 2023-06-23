@@ -1,10 +1,12 @@
 package com.hrodriguesdev.relatorio;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.hrodriguesdev.AlfaPirometrosApplication;
 import com.hrodriguesdev.entities.Ensaios;
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.entities.Orcamento;
@@ -31,11 +33,13 @@ public class RelatorioGeneratorPDF {
 		Document documento = new Document();
 		String id = orcamento.getId().toString();
 		String idOrcamento = id + "-" + Format.formatYear.format(orcamento.getData_chegada());
+		String caminho = AlfaPirometrosApplication.URL_AREA_DE_TRABALHO + "/Relatorios";
 		try {	
 			
 			// Faz o apontamento para o arquivo de destino
-			PdfWriter.getInstance(documento, new FileOutputStream(
-					"C:/Users/henri/Desktop/Relatorios/" + idOrcamento + ".pdf"));
+			File diretorio = new File(caminho);
+			diretorio.mkdir();
+			PdfWriter.getInstance(documento, new FileOutputStream(caminho + "\\" + idOrcamento + ".pdf"));
 			
 			// Realiza a abertura do arquivo para escrita
 			documento.open();

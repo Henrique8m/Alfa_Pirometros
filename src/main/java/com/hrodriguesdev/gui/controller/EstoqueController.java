@@ -87,7 +87,7 @@ public class EstoqueController implements Initializable{
 	ts, tsS;
 	
 	@FXML
-	private ImageView saidaMaterialImg, logoYgg, entradaMaterialImg, cancelarImg, pdfImg, relatorioImg;
+	private ImageView saidaMaterialImg, logoYgg, entradaMaterialImg, cancelarImg, pdfImg, relatorioImg, registerImg;
 	
 	@FXML
 	protected Button cancelar;
@@ -215,6 +215,14 @@ public class EstoqueController implements Initializable{
 		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-pdf.png").toString() );
 		pdfImg.setImage(image);
 		
+		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-insert.png").toString() );
+		registerImg.setImage(image);
+		
+	}
+	
+	@FXML
+	private void registerProducts(ActionEvent e) {
+		NewView.getNewView("Produtos", "registerProducts", new RegisterProductsController());
 	}
 	
 }

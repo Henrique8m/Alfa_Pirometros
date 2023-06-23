@@ -22,7 +22,7 @@ public class EmpresaRepository {
 
 
 	public Empresa findEmpressa(Long empressaId) {
-		Empresa empressa = new Empresa();		
+		Empresa empressa = null;		
 		try {
 			conn = DB.getConnection();			
 			st = conn.createStatement();			

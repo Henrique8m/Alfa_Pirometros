@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 
 import com.hrodriguesdev.AlfaPirometrosApplication;
 import com.hrodriguesdev.controller.EnsaiosController;
+import com.hrodriguesdev.controller.EstoqueRepController;
 import com.hrodriguesdev.dao.db.DbException;
 import com.hrodriguesdev.dao.repository.ItensRepositoryFind;
 import com.hrodriguesdev.dao.repository.SaidaEquipamentoTransacao;
@@ -55,6 +56,7 @@ public class OrcamentoView extends EnsaioViewController implements Initializable
 	private Itens itens;
 	protected SaidaEquipamentoTransacao transaction = new SaidaEquipamentoTransacao();
 	private EnsaiosController ensaioController = new EnsaiosController();
+	private EstoqueRepController estoqueController = new EstoqueRepController();
 	
 	public OrcamentoView(Equipamento equipamento, Orcamento orcamento) {
 		super(equipamento, orcamento);
@@ -254,6 +256,7 @@ public class OrcamentoView extends EnsaioViewController implements Initializable
 			return;
 		}
 //		Manutenção executada, baixa no estoque	
+		
 		if(!itens.setSaida(orcamento.getId()) ) {
 			NewView.fecharView();
 			Alerts.showAlert("Erro", "Falha ao dar saida no banco de dados", "Ocorreu uma falha ao atualizar o orcamento", AlertType.ERROR);
@@ -320,7 +323,7 @@ public class OrcamentoView extends EnsaioViewController implements Initializable
 			return;
 		}
 		
-		if(!itens.setSaida(orcamento.getId()) ) {
+		if(!estoqueController.saidaDoEstoque(orcamento.getId()) ) {
 			NewView.fecharView();
 			Alerts.showAlert("Erro", "Falha ao dar saida no banco de dados", "Ocorreu uma falha ao atualizar o orcamento", AlertType.ERROR);
 		}

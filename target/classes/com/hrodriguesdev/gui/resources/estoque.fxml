@@ -1156,6 +1156,14 @@
                   <Font size="14.0" />
                </font>
             </Button>
+            <Button mnemonicParsing="false" onAction="#registerProducts" prefHeight="45.0" prefWidth="185.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Registro de Produtos" GridPane.rowIndex="6">
+               <graphic>
+                  <ImageView fx:id="registerImg" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" />
+               </graphic>
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Button>
          </children>
          <padding>
             <Insets left="20.0" right="40.0" />

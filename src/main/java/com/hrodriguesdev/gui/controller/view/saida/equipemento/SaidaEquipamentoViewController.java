@@ -79,20 +79,20 @@ public class SaidaEquipamentoViewController implements Initializable {
 	
 	@FXML
 	protected void gerarPDF(ActionEvent event) {
-		
-		if(coleta.getValue() != "" &&  nomeColetor.getText() != "" ) {
-			GeneratorPDF pdf = new GeneratorPDF();	
 			Coletor coletor = getColetor();
-			Empresa empressa = empressaController.find( equipamento.getEmpressa() );			
+			if(coletor == null)
+				return;
+			GeneratorPDF pdf = new GeneratorPDF();				
+			Empresa empressa = empressaController.find( equipamento.getEmpressa() );		
+			
 			if( equipamentoController.updatedeNsPatModelo(equipamento) ) {
+				orcamento.setData_saida(new java.sql.Date(System.currentTimeMillis()));
 				pdf.newDocument(coletor, equipamento, empressa, orcamento);
+				salvar(event);
 				Stage stage = (Stage) salvar.getScene().getWindow();
 				stage.close();
 				
 			}
-			
-		}
-		salvar(event);
 	}
 		
 	@FXML
@@ -161,8 +161,10 @@ public class SaidaEquipamentoViewController implements Initializable {
 	protected Coletor getColetor() {
 		Coletor coletor = new Coletor();
 		if(coleta.getValue()== "" ||  nomeColetor.getText()== "" ) {
-			erro.setText("O campo nome da Empressa e nome do coletor, não pode estar vazio");
-			return null;
+			if(!coleta.getValue().isBlank() || !nomeColetor.getText().isBlank()) 
+				if(!coleta.getValue().isEmpty() || !nomeColetor.getText().isEmpty())			
+					erro.setText("O campo nome da Empressa e nome do coletor, não pode estar vazio");
+					return null;
 		}
 		try {	
 			if ( empressaController.isExist(coleta.getValue()) == null ) {

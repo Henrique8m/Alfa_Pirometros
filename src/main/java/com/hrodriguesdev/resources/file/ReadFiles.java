@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +24,7 @@ public class ReadFiles {
     	ReadFiles.pathToFile = System.getProperty("user.home").toString() + AlfaPirometrosApplication.strDiretorioYggDrasil +"\\" + nameFile;
     	
     	if(pathToFile!=null)
-    		try(BufferedReader br = new BufferedReader(new FileReader(pathToFile) ) ){
+    		try(BufferedReader br = new BufferedReader(new FileReader(pathToFile, StandardCharsets.UTF_8) ) ){
     			String itemsToFile = br.readLine();
     			List<String> listLine = new ArrayList<>();
 
@@ -75,7 +76,7 @@ public class ReadFiles {
 	}
 	
 	private static void writeFile(File arquivo, String[] lines) {
-		try (BufferedWriter bw1 = new BufferedWriter(new FileWriter(arquivo))){
+		try (BufferedWriter bw1 = new BufferedWriter(new FileWriter(arquivo, StandardCharsets.UTF_8))){
 			for(String x : lines) {
 				bw1.write(x);
 				bw1.newLine();

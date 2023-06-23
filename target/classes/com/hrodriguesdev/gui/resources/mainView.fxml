@@ -176,12 +176,12 @@
                                              </font>
                                           </Button>
                                           <ImageView fx:id="logoYgg" fitHeight="244.0" fitWidth="313.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="5" />
-                                          <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#estoque" prefHeight="45.0" prefWidth="185.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Estoque" GridPane.rowIndex="4">
+                                          <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#estoque" prefHeight="45.0" prefWidth="185.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Estoque / Produtos" GridPane.rowIndex="4">
                                              <graphic>
                                                 <ImageView fx:id="refresh" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" />
                                              </graphic>
                                              <font>
-                                                <Font size="18.0" />
+                                                <Font size="14.0" />
                                              </font>
                                           </Button>
                                           <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#addOrcamento" prefHeight="45.0" prefWidth="185.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Inserir Orçamento" GridPane.rowIndex="1">

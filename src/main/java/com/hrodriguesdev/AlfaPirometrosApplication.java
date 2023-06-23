@@ -38,33 +38,45 @@ public class AlfaPirometrosApplication extends Application{
 	public static String caminhoPDF = "\\Desktop\\Relatorios";
 	
 	
+//	
+//	public static ObservableList<String> OBS_PRODUCTS = FXCollections.observableArrayList(
+//			
+//			"BotaoLiga", "BoMeFIIFIIIIndicmax", "CaixaBat",
+//			"FontCarbIndic", "FontCarbDelta", "PinFemeAliFII", "PinFemeAliFIII", 
+//			"BatFIIFIII", "BatDescartavel", "BatInditemp", "BatLitio", "CarrEcil", "CarrItalterm",
+//			
+//			"PCIFIII", "PCIFKal", "DispFKal", "FIII", "Indicmax", "CIFII", "CIIndicmax", "sirene", 
+//			"MascaraFII", "MascaraFKal", "MascaraFIII", "MascaraCarbo", "MascaraIndic", "EtiqLatFII", "EtiqLatFIII", "EtiqTrasFII", "Punho", 
+//			
+//			"ReceptaculoS", "ReceptaculoSU", "ReceptaculoEcil", "ReceptaculoK", "PlugFS", "PlugFK", "PlugMS", "PlugMK", "TomadaS",
+//			
+//			"Cabo_S_borracha", "Cabo_S_miolo_lanca", "Cabo_S_extensao", "Cabo_K_borracha", "Cabo_K_Fibra_Fibra", "Cabo_K_Fibra_Silicone", 
+//			
+//			"Calibracao"
+//			);
+//	
 	
-	public static ObservableList<String> obsPecasEstoque = FXCollections.observableArrayList(
+	public static ObservableList<String> OBS_PRODUCTS = FXCollections.observableArrayList();
 			
-			"BotaoLiga", "BoMeFIIFIIIIndicmax", "CaixaBat",
-			"FontCarbIndic", "FontCarbDelta", "PinFemeAliFII", "PinFemeAliFIII", 
-			"BatFIIFIII", "BatDescartavel", "BatInditemp", "BatLitio", "CarrEcil", "CarrItalterm",
-			
-			"PCIFIII", "PCIFKal", "DispFKal", "FIII", "Indicmax", "CIFII", "CIIndicmax", "sirene", 
-			"MascaraFII", "MascaraFKal", "MascaraFIII", "MascaraCarbo", "MascaraIndic", "EtiqLatFII", "EtiqLatFIII", "EtiqTrasFII", "Punho", 
-			
-			"ReceptaculoS", "ReceptaculoSU", "ReceptaculoEcil", "ReceptaculoK", "PlugFS", "PlugFK", "PlugMS", "PlugMK", "TomadaS",
-			
-			"Cabo_S_borracha", "Cabo_S_miolo_lanca", "Cabo_S_extensao", "Cabo_K_borracha", "Cabo_K_Fibra_Fibra", "Cabo_K_Fibra_Silicone", 
-			
-			"Calibracao"
-			);
 	public static ObservableList<String> obsQuantidade = FXCollections.observableArrayList("1","2","3","4","5","6","7","8","9","10");
 
 	private final String nameIcon = "Yggdrasilicon.jpg";
 	private final String nameImageViewStarting = "Yggdrasil.jpg";
 	
-	public static String caminhoDbProperties = "C:\\Program Files\\Java\\resources\\dbAlfa.properties";
-	public static String caminhoDbProperties2 = "C:\\Program Files (x86)\\Java\\resources\\dbAlfa.properties";
+	
+	
+	public static String URL_CONEXAO = "C:\\Program Files\\Java\\resources";
+	
+	public static String URL_CONEXAO_PRODUCAO = URL_CONEXAO + "\\Alfa.properties";
+	public static String URL_CONEXAO_DESENVOLVIMENTO = URL_CONEXAO + "\\dbLocal.properties";
+	
+	public static String URL_CONEXAO_2 = "C:\\Program Files (x86)\\Java\\resources\\Alfa.properties";
+		
+	
 	public static String properties = "Properties.properties";
 	public static String strDiretorioYggDrasil = "\\AppData\\Local\\YggDrasil";
-	public static String areaDeTrabalho = System.getProperty("user.home").toString() + "\\Desktop"; 
-	public static String CERTIFICADO_CAMINHO = AlfaPirometrosApplication.areaDeTrabalho + "\\Certificados YggDrasil";
+	public static String URL_AREA_DE_TRABALHO = System.getProperty("user.home").toString() + "\\Desktop"; 
+	public static String CERTIFICADO_CAMINHO = AlfaPirometrosApplication.URL_AREA_DE_TRABALHO + "\\Certificados YggDrasil";
 	
 	public static PaginaBuscaController viewController = new PaginaBuscaController();
 	

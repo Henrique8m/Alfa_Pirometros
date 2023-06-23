@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="915.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox prefHeight="563.0" prefWidth="915.0">
+         <children>
+            <MenuBar prefHeight="25.0" prefWidth="600.0">
+              <menus>
+                <Menu mnemonicParsing="false" text="Products">
+                  <items>
+                        <MenuItem fx:id="addMenuItem" mnemonicParsing="false" onAction="#addAction" text="Adcionar" />
+                        <MenuItem fx:id="saveMenuItem" mnemonicParsing="false" onAction="#saveAction" text="Save" visible="false" />
+                    <MenuItem fx:id="editMenuItem" mnemonicParsing="false" text="Edit" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+            <TableView fx:id="productTable" focusTraversable="false" prefHeight="447.0" prefWidth="915.0">
+              <columns>
+                <TableColumn fx:id="products" editable="false" prefWidth="260.0" text="Produto" />
+                <TableColumn fx:id="description" editable="false" minWidth="0.0" prefWidth="266.0" sortable="false" text="Descrição" />
+                  <TableColumn fx:id="amountPaid" editable="false" maxWidth="99.0" minWidth="-1.0" prefWidth="97.0" sortable="false" text="Valor Pago" />
+                  <TableColumn fx:id="saleValue" editable="false" prefWidth="110.0" sortable="false" text="Valor Venda" />
+                  <TableColumn fx:id="amount" editable="false" sortable="false" text="Quantidade" />
+                  <TableColumn fx:id="unitMeasurement" editable="false" prefWidth="101.0" sortable="false" text="Unidade Medida" />
+              </columns>
+            </TableView>
+            <HBox fx:id="editProductsBox" prefHeight="66.0" prefWidth="915.0" visible="false">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="66.0" prefWidth="250.0" style="-fx-background-radius: 10; -fx-background-color: #c3c3c3;">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Produto" />
+                        <TextField fx:id="productField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="226.0" />
+                     </children>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="66.0" prefWidth="250.0" style="-fx-background-radius: 10; -fx-background-color: #c3c3c3;">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Descrição" />
+                        <TextField fx:id="descriptionField" maxWidth="-Infinity" prefWidth="226.0" />
+                     </children>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="66.0" prefWidth="80.0" style="-fx-background-color: #c3c3c3; -fx-background-radius: 10;">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Valor Pago" />
+                        <TextField fx:id="valuePaidField" alignment="CENTER_RIGHT" maxWidth="-Infinity" prefWidth="75.0" />
+                     </children>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="66.0" prefWidth="80.0" style="-fx-background-color: #c3c3c3; -fx-background-radius: 10;">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Valor venda" />
+                        <TextField fx:id="valueSaleField" alignment="CENTER_RIGHT" maxWidth="-Infinity" prefWidth="75.0" />
+                     </children>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="66.0" prefWidth="65.0" style="-fx-background-radius: 10; -fx-background-color: #c3c3c3;">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Quantidade" />
+                        <TextField fx:id="amountField" alignment="CENTER_RIGHT" maxWidth="-Infinity" prefWidth="60.0" />
+                     </children>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="66.0" prefWidth="100.0" style="-fx-background-radius: 10; -fx-background-color: #c3c3c3;">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Unidade Medida" />
+                        <ComboBox fx:id="unitMeasurementBox" editable="true" prefWidth="90.0" />
+                     </children>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </VBox>
+               </children>
+               <VBox.margin>
+                  <Insets left="10.0" right="10.0" top="10.0" />
+               </VBox.margin>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</Pane>

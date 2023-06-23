@@ -1,5 +1,6 @@
 package com.hrodriguesdev.gui.controller.view.main;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
 import java.util.ResourceBundle;
@@ -8,20 +9,25 @@ import com.hrodriguesdev.AlfaPirometrosApplication;
 import com.hrodriguesdev.controller.ColetorController;
 import com.hrodriguesdev.controller.EmpresaController;
 import com.hrodriguesdev.controller.EquipamentoController;
+import com.hrodriguesdev.controller.EstoqueRepController;
 import com.hrodriguesdev.controller.OrcamentoController;
 import com.hrodriguesdev.dao.db.DB;
 import com.hrodriguesdev.dao.db.DbException;
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.gui.alert.Alerts;
+import com.hrodriguesdev.gui.controller.EstoqueController;
 import com.hrodriguesdev.utilitary.Format;
+import com.hrodriguesdev.utilitary.NewView;
 
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Tab;
@@ -45,6 +51,8 @@ public class MainViewController implements Initializable{
 	public static ColetorController coletorController = new ColetorController();
 	public static EquipamentoController equipamentoController = new EquipamentoController();
 	public static EmpresaController empressaController = new EmpresaController();
+	
+	private EstoqueRepController estoqueRepController = new EstoqueRepController();
 	
 //	public static OrcamentoViewControllerDois OrcamentoViewControllerDois = new OrcamentoViewControllerDois();
 	private Timeline timeline;
@@ -92,6 +100,10 @@ public class MainViewController implements Initializable{
 	@FXML
 	protected Tab empresa;
     
+	@FXML
+    private void estoque(ActionEvent e) throws IOException {
+		NewView.addChildrenToMain((Node) NewView.loadFXML("estoque" , new EstoqueController() ));
+    }
     
     //------------------------------------- Página de Busca --------------------------------------------------------
 	
@@ -161,6 +173,11 @@ public class MainViewController implements Initializable{
 		}
 
 		strartTable();
+		try {
+			updateProductsCombobox();
+		}catch (DbException e) {
+			e.printStackTrace();
+		}
 		
 		Image image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/Yggdrasilicon.jpg").toString() );
 		logoYgg.setImage(image);
@@ -180,8 +197,8 @@ public class MainViewController implements Initializable{
 		buscar1.setImage(image);
 		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-pdf.png").toString() );
 		pdf.setImage(image);
-		sortTable();
 		
+		sortTable();
 		beginTimer();
 //		ItensRepositoryFind repo = new ItensRepositoryFind();
 //		repo.UpdateSinal();
@@ -318,6 +335,7 @@ public class MainViewController implements Initializable{
 				if(FILTER) {
 					
 					updateTable();
+					updateProductsCombobox();
 					
 				}
 			}else {
@@ -331,6 +349,10 @@ public class MainViewController implements Initializable{
 	}
 	
 	
+	private void updateProductsCombobox() {
+		estoqueRepController.refreshObsProducts();		
+	}
+
 	public void updateTable() {
 		try {
 			

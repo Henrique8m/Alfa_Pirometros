@@ -38,6 +38,9 @@ public class PdfCertificado {
 	public final static	Font TIMES_NEGRITO_10 = FontFactory.getFont("C://windows//fonts//timesbd.ttf",
 			BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 10.0f, Font.NORMAL, BaseColor.BLACK);
 	
+	public final static	Font TIMES_NEGRITO_10_RED = FontFactory.getFont("C://windows//fonts//timesbd.ttf",
+			BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 10.0f, Font.NORMAL, BaseColor.RED);
+	
 	public final static	Font times_Negrito_ITALICO_10 = FontFactory.getFont("C://windows//fonts//timesbi.ttf",
 			BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 10.0f, Font.NORMAL, BaseColor.BLACK);
 	
@@ -563,8 +566,8 @@ public class PdfCertificado {
 					+ "condições especificadas, não sendo extensivo a quaisquer lotes, mesmo que similares.\r\n"
 					+ ""
 					+ "A reprodução deste certificado para outros fins, só poderá ser feita integralmente, sem nenhuma alteração"
-					, TIMES_NEGRITO_10);
-			paragraph.getFont().setColor(BaseColor.RED);
+					, TIMES_NEGRITO_10_RED);
+//			paragraph.getFont().setColor(BaseColor.RED);
 			paragraph.setAlignment(Element.ALIGN_CENTER);
 			
 			documento.add(paragraph);

@@ -215,7 +215,7 @@ public class OrcamentoInsert implements Initializable {
 	}
 
 	protected void conboBoxInit() {
-		inputFilterNewItem = new InputFilter<String>( newItem,  new FilteredList<>(AlfaPirometrosApplication.obsPecasEstoque) );
+		inputFilterNewItem = new InputFilter<String>( newItem,  new FilteredList<>(AlfaPirometrosApplication.OBS_PRODUCTS) );
 //		listener = new InputFilter<String>( quantidadeItem,  new FilteredList<>(AlfaPirometrosApplication.obsQuantidade) );
 		
 		quantidadeItem.setEditable(true);
@@ -231,7 +231,11 @@ public class OrcamentoInsert implements Initializable {
 		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-excluir.png").toString() );
 		cancelarImg.setImage(image);
 		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-ensaio.png").toString() );
-		ensaioImg.setImage(image);
+		try {
+			ensaioImg.setImage(image);
+		}catch(NullPointerException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	protected void textFildInserts() {
