@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="381.0" prefWidth="417.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox prefHeight="381.0" prefWidth="397.0">
+         <children>
+            <MenuBar prefHeight="25.0" prefWidth="600.0">
+              <menus>
+                <Menu mnemonicParsing="false" text="Unidade">
+                  <items>
+                        <MenuItem fx:id="addMenuItem" mnemonicParsing="false" onAction="#addAction" text="Adcionar" />
+                        <MenuItem fx:id="saveMenuItem" mnemonicParsing="false" onAction="#saveAction" text="Save" visible="false" />
+                    <MenuItem fx:id="editMenuItem" mnemonicParsing="false" onAction="#editAction" text="Edit" />
+                        <MenuItem fx:id="cancelarMenuItem" mnemonicParsing="false" onAction="#cancelarAction" text="Cancelar" visible="false" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+            <TableView fx:id="unidadeMedidaTable" onKeyReleased="#keyReleased" prefHeight="277.0" prefWidth="397.0">
+              <columns>
+                <TableColumn fx:id="unidadeMedida" editable="false" prefWidth="398.0" text="Unidade" />
+              </columns>
+            </TableView>
+            <HBox fx:id="editUnidadeMedidasBox" prefHeight="61.0" prefWidth="379.0" visible="false">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="66.0" prefWidth="250.0" style="-fx-background-radius: 10; -fx-background-color: #c3c3c3;">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Unidade " />
+                        <TextField fx:id="unidadeMedidaField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="226.0" />
+                     </children>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </VBox>
+               </children>
+               <VBox.margin>
+                  <Insets left="10.0" right="10.0" top="10.0" />
+               </VBox.margin>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</Pane>

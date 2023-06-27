@@ -9,6 +9,9 @@ public class UnidadeMedida {
 	private Long id;
 	private String unidade;
 	
+	public void setUnidade(String unidade) {
+		this.unidade = unidade;
+	}
 	public Long getId() {
 		return id;
 	}

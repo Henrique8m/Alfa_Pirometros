@@ -201,7 +201,7 @@ public class CertificadoRepository {
 	
 	private Certificado find(String campoNomeCompare, Long numeroCompare, String query) {
 		Certificado certificado = null;
-		rs = DB.getResultSet(query);		
+		rs = getResultSet(query);		
 		try {
 			while(rs.next())
 				if(rs.getLong(campoNomeCompare) == numeroCompare) 
@@ -216,5 +216,16 @@ public class CertificadoRepository {
 				
 		return certificado;
 	}	
+	
+	private ResultSet getResultSet(String query) {
+		try {
+			conn = DB.getConnection();
+			st = conn.createStatement();
+			return st.executeQuery(query);
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return null;			
+	}
 	
 }

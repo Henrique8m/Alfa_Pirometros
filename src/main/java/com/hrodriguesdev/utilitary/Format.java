@@ -61,6 +61,26 @@ public class Format {
 		
 		return replace;
 	}
+	
+	public static String replaceValue(String input) {
+		input = input.replaceAll("[^0-9]+", "");
+		StringBuilder stringBuilder = new StringBuilder(input);
+		char last = '1';
+		if(stringBuilder.length()>0)
+			last = stringBuilder.charAt(0);
+		
+		if(stringBuilder.length()>3 && String.valueOf(last).equals("0")) {
+			stringBuilder = stringBuilder.deleteCharAt(0);
+		}else if (stringBuilder.length()<3) {
+			while(stringBuilder.length()<3)
+				stringBuilder = stringBuilder.insert(0, "0");
+		}		
+		
+		stringBuilder = stringBuilder.insert(stringBuilder.length()-2, ".");	
+		return stringBuilder.toString();
+	}
+		
+	
 	public static final SimpleDateFormat formatData2 = new SimpleDateFormat("dd-MM-yy");
 	public static final SimpleDateFormat formataTimeString = new SimpleDateFormat("HH:mm");
 	public static final SimpleDateFormat formataTimeInt = new SimpleDateFormat("HHmm");

@@ -156,8 +156,8 @@ public class ItensRepositoryFind {
 				else if(rs.getBoolean("entrada"))
 					consumo.add(rs);
 				else {
-					System.out.println(rs.getBoolean("entrada"));
-					System.out.println(rs.getBoolean("saida")+"\n");					
+//					System.out.println(rs.getBoolean("entrada"));
+//					System.out.println(rs.getBoolean("saida")+"\n");					
 					list.add(rs.getLong("orcamento_id"));
 				}
 		}catch(DbException | SQLException e) {

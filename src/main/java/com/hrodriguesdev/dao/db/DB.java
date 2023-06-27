@@ -86,22 +86,4 @@ public class DB {
 		}
 	}
 	
-	public static ResultSet getResultSet(String query) {
-		Statement st = null;
-		try {
-			conn = DB.getConnection();
-			st = conn.createStatement();
-			return st.executeQuery(query);
-		}catch(SQLException e) {
-			e.printStackTrace();
-			
-		}
-		finally {
-			DB.closeConnection();
-			DB.closeStatement(st);
-		}
-		return null;			
-	}
-	
-	
 }

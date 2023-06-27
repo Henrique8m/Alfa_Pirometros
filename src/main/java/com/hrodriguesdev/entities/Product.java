@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import com.hrodriguesdev.utilitary.Log;
 
 public class Product {
-	private Long id;
+	private Long id = 0l;
 	private String name;
 	private String descricao;
 	private Double valor_pago;
@@ -39,6 +39,17 @@ public class Product {
 	
 	public Product(String name, String descricao, Double valor_pago, Double valor_venda, Double qtde,
 			Long unidade_medida) {
+		this.name = name;
+		this.descricao = descricao;
+		this.valor_pago = valor_pago;
+		this.valor_venda = valor_venda;
+		this.qtde = qtde;
+		this.unidade_medida = unidade_medida;
+	}
+	
+	public Product(Long id, String name, String descricao, Double valor_pago, Double valor_venda, Double qtde,
+			Long unidade_medida) {
+		this.id = id;
 		this.name = name;
 		this.descricao = descricao;
 		this.valor_pago = valor_pago;
