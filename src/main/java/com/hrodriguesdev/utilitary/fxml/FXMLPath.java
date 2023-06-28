@@ -1,0 +1,8 @@
+package com.hrodriguesdev.utilitary.fxml;
+
+public class FXMLPath {
+	
+	public static String ADD_PRODUCT_OS = "AddProducOs";
+	public static String OS_VIEW = "orcamentoViewDois";
+
+}

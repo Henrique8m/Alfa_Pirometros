@@ -12,6 +12,9 @@ public class Product {
 	private Double valor_pago;
 	private Double valor_venda;
 	private Double qtde;
+	public void setQtde(Double qtde) {
+		this.qtde = qtde;
+	}
 	private Long unidade_medida;
 	private String unidadeMedida;
 	
@@ -71,6 +74,9 @@ public class Product {
 			e.printStackTrace();
 			Log.logString("Product", e.getMessage());
 		}
+	}
+	public Product() {
+		this.qtde = 0d;
 	}
 	public String getUnidadeMedida() {
 		return unidadeMedida;

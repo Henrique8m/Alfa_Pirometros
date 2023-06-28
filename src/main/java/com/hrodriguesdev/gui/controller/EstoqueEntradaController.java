@@ -71,7 +71,7 @@ public class EstoqueEntradaController extends OrcamentoInsert implements Initial
 			}
 
 			boolean entrada = true;
-			orcamento.setNfe(nfe);
+//			orcamento.setNfe(nfe);
 						
 			Itens itens = new Itens(orcamento_id, false , nfe , entrada);
 			

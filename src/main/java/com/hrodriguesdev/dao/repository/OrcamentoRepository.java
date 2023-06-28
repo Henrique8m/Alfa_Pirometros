@@ -188,19 +188,59 @@ public class OrcamentoRepository {
 		}
 		return null;
 	}
-
+//
+//	public boolean updatede(Orcamento orcamento) {
+//		boolean ok = false;		
+//		try {
+//			conn = DB.getConnection();
+//			conn.setAutoCommit(false);
+//			pst = conn.prepareStatement("UPDATE tb_orcamento "
+//											+ "SET Item = ?"
+//											+" WHERE "
+//											+"(id = ?)");
+//			
+//			pst.setString( 1, orcamento.getItem() );
+//			pst.setLong( 2, orcamento.getId() );
+//			
+//			int rowsAccepted = pst.executeUpdate();
+//			conn.commit();
+//			if(rowsAccepted>0)
+//				ok=true;
+//		
+//		}catch(DbException | SQLException e) {
+//			e.printStackTrace();
+//			try {
+//				conn.rollback();
+//				throw new DbException("Transaction rolled back! Caused by: " + e.getMessage() );
+//			}catch (SQLException e1) {
+//				throw new DbException("Error trying to rollback! Caused by: \" + e1.getMessage()");
+//			}
+//			
+//		}
+//		finally {
+//			DB.closeStatement(pst);
+//			DB.closeConnection();
+//			
+//		}
+//		return ok;
+//	}
+	
 	public boolean updatede(Orcamento orcamento) {
 		boolean ok = false;		
 		try {
 			conn = DB.getConnection();
 			conn.setAutoCommit(false);
 			pst = conn.prepareStatement("UPDATE tb_orcamento "
-											+ "SET Item = ?"
+											+ "SET Item = ?,"
+											+ "data_chegada = ?,"
+											+ "status = ?"
 											+" WHERE "
 											+"(id = ?)");
 			
 			pst.setString( 1, orcamento.getItem() );
-			pst.setLong( 2, orcamento.getId() );
+			pst.setDate(2, orcamento.getData_chegada());
+			pst.setInt(3, orcamento.getStatus());
+			pst.setLong(4, orcamento.getId() );
 			
 			int rowsAccepted = pst.executeUpdate();
 			conn.commit();

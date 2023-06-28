@@ -2,25 +2,33 @@ package com.hrodriguesdev.gui.controller.view.insert;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import com.hrodriguesdev.AlfaPirometrosApplication;
 import com.hrodriguesdev.controller.EnsaiosController;
+import com.hrodriguesdev.controller.OSController;
+import com.hrodriguesdev.controller.OrcamentoController;
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.entities.Orcamento;
+import com.hrodriguesdev.entities.Product;
+import com.hrodriguesdev.entities.products.ProductsOs;
+import com.hrodriguesdev.gui.alert.Alerts;
 import com.hrodriguesdev.gui.controller.EnsaioViewController;
+import com.hrodriguesdev.gui.controller.RegisterProductsController;
 import com.hrodriguesdev.utilitary.Format;
 import com.hrodriguesdev.utilitary.Geral;
 import com.hrodriguesdev.utilitary.InputFilter;
-import com.hrodriguesdev.utilitary.Itens;
+import com.hrodriguesdev.utilitary.Log;
 import com.hrodriguesdev.utilitary.NewView;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
@@ -33,7 +41,13 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
-public class OrcamentoInsert implements Initializable {
+//Chamadas da class
+//gui EstoqueEntrada
+//gui EstoqueSaida
+//gui main OrcamentoMainView
+//gui update OrcamentoUpdateDois
+
+public class OrcamentoInsert extends RegisterProductsController implements Initializable {
 	
 	public OrcamentoInsert(Equipamento equipamento, Orcamento orcamento) {
 		this.equipamento = equipamento;
@@ -68,20 +82,16 @@ public class OrcamentoInsert implements Initializable {
 		
 	//Table
 	@FXML
-	protected TableView<Orcamento> tableOrcamento = new TableView<>();
-	protected ObservableList<Orcamento> obsMateriais = FXCollections.observableArrayList();
+	protected TableView<Product> productSelectedTable = new TableView<>();
+	protected ObservableList<Product> obsMateriais = FXCollections.observableArrayList();
 	@FXML
-	protected TableColumn<Orcamento, String> item;
+	protected TableColumn<Product, String> productsSelected, descriptionSelected, unitMeasurementSelected;
 	@FXML
-	protected TableColumn<Orcamento, Integer> quantidade;
+	protected TableColumn<Product, Double> amountSelected;
 	
 	//Add Orçamentos
 	@FXML
-	protected TextField obs;
-	@FXML
-	protected ComboBox<String> newItem;
-	@FXML
-	protected ComboBox<String> quantidadeItem;
+	protected TextField obs, quantidadeItem, obsSelected, filterProductsTextField;
 	
 	@FXML 
 	protected ComboBox<String> empressaComboBox;
@@ -90,17 +100,149 @@ public class OrcamentoInsert implements Initializable {
 	protected InputFilter<String> inputFilterNewItem;
 	protected InputFilter<String> listener;
 			
+
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		quantidadeItem.setValue("1");
-		conboBoxInit();
+		quantidadeItem.setText("1");
 		imageInit();
 		textFildInserts();
-		tabelaInit();
-		data.setEditable(true);
-				
+		startTable();
+		data.setEditable(true);				
 	}	
 	
+
+	
+//	Acaoes dos botoes da view
+	
+//	Acaoes dos referente aos orcamentos
+	
+	@FXML
+	protected void addItem(ActionEvent event) {
+		if(!obs.getText().isBlank()) {
+			orcamento.setItem(obs.getText());
+			if(!obsSelected.getText().isBlank())
+				obsSelected.setText(obsSelected.getText() 
+						+ ", " 
+						+ obs.getText());
+			else 
+				obsSelected.setText(obs.getText());
+			descelectAll();
+		}else if(!productTable.getSelectionModel().isEmpty()){
+			try {
+				double qtde = Double.valueOf(quantidadeItem.getText());
+				if(qtde >0) {
+					Product prod = productTable.getSelectionModel().getSelectedItem();
+					
+					obsMateriais.stream().filter(produto -> produto.equals(prod)).findFirst().ifPresentOrElse(
+							(a) -> {
+								a.setQtde(a.getQtde() + qtde);
+								} , 
+							() -> {
+								prod.setQtde(qtde);
+								obsMateriais.add(prod);
+							});
+					productSelectedTable.refresh();
+
+				}else
+					erro.setText("Quantidade tem que ser maior que 0");
+			}catch(NumberFormatException e) {
+				Log.logString("OrcamentoInsert", e.getMessage());
+				e.printStackTrace();
+			}
+						
+		}	
+	}	
+	
+	
+	@FXML
+	protected void removeItem(ActionEvent event) {
+		if(!productSelectedTable.getSelectionModel().isEmpty()) {
+			obsMateriais.remove(productSelectedTable.getSelectionModel().getSelectedItem() );
+			productSelectedTable.setItems(obsMateriais);
+			productSelectedTable.refresh();
+		}else
+			obsSelected.setText("");
+		}	
+	
+//	botao para fecha a tela
+	@FXML
+	protected void cancelar(ActionEvent event) throws IOException {
+		NewView.fecharView();
+	}
+	
+//	Botao pra inserir o ensaio do equipamento em questao
+	@FXML
+	private void ensaio() {
+		NewView.getNewView("Ensaios","ensaioInserts" , new EnsaioViewController(equipamento, orcamento));
+	}
+
+//	botao para salvar os dados alterado 
+	@FXML
+	protected void salvar(ActionEvent event) throws IOException {
+		orcamentoId = orcamento.getId();
+		List<ProductsOs> listProductsOs = new ArrayList<>();
+		
+		if(!obsSelected.getText().isBlank())
+			orcamento.setItem(obsSelected.getText());
+		if(obsMateriais.size()>0) {
+			obsMateriais.forEach((product) -> {
+				listProductsOs.add(new ProductsOs(orcamentoId, product.getId(), product.getQtde()));				
+			});
+		}else if(obsSelected.getText().isBlank())
+			return ;
+		if(orcamento.getStatus() == 1)
+			orcamento.setStatus(2);
+		if(data.getText().length() == 10)
+			orcamento.setData_chegada(Geral.dateParceString(data.getText()));
+		
+		OSController controller = new OSController();
+		OrcamentoController controllerOrcamento = new OrcamentoController();
+		if(controller.createNewOS(listProductsOs) )
+			if(controllerOrcamento.updatede(orcamento)) 
+					NewView.fecharView();			
+			else {
+				Log.logString("OrcamentoInsert", "Erro ao Atualizar o orcamento");
+				System.out.println("Erro ao Atualizar o orcamento\nOrcamentoInsert\n");
+			}
+		else {
+			Log.logString("OrcamentoInsert", "Erro Criar a lista da os");
+			Alerts.showAlert("Error", "Contatar Adm", "", AlertType.ERROR);
+			System.out.println("Erro Criar a lista da os\nOrcamentoInsert\n");
+		}
+						
+//		Itens itens = new Itens(orcamentoId, false , 0, false);		
+//		if(obsMateriais.size()>0) {
+//			obsMateriais.forEach((orcamento)-> {	
+//
+//				if( !itens.addItem(orcamento.getItemRealString(), orcamento.getQuantidade() ) )	{
+////					String itemStr = orcamento.getItem();
+//					this.nova = this.list + itemStr  + "\n";
+//					this.list = nova;
+//				}				
+//			});
+//			
+//			if(!this.list.isEmpty())
+//				orcamento.setItem(list);	
+
+//			if(itens.saveAll( orcamento) ) {
+//				try {
+//					NewView.fecharView();
+//				
+//				} catch (NumberFormatException e) {
+//					e.printStackTrace();
+//				}
+//			}else {
+//				erro.setText("Erro");
+//			}
+//		}		
+		AlfaPirometrosApplication.viewController.refreshTable();
+	
+	}	
+		
+//	Acoes de tecla
+	
+//	TextField de obervacao, a area de add orcamento
 	@FXML
 	protected void addComEnter(KeyEvent event) {
 		if(event.getCode().toString()=="ENTER") {
@@ -110,90 +252,21 @@ public class OrcamentoInsert implements Initializable {
 	}
 	
 	@FXML
-	protected void removeListner(KeyEvent event) {
+	protected void esc(KeyEvent event) {
+		if(event.getCode().toString()=="ESC") {
+			descelectAll();
+		}
 	}
 	
+//	filtro para inserir quantidade de produto no orcamento 
 	@FXML
-	protected void addItem(ActionEvent event) {
-		if(newItem.getValue() != null && !newItem.getValue().isBlank() && quantidadeItem.getValue()!= null) {
-			newItem.requestFocus();
-			obsMateriais.add(new Orcamento(newItem.getValue(), Integer.parseInt( quantidadeItem.getValue() ) ) );
-			tableOrcamento.refresh();
-			
-//			quantidadeItem.getEditor().textProperty().removeListener( listener );	
-			newItem.getEditor().textProperty().removeListener( inputFilterNewItem );
-			
-			newItem.setValue("");
-			quantidadeItem.setValue("1");
-			conboBoxInit();	
-			
-		}else if( !obs.getText().isEmpty() ) {
-			obsMateriais.add( new Orcamento(obs.getText(), 0 ) );
-			obs.setText("");
-			newItem.requestFocus();
-			
-		}else {
-			erro.setText("Novo item com valor vazio");
+	private void filtredDouble(KeyEvent eventKey) {
+		if(eventKey.getTarget().equals(quantidadeItem)) {
+			quantidadeItem.setText(quantidadeItem.getText().replaceAll("[^0-9-.]+", ""));
+			quantidadeItem.end();
 		}
-		
-	}	
-	
-	@FXML
-	protected void removeItem(ActionEvent event) {
-		Integer index = tableOrcamento.getSelectionModel().getSelectedIndex();
-		if(index != null) {
-			obsMateriais.remove(tableOrcamento.getSelectionModel().getSelectedItem() );
-			tableOrcamento.setItems(obsMateriais);
-			tableOrcamento.refresh();
-		}		
-	}	
-
-
-	@FXML
-	protected void salvar(ActionEvent event) throws IOException {
-		orcamentoId = orcamento.getId();
-		if(!controllerEnsaios.isExistByOrcamentoId(orcamentoId)) {
-			erro.setText("Falta inserir os ensaios");
-			return;
-		}
-		Itens itens = new Itens(orcamentoId, false , 0, false);
-		
-		if(obsMateriais.size()>0) {
-			obsMateriais.forEach((orcamento)-> {	
-
-				if( !itens.addItem(orcamento.getItemRealString(), orcamento.getQuantidade() ) )	{
-					String itemStr = orcamento.getItem();
-					this.nova = this.list + itemStr  + "\n";
-					this.list = nova;
-				}				
-			});
-			
-			if(!this.list.isEmpty())
-				orcamento.setItem(list);	
-			if(orcamento.getStatus() == 1)
-				orcamento.setStatus(2);
-			if(data.getText().length() == 10)
-				orcamento.setData_chegada(Geral.dateParceString(data.getText()));
-			if(itens.saveAll( orcamento) ) {
-				try {
-					NewView.fecharView();
-				
-				} catch (NumberFormatException e) {
-					e.printStackTrace();
-				}
-			}else {
-				erro.setText("Erro");
-			}
-		}
-		AlfaPirometrosApplication.viewController.refreshTable();
-	
-	}	
-	
-	@FXML
-	protected void cancelar(ActionEvent event) throws IOException {
-		NewView.fecharView();
 	}
-
+	
 	
 	@FXML
 	protected void format(KeyEvent event) {
@@ -206,25 +279,40 @@ public class OrcamentoInsert implements Initializable {
 			data.end();
 		}
 	}	
+		
+//	metodos auxiliares
 	
-	protected void tabelaInit() {
-		item.setCellValueFactory(new PropertyValueFactory<Orcamento, String>("Item") );
-		quantidade.setCellValueFactory(new PropertyValueFactory<Orcamento, Integer>("quantidade"));
-		tableOrcamento.setItems(obsMateriais);
+//	tira a selecao de todas as tabelas, limpa a quantidade, e limpa o campo de observacao
+	protected void descelectAll() {
+		obs.setText("");
+		productTable.getSelectionModel().clearSelection();
+		productSelectedTable.getSelectionModel().clearSelection();
+		quantidadeItem.setText("1");
+		erro.setText("");
 		
 	}
-
-	protected void conboBoxInit() {
-		inputFilterNewItem = new InputFilter<String>( newItem,  new FilteredList<>(AlfaPirometrosApplication.OBS_PRODUCTS) );
-//		listener = new InputFilter<String>( quantidadeItem,  new FilteredList<>(AlfaPirometrosApplication.obsQuantidade) );
+	
+//	Inicia as tabelas conforme os dados que vao ser inseridos na mesma
+	@Override
+	public void startTable() {	
+//		Tabela de produtos selecionados
+		productsSelected.setCellValueFactory(new PropertyValueFactory<Product, String>("name"));		
+		descriptionSelected.setCellValueFactory(new PropertyValueFactory<Product, String>("descricao"));
+		unitMeasurementSelected.setCellValueFactory(new PropertyValueFactory<Product, String>("unidadeMedida"));
+		amountSelected.setCellValueFactory(new PropertyValueFactory<Product, Double>("qtde"));		
+		productSelectedTable.setItems(obsMateriais);
+				
+//		tabela com todos os produtos
+		productTable.setEditable(false); 			
+		products.setCellValueFactory(new PropertyValueFactory<Product, String>("name"));		
+		description.setCellValueFactory(new PropertyValueFactory<Product, String>("descricao"));
+		unitMeasurement.setCellValueFactory(new PropertyValueFactory<Product, String>("unidadeMedida"));	
 		
-		quantidadeItem.setEditable(true);
-		newItem.setEditable(true);	
-		
-//		quantidadeItem.getEditor().textProperty().addListener(listener );		
-		newItem.getEditor().textProperty().addListener( inputFilterNewItem );
+		refresh();
 	}
 	
+	
+//	Inicia todas as imagens contidas na view
 	protected void imageInit() {
 		Image image =  new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-adicionar.png").toString() );
 		salvarImg.setImage(image);
@@ -238,8 +326,8 @@ public class OrcamentoInsert implements Initializable {
 		}
 	}
 	
+//	insere as informações dos equipamento assim que a view abre
 	protected void textFildInserts() {
-
 		nomeEmpressa.setText(equipamento.getEmpressaName());
 		data.setText( Format.formatData.format(orcamento.getData_chegada()) );
 		modelo.setText(equipamento.getModelo());
@@ -250,63 +338,9 @@ public class OrcamentoInsert implements Initializable {
 //		ultimaCal.setText(equipamento.getUltimaCalib());	
 	}
 	
-	@FXML
-	private void ensaio() {
-		NewView.getNewView("Ensaios","ensaioInserts" , new EnsaioViewController(equipamento, orcamento));
-	}
 		
-//	private boolean listManutencao(String value, int intValue) {
-//		/*
-//		switch (value) {
-//			case "BotaoLiga": return "Aguardando Orçamento";
-//			case "BoMeFIIFIIIIndicmax":	return "Enviar Orçamento";
-//			case "CaixaBat": return "Aguardando Aprovação";
-//			case "FontCarbIndic": return "Aprovado, aquardando Reparo!";
-//			case "FontCarbDelta": return "Liberado, aquardando Coleta!";
-//			case "PinFemeAliFII": return "Não Aprovado, aquardando coleta!";
-//			
-//			case "PinFemeAliFIII": return "Aguardando Orçamento";
-//			case "BatFIIFIII":	return "Enviar Orçamento";
-//			case "BatDescartavel": return "Aguardando Aprovação";
-//			case "BatInditemp": return "Aprovado, aquardando Reparo!";
-//			case "BatLitio": return "Liberado, aquardando Coleta!";
-//			case "CarrEcil": return "Não Aprovado, aquardando coleta!";		
-//			case "CarrItalterm": return "Aguardando Orçamento";
-//			
-//			case "PCIFIII":	return "Enviar Orçamento";
-//			case "PCIFKal": return "Aguardando Aprovação";
-//			case "DispFKal": return "Aprovado, aquardando Reparo!";
-//			case "FIII": return "Liberado, aquardando Coleta!";
-//			case "Indicmax": return "Não Aprovado, aquardando coleta!";		
-//			case "CIFII": return "Aguardando Orçamento";
-//			case "CIIndicmax":	return "Enviar Orçamento";
-//			case "sirene": return "Aguardando Aprovação";
-//			
-//			case "MascaraFII":	return "Enviar Orçamento";
-//			case "MascaraFKal": return "Aguardando Aprovação";
-//			case "MascaraFIII": return "Aprovado, aquardando Reparo!";
-//			case "MascaraCarbo": return "Liberado, aquardando Coleta!";
-//			case "MascaraIndic": return "Não Aprovado, aquardando coleta!";		
-//			case "EtiqLatFII": return "Aguardando Orçamento";
-//			case "EtiqLatFIII":	return "Enviar Orçamento";
-//			case "EtiqTrasFII": return "Aguardando Aprovação";		
-//			case "Punho":	return "Enviar Orçamento";
-//			
-//			case "ReceptaculoS": return "Aguardando Aprovação";
-//			case "ReceptaculoSU": return "Aprovado, aquardando Reparo!";
-//			case "ReceptaculoEcil": return "Liberado, aquardando Coleta!";
-//			case "ReceptaculoK": return "Não Aprovado, aquardando coleta!";		
-//			case "PlugFS": return "Aguardando Orçamento";
-//			case "PlugFK":	return "Enviar Orçamento";
-//			case "PlugMS": return "Aguardando Aprovação";
-//			case "PlugMK":	return "Enviar Orçamento";
-//			case "TomadaS": return "Aguardando Aprovação";
-//			
-//		default: return "";
-//		}
-//		return false;
-//		*/
-//		return true;
-//	}
-
+// Table Products	
+	
+	
+	
 }

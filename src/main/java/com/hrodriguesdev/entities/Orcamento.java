@@ -26,9 +26,15 @@ public class Orcamento {
 	private Long cabos;
 	private String products;
 	
-	private int nfe;
+//	private int nfe;
 	private String situation;
 	private String empressa;
+	
+//	
+	private String nfe;
+	private String author;
+	private Long empresaId;
+	
 	
 	public Orcamento(Long equipamento_id, Date data_chegada, Boolean laboratorio) {
 		this.setEquipamento_id(equipamento_id);
@@ -58,7 +64,11 @@ public class Orcamento {
 			estetico = rs.getLong("estetico");
 			sinal = rs.getLong("sinal");
 			setCabos(rs.getLong("cabos"));
-			this.products = rs.getString("products");
+			
+			
+			this.setNfe(rs.getString("nfe"));
+			this.setAuthor(rs.getString("author"));
+			this.setEmpresaId(rs.getLong("empresa_id"));
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -143,123 +153,7 @@ public class Orcamento {
 	}
 	
 	public String getItem() {
-		if(Item != null) {
-	
-			switch (Item) {
-			case "BotaoLiga":
-				return "Botão de Liga";
-	
-			case "BoMeFIIFIIIIndicmax":
-				
-				return "Botão de Memoria";
-			case "CaixaBat":
-				
-				return "Caixa da Bateria";
-			case "FontCarbIndic":
-					
-				return "Fonte alimentação";	
-			case "FontCarbDelta":
-						
-				return "Fonte alimentação";		
-			case "PinFemeAliFII":
-							
-				return "Pino Femêa Alimentação";		
-			case "PinFemeAliFIII":
-								
-				return "Pino Femêa Alimentação";	
-			case "BatFIIFIII":
-							
-				return "Bateria";	
-			case "BatDescartavel":
-										
-				return "Bateria 9v";					
-			case "BatInditemp":
-				
-				return "Bateria";				
-			case "BatLitio":
-				
-				return "Bateria Litium";	
-			case "CarrEcil":
-						
-				return "Carregador 6Vcc";	
-			case "CarrItalterm":
-				
-				return "Carregador 18Vcc";	
-			case "PCIFIII":
-				
-				return "PCI Fornero III";	
-			case "PCIFKal":
-				
-				return "PCI Fornero Kal";
-			case "DispFKal":
-				
-				return "Display Fornero Kall";		
-			case "CIFII":
-						
-				return "CI Microcontrolador";
-			case "CIIndicmax":
-				
-				return "CI Microcontrolador";		
-			case "sirene":
-				
-				return "Sirene fim medição";		
-			case "MascaraFII":
-				
-				return "Mascara";
-			case "MascaraFKal":
-				
-				return "Mascara";
-			case "MascaraFIII":
-				
-				return "Mascara";
-			case "MascaraCarbo":
-				
-				return "Mascara";
-			case "MascaraIndic":
-				
-				return "Mascara";
-			case "EtiqLatFII":
-				
-				return "Etiqueta";
-			case "EtiqLatFIII":
-				
-				return "Etiqueta";
-			case "EtiqTrasFII":
-				
-				return "Etiqueta";
-			case "ReceptaculoS":
-				
-				return "Receptaculo S";
-			case "ReceptaculoSU":
-				
-				return "Receptaculo SU";
-			case "ReceptaculoEcil":
-				
-				return "Receptaculo Ecil";			
-			case "ReceptaculoK":
-				
-				return "Receptaculo K";
-			case "PlugFS":
-				
-				return "Plug Fêmea S";
-			case "PlugFK":
-				
-				return "Plug Fêmea K";
-			case "PlugMS":
-				
-				return "Plug Macho S";
-			case "PlugMK":
-				
-				return "Plug Macho K";			
-			case "TomadaS":
-				
-				return "Tomada S";	
-			default:
-				return Item;
-			}
-		}
-		return "";
-	
+		return Item;
 	}
 	
 	public void setItem(String item) {
@@ -384,14 +278,6 @@ public class Orcamento {
 		this.cabos = cabos;
 	}
 
-	public int getNfe() {
-		return nfe;
-	}
-
-	public void setNfe(int nfe) {
-		this.nfe = nfe;
-	}
-
 	public String getSituation() {
 		return situation;
 	}
@@ -423,6 +309,30 @@ public class Orcamento {
 
 	public void setProducts(String products) {
 		this.products = products;
+	}
+
+	public String getNfe() {
+		return nfe;
+	}
+
+	public void setNfe(String nfe) {
+		this.nfe = nfe;
+	}
+
+	public String getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(String author) {
+		this.author = author;
+	}
+
+	public Long getEmpresaId() {
+		return empresaId;
+	}
+
+	public void setEmpresaId(Long empresaId) {
+		this.empresaId = empresaId;
 	}
 
 	

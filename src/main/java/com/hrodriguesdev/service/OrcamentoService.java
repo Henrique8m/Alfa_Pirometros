@@ -120,7 +120,7 @@ public class OrcamentoService {
 			consumoList.forEach((consumo)->{				
 				if(consumo.getOrcamento_id().equals(orcamento.getId())) {
 					if(consumo.getNfe()!= null)
-						orcamento.setNfe(consumo.getNfe());
+//						orcamento.setNfe(consumo.getNfe());
 					if(consumo.getEntrada())
 						orcamento.setSituation("Entrada para Estoque");
 					else if(orcamento.getEquipamento_id() != 0) {

@@ -10,6 +10,7 @@ import com.hrodriguesdev.gui.controller.OrcamentoView;
 import com.hrodriguesdev.gui.controller.view.insert.OrcamentoInsert;
 import com.hrodriguesdev.gui.controller.view.updatede.OrcamentoUpdatedeDois;
 import com.hrodriguesdev.utilitary.NewView;
+import com.hrodriguesdev.utilitary.fxml.FXMLPath;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -49,13 +50,10 @@ public class OrcamentoMainView extends TableMainView{
     
     @FXML
 	protected void addOrcamento(ActionEvent e) throws IOException, SQLException {
-		if(tableFilaEquipamentos.getSelectionModel().getSelectedItem() != null) {
+		if(!tableFilaEquipamentos.getSelectionModel().isEmpty()) {
 			int status = tableFilaEquipamentos.getSelectionModel().getSelectedItem().getStatus();
-			if(status == 1) 
-			{
-				
-//				NewView.getNewView("Entrada Equipamento", "orcamentoDois", new OrcamentoInsert() );
-				NewView.addChildrenToMain((Node) NewView.loadFXML("orcamentoDois" , new OrcamentoInsert(
+			if(status == 1){
+				NewView.addChildrenToMain((Node) NewView.loadFXML(FXMLPath.ADD_PRODUCT_OS , new OrcamentoInsert(
 						tableFilaEquipamentos.getSelectionModel().getSelectedItem(),
 						controller.findById( tableFilaEquipamentos.getSelectionModel().getSelectedItem().getOrcamento_id() ) ) ));
 
@@ -75,7 +73,7 @@ public class OrcamentoMainView extends TableMainView{
 			{
 				try {
 					orcamento = controller.findById( tableFilaEquipamentos.getSelectionModel().getSelectedItem().getOrcamento_id() );
-					NewView.addChildrenToMain((Node) NewView.loadFXML( "orcamentoDois", new OrcamentoUpdatedeDois(
+					NewView.addChildrenToMain((Node) NewView.loadFXML( FXMLPath.ADD_PRODUCT_OS, new OrcamentoUpdatedeDois(
 							tableFilaEquipamentos.getSelectionModel().getSelectedItem(),
 							orcamento
 							) ));
@@ -90,7 +88,7 @@ public class OrcamentoMainView extends TableMainView{
 			{
 				try {
 					orcamento = controller.findById( tableFindEquipamentos.getSelectionModel().getSelectedItem().getOrcamento_id() );
-					NewView.addChildrenToMain((Node) NewView.loadFXML("orcamentoDois", new OrcamentoUpdatedeDois(
+					NewView.addChildrenToMain((Node) NewView.loadFXML(FXMLPath.ADD_PRODUCT_OS, new OrcamentoUpdatedeDois(
 							tableFilaEquipamentos.getSelectionModel().getSelectedItem(),
 							orcamento
 							)));
@@ -117,7 +115,7 @@ public class OrcamentoMainView extends TableMainView{
 	    		if(orcamento != null) {
 		    		if(orcamento.getStatus()>1){
 		    			orcamento.setStatus(100);
-		    			NewView.addChildrenToMain((Node) NewView.loadFXML("orcamentoViewDois" , new OrcamentoView(tableFilaEquipamentos.getSelectionModel().getSelectedItem(), orcamento ) ));
+		    			NewView.addChildrenToMain((Node) NewView.loadFXML(FXMLPath.OS_VIEW, new OrcamentoView(tableFilaEquipamentos.getSelectionModel().getSelectedItem(), orcamento ) ));
 		    		}
 	    		}	    		
 	    	}		       

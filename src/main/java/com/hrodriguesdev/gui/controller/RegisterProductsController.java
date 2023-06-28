@@ -63,9 +63,10 @@ public class RegisterProductsController implements Initializable{
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {	
 		unitMeasurementBox.setValue("");
-		strartTable();
+		startTable();
 		obsUnidade = controllerUnid.findAllUnidadeMedidasObs();
 		comboboxInit();
+		amountField.setEditable(false);
 	}
 
 	
@@ -210,7 +211,7 @@ public class RegisterProductsController implements Initializable{
 	
 //	Metodos
 	
-	private void refresh() {
+	protected void refresh() {
 		try {
 			obs = controllerProd.findAllObs();
 			productTable.setItems(obs);
@@ -220,7 +221,7 @@ public class RegisterProductsController implements Initializable{
 	    } 
 	}
 	
-	public void strartTable() {			
+	public void startTable() {			
 		productTable.setEditable(false); 			
 		products.setCellValueFactory(new PropertyValueFactory<Product, String>("name"));		
 		description.setCellValueFactory(new PropertyValueFactory<Product, String>("descricao"));
