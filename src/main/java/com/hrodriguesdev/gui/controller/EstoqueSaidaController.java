@@ -3,21 +3,24 @@ package com.hrodriguesdev.gui.controller;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import com.hrodriguesdev.controller.ColetorController;
 import com.hrodriguesdev.controller.EmpresaController;
+import com.hrodriguesdev.controller.OSController;
 import com.hrodriguesdev.controller.OrcamentoController;
-import com.hrodriguesdev.dao.db.DbException;
 import com.hrodriguesdev.entities.Coletor;
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.entities.Orcamento;
+import com.hrodriguesdev.entities.products.ProductsOs;
 import com.hrodriguesdev.gui.controller.view.insert.OrcamentoInsert;
-import com.hrodriguesdev.gui.controller.view.main.MainViewController;
 import com.hrodriguesdev.utilitary.Format;
 import com.hrodriguesdev.utilitary.InputFilter;
-import com.hrodriguesdev.utilitary.Itens;
+import com.hrodriguesdev.utilitary.Log;
 import com.hrodriguesdev.utilitary.NewView;
+import com.hrodriguesdev.utilitary.fxml.FXMLPath;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -26,7 +29,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.input.KeyEvent;
+import javafx.scene.control.Tooltip;
 
 public class EstoqueSaidaController  extends OrcamentoInsert implements Initializable{
 	
@@ -48,7 +51,8 @@ public class EstoqueSaidaController  extends OrcamentoInsert implements Initiali
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		quantidadeItem.setValue("1");
+		startTable();
+		quantidadeItem.setText("1");
 		chegada.setVisible(false);
 		modeloVbox.setVisible(false);
 		nsVbox.setVisible(false);
@@ -60,9 +64,7 @@ public class EstoqueSaidaController  extends OrcamentoInsert implements Initiali
 		nfeText.setEditable(true);
 		responsavelVbox.setVisible(true);
 		empressaVBox1.setVisible(true);
-		infoText.setVisible(true);
-		conboBoxInit();
-		tabelaInit();
+		infoText.setVisible(true);		
 		imageInit();
 		addListener();
 		
@@ -73,58 +75,55 @@ public class EstoqueSaidaController  extends OrcamentoInsert implements Initiali
 		if( !nfeText.getText().isBlank() && nfeText.getText() != "0") 
 			if( !empressaComboBox.getValue().isBlank() && empressaComboBox.getValue() != "")
 				if( !responsavel.getText().isBlank() && responsavel.getText() != "") 
-					if(obsMateriais.size()>0){
-					
-						orcamento = createOrcamento();
-						orcamentoController = new OrcamentoController();
+					if ( empressaController.isExist(empressaComboBox.getValue()) != null ) {
+						if(obsMateriais.size()>0){
 						
-						orcamento_id = orcamentoController.add(orcamento);
-						orcamento.setId(orcamento_id);
-						
-						if(orcamento_id == null) {
-							erro.setText("Erro ao salvar orcamento");
-							return;
-						}
-						
-						int nfe = Integer.parseInt( nfeText.getText() );
-						boolean entrada = false;
-						boolean saida = true;
-						
-						Itens itens = new Itens(orcamento_id, saida , nfe , entrada);				
-			
-						Coletor coletor = getColetor();
-						
-						orcamentoController.updatede(orcamento);
-					
-						orcamento.setColetor_id(coletor.getId());
-						
-						if(obsMateriais.size()>0) {
-							obsMateriais.forEach((orcamento)-> {	
-				
-							if( !itens.addItem(orcamento.getItemRealString(), orcamento.getQuantidade() ) )	{
-									String itemStr = orcamento.getItem();
-									this.nova = this.list + itemStr  + "\n";
-									this.list = nova;
-								}				
-							});
-							if(!this.list.isEmpty())
-								orcamento.setItem(list);		
-							orcamento.setStatus(20);
-							if(itens.saveAll( orcamento) ) {
-								try {
-									cancelar( new ActionEvent() );
-								} catch (NumberFormatException e) {
-									e.printStackTrace();
-								}
-							}else {
-								erro.setText("Erro");
+							orcamento = createOrcamento();
+							orcamentoController = new OrcamentoController();
+							orcamento_id = orcamentoController.add(orcamento);
+							orcamento.setId(orcamento_id);						
+							
+							if(orcamento_id == null || orcamento_id == 0l) {
+								erro.setText("Erro ao salvar orcamento");
+								return;
 							}
-				}
-				
-			NewView.addChildrenn((Node) NewView.loadFXML("estoque" , new EstoqueController() ));	
-		}else 
-			erro.setText("Cambos obrigatorios em branco");
-		
+							
+							int nfe = 0;
+							try {
+								nfe = Integer.parseInt( nfeText.getText() );					
+							}catch(NumberFormatException e){
+								Log.logString("EstoqueSaidaController", e.getMessage());
+								e.getMessage();
+								return;
+							}
+							
+							Coletor coletor = getColetor();		
+							if(coletor==null) {
+								return;
+							}
+							
+							orcamento.setColetor_id(coletor.getId());
+							orcamento.setNfe(nfe);
+							if(!orcamentoController.updatede(orcamento)) {
+								erro.setText("Erro ao atualizar orcamento");
+							};		
+							
+							if(addOsOut())
+								NewView.addChildrenn((Node) NewView.loadFXML(FXMLPath.ESTOQUE , new EstoqueController() ));	
+							else
+								erro.setText("Erro ao salvar os");
+						}else 
+							erro.setText("Cambos obrigatorios em branco");
+					}
+	}
+	
+	private boolean addOsOut() {
+		List<ProductsOs> listProductsOs = new ArrayList<>();
+		obsMateriais.forEach((product) -> {
+			listProductsOs.add(new ProductsOs(orcamento_id, product.getId(), product.getQtde()));				
+		});
+		OSController osController = new OSController();		
+		return osController.createNewOSOut(listProductsOs);
 	}
 	
 	@FXML
@@ -134,16 +133,7 @@ public class EstoqueSaidaController  extends OrcamentoInsert implements Initiali
 
 	protected Coletor getColetor() {
 		Coletor coletor = new Coletor();
-		if(empressaComboBox.getValue()== "" ||  responsavel.getText()== "" ) {
-			erro.setText("O campo nome da Empressa e nome do coletor, não pode estar vazio");
-			return null;
-		}
 		try {	
-			if ( empressaController.isExist(empressaComboBox.getValue()) == null ) {
-				erro.setText("Empressa nao existe");
-				return null;
-			}
-
 			coletor.setOrcamento_id( orcamento_id);	
 			coletor.setEmpressaName(empressaComboBox.getValue());
 			coletor.setNomeColetor(responsavel.getText());
@@ -151,29 +141,14 @@ public class EstoqueSaidaController  extends OrcamentoInsert implements Initiali
 			coletor.setHoraColeta( Integer.parseInt( Format.formataTimeInt.format(new Date(System.currentTimeMillis() )  ) ) );
 			coletor.setId( coletorController.add(coletor) );
 			
-		}catch(DbException e2) {
-			erro.setText("Empresa Não Encontrada");
+		}catch(Exception e) {
+			erro.setText(e.getMessage());
+			Log.logString("EstoqueSaidaController", e.getMessage());
 			return null;
 		}
 		return coletor;
 	}	
-	
-	public void addListener() {
-		obsString =  MainViewController.empressaController.findAll();
-		filteredList = new FilteredList<>(obsString);  
-		inputFilter = new InputFilter<String>( empressaComboBox, filteredList );
-		empressaComboBox.getEditor().textProperty().addListener(inputFilter);	
-	}
-	
-	@Override
-	protected void removeListner(KeyEvent event) {
-		if(event.getCode().toString() == "ESCAPE") {
-			empressaComboBox.getEditor().textProperty().removeListener(inputFilter);
-			empressaComboBox.setValue("");
-		}	
 		
-	}
-	
 	protected Orcamento createOrcamento() {
 		Orcamento obj = new Orcamento();
 		obj.setEquipamento_id(0l);
@@ -181,5 +156,15 @@ public class EstoqueSaidaController  extends OrcamentoInsert implements Initiali
 		obj.setLaboratorio(false);
 		return obj;
 	}
+	
+	public void addListener() {
+		obsString = empressaController.findAll();
+		filteredList = new FilteredList<>(obsString);  
+		inputFilter = new InputFilter<String>( empressaComboBox, filteredList );	
+		empressaComboBox.getEditor().textProperty().addListener(inputFilter);	
+		empressaComboBox.setTooltip(new Tooltip("Campo para inserir o nome da empresa"));
+		
+
+	}	
 }
 

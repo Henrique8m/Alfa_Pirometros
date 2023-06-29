@@ -137,7 +137,7 @@
                            <children>
                               <VBox alignment="TOP_CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
-                                    <HBox alignment="CENTER" minHeight="-Infinity" prefHeight="45.0">
+                                    <HBox fx:id="observacaoVbox" alignment="CENTER" minHeight="-Infinity" prefHeight="45.0">
                                        <children>
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ADD OBSERVAÇÃO">
                                              <font>

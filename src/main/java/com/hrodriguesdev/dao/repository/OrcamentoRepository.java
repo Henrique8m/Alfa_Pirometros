@@ -440,4 +440,42 @@ public class OrcamentoRepository {
 
 	}
 	
+	public boolean update(Orcamento orcamento) {
+		boolean ok = false;		
+		try {
+			conn = DB.getConnection();
+			conn.setAutoCommit(false);
+			pst = conn.prepareStatement("UPDATE tb_orcamento "
+											+ "SET coletor_id = ?, "
+											+ "nfe = ? "
+											+" WHERE "
+											+"(id = ?)");
+			
+			pst.setLong( 1, orcamento.getColetor_id() );
+			pst.setInt(2, orcamento.getNfe());
+			pst.setLong(3, orcamento.getId() );
+			
+			int rowsAccepted = pst.executeUpdate();
+			conn.commit();
+			if(rowsAccepted>0)
+				ok=true;
+		
+		}catch(DbException | SQLException e) {
+			e.printStackTrace();
+			try {
+				conn.rollback();
+				throw new DbException("Transaction rolled back! Caused by: " + e.getMessage() );
+			}catch (SQLException e1) {
+				throw new DbException("Error trying to rollback! Caused by: \" + e1.getMessage()");
+			}
+			
+		}
+		finally {
+			DB.closeStatement(pst);
+			DB.closeConnection();
+			
+		}
+		return ok;
+	}
+	
 }

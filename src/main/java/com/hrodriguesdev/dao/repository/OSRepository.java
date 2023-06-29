@@ -19,13 +19,13 @@ public class OSRepository {
 	private ResultSet rs = null;
 	private PreparedStatement pst = null;
 	
-	public boolean createNewOs(List<ProductsOs> list) {
+	public boolean createNewOs(List<ProductsOs> list, String table ) {
 		conn = DB.getConnection();
 		try {
 			conn.setAutoCommit(false);			
 			for(ProductsOs productOs: list) {					
-				pst = conn.prepareStatement("INSERT INTO alfaestoque.products_os "
-						+ "(id_products_os, product_id, qtde)"
+				pst = conn.prepareStatement("INSERT INTO alfaestoque." + table
+						+ "(id_orcamento, product_id, qtde)"
 						+ "VALUES "
 						+ "(?, ?, ?)");
 				pst.setLong(1, productOs.getIdProductsOs());
@@ -53,12 +53,12 @@ public class OSRepository {
 		return true;
 	}
 	
-	public List<ProductsOs> findAll(){
+	public List<ProductsOs> findAll(String table){
 		List<ProductsOs> list = new ArrayList<>();
 		conn = DB.getConnection();
 		try {
 			conn.setAutoCommit(false);							
-			rs = getResultSet("SELECT * FROM alfaestoque.products_os ");
+			rs = getResultSet("SELECT * FROM alfaestoque." + table);
 			while(rs.next()) 	
 				list.add(new ProductsOs(rs));
 			
@@ -74,12 +74,12 @@ public class OSRepository {
 		return list;
 	}
 	
-	public List<ProductsOs> findAllByOrcamentoId(Long orcamentoId){
+	public List<ProductsOs> findAllByOrcamentoId(Long orcamentoId, String table){
 		List<ProductsOs> list = new ArrayList<>();
 		conn = DB.getConnection();
 		try {
 			conn.setAutoCommit(false);							
-			rs = getResultSet("SELECT * FROM alfaestoque.products_os ");
+			rs = getResultSet("SELECT * FROM alfaestoque."+ table);
 			while(rs.next()) 
 				if(rs.getLong("id_products_os")==orcamentoId)
 					list.add(new ProductsOs(rs));
@@ -96,11 +96,11 @@ public class OSRepository {
 		return list;
 	}
 	
-	public boolean delete(Long id) {
+	public boolean delete(Long id, String table) {
 		try {
 			conn = DB.getConnection();
 			conn.setAutoCommit(false);
-			pst = conn.prepareStatement("DELETE  FROM alfaestoque.products_os "
+			pst = conn.prepareStatement("DELETE  FROM alfaestoque." + table
 					+ "WHERE "
 					+ "(id = " + id +")");
 

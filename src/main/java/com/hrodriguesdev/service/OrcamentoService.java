@@ -29,6 +29,10 @@ public class OrcamentoService {
 		return repository.updatede( orcamento );
 	}
 
+	public boolean update(Orcamento orcamento) {
+		return repository.update( orcamento );
+	}
+	
 	public List<Orcamento> findAllLaboratorio(boolean laboratorio) {	
 		return repository.findAllLaboratorio(laboratorio);	
 		

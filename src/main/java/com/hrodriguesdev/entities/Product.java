@@ -68,7 +68,6 @@ public class Product {
 			this.descricao = rs.getString("descricao");
 			this.valor_pago = rs.getDouble("valor_pago");
 			this.valor_venda = rs.getDouble("valor_venda");
-			this.qtde = rs.getDouble( "qtde");
 			this.unidade_medida = rs.getLong("unidade_medida");
 		}catch (SQLException e) {
 			e.printStackTrace();

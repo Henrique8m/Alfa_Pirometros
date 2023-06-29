@@ -19,7 +19,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Alert.AlertType;
 
-public class EstoqueEntradaController extends OrcamentoInsert implements Initializable{
+public class EstoqueEntradaController extends EstoqueSaidaController implements Initializable{
 
 	public EstoqueEntradaController(Equipamento equipamento, Orcamento orcamento) {
 		super(equipamento, orcamento);

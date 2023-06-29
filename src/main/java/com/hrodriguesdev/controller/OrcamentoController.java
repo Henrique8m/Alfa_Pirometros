@@ -25,6 +25,11 @@ public class OrcamentoController {
 	public boolean updatede(Orcamento orcamento) {
 		return orcamentoService.updatedeOrcamento( orcamento );
 	}
+	
+	public boolean update(Orcamento orcamento) {
+		return orcamentoService.update( orcamento );
+	}
+	
 
 	public ObservableList<Equipamento> findAllLaboratorio(boolean laboratorio) {
 		List<Orcamento> orcamento = orcamentoService.findAllLaboratorio(laboratorio);

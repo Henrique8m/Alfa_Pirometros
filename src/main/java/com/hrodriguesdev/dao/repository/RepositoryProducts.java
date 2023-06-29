@@ -74,14 +74,13 @@ public class RepositoryProducts {
 		try {
 			conn.setAutoCommit(false);
 			pst = conn.prepareStatement("INSERT INTO alfaestoque.product "
-					+ "(name, descricao, valor_pago, valor_venda, qtde, unidade_medida) "
+					+ "(name, descricao, valor_pago, valor_venda, unidade_medida) "
 					+ "VALUES "
-					+ "(?,?,?,?,?,?)");
+					+ "(?,?,?,?,?)");
 			pst.setString(1, product.getName());
 			pst.setString(2, product.getDescricao());
 			pst.setDouble(3, product.getValor_pago());
 			pst.setDouble(4, product.getValor_venda());
-			pst.setDouble(5, product.getQtde());
 			pst.setLong(6, product.getUnidade_medida());
 			
 			int rownsAffected = pst.executeUpdate();
@@ -118,7 +117,6 @@ public class RepositoryProducts {
 					+ "descricao = ?, "
 					+ "valor_pago = ?, "
 					+ "valor_venda = ?, "
-					+ "qtde = ?, "
 					+ "unidade_medida = ? "
 					+ "WHERE "
 					+ "(id = ?)");
@@ -126,7 +124,6 @@ public class RepositoryProducts {
 			pst.setString(2, product.getDescricao());
 			pst.setDouble(3, product.getValor_pago());
 			pst.setDouble(4, product.getValor_venda());
-			pst.setDouble(5, product.getQtde());
 			pst.setLong(6, product.getUnidade_medida());
 			pst.setLong(7, product.getId());
 			

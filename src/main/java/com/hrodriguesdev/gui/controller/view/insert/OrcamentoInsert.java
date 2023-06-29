@@ -38,6 +38,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
@@ -63,7 +64,9 @@ public class OrcamentoInsert extends RegisterProductsController implements Initi
 	protected String nova = "";
 	
 	@FXML
-	protected VBox chegada, modeloVbox, nsVbox, patVbox, calVbox, empressaVBox, observacaoVbox, nfeVbox, responsavelVbox, empressaVBox1;
+	protected VBox chegada, modeloVbox, nsVbox, patVbox, calVbox, empressaVBox, nfeVbox, responsavelVbox, empressaVBox1;
+	@FXML
+	protected HBox observacaoVbox;
 	
 	//Button
 	@FXML
@@ -127,7 +130,7 @@ public class OrcamentoInsert extends RegisterProductsController implements Initi
 						+ obs.getText());
 			else 
 				obsSelected.setText(obs.getText());
-			descelectAll();
+			
 		}else if(!productTable.getSelectionModel().isEmpty()){
 			try {
 				double qtde = Double.valueOf(quantidadeItem.getText());
@@ -151,7 +154,8 @@ public class OrcamentoInsert extends RegisterProductsController implements Initi
 				e.printStackTrace();
 			}
 						
-		}	
+		}
+		descelectAll();	
 	}	
 	
 	
@@ -181,6 +185,7 @@ public class OrcamentoInsert extends RegisterProductsController implements Initi
 	@FXML
 	protected void salvar(ActionEvent event) throws IOException {
 		orcamentoId = orcamento.getId();
+		
 		List<ProductsOs> listProductsOs = new ArrayList<>();
 		
 		if(!obsSelected.getText().isBlank())
@@ -328,8 +333,8 @@ public class OrcamentoInsert extends RegisterProductsController implements Initi
 	
 //	insere as informações dos equipamento assim que a view abre
 	protected void textFildInserts() {
-		nomeEmpressa.setText(equipamento.getEmpressaName());
-		data.setText( Format.formatData.format(orcamento.getData_chegada()) );
+				data.setText( Format.formatData.format(orcamento.getData_chegada()) );nomeEmpressa.setText(equipamento.getEmpressaName());
+
 		modelo.setText(equipamento.getModelo());
 		ns.setText(equipamento.getNs());
 		pat.setText(equipamento.getPat());

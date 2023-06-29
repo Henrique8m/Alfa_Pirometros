@@ -7,11 +7,13 @@ import java.util.Date;
 import java.util.ResourceBundle;
 
 import com.hrodriguesdev.AlfaPirometrosApplication;
+import com.hrodriguesdev.controller.ProductsController;
 import com.hrodriguesdev.dao.db.DbException;
 import com.hrodriguesdev.dao.repository.ItensRepositoryFind;
 import com.hrodriguesdev.entities.Coletor;
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.entities.Orcamento;
+import com.hrodriguesdev.entities.Product;
 import com.hrodriguesdev.gui.alert.Alerts;
 import com.hrodriguesdev.gui.controller.view.updatede.ColetorUpdatede;
 import com.hrodriguesdev.gui.controller.view.updatede.EquipamentoUpdatede;
@@ -37,6 +39,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -99,6 +102,14 @@ public class PaginaBuscaController extends EquipamentoMainView implements Initia
 	
 	@FXML
 	private ImageView salvarImg2, cancelarImg;
+	
+	@FXML
+	protected TableView<Product> productSelectedTable = new TableView<>();
+	protected ObservableList<Product> obsMateriais = FXCollections.observableArrayList();
+	@FXML
+	protected TableColumn<Product, String> productsSelected, descriptionSelected, unitMeasurementSelected;
+	@FXML
+	protected TableColumn<Product, Double> amountSelected;
 	
 	
 	@Override
@@ -221,8 +232,7 @@ public class PaginaBuscaController extends EquipamentoMainView implements Initia
 				if(event.getClickCount()>1) {
 					NewView.getNewView("Numero Relatorio", "numeroRelatorio", new NumeroRelatorioUpdate(orcamento));
 				}else {		
-					Coletor coletor = new Coletor();
-					
+					Coletor coletor = new Coletor();					
 					
 					if( orcamento.getColetor_id() != null && orcamento.getColetor_id() != 0 ) {						
 						coletor = MainViewController.coletorController.findById( orcamento.getColetor_id() );
@@ -253,9 +263,10 @@ public class PaginaBuscaController extends EquipamentoMainView implements Initia
 						dataSaidaClick.setText( "" );
 					if( orcamento.getRelatorio() != null ) relatorioClick.setText(orcamento.getRelatorio() );	
 					else  relatorioClick.setText("");	
-					
-					
+										
 					itensOrcamentoClick.setText(allItens(orcamento.getId(), orcamento));
+					
+					findOS(orcamento.getId());
 					
 				}
 			}
@@ -452,12 +463,14 @@ public class PaginaBuscaController extends EquipamentoMainView implements Initia
 		if( dbConection ) {
 			obsString = empressaController.findAll();
 			filteredList = new FilteredList<>(obsString);  
-			inputFilter = new InputFilter<String>( textEmpresa, filteredList );
+			inputFilter = new InputFilter<String>( textEmpresa, filteredList );	
 			textEmpresa.getEditor().textProperty().addListener(inputFilter);	
+			textEmpresa.setTooltip(new Tooltip("Campo para inserir o nome da empresa"));
+		
 		}
 
 	}	
-	
+			
 	private void removeListener() {
 		textEmpresa.getEditor().textProperty().removeListener(inputFilter);
 		textEmpresa.setValue("");
@@ -512,6 +525,13 @@ public class PaginaBuscaController extends EquipamentoMainView implements Initia
          } );		
 		
 		tableOrcamentos.setItems(obsOrcamento);
+		
+//			Tabela de produtos selecionados
+			productsSelected.setCellValueFactory(new PropertyValueFactory<Product, String>("name"));		
+			descriptionSelected.setCellValueFactory(new PropertyValueFactory<Product, String>("descricao"));
+			unitMeasurementSelected.setCellValueFactory(new PropertyValueFactory<Product, String>("unidadeMedida"));
+			amountSelected.setCellValueFactory(new PropertyValueFactory<Product, Double>("qtde"));		
+			productSelectedTable.setItems(obsMateriais);
 		
 	}
 
@@ -611,6 +631,12 @@ public class PaginaBuscaController extends EquipamentoMainView implements Initia
 	
 	protected void error(String titulo, String mensagem) {
 		Alerts.showAlert(titulo, "", mensagem, AlertType.ERROR);
+	}
+	
+	private void findOS(Long id) {
+		ProductsController controller = new ProductsController();
+		obsMateriais = controller.findAllOsByOrcamentoId(id);
+		productSelectedTable.setItems(obsMateriais);
 	}
 	
 }

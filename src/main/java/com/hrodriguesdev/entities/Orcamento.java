@@ -10,7 +10,6 @@ public class Orcamento {
 	
 	private Long id;
 	private String Item;
-	private Integer quantidade;
 	private Long equipamento_id;
 	private Date data_chegada;
 	private Date data_saida;
@@ -31,7 +30,7 @@ public class Orcamento {
 	private String empressa;
 	
 //	
-	private String nfe;
+	private int nfe;
 	private String author;
 	private Long empresaId;
 	
@@ -47,8 +46,7 @@ public class Orcamento {
 			this.id = rs.getLong("id");
 			if(rs.getString("Item") != null)
 				Item = rs.getString("Item");
-			
-			quantidade = rs.getInt("quantidade");			
+						
 			equipamento_id = rs.getLong("equipamento_id");
 			if(rs.getDate("data_saida") != null)
 				data_saida( rs.getDate("data_saida"));
@@ -66,7 +64,7 @@ public class Orcamento {
 			setCabos(rs.getLong("cabos"));
 			
 			
-			this.setNfe(rs.getString("nfe"));
+			this.setNfe(rs.getInt("nfe"));
 			this.setAuthor(rs.getString("author"));
 			this.setEmpresaId(rs.getLong("empresa_id"));
 			
@@ -76,12 +74,7 @@ public class Orcamento {
 		}
 
 	}
-		
-	public Orcamento(String item, Integer quantidade) {
-		Item = item;
-		this.quantidade = quantidade;
-	}
-	
+			
 	public Orcamento() {}
 		
 	public String getRelatorio() {
@@ -160,14 +153,6 @@ public class Orcamento {
 		Item = item;
 	}
 	
-	public Integer getQuantidade() {
-		return quantidade;
-	}
-	
-	public void setQuantidade(Integer quantidade) {
-		this.quantidade = quantidade;
-	}
-
 	public Long getEquipamento_id() {
 		return equipamento_id;
 	}
@@ -262,8 +247,8 @@ public class Orcamento {
 		
 		if(!itens.isBlank()) {
 			String[] Itens = itens.split("\n");
-			for(String newIten: Itens) {
-				list.add( new Orcamento(newIten, 0));
+			for(@SuppressWarnings("unused") String newIten: Itens) {
+				list.add( new Orcamento());
 				}
 		}
 		
@@ -311,13 +296,6 @@ public class Orcamento {
 		this.products = products;
 	}
 
-	public String getNfe() {
-		return nfe;
-	}
-
-	public void setNfe(String nfe) {
-		this.nfe = nfe;
-	}
 
 	public String getAuthor() {
 		return author;
@@ -333,6 +311,14 @@ public class Orcamento {
 
 	public void setEmpresaId(Long empresaId) {
 		this.empresaId = empresaId;
+	}
+
+	public int getNfe() {
+		return nfe;
+	}
+
+	public void setNfe(int nfe) {
+		this.nfe = nfe;
 	}
 
 	

@@ -6,12 +6,13 @@ import java.util.ResourceBundle;
 import com.hrodriguesdev.AlfaPirometrosApplication;
 import com.hrodriguesdev.controller.EnsaiosController;
 import com.hrodriguesdev.controller.EstoqueRepController;
+import com.hrodriguesdev.controller.ProductsController;
 import com.hrodriguesdev.dao.db.DbException;
-import com.hrodriguesdev.dao.repository.ItensRepositoryFind;
 import com.hrodriguesdev.dao.repository.SaidaEquipamentoTransacao;
 import com.hrodriguesdev.entities.Ensaios;
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.entities.Orcamento;
+import com.hrodriguesdev.entities.Product;
 import com.hrodriguesdev.gui.alert.Alerts;
 import com.hrodriguesdev.gui.controller.view.insert.CertificadoInsert;
 import com.hrodriguesdev.gui.controller.view.main.MainViewController;
@@ -21,13 +22,18 @@ import com.hrodriguesdev.utilitary.Geral;
 import com.hrodriguesdev.utilitary.Itens;
 import com.hrodriguesdev.utilitary.NewView;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
@@ -50,6 +56,15 @@ public class OrcamentoView extends EnsaioViewController implements Initializable
 	@FXML
 	private TextArea obs;
 	
+	@FXML
+	protected TableView<Product> productSelectedTable = new TableView<>();
+	protected ObservableList<Product> obsMateriais = FXCollections.observableArrayList();
+	@FXML
+	protected TableColumn<Product, String> productsSelected, descriptionSelected, unitMeasurementSelected;
+	@FXML
+	protected TableColumn<Product, Double> amountSelected;
+	
+	
 	private RelatorioGeneratorPDF pdf = new RelatorioGeneratorPDF();
 	private Equipamento equipamento;
 	private Orcamento orcamento;
@@ -66,70 +81,26 @@ public class OrcamentoView extends EnsaioViewController implements Initializable
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		itens = new Itens();
-		if( equipamento.getRelatorio() != null) 
-			relatorioN.setText( equipamento.getRelatorio() );
+		imageInit();
+		textFildInserts();
+		switchStatus(orcamento.getStatus());
+//		obs.setText( allItens(orcamento.getId(), orcamento) );
+		findOS();
+		startTable();
 		
-		if(equipamento.getUltimaCalibDate() != null) 
-			ultimaCal.setText( Format.formatData.format(equipamento.getUltimaCalibDate()) );
-		switchStatus(orcamento.getStatus());		
-		nomeEmpressa.setText(equipamento.getEmpressaName());
-		data.setText(Format.formatData.format(orcamento.getData_chegada()));
-		try {
-			fabricanteTxt.setText(equipamento.getFabricante());
-			equipamentoTxt.setText(equipamento.getInstrumento());
-			
-		}catch(NullPointerException e) {
-			System.err.println(e.getMessage());
-		}
-		
-		
-		
-		modelo.setText(equipamento.getModelo());
-		ns.setText(equipamento.getNs());
-		pat.setText(equipamento.getPat());
-		
-		obs.setText( allItens(orcamento.getId(), orcamento) );
-		Image image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-excluir.png").toString() );
-		cancelarImg.setImage(image);
-		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-salvar-arquivo.png").toString() );
-		salvarImg.setImage(image);
-		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-pdf.png").toString() );
-		relatorioImg.setImage(image);
-		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-ensaio.png").toString() );
-		ensaioImg.setImage(image);
 		ensaioGet();
 		editable(false);
 		obs.setFocusTraversable(false);
 		obs.setEditable(false);
+		obs.setText(orcamento.getItem());
 	}	
-
-	/*
-	 * Varre o orcamento e formata o mesmo para ser passado em formato de texto oque
-	 * vai ser feito no equipamento
-	 */
 	
-	private String allItens(Long orcamento_id, Orcamento orcamento) {
-		ItensRepositoryFind find = new ItensRepositoryFind();
-		String output = "";
-		
-		output = output + find.consumoByOrcamentoId(orcamento_id).toString();
-		output = output + find.eletricosByOrcamentoId(orcamento_id).toString();
-		output = output + find.eletronicosByOrcamentoId(orcamento_id).toString();
-		output = output + find.esteticoByOrcamentoId(orcamento_id).toString();
-		output = output + find.sinalByOrcamentoId(orcamento_id).toString();
-		try{
-			output = output + find.cabosByOrcamentoId(orcamento_id).toString();
-		}catch (NullPointerException e) {
-		}
-		
-		output = output + orcamento.toString();
-		return output;
-	}
+	
 
 //	Atraves do status em que se encontra o relatorio,
 //	Libera o botão pertinente
 	
+
 	private void switchStatus(int status) {
 		switch (status) {
 		case 3:
@@ -194,6 +165,11 @@ public class OrcamentoView extends EnsaioViewController implements Initializable
 	 * 
 	 * 
 	 */
+	
+	@FXML
+	public void esc(KeyEvent e) {
+		
+	}
 	
 	@FXML
 	protected void salvar(ActionEvent event) {
@@ -414,4 +390,58 @@ public class OrcamentoView extends EnsaioViewController implements Initializable
 		NewView.getNewView("Novo certificado", "certificadoInsert", new CertificadoInsert(equipamento, getEnsaio() ));
 		return true;
 	}	
+	
+//	Inicia as tabelas conforme os dados que vao ser inseridos na mesma
+	public void startTable() {	
+//		Tabela de produtos selecionados
+		productsSelected.setCellValueFactory(new PropertyValueFactory<Product, String>("name"));		
+		descriptionSelected.setCellValueFactory(new PropertyValueFactory<Product, String>("descricao"));
+		unitMeasurementSelected.setCellValueFactory(new PropertyValueFactory<Product, String>("unidadeMedida"));
+		amountSelected.setCellValueFactory(new PropertyValueFactory<Product, Double>("qtde"));		
+		productSelectedTable.setItems(obsMateriais);
+	}
+	
+//	Inicia todas as imagens contidas na view
+	protected void imageInit() {
+		Image image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-excluir.png").toString() );
+		cancelarImg.setImage(image);
+		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-salvar-arquivo.png").toString() );
+		salvarImg.setImage(image);
+		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-pdf.png").toString() );
+		relatorioImg.setImage(image);
+		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-ensaio.png").toString() );
+		ensaioImg.setImage(image);
+		
+	}
+	
+//	insere as informações dos equipamento assim que a view abre
+	protected void textFildInserts() {
+		nomeEmpressa.setText(equipamento.getEmpressaName());
+		data.setText(Format.formatData.format(orcamento.getData_chegada()));
+		modelo.setText(equipamento.getModelo());
+		ns.setText(equipamento.getNs());
+		pat.setText(equipamento.getPat());
+		
+		if( equipamento.getRelatorio() != null) 
+			relatorioN.setText( equipamento.getRelatorio() );
+		
+		if(equipamento.getUltimaCalibDate() != null) 
+			ultimaCal.setText( Format.formatData.format(equipamento.getUltimaCalibDate()) );
+		
+		try {
+			fabricanteTxt.setText(equipamento.getFabricante());
+			equipamentoTxt.setText(equipamento.getInstrumento());
+			
+		}catch(NullPointerException e) {
+			System.err.println(e.getMessage());
+		}
+		
+	}
+
+	private void findOS() {
+		ProductsController controller = new ProductsController();
+		obsMateriais = controller.findAllOsByOrcamentoId(orcamento.getId());
+		
+	}
+	
 }

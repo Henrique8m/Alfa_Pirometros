@@ -29,5 +29,9 @@ public class ProductsController {
 	public boolean delete(Long id) {
 		return service.delete(id);
 	}
+
+	public ObservableList<Product> findAllOsByOrcamentoId(Long id) {
+		return service.findAllOsByOrcamentoId(id);
+	}
 	
 }

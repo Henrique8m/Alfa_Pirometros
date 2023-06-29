@@ -13,4 +13,12 @@ public class OSController {
 		return service.createNewOs(list);
 	}
 
+	public List<ProductsOs> findAllByOrcamentoId(Long id) {
+		return service.findAllByOrcamentoId(id);
+	}
+
+	public boolean createNewOSOut(List<ProductsOs> list) {
+		return service.createNewOSOut(list);
+	}
+
 }

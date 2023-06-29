@@ -32,9 +32,9 @@
                <content>
                   <AnchorPane minHeight="300.0" minWidth="400.0" prefHeight="700.0" prefWidth="1250.0">
                      <children>
-                        <HBox minHeight="300.0" minWidth="100.0" prefHeight="697.0" prefWidth="1250.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <HBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <VBox prefHeight="1031.0" prefWidth="1506.0">
+                              <VBox>
                                  <children>
                                     <AnchorPane minHeight="-Infinity" minWidth="844.0" prefHeight="70.0" prefWidth="1500.0">
                                        <children>
@@ -135,78 +135,68 @@
                                     </TableView>
                                  </children>
                               </VBox>
-                              <VBox prefWidth="313.0">
+                              <GridPane alignment="CENTER" style="-fx-background-color: #a8a8a8; -fx-background-radius: 10;">
+                                <columnConstraints>
+                                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="240.0" prefWidth="314.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints maxHeight="110.0" minHeight="60.0" prefHeight="80.0" valignment="CENTER" vgrow="SOMETIMES" />
+                                  <RowConstraints maxHeight="110.0" minHeight="60.0" prefHeight="80.0" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="110.0" minHeight="60.0" prefHeight="80.0" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="110.0" minHeight="60.0" prefHeight="80.0" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="110.0" minHeight="60.0" prefHeight="80.0" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="500.0" minHeight="244.0" prefHeight="300.0" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="60.0" minHeight="60.0" prefHeight="60.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
                                  <children>
-                                    <GridPane alignment="CENTER" minHeight="500.0" minWidth="244.0" prefHeight="1000.0" prefWidth="500.0" style="-fx-background-color: #a8a8a8; -fx-background-radius: 10;">
-                                      <columnConstraints>
-                                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="314.0" prefWidth="100.0" />
-                                      </columnConstraints>
-                                      <rowConstraints>
-                                        <RowConstraints maxHeight="110.0" minHeight="60.0" prefHeight="80.0" valignment="CENTER" vgrow="SOMETIMES" />
-                                        <RowConstraints maxHeight="110.0" minHeight="60.0" prefHeight="80.0" vgrow="SOMETIMES" />
-                                          <RowConstraints maxHeight="110.0" minHeight="60.0" prefHeight="80.0" vgrow="SOMETIMES" />
-                                          <RowConstraints maxHeight="110.0" minHeight="60.0" prefHeight="80.0" vgrow="SOMETIMES" />
-                                          <RowConstraints maxHeight="110.0" minHeight="60.0" prefHeight="80.0" vgrow="SOMETIMES" />
-                                          <RowConstraints maxHeight="500.0" minHeight="244.0" prefHeight="300.0" vgrow="SOMETIMES" />
-                                          <RowConstraints maxHeight="60.0" minHeight="60.0" prefHeight="60.0" vgrow="SOMETIMES" />
-                                      </rowConstraints>
-                                       <children>
-                                          <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#addEquipamento" prefHeight="45.0" prefWidth="185.0" style="-fx-background-radius: 10; -fx-cursor: hand;" text="Cadastrar Chegada">
-                                             <font>
-                                                <Font size="15.0" />
-                                             </font>
-                                             <graphic>
-                                                <ImageView fx:id="cadastrar" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" />
-                                             </graphic>
-                                          </Button>
-                                          <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#openOrcamento" prefHeight="45.0" prefWidth="185.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Abrir Orçamento" GridPane.rowIndex="2">
-                                             <graphic>
-                                                <ImageView fx:id="abrir" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" />
-                                             </graphic>
-                                             <font>
-                                                <Font size="15.0" />
-                                             </font>
-                                          </Button>
-                                          <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#addColeta" prefHeight="45.0" prefWidth="185.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Inserir Coleta" GridPane.rowIndex="3">
-                                             <graphic>
-                                                <ImageView fx:id="inserirColeta" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" />
-                                             </graphic>
-                                             <font>
-                                                <Font size="15.0" />
-                                             </font>
-                                          </Button>
-                                          <ImageView fx:id="logoYgg" fitHeight="244.0" fitWidth="313.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="5" />
-                                          <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#estoque" prefHeight="45.0" prefWidth="185.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Estoque / Produtos" GridPane.rowIndex="4">
-                                             <graphic>
-                                                <ImageView fx:id="refresh" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" />
-                                             </graphic>
-                                             <font>
-                                                <Font size="14.0" />
-                                             </font>
-                                          </Button>
-                                          <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#addOrcamento" prefHeight="45.0" prefWidth="185.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Inserir Orçamento" GridPane.rowIndex="1">
-                                             <graphic>
-                                                <ImageView fx:id="cadastrar2" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" />
-                                             </graphic>
-                                             <font>
-                                                <Font size="15.0" />
-                                             </font>
-                                          </Button>
-                                          <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#logout" prefHeight="45.0" prefWidth="185.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Logout" GridPane.rowIndex="6">
-                                             <graphic>
-                                                <ImageView fx:id="logout" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" />
-                                             </graphic>
-                                          </Button>
-                                       </children>
-                                       <VBox.margin>
-                                          <Insets />
-                                       </VBox.margin>
-                                    </GridPane>
+                                    <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#addEquipamento" prefHeight="45.0" prefWidth="185.0" style="-fx-background-radius: 10; -fx-cursor: hand;" text="Cadastrar Chegada">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                       <graphic>
+                                          <ImageView fx:id="cadastrar" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" />
+                                       </graphic>
+                                    </Button>
+                                    <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#openOrcamento" prefHeight="45.0" prefWidth="185.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Abrir Orçamento" GridPane.rowIndex="2">
+                                       <graphic>
+                                          <ImageView fx:id="abrir" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" />
+                                       </graphic>
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Button>
+                                    <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#addColeta" prefHeight="45.0" prefWidth="185.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Inserir Coleta" GridPane.rowIndex="3">
+                                       <graphic>
+                                          <ImageView fx:id="inserirColeta" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" />
+                                       </graphic>
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Button>
+                                    <ImageView fx:id="logoYgg" fitHeight="244.0" fitWidth="235.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="5" />
+                                    <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#estoque" prefHeight="45.0" prefWidth="185.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Estoque / Produtos" GridPane.rowIndex="4">
+                                       <graphic>
+                                          <ImageView fx:id="refresh" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" />
+                                       </graphic>
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Button>
+                                    <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#addOrcamento" prefHeight="45.0" prefWidth="185.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Inserir Orçamento" GridPane.rowIndex="1">
+                                       <graphic>
+                                          <ImageView fx:id="cadastrar2" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" />
+                                       </graphic>
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Button>
+                                    <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#logout" prefHeight="45.0" prefWidth="185.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Logout" GridPane.rowIndex="6">
+                                       <graphic>
+                                          <ImageView fx:id="logout" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" />
+                                       </graphic>
+                                    </Button>
                                  </children>
-                                 <HBox.margin>
-                                    <Insets left="10.0" right="10.0" top="10.0" />
-                                 </HBox.margin>
-                              </VBox>
+                              </GridPane>
                            </children>
                         </HBox>
                      </children>
@@ -491,32 +481,63 @@
                                           </VBox>
                                        </children>
                                     </AnchorPane>
-                                    <AnchorPane prefHeight="831.0" style="-fx-background-color: #e1e1e1; -fx-background-radius: 15;">
+                                    <AnchorPane style="-fx-background-color: #e1e1e1; -fx-background-radius: 15;">
                                        <children>
-                                          <HBox prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                          <VBox alignment="TOP_CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                              <children>
-                                                <TableView fx:id="tableOrcamentos" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#enter" onMouseClicked="#clickOrcamento" prefHeight="803.0" prefWidth="312.0">
-                                                  <columns>
-                                                    <TableColumn fx:id="relatorioTable" prefWidth="97.0" text="Relatorio" />
-                                                      <TableColumn fx:id="chegadaTable" prefWidth="95.0" text="Chegada" />
-                                                      <TableColumn fx:id="saidaTable" prefWidth="86.0" text="Saída" />
-                                                  </columns>
-                                                   <padding>
-                                                      <Insets left="10.0" top="10.0" />
-                                                   </padding>
+                                                <HBox>
+                                                   <children>
+                                                      <VBox alignment="TOP_CENTER">
+                                                         <children>
+                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ORCAMENTOS" textAlignment="CENTER">
+                                                               <VBox.margin>
+                                                                  <Insets bottom="10.0" top="5.0" />
+                                                               </VBox.margin>
+                                                            </Text>
+                                                            <TableView fx:id="tableOrcamentos" onKeyPressed="#enter" onMouseClicked="#clickOrcamento" prefHeight="300.0">
+                                                              <columns>
+                                                                <TableColumn fx:id="relatorioTable" maxWidth="200.0" minWidth="-Infinity" prefWidth="120.0" text="Relatorio" />
+                                                                  <TableColumn fx:id="chegadaTable" maxWidth="200.0" minWidth="-Infinity" prefWidth="120.0" text="Chegada" />
+                                                                  <TableColumn fx:id="saidaTable" maxWidth="200.0" minWidth="-Infinity" prefWidth="120.0" text="Saída" />
+                                                              </columns>
+                                                               <columnResizePolicy>
+                                                                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                                               </columnResizePolicy>
+                                                               <VBox.margin>
+                                                                  <Insets bottom="5.0" left="5.0" />
+                                                               </VBox.margin>
+                                                            </TableView>
+                                                         </children>
+                                                      </VBox>
+                                                      <VBox alignment="TOP_CENTER">
+                                                         <children>
+                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="OBERVAÇÕES" textAlignment="CENTER">
+                                                               <VBox.margin>
+                                                                  <Insets bottom="10.0" top="5.0" />
+                                                               </VBox.margin>
+                                                            </Text>
+                                                            <TextArea fx:id="itensOrcamentoClick" editable="false" focusTraversable="false" prefHeight="300.0">
+                                                               <VBox.margin>
+                                                                  <Insets bottom="5.0" left="5.0" right="5.0" />
+                                                               </VBox.margin>
+                                                            </TextArea>
+                                                         </children>
+                                                      </VBox>
+                                                   </children>
+                                                </HBox>
+                                                <TableView fx:id="productSelectedTable" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+                                                   <columns>
+                                                      <TableColumn fx:id="productsSelected" maxWidth="440.0" minWidth="100.0" prefWidth="270.0" text="Produto" />
+                                                      <TableColumn fx:id="descriptionSelected" maxWidth="440.0" minWidth="100.0" prefWidth="270.0" text="Descrição" />
+                                                      <TableColumn fx:id="amountSelected" maxWidth="75.0" minWidth="75.0" prefWidth="75.0" text="Quantidade" />
+                                                      <TableColumn fx:id="unitMeasurementSelected" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="Unidade Medida" />
+                                                   </columns>
+                                                   <columnResizePolicy>
+                                                      <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                                   </columnResizePolicy>
                                                 </TableView>
-                                                <TextArea fx:id="itensOrcamentoClick" editable="false" focusTraversable="false" minWidth="-Infinity" prefHeight="456.0" prefWidth="300.0">
-                                                   <padding>
-                                                      <Insets left="10.0" top="10.0" />
-                                                   </padding>
-                                                </TextArea>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Duplo click&#10;no relatorio,&#10;abre edição &#10;do numero&#10;dele&#10;" textAlignment="CENTER" wrappingWidth="92.13671875">
-                                                   <font>
-                                                      <Font size="20.0" />
-                                                   </font>
-                                                </Text>
                                              </children>
-                                          </HBox>
+                                          </VBox>
                                        </children>
                                     </AnchorPane>
                                  </items>
