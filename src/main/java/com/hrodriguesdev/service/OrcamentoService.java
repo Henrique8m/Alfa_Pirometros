@@ -4,10 +4,20 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.hrodriguesdev.ExceptionAlfa;
+import com.hrodriguesdev.controller.ColetorController;
+import com.hrodriguesdev.controller.EquipamentoController;
+import com.hrodriguesdev.controller.OSController;
 import com.hrodriguesdev.dao.repository.ItensRepositoryFind;
 import com.hrodriguesdev.dao.repository.OrcamentoRepository;
+import com.hrodriguesdev.entities.Coletor;
+import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.entities.EstoqueConsumo;
 import com.hrodriguesdev.entities.Orcamento;
+import com.hrodriguesdev.entities.DTO.OrcamentoDTOEquipamento;
+import com.hrodriguesdev.entities.DTO.OrcamentoDTORelatorio;
+import com.hrodriguesdev.entities.products.ProductsOs;
+import com.hrodriguesdev.enums.OSStatus;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -45,9 +55,13 @@ public class OrcamentoService {
 		
 	}
 	
+	public List<Orcamento> findAll(){
+		return repository.findAll();
+	}
+	
 	public ObservableList<Orcamento> findAll(boolean entrada, boolean saida, boolean mRealizada, boolean mCurso) {
 		List<Orcamento> listaFmCurso = new ArrayList<>();		
-		List<Orcamento> listaBruta = repository.findAll();	
+		List<Orcamento> listaBruta = findAll();	
 		
 		listaBruta.forEach((listaBru) -> {
 			if(!mCurso) {						
@@ -171,6 +185,56 @@ public class OrcamentoService {
 		}
 		
 		return obs2;
+	}
+
+	public List<OrcamentoDTORelatorio> findAllDTORelatorio() {
+		OSController osController = new OSController();
+		List<ProductsOs> listOSIn = osController.findAllIn();
+		ColetorController coletorController = new ColetorController();
+		List<OrcamentoDTORelatorio> list = new ArrayList<>();
+		List<Orcamento> listOrcamento = findAll();
+		listOrcamento.forEach(orcamento -> {
+			if(orcamento.getEquipamento_id()==0)
+				if(orcamento.getColetor_id()!=0) {
+					 OrcamentoDTORelatorio dto = new OrcamentoDTORelatorio(orcamento);
+					 Coletor coletor = coletorController.findById(orcamento.getColetor_id());
+					 dto.setAuthor(coletor.getNomeColetor());
+					 dto.setEmpresa(coletor.getEmpressaName());
+					 listOSIn.stream().filter(osIn -> osIn.getIdOrcamento().equals(orcamento.getId())).findFirst().ifPresentOrElse( 
+							 x -> {
+								 dto.setFinalidade("Entrada");
+							 },() -> {
+								dto.setFinalidade("Saida");
+							 });;
+					 list.add(dto);
+				}
+		});
+		return list;
+	}
+
+	public List<OrcamentoDTOEquipamento> findAllDTOEquipamento() {
+		EquipamentoController equipamentoController = new EquipamentoController();
+		List<OrcamentoDTOEquipamento> list = new ArrayList<>();
+		List<Orcamento> listOrcamento = findAll();
+		listOrcamento.forEach(orcamento -> {
+			if(orcamento.getEquipamento_id()!=0) {
+				OrcamentoDTOEquipamento dto = new OrcamentoDTOEquipamento(orcamento);
+				try {
+					Equipamento equipamento = equipamentoController.findById(orcamento.getEquipamento_id());
+					for(OSStatus os : OSStatus.values()) {
+						if(os.getStatusInt() == orcamento.getStatus())
+							dto.setSituation(os.getStatusStr());
+					}		
+					dto.setEmpresa(equipamento.getEmpressaName());
+					dto.setNs(equipamento.getNs());
+					dto.setPat(equipamento.getPat());
+				}catch(ExceptionAlfa e) {
+					e.printStackTrace();
+				}				
+				list.add(dto);
+			}
+		});
+		return list;
 	}
 
 

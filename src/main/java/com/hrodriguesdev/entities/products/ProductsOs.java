@@ -7,7 +7,7 @@ import com.hrodriguesdev.utilitary.Log;
 
 public class ProductsOs {
 //	Id do orcamento, vai ser a pk da table
-	private Long idProductsOs;
+	private Long id_orcamento;
 //	id do produto em si
 	private Long productId;
 	private Double qtde;
@@ -15,13 +15,13 @@ public class ProductsOs {
 	
 	public ProductsOs(Long idProductsOs, Long productId, Double qtde) {
 		super();
-		this.idProductsOs = idProductsOs;
+		this.id_orcamento = idProductsOs;
 		this.productId = productId;
 		this.qtde = qtde;
 	}
 	public ProductsOs(ResultSet rs) {
 		try {
-			this.idProductsOs = rs.getLong("id_orcamento");
+			this.id_orcamento = rs.getLong("id_orcamento");
 			this.productId = rs.getLong("product_id");
 			this.qtde = rs.getDouble("qtde");
 			this.id = rs.getLong("id");
@@ -30,8 +30,8 @@ public class ProductsOs {
 			e.printStackTrace();
 		}
 	}
-	public Long getIdProductsOs() {
-		return idProductsOs;
+	public Long getIdOrcamento() {
+		return id_orcamento;
 	}
 	public Long getProductId() {
 		return productId;
@@ -42,7 +42,7 @@ public class ProductsOs {
 	
 	@Override
 	public String toString() {
-		return "PK igual o PK do orcamento " + idProductsOs 
+		return "PK igual o PK do orcamento " + id_orcamento 
 				+ "\nProduct ID " + productId 
 				+"\nQuantidade em double " + qtde;
 	}

@@ -48,6 +48,23 @@ public class ProductsService {
 	public ObservableList<Product> findAllOsByOrcamentoId(Long id) {
 		OSController controller = new OSController();
 		ObservableList<Product> listFinal = FXCollections.observableArrayList();
+		List<ProductsOs> listProOs = controller.findAllOsByOrcamentoId(id);
+		List<Product> listProdu = findAllObs();
+		
+		listProOs.forEach(productOs ->{
+			listProdu.stream().filter((prod) -> prod.getId().equals(productOs.getProductId())).findAny().ifPresent(prod -> {
+				prod.setQtde(productOs.getQtde());
+				listFinal.add(prod);
+
+			});
+		});
+		
+		return listFinal;
+	}
+
+	public ObservableList<Product> findAllByOrcamentoId(Long id) {
+		OSController controller = new OSController();
+		ObservableList<Product> listFinal = FXCollections.observableArrayList();
 		List<ProductsOs> listProOs = controller.findAllByOrcamentoId(id);
 		List<Product> listProdu = findAllObs();
 		

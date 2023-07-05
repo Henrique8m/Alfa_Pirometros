@@ -2,24 +2,29 @@ package com.hrodriguesdev.gui.controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Date;
 import java.sql.SQLException;
-import java.util.Date;
+import java.time.LocalDate;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 import com.hrodriguesdev.AlfaPirometrosApplication;
 import com.hrodriguesdev.controller.EquipamentoController;
+import com.hrodriguesdev.controller.OSController;
 import com.hrodriguesdev.controller.OrcamentoController;
-import com.hrodriguesdev.entities.Coletor;
-import com.hrodriguesdev.entities.Equipamento;
+import com.hrodriguesdev.controller.ProductsController;
 import com.hrodriguesdev.entities.Orcamento;
 import com.hrodriguesdev.entities.Product;
+import com.hrodriguesdev.entities.DTO.OrcamentoDTOEquipamento;
 import com.hrodriguesdev.entities.DTO.OrcamentoDTORelatorio;
-import com.hrodriguesdev.gui.controller.view.main.MainViewController;
+import com.hrodriguesdev.entities.products.ProductsOs;
 import com.hrodriguesdev.utilitary.Format;
 import com.hrodriguesdev.utilitary.NewView;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -27,6 +32,7 @@ import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -52,6 +58,9 @@ public class RelatoriosController implements Initializable{
 	@FXML
 	private ImageView cancelarImg, buscarImg;	
 	
+	@FXML
+	private ProgressIndicator ProgressIndicator;
+	
 	
 //	Tabela saida de material
 	
@@ -67,34 +76,42 @@ public class RelatoriosController implements Initializable{
 	private TableColumn<OrcamentoDTORelatorio, String>  MaterialOutEmpresa;
 	@FXML
 	private TableColumn<OrcamentoDTORelatorio, String>  MaterialOutAuthor;
+	@FXML
+	private TableColumn<OrcamentoDTORelatorio, String>  MaterialOutFinalidade;
+	
 
 //	Tabela Manutencao em equipamentos
 	
 	@FXML
-	private TableView<Orcamento> MaintenanceTable;
+	private TableView<OrcamentoDTOEquipamento> MaintenanceTable;
 	
-	private ObservableList<Orcamento> obsMaintenance = FXCollections.observableArrayList();
+	private ObservableList<OrcamentoDTOEquipamento> obsMaintenance = FXCollections.observableArrayList();
 	@FXML
-	private TableColumn<Orcamento, String>  MaintenanceRelatorio;
+	private TableColumn<OrcamentoDTOEquipamento, String>  MaintenanceRelatorio;
 	@FXML
-	private TableColumn<Orcamento, Date>  MaintenanceDateIn;
+	private TableColumn<OrcamentoDTOEquipamento, Date>  MaintenanceDateIn;
 	@FXML
-	private TableColumn<Orcamento, Date>  MaintenanceDateOut;
+	private TableColumn<OrcamentoDTOEquipamento, Date>  MaintenanceDateOut;
 	@FXML
-	private TableColumn<Orcamento, String>  MaintenanceSituation;
+	private TableColumn<OrcamentoDTOEquipamento, String>  MaintenanceSituation;
 	@FXML
-	private TableColumn<Orcamento, String>  MaintenanceEmploye;	
+	private TableColumn<OrcamentoDTOEquipamento, String>  MaintenanceEmploye;	
 	@FXML
-	private TableColumn<Orcamento, String>  MaintenanceNS;	
+	private TableColumn<OrcamentoDTOEquipamento, String>  MaintenanceNS;	
 	@FXML
-	private TableColumn<Orcamento, String>  MaintenancePat;
+	private TableColumn<OrcamentoDTOEquipamento, String>  MaintenancePat;
 	
 //	tabela materiais usados
 	
-	protected TableView<Product> productSelectedTable = new TableView<>();
+	@FXML
+	protected TableView<Product> productSelectedTable;
 	protected ObservableList<Product> obsMateriais = FXCollections.observableArrayList();
 	@FXML
-	protected TableColumn<Product, String> productsSelected, descriptionSelected, unitMeasurementSelected;
+	protected TableColumn<Product, String> productsSelected;
+	@FXML
+	protected TableColumn<Product, String> descriptionSelected;
+	@FXML
+	protected TableColumn<Product, String> unitMeasurementSelected;
 	@FXML
 	protected TableColumn<Product, Double> amountSelected;
 
@@ -102,9 +119,9 @@ public class RelatoriosController implements Initializable{
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		startTable();
-		imageInit();
-
-				
+		imageInit();		
+		finalDatePiker.setValue(LocalDate.now());
+		inicioDatePiker.setValue(LocalDate.of(2020, 1, 1));
 	}
 
 //	Button
@@ -116,107 +133,99 @@ public class RelatoriosController implements Initializable{
 //	Button
 	@FXML
 	private void buscar(ActionEvent event) throws IOException {
+		ProgressIndicator.setVisible(true);
+		obsOrcamento = FXCollections.observableArrayList();
+		obsMaintenance = FXCollections.observableArrayList();
+		
 		Boolean entrada = entradaMaterial.selectedProperty().getValue();
 		Boolean saida = saidaMaterial.selectedProperty().getValue();
 		Boolean mRealizada = manutencaoRealizada.selectedProperty().getValue();
 		Boolean mCurso = manutencaoEmCurco.selectedProperty().getValue();
-		
-		
-		obsOrcamento = orcamentoController.findAll(entrada, saida, mRealizada, mCurso);
-		
-		if(inicioDatePiker.getValue() != null ) {			
-			java.sql.Date gettedDatePickerDateStart = java.sql.Date.valueOf(inicioDatePiker.getValue());						
-			obsOrcamento = obsOrcamento.filtered(x -> x.getData_chegada().after(gettedDatePickerDateStart));
-			
-		}
-		if(finalDatePiker.getValue() != null) {
-			java.sql.Date gettedDatePickerDateFinal = java.sql.Date.valueOf(finalDatePiker.getValue());	
-			obsOrcamento = obsOrcamento.filtered(x -> x.getData_chegada().before(gettedDatePickerDateFinal));
-		}
 
-		MaterialOutTable.setItems(obsOrcamento);
-		MaterialOutTable.refresh();
+		Task<Void> task = new Task<Void>() {
+		    @Override public Void call() {	    	
+		    	if(entrada)
+		    		obsOrcamento.addAll(orcamentoController.findAllDTORelatorio().stream().filter(
+		    			x -> x.getFinalidade().equals("Entrada")).collect(Collectors.toList()));
+		    	if(saida)
+		    		obsOrcamento.addAll(orcamentoController.findAllDTORelatorio().stream().filter(
+			    			x -> x.getFinalidade().equals("Saida")).collect(Collectors.toList()));
+		    	
+		    	if(mRealizada)
+		    		obsMaintenance.addAll(orcamentoController.findAllDTOEquipamento().stream().filter(
+		    				x -> !x.isLaboratorio()).collect(Collectors.toList()));
+		    	if(mCurso)
+		    		obsMaintenance.addAll(orcamentoController.findAllDTOEquipamento().stream().filter(
+		    				x -> x.isLaboratorio()).collect(Collectors.toList()));
+		    	
+		    	
+		    	if(inicioDatePiker.getValue() != null ) {			
+		    		
+		    		Date gettedDatePickerDateStart = Date.valueOf(inicioDatePiker.getValue());						
+		    		obsOrcamento = obsOrcamento.filtered(x -> {
+		    			
+//		    			int date = x.getData_chegada().getDate() -1 ;
+//		    			Date data = x.getData_chegada();
+//		    			data.setDate(date);
+//		    			if(data.after(gettedDatePickerDateStart))
+//		    					return true;
+//		    			return false;
+		    			
+		    			if(x.getData_chegada().after(gettedDatePickerDateStart) ||  x.getData_chegada().equals(gettedDatePickerDateStart))
+		    					return true;
+		    			return false;
+		    		});
+		    		obsMaintenance = obsMaintenance.filtered(x -> x.getData_chegada().after(gettedDatePickerDateStart));
+		    		
+		    	}
+		    	if(finalDatePiker.getValue() != null) {
+		    		Date gettedDatePickerDateFinal = Date.valueOf(finalDatePiker.getValue());	
+		    		obsOrcamento = obsOrcamento.filtered(x ->{
+		    			if(x.getData_chegada().before(gettedDatePickerDateFinal) ||  x.getData_chegada().equals(gettedDatePickerDateFinal))
+	    					return true;
+		    			return false;
+		    		});
+		    		obsMaintenance = obsMaintenance.filtered(x -> x.getData_chegada().before(gettedDatePickerDateFinal));
+		    	}
+	
+				MaterialOutTable.setItems(obsOrcamento);;
+				MaintenanceTable.setItems(obsMaintenance);	
+	//			updateProgress(100, 100);
+				ProgressIndicator.setVisible(false);
+		        return null;
+		    }
+		};
+	
+		ProgressIndicator.progressProperty().bind(task.progressProperty());
+		new Thread(task).start();		
+		
 	}
 	
 //	Acao de click na tabela de saida de material e na tabela de manutencao em equipamentos
 	@FXML
 	public void clickOrcamento(MouseEvent event) throws SQLException {
-			if(MaterialOutTable.getSelectionModel().getSelectedItem() != null) {
-					Orcamento orcamento = orcamentoController.getOrcamento( MaterialOutTable.getSelectionModel().getSelectedItem().getId() ); 
-					if(orcamento == null)
-						return;
-					
-					if(orcamento.getStatus() == 20 && orcamento.getEquipamento_id() == 0 )  {
-						 equipamentoHbox.setVisible(false);
-						 
-						 empressaVbox.setVisible(false);
-						 
-						 coletorHbox.setVisible(true);
-						 coletor(orcamento);
-						 
-					}else if(orcamento.getStatus() == 20 && orcamento.getEquipamento_id() != 0 )  {
-						equipamentoHbox.setVisible(true);						 
-						 empressaVbox.setVisible(true);
-						 equipamento(orcamento);
-						 
-						 coletorHbox.setVisible(false);
-						 
-					}else if(orcamento.getStatus() == 7) {
-						 equipamentoHbox.setVisible(true);						 
-						 empressaVbox.setVisible(true);
-						 equipamento(orcamento);
-						 
-						 coletorHbox.setVisible(true);
-						 coletor(orcamento);
-						 
-					}else {
-						equipamentoHbox.setVisible(true);						
-						 empressaVbox.setVisible(true);
-						 equipamento(orcamento);
-						 
-						 coletorHbox.setVisible(false);
-					}		
-
-//						obsProducts = itens.getAllItens(orcamento.getId(), orcamento.getItem() );
-						productSelectedTable.setItems(obsMateriais);
-						productSelectedTable.refresh();
-
-			}
-	}
-	
-	private void coletor(Orcamento orcamento) {
-		if( orcamento.getColetor_id() != null && orcamento.getColetor_id() != 0 ) {						
-			Coletor coletor = MainViewController.coletorController.findById( orcamento.getColetor_id() );
-			dataColeta.setText( Format.formatData.format(coletor.getDate()));
-			nomeColetor.setText( coletor.getNomeColetor() );
-			nomeEmpressa.setText(coletor.getEmpressaName());
-		}else {
-			dataColeta.setText( "" );
-			nomeColetor.setText( "" );
-			nomeEmpressa.setText( "" );
-		}
-		
-	}
-	
-	private void equipamento(Orcamento orcamento) {
-		if( orcamento.getEquipamento_id() != 0 ) {
-			Equipamento equipamento =  equipamentoController.findById(orcamento.getEquipamento_id());
-			if(equipamento != null) {
-				ns.setText(equipamento.getNs());
-				pat.setText(equipamento.getPat());
-				modelo.setText(equipamento.getModelo());
-				empressaName.setText(equipamento.getEmpressaName());
-				if(equipamento.getUltimaCalibDate() != null) 
-					ultimaCal.setText( Format.formatData.format(equipamento.getUltimaCalibDate() ) );
-				else
-					ultimaCal.setText("");
-			}
 			
-		}
-	}
 
-	private void startTable() {
-		
+			if(!MaterialOutTable.getSelectionModel().isEmpty()) {
+				ProductsController controller = new ProductsController();
+				obsMateriais = controller.findAllByOrcamentoId( MaterialOutTable.getSelectionModel().getSelectedItem().getId());
+				productSelectedTable.setItems(obsMateriais);
+				productSelectedTable.refresh();
+				System.out.println(obsMateriais.get(0).getName());
+//
+			}else {
+//				ProductsController controller = new ProductsController();
+//				obsMateriais = controller.findAllOsByOrcamentoId( MaterialOutTable.getSelectionModel().getSelectedItem().getId());
+//				productSelectedTable.setItems(obsMateriais);
+//				productSelectedTable.refresh();
+//				System.out.println("Teste");
+			}
+				
+			
+	}
+	
+
+	private void startTable() {			
 		MaterialOutTable.setEditable(false);		
 		MaterialOutData.setCellValueFactory(new PropertyValueFactory<>("data_chegada"));
 		MaterialOutData.setCellFactory( cell -> {
@@ -240,19 +249,17 @@ public class RelatoriosController implements Initializable{
 			};        
 		} );		
 		
-		MaterialOutNfe.setCellValueFactory(new PropertyValueFactory<OrcamentoDTORelatorio, Integer>("nfe"));
-		
+		MaterialOutNfe.setCellValueFactory(new PropertyValueFactory<OrcamentoDTORelatorio, Integer>("nfe"));		
 		MaterialOutEmpresa.setCellValueFactory(new PropertyValueFactory<OrcamentoDTORelatorio, String>("empresa"));	
 		MaterialOutAuthor.setCellValueFactory(new PropertyValueFactory<OrcamentoDTORelatorio, String>("author"));
-		MaterialOutTable.setItems(obsOrcamento);	
-		
-		
+		MaterialOutFinalidade.setCellValueFactory(new PropertyValueFactory<OrcamentoDTORelatorio, String>("finalidade"));
+		MaterialOutTable.setItems(obsOrcamento);		
 		
 		MaintenanceTable.setEditable(false);		
-		MaintenanceRelatorio.setCellValueFactory(new PropertyValueFactory<Orcamento, String>("relatorio"));			
+		MaintenanceRelatorio.setCellValueFactory(new PropertyValueFactory<OrcamentoDTOEquipamento, String>("relatorio"));			
 		MaintenanceDateIn.setCellValueFactory(new PropertyValueFactory<>("data_chegada"));
 		MaintenanceDateIn.setCellFactory( cell -> {
-			return new TableCell<Orcamento, Date>() {
+			return new TableCell<OrcamentoDTOEquipamento, Date>() {
 				@Override
 				protected void updateItem( Date item, boolean empty) {
 					super.updateItem(item, empty);
@@ -274,7 +281,7 @@ public class RelatoriosController implements Initializable{
 		
 		MaintenanceDateOut.setCellValueFactory(new PropertyValueFactory<>("data_saida"));
 		MaintenanceDateOut.setCellFactory( cell -> {
-            return new TableCell<Orcamento, Date>() {
+            return new TableCell<OrcamentoDTOEquipamento, Date>() {
                 @Override
                 protected void updateItem( Date item, boolean empty) {
                    super.updateItem(item, empty);
@@ -294,14 +301,11 @@ public class RelatoriosController implements Initializable{
             };        
          } );		
 		
-		MaintenanceSituation.setCellValueFactory(new PropertyValueFactory<Orcamento, String>("situation"));
-		MaintenanceEmploye.setCellValueFactory(new PropertyValueFactory<Orcamento, String>("empresa"));
-		MaintenanceNS.setCellValueFactory(new PropertyValueFactory<Orcamento, String>("ns"));
-		MaintenancePat.setCellValueFactory(new PropertyValueFactory<Orcamento, String>("pat"));
-		MaintenanceTable.setItems(obsMaintenance);
-		
-		
-		
+		MaintenanceSituation.setCellValueFactory(new PropertyValueFactory<OrcamentoDTOEquipamento, String>("situation"));
+		MaintenanceEmploye.setCellValueFactory(new PropertyValueFactory<OrcamentoDTOEquipamento, String>("empresa"));
+		MaintenanceNS.setCellValueFactory(new PropertyValueFactory<OrcamentoDTOEquipamento, String>("ns"));
+		MaintenancePat.setCellValueFactory(new PropertyValueFactory<OrcamentoDTOEquipamento, String>("pat"));
+		MaintenanceTable.setItems(obsMaintenance);		
 		
 		productsSelected.setCellValueFactory(new PropertyValueFactory<Product, String>("name"));		
 		descriptionSelected.setCellValueFactory(new PropertyValueFactory<Product, String>("descricao"));
@@ -309,9 +313,7 @@ public class RelatoriosController implements Initializable{
 		amountSelected.setCellValueFactory(new PropertyValueFactory<Product, Double>("qtde"));		
 		productSelectedTable.setItems(obsMateriais);
 		
-	}
-
-	
+	}	
 	
 	private void imageInit() {
 		Image image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-excluir.png").toString() );

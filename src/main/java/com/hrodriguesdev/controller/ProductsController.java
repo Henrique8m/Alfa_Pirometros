@@ -33,5 +33,9 @@ public class ProductsController {
 	public ObservableList<Product> findAllOsByOrcamentoId(Long id) {
 		return service.findAllOsByOrcamentoId(id);
 	}
+
+	public ObservableList<Product> findAllByOrcamentoId(Long id) {
+		return service.findAllByOrcamentoId(id);
+	}
 	
 }

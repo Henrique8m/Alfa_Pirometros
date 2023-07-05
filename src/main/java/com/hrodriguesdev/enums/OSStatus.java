@@ -17,13 +17,17 @@ public enum OSStatus {
 		STATUS_16_AG_OS(16 , "Manutenção na area, aguardando Aprovação");
 		
 		
-		int statusInt;
-		String statusStr;
+		public int statusInt;
+		public String statusStr;
 
 		
 		OSStatus(int statusInt, String statusStr) {			
 			this.statusInt = statusInt;			
 			this.statusStr = statusStr;
+		}
+		
+		OSStatus(int statusInt){
+			this.statusInt = statusInt;
 		}
 		
 		public String getStatusStr() {

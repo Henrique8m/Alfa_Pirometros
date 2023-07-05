@@ -11,7 +11,7 @@ public class OSService {
 	
 	public boolean createNewOs(List<ProductsOs> list) {
 		if(list.size()>0)
-			if(repositoryOs.findAllByOrcamentoId(list.get(0).getIdProductsOs(), "products_os ").isEmpty())
+			if(repositoryOs.findAllByOrcamentoId(list.get(0).getIdOrcamento(), "products_os ").isEmpty())
 				return repositoryOs.createNewOs(list, "products_os ");
 		return false;
 	}
@@ -20,22 +20,34 @@ public class OSService {
 		return repositoryOs.findAll("products_os ");
 	}
 
-	public List<ProductsOs> findAllByOrcamentoId(Long id) {
+	public List<ProductsOs> findAllOsByOrcamentoId(Long id) {
 		return repositoryOs.findAllByOrcamentoId(id, "products_os ");
+	}
+	
+	public List<ProductsOs> findAllByOrcamentoId(Long id) {
+		List<ProductsOs> list = repositoryOs.findAllByOrcamentoId(id, "products_out ");
+		list.addAll(repositoryOs.findAllByOrcamentoId(id, "products_inp "));
+		if(list.size()==0)
+			return repositoryOs.findAllByOrcamentoId(id, "products_os ");		
+		return list;
 	}
 	
 	public boolean createNewOSOut(List<ProductsOs> list) {
 		if(list.size()>0)
-			if(repositoryOs.findAllByOrcamentoId(list.get(0).getIdProductsOs(), "products_out ").isEmpty())
+			if(repositoryOs.findAllByOrcamentoId(list.get(0).getIdOrcamento(), "products_out ").isEmpty())
 				return repositoryOs.createNewOs(list, "products_out ");
 		return false;
 	}
 
 	public boolean createNewOSIn(List<ProductsOs> list) {
 		if(list.size()>0)
-			if(repositoryOs.findAllByOrcamentoId(list.get(0).getIdProductsOs(), "products_inp ").isEmpty())
+			if(repositoryOs.findAllByOrcamentoId(list.get(0).getIdOrcamento(), "products_inp ").isEmpty())
 				return repositoryOs.createNewOs(list, "products_inp ");
 		return false;
+	}
+
+	public List<ProductsOs> findAllIn() {
+		return repositoryOs.findAll("products_inp ");
 	}	
 	
 }

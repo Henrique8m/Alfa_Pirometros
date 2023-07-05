@@ -5,6 +5,8 @@ import java.util.List;
 
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.entities.Orcamento;
+import com.hrodriguesdev.entities.DTO.OrcamentoDTOEquipamento;
+import com.hrodriguesdev.entities.DTO.OrcamentoDTORelatorio;
 import com.hrodriguesdev.service.OrcamentoService;
 
 import javafx.collections.ObservableList;
@@ -44,6 +46,18 @@ public class OrcamentoController {
 	
 	public ObservableList<Orcamento> findAll(boolean entrada, boolean saida, boolean mRealizada, boolean mCurso) {
 		return orcamentoService.findAll(entrada, saida, mRealizada, mCurso);
+	}
+	
+	public List<Orcamento> findAll(){
+		return orcamentoService.findAll();
+	}
+	
+	public List<OrcamentoDTORelatorio> findAllDTORelatorio(){
+		return orcamentoService.findAllDTORelatorio();
+	}
+	
+	public List<OrcamentoDTOEquipamento> findAllDTOEquipamento(){
+		return orcamentoService.findAllDTOEquipamento();
 	}
 	
 	public boolean existOrcamento(Long equipamento_id) {		

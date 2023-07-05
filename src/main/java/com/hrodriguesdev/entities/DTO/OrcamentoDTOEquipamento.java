@@ -2,15 +2,29 @@ package com.hrodriguesdev.entities.DTO;
 
 import java.sql.Date;
 
+import com.hrodriguesdev.entities.Orcamento;
+
 public class OrcamentoDTOEquipamento {
+	private Long id;
 	private String relatorio;
 	private Date data_chegada;
-	private Date date_saida;
+	private Date data_saida;
 	private String situation;
 	private String empresa;
 	private String ns;
 	private String pat;
+	private boolean laboratorio;
 	
+	public OrcamentoDTOEquipamento(Orcamento orcamento) {
+		this.relatorio = orcamento.getRelatorio();
+		this.data_chegada = orcamento.getData_chegada();
+		this.data_saida = orcamento.getData_saida();
+		this.laboratorio = orcamento.getLaboratorio();
+		this.id = orcamento.getId();
+	}
+	public Long getId() {
+		return id;
+	}
 	public String getRelatorio() {
 		return relatorio;
 	}
@@ -23,11 +37,11 @@ public class OrcamentoDTOEquipamento {
 	public void setData_chegada(Date data_chegada) {
 		this.data_chegada = data_chegada;
 	}
-	public Date getDate_saida() {
-		return date_saida;
+	public Date getData_saida() {
+		return data_saida;
 	}
-	public void setDate_saida(Date date_saida) {
-		this.date_saida = date_saida;
+	public void setData_saida(Date date_saida) {
+		this.data_saida = date_saida;
 	}
 	public String getSituation() {
 		return situation;
@@ -52,6 +66,9 @@ public class OrcamentoDTOEquipamento {
 	}
 	public void setPat(String pat) {
 		this.pat = pat;
+	}
+	public boolean isLaboratorio() {
+		return laboratorio;
 	}
 	
 }

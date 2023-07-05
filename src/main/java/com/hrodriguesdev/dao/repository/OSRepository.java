@@ -28,7 +28,7 @@ public class OSRepository {
 						+ "(id_orcamento, product_id, qtde)"
 						+ "VALUES "
 						+ "(?, ?, ?)");
-				pst.setLong(1, productOs.getIdProductsOs());
+				pst.setLong(1, productOs.getIdOrcamento());
 				pst.setLong(2, productOs.getProductId());
 				pst.setDouble(3, productOs.getQtde());
 				pst.executeUpdate();					
@@ -81,7 +81,7 @@ public class OSRepository {
 			conn.setAutoCommit(false);							
 			rs = getResultSet("SELECT * FROM alfaestoque."+ table);
 			while(rs.next()) 
-				if(rs.getLong("id_orcamento")==orcamentoId)
+				if(rs.getLong("id_orcamento") == orcamentoId)
 					list.add(new ProductsOs(rs));
 			
 		}catch (SQLException e) {
