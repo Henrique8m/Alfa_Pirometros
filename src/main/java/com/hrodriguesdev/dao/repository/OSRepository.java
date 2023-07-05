@@ -81,7 +81,7 @@ public class OSRepository {
 			conn.setAutoCommit(false);							
 			rs = getResultSet("SELECT * FROM alfaestoque."+ table);
 			while(rs.next()) 
-				if(rs.getLong("id_products_os")==orcamentoId)
+				if(rs.getLong("id_orcamento")==orcamentoId)
 					list.add(new ProductsOs(rs));
 			
 		}catch (SQLException e) {

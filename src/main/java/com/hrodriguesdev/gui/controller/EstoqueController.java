@@ -50,7 +50,7 @@ public class EstoqueController extends RegisterProductsController implements Ini
 	
 	@FXML
 	protected void relatorios(ActionEvent event) throws IOException {
-		NewView.addChildrenn((Node) NewView.loadFXML("relatorios" , new RelatoriosController( ) ));
+		NewView.addChildrenn((Node) NewView.loadFXML(FXMLPath.RELATORIO , new RelatoriosController( ) ));
 	}
 	
 	@FXML

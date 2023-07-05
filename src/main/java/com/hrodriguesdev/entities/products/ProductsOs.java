@@ -11,6 +11,7 @@ public class ProductsOs {
 //	id do produto em si
 	private Long productId;
 	private Double qtde;
+	private Long id;
 	
 	public ProductsOs(Long idProductsOs, Long productId, Double qtde) {
 		super();
@@ -20,9 +21,10 @@ public class ProductsOs {
 	}
 	public ProductsOs(ResultSet rs) {
 		try {
-			this.idProductsOs = rs.getLong("id_products_os");
+			this.idProductsOs = rs.getLong("id_orcamento");
 			this.productId = rs.getLong("product_id");
 			this.qtde = rs.getDouble("qtde");
+			this.id = rs.getLong("id");
 		}catch(SQLException e) {
 			Log.logString("ProductsOS", e.getMessage());
 			e.printStackTrace();
@@ -43,5 +45,8 @@ public class ProductsOs {
 		return "PK igual o PK do orcamento " + idProductsOs 
 				+ "\nProduct ID " + productId 
 				+"\nQuantidade em double " + qtde;
+	}
+	public Long getId() {
+		return id;
 	}
 }

@@ -233,14 +233,16 @@ public class OrcamentoRepository {
 			pst = conn.prepareStatement("UPDATE tb_orcamento "
 											+ "SET Item = ?,"
 											+ "data_chegada = ?,"
+											+ "coletor_id = ?,"
 											+ "status = ?"
 											+" WHERE "
 											+"(id = ?)");
 			
 			pst.setString( 1, orcamento.getItem() );
 			pst.setDate(2, orcamento.getData_chegada());
-			pst.setInt(3, orcamento.getStatus());
-			pst.setLong(4, orcamento.getId() );
+			pst.setLong(3, orcamento.getColetor_id());
+			pst.setInt(4, orcamento.getStatus());
+			pst.setLong(5, orcamento.getId() );
 			
 			int rowsAccepted = pst.executeUpdate();
 			conn.commit();

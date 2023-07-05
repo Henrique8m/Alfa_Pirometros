@@ -12,9 +12,10 @@ import com.hrodriguesdev.controller.OrcamentoController;
 import com.hrodriguesdev.entities.Coletor;
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.entities.Orcamento;
+import com.hrodriguesdev.entities.Product;
+import com.hrodriguesdev.entities.DTO.OrcamentoDTORelatorio;
 import com.hrodriguesdev.gui.controller.view.main.MainViewController;
 import com.hrodriguesdev.utilitary.Format;
-import com.hrodriguesdev.utilitary.Itens;
 import com.hrodriguesdev.utilitary.NewView;
 
 import javafx.collections.FXCollections;
@@ -29,72 +30,119 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 
 public class RelatoriosController implements Initializable{
+	
 	private OrcamentoController orcamentoController = new OrcamentoController();
 	private EquipamentoController equipamentoController = new EquipamentoController();
-	private Itens itens = new Itens();
 
-	@FXML
-	protected ComboBox<String> empressaCombobox;
-	
 	@FXML
 	protected DatePicker inicioDatePiker, finalDatePiker;
 	
 	@FXML
-	private VBox empressaVbox;
-	
-	@FXML
-	private HBox coletorHbox, equipamentoHbox;
-	
-	@FXML
-	private TextField ns, pat, empressaName,
-			modelo, ultimaCal, dataColeta, nomeColetor, nomeEmpressa;
-	
-	@FXML
-	private TableView<Orcamento> tableOrcamentos;
-	private ObservableList<Orcamento> obsOrcamento = FXCollections.observableArrayList();
+	protected ComboBox<String> empressaCombobox;
 		
-	@FXML
-	private TableColumn<Orcamento, String>  relatorioTable;
-	
-	@FXML
-	private TableColumn<Orcamento, Date>  chegadaTable;
-	
-	@FXML
-	private TableColumn<Orcamento, Date>  saidaTable;
-	
-	@FXML
-	private TableColumn<Orcamento, Integer>  nfe;
-	
-	@FXML
-	private TableColumn<Orcamento, String>  situation;
-	
-	@FXML
-	protected TableView<Orcamento> tableOrcamento = new TableView<>();
-	protected ObservableList<Orcamento> obsMateriais = FXCollections.observableArrayList();
-	@FXML
-	protected TableColumn<Orcamento, String> item;
-	@FXML
-	protected TableColumn<Orcamento, Integer> quantidade;
-		
-	@FXML
-	private ImageView cancelarImg, buscarImg;
-	
 	@FXML
 	private CheckBox manutencaoEmCurco, manutencaoRealizada, saidaMaterial, entradaMaterial;
 	
 	@FXML
+	private ImageView cancelarImg, buscarImg;	
+	
+	
+//	Tabela saida de material
+	
+	@FXML
+	private TableView<OrcamentoDTORelatorio> MaterialOutTable;
+	
+	private ObservableList<OrcamentoDTORelatorio> obsOrcamento = FXCollections.observableArrayList();
+	@FXML
+	private TableColumn<OrcamentoDTORelatorio, Date>  MaterialOutData;
+	@FXML
+	private TableColumn<OrcamentoDTORelatorio, Integer>  MaterialOutNfe;
+	@FXML
+	private TableColumn<OrcamentoDTORelatorio, String>  MaterialOutEmpresa;
+	@FXML
+	private TableColumn<OrcamentoDTORelatorio, String>  MaterialOutAuthor;
+
+//	Tabela Manutencao em equipamentos
+	
+	@FXML
+	private TableView<Orcamento> MaintenanceTable;
+	
+	private ObservableList<Orcamento> obsMaintenance = FXCollections.observableArrayList();
+	@FXML
+	private TableColumn<Orcamento, String>  MaintenanceRelatorio;
+	@FXML
+	private TableColumn<Orcamento, Date>  MaintenanceDateIn;
+	@FXML
+	private TableColumn<Orcamento, Date>  MaintenanceDateOut;
+	@FXML
+	private TableColumn<Orcamento, String>  MaintenanceSituation;
+	@FXML
+	private TableColumn<Orcamento, String>  MaintenanceEmploye;	
+	@FXML
+	private TableColumn<Orcamento, String>  MaintenanceNS;	
+	@FXML
+	private TableColumn<Orcamento, String>  MaintenancePat;
+	
+//	tabela materiais usados
+	
+	protected TableView<Product> productSelectedTable = new TableView<>();
+	protected ObservableList<Product> obsMateriais = FXCollections.observableArrayList();
+	@FXML
+	protected TableColumn<Product, String> productsSelected, descriptionSelected, unitMeasurementSelected;
+	@FXML
+	protected TableColumn<Product, Double> amountSelected;
+
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		startTable();
+		imageInit();
+
+				
+	}
+
+//	Button
+	@FXML
+	private void voltar(ActionEvent event) throws IOException {
+		NewView.addChildrenn((Node) NewView.loadFXML("estoque" , new EstoqueController() ));	
+	}
+	
+//	Button
+	@FXML
+	private void buscar(ActionEvent event) throws IOException {
+		Boolean entrada = entradaMaterial.selectedProperty().getValue();
+		Boolean saida = saidaMaterial.selectedProperty().getValue();
+		Boolean mRealizada = manutencaoRealizada.selectedProperty().getValue();
+		Boolean mCurso = manutencaoEmCurco.selectedProperty().getValue();
+		
+		
+		obsOrcamento = orcamentoController.findAll(entrada, saida, mRealizada, mCurso);
+		
+		if(inicioDatePiker.getValue() != null ) {			
+			java.sql.Date gettedDatePickerDateStart = java.sql.Date.valueOf(inicioDatePiker.getValue());						
+			obsOrcamento = obsOrcamento.filtered(x -> x.getData_chegada().after(gettedDatePickerDateStart));
+			
+		}
+		if(finalDatePiker.getValue() != null) {
+			java.sql.Date gettedDatePickerDateFinal = java.sql.Date.valueOf(finalDatePiker.getValue());	
+			obsOrcamento = obsOrcamento.filtered(x -> x.getData_chegada().before(gettedDatePickerDateFinal));
+		}
+
+		MaterialOutTable.setItems(obsOrcamento);
+		MaterialOutTable.refresh();
+	}
+	
+//	Acao de click na tabela de saida de material e na tabela de manutencao em equipamentos
+	@FXML
 	public void clickOrcamento(MouseEvent event) throws SQLException {
-			if(tableOrcamentos.getSelectionModel().getSelectedItem() != null) {
-					Orcamento orcamento = orcamentoController.getOrcamento( tableOrcamentos.getSelectionModel().getSelectedItem().getId() ); 
+			if(MaterialOutTable.getSelectionModel().getSelectedItem() != null) {
+					Orcamento orcamento = orcamentoController.getOrcamento( MaterialOutTable.getSelectionModel().getSelectedItem().getId() ); 
 					if(orcamento == null)
 						return;
 					
@@ -129,9 +177,9 @@ public class RelatoriosController implements Initializable{
 						 coletorHbox.setVisible(false);
 					}		
 
-						obsMateriais = itens.getAllItens(orcamento.getId(), orcamento.getItem() );
-						tableOrcamento.setItems(obsMateriais);
-						tableOrcamento.refresh();
+//						obsProducts = itens.getAllItens(orcamento.getId(), orcamento.getItem() );
+						productSelectedTable.setItems(obsMateriais);
+						productSelectedTable.refresh();
 
 			}
 	}
@@ -167,15 +215,65 @@ public class RelatoriosController implements Initializable{
 		}
 	}
 
-	private void startTableOrcamentos() {
-		tableOrcamentos.setEditable(false);	 
+	private void startTable() {
 		
-		relatorioTable.setCellValueFactory(new PropertyValueFactory<Orcamento, String>("relatorio"));	
-		nfe.setCellValueFactory(new PropertyValueFactory<Orcamento, Integer>("nfe"));
-		situation.setCellValueFactory(new PropertyValueFactory<Orcamento, String>("situation"));
+		MaterialOutTable.setEditable(false);		
+		MaterialOutData.setCellValueFactory(new PropertyValueFactory<>("data_chegada"));
+		MaterialOutData.setCellFactory( cell -> {
+			return new TableCell<OrcamentoDTORelatorio, Date>() {
+				@Override
+				protected void updateItem( Date item, boolean empty) {
+					super.updateItem(item, empty);
+					if( !empty ) {
+						try {
+							setText( Format.formatData.format(item) );
+						}catch(NullPointerException e){
+							setText("");
+							setGraphic(null);
+						}
+						
+					}else {
+						setText("");
+						setGraphic(null);
+					}
+				}
+			};        
+		} );		
 		
-		chegadaTable.setCellValueFactory(new PropertyValueFactory<>("data_chegada"));
-		chegadaTable.setCellFactory( cell -> {
+		MaterialOutNfe.setCellValueFactory(new PropertyValueFactory<OrcamentoDTORelatorio, Integer>("nfe"));
+		
+		MaterialOutEmpresa.setCellValueFactory(new PropertyValueFactory<OrcamentoDTORelatorio, String>("empresa"));	
+		MaterialOutAuthor.setCellValueFactory(new PropertyValueFactory<OrcamentoDTORelatorio, String>("author"));
+		MaterialOutTable.setItems(obsOrcamento);	
+		
+		
+		
+		MaintenanceTable.setEditable(false);		
+		MaintenanceRelatorio.setCellValueFactory(new PropertyValueFactory<Orcamento, String>("relatorio"));			
+		MaintenanceDateIn.setCellValueFactory(new PropertyValueFactory<>("data_chegada"));
+		MaintenanceDateIn.setCellFactory( cell -> {
+			return new TableCell<Orcamento, Date>() {
+				@Override
+				protected void updateItem( Date item, boolean empty) {
+					super.updateItem(item, empty);
+					if( !empty ) {
+						try {
+							setText( Format.formatData.format(item) );
+						}catch(NullPointerException e){
+							setText("");
+							setGraphic(null);
+						}
+						
+					}else {
+						setText("");
+						setGraphic(null);
+					}
+				}
+			};        
+		} );	
+		
+		MaintenanceDateOut.setCellValueFactory(new PropertyValueFactory<>("data_saida"));
+		MaintenanceDateOut.setCellFactory( cell -> {
             return new TableCell<Orcamento, Date>() {
                 @Override
                 protected void updateItem( Date item, boolean empty) {
@@ -196,80 +294,31 @@ public class RelatoriosController implements Initializable{
             };        
          } );		
 		
-		saidaTable.setCellValueFactory(new PropertyValueFactory<>("data_saida"));
-		saidaTable.setCellFactory( cell -> {
-            return new TableCell<Orcamento, Date>() {
-                @Override
-                protected void updateItem( Date item, boolean empty) {
-                   super.updateItem(item, empty);
-                   if( !empty ) {
-                	   try {
-                		   setText( Format.formatData.format(item) );
-                	   }catch(NullPointerException e){
-                           setText("");
-                           setGraphic(null);
-                	   }
-                      
-                   }else {
-                      setText("");
-                      setGraphic(null);
-                   }
-                }
-            };        
-         } );		
+		MaintenanceSituation.setCellValueFactory(new PropertyValueFactory<Orcamento, String>("situation"));
+		MaintenanceEmploye.setCellValueFactory(new PropertyValueFactory<Orcamento, String>("empresa"));
+		MaintenanceNS.setCellValueFactory(new PropertyValueFactory<Orcamento, String>("ns"));
+		MaintenancePat.setCellValueFactory(new PropertyValueFactory<Orcamento, String>("pat"));
+		MaintenanceTable.setItems(obsMaintenance);
 		
-		item.setCellValueFactory(new PropertyValueFactory<Orcamento, String>("Item") );
-		quantidade.setCellValueFactory(new PropertyValueFactory<Orcamento, Integer>("quantidade"));
-		tableOrcamento.setItems(obsMateriais);
 		
-		tableOrcamentos.setItems(obsOrcamento);
+		
+		
+		productsSelected.setCellValueFactory(new PropertyValueFactory<Product, String>("name"));		
+		descriptionSelected.setCellValueFactory(new PropertyValueFactory<Product, String>("descricao"));
+		unitMeasurementSelected.setCellValueFactory(new PropertyValueFactory<Product, String>("unidadeMedida"));
+		amountSelected.setCellValueFactory(new PropertyValueFactory<Product, Double>("qtde"));		
+		productSelectedTable.setItems(obsMateriais);
 		
 	}
 
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		startTableOrcamentos();
-
+	
+	
+	private void imageInit() {
 		Image image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-excluir.png").toString() );
-		cancelarImg.setImage(image);
-		
+		cancelarImg.setImage(image);		
 		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-pesquisar.png").toString() );
 		buscarImg.setImage(image);
-		
-		 coletorHbox.setVisible(false);
-		 equipamentoHbox.setVisible(false);
-		 empressaVbox.setVisible(false);
-		
-		
-	}
-	
-	@FXML
-	private void voltar(ActionEvent event) throws IOException {
-		NewView.addChildrenn((Node) NewView.loadFXML("estoque" , new EstoqueController() ));	
-	}
-	
-	@FXML
-	private void buscar(ActionEvent event) throws IOException {
-		Boolean entrada = entradaMaterial.selectedProperty().getValue();
-		Boolean saida = saidaMaterial.selectedProperty().getValue();
-		Boolean mRealizada = manutencaoRealizada.selectedProperty().getValue();
-		Boolean mCurso = manutencaoEmCurco.selectedProperty().getValue();
-		
-		
-		obsOrcamento = orcamentoController.findAll(entrada, saida, mRealizada, mCurso);
-		
-		if(inicioDatePiker.getValue() != null ) {			
-			java.sql.Date gettedDatePickerDateStart = java.sql.Date.valueOf(inicioDatePiker.getValue());						
-			obsOrcamento = obsOrcamento.filtered(x -> x.getData_chegada().after(gettedDatePickerDateStart));
-			
-		}
-		if(finalDatePiker.getValue() != null) {
-			java.sql.Date gettedDatePickerDateFinal = java.sql.Date.valueOf(finalDatePiker.getValue());	
-			obsOrcamento = obsOrcamento.filtered(x -> x.getData_chegada().before(gettedDatePickerDateFinal));
-		}
-
-		tableOrcamentos.setItems(obsOrcamento);
-		tableOrcamentos.refresh();
+				
 	}
 	
 }

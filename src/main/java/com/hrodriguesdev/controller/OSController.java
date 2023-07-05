@@ -21,4 +21,8 @@ public class OSController {
 		return service.createNewOSOut(list);
 	}
 
+	public boolean createNewOSIn(List<ProductsOs> list) {
+		return service.createNewOSIn(list);
+	}
+
 }

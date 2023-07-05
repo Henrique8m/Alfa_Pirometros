@@ -64,20 +64,21 @@ public class OrcamentoInsert extends RegisterProductsController implements Initi
 	protected String nova = "";
 	
 	@FXML
-	protected VBox chegada, modeloVbox, nsVbox, patVbox, calVbox, empressaVBox, nfeVbox, responsavelVbox, empressaVBox1;
+	protected VBox observacaoVbox;
+	
 	@FXML
-	protected HBox observacaoVbox;
+	protected HBox hboxOrcamento1, hboxOrcamento2, hbox1, hbox2;
 	
 	//Button
 	@FXML
-	protected Button salvar, cancelar;
+	protected Button salvar, cancelar, ensaioButton;
 	
 	//Image Button
 	@FXML
 	protected ImageView cancelarImg, salvarImg, ensaioImg;
 	
 	@FXML
-	protected Text erro, infoText;
+	protected Text erro;
 	
 	//Info Employee 
 	@FXML

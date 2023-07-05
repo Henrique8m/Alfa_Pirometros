@@ -30,6 +30,12 @@ public class OSService {
 				return repositoryOs.createNewOs(list, "products_out ");
 		return false;
 	}
-	
+
+	public boolean createNewOSIn(List<ProductsOs> list) {
+		if(list.size()>0)
+			if(repositoryOs.findAllByOrcamentoId(list.get(0).getIdProductsOs(), "products_inp ").isEmpty())
+				return repositoryOs.createNewOs(list, "products_inp ");
+		return false;
+	}	
 	
 }

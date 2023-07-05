@@ -43,6 +43,7 @@ public class EstoqueSaidaController  extends OrcamentoInsert implements Initiali
 	private ColetorController coletorController = new ColetorController();
 	
 	private Long orcamento_id;
+	public Boolean saida = true;
 	
 	private ObservableList<String> obsString = FXCollections.observableArrayList();	
 	
@@ -51,87 +52,71 @@ public class EstoqueSaidaController  extends OrcamentoInsert implements Initiali
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		preparedHboxEstoque();		
 		startTable();
-		quantidadeItem.setText("1");
-		chegada.setVisible(false);
-		modeloVbox.setVisible(false);
-		nsVbox.setVisible(false);
-		patVbox.setVisible(false);
-		calVbox.setVisible(false);
-		observacaoVbox.setVisible(false);
-		empressaVBox.setVisible(false);
-		nfeVbox.setVisible(true);
-		nfeText.setEditable(true);
-		responsavelVbox.setVisible(true);
-		empressaVBox1.setVisible(true);
-		infoText.setVisible(true);		
 		imageInit();
 		addListener();
 		
-	}
-	
-	@Override
-	protected void salvar(ActionEvent event) throws IOException {
-		if( !nfeText.getText().isBlank() && nfeText.getText() != "0") 
-			if( !empressaComboBox.getValue().isBlank() && empressaComboBox.getValue() != "")
-				if( !responsavel.getText().isBlank() && responsavel.getText() != "") 
-					if ( empressaController.isExist(empressaComboBox.getValue()) != null ) {
-						if(obsMateriais.size()>0){
-						
-							orcamento = createOrcamento();
-							orcamentoController = new OrcamentoController();
-							orcamento_id = orcamentoController.add(orcamento);
-							orcamento.setId(orcamento_id);						
-							
-							if(orcamento_id == null || orcamento_id == 0l) {
-								erro.setText("Erro ao salvar orcamento");
-								return;
-							}
-							
-							int nfe = 0;
-							try {
-								nfe = Integer.parseInt( nfeText.getText() );					
-							}catch(NumberFormatException e){
-								Log.logString("EstoqueSaidaController", e.getMessage());
-								e.getMessage();
-								return;
-							}
-							
-							Coletor coletor = getColetor();		
-							if(coletor==null) {
-								return;
-							}
-							
-							orcamento.setColetor_id(coletor.getId());
-							orcamento.setNfe(nfe);
-							if(!orcamentoController.updatede(orcamento)) {
-								erro.setText("Erro ao atualizar orcamento");
-							};		
-							
-							if(addOsOut())
-								NewView.addChildrenn((Node) NewView.loadFXML(FXMLPath.ESTOQUE , new EstoqueController() ));	
-							else
-								erro.setText("Erro ao salvar os");
-						}else 
-							erro.setText("Cambos obrigatorios em branco");
-					}
-	}
-	
-	private boolean addOsOut() {
-		List<ProductsOs> listProductsOs = new ArrayList<>();
-		obsMateriais.forEach((product) -> {
-			listProductsOs.add(new ProductsOs(orcamento_id, product.getId(), product.getQtde()));				
-		});
-		OSController osController = new OSController();		
-		return osController.createNewOSOut(listProductsOs);
 	}
 	
 	@FXML
 	protected void cancelar(ActionEvent event) throws IOException {
 		NewView.addChildrenn((Node) NewView.loadFXML("estoque" , new EstoqueController() ));	
 	}
-
-	protected Coletor getColetor() {
+	
+	@Override
+	protected void salvar(ActionEvent event) throws IOException {				
+		if(validInfomation()) {
+			orcamento = createOrcamento();
+			orcamentoController = new OrcamentoController();
+			orcamento_id = orcamentoController.add(orcamento);
+			orcamento.setId(orcamento_id);						
+			
+			if(orcamento_id == null || orcamento_id == 0l) {
+				erro.setText("Erro ao salvar orcamento");
+				return;
+			}
+			
+			int nfe = 0;
+			try {
+				nfe = Integer.parseInt( nfeText.getText() );					
+			}catch(NumberFormatException e){
+				Log.logString("EstoqueSaidaController", e.getMessage());
+				e.getMessage();
+				return;
+			}
+			
+			Coletor coletor = getColetor();		
+			if(coletor==null) {
+				return;
+			}
+			
+			orcamento.setColetor_id(coletor.getId());
+			orcamento.setNfe(nfe);
+			if(!orcamentoController.updatede(orcamento)) {
+				erro.setText("Erro ao atualizar orcamento");
+			};		
+			
+			if(addOs())
+				NewView.addChildrenn((Node) NewView.loadFXML(FXMLPath.ESTOQUE , new EstoqueController() ));	
+			else
+				erro.setText("Erro ao salvar os");
+		}
+	}
+	
+	protected boolean addOs() {
+		List<ProductsOs> listProductsOs = new ArrayList<>();
+		obsMateriais.forEach((product) -> {
+			listProductsOs.add(new ProductsOs(orcamento_id, product.getId(), product.getQtde()));				
+		});
+		OSController osController = new OSController();	
+		if(saida)
+			return osController.createNewOSOut(listProductsOs);
+		else 
+			return osController.createNewOSIn(listProductsOs);
+	}
+	
+	private Coletor getColetor() {
 		Coletor coletor = new Coletor();
 		try {	
 			coletor.setOrcamento_id( orcamento_id);	
@@ -164,7 +149,46 @@ public class EstoqueSaidaController  extends OrcamentoInsert implements Initiali
 		empressaComboBox.getEditor().textProperty().addListener(inputFilter);	
 		empressaComboBox.setTooltip(new Tooltip("Campo para inserir o nome da empresa"));
 		
-
 	}	
+	
+//	Validacao das infomacoes, se estao todas preenchidas	
+	protected boolean validInfomation() {
+		if( !nfeText.getText().isBlank() && nfeText.getText() != "0") {
+			if( !empressaComboBox.getValue().isBlank() && empressaComboBox.getValue() != "") {
+				if( !responsavel.getText().isBlank() && responsavel.getText() != "") {
+					if ( empressaController.isExist(empressaComboBox.getValue()) != null ) {
+						if(obsMateriais.size()==0) {
+							erro.setText("A lista de materias esta vazia!");
+							return false;
+						}
+					}else {
+						erro.setText("Empresa nao existe");
+						return false;
+					}						
+				}else {
+					erro.setText("O campo Responsavel nao pode ser em branco");
+					return false;
+				}					
+			}else {
+				erro.setText("O campo Empressa nao pode ser em branco");
+				return false;
+			}
+		}else {
+			erro.setText("O campo nfe nao pode ser em branco");
+			return false;
+		}
+		return true;
+	}
+	
+	protected void preparedHboxEstoque() {
+		quantidadeItem.setText("1");		
+		hboxOrcamento1.setVisible(false);
+		hboxOrcamento2.setVisible(false);
+		observacaoVbox.setVisible(false);		
+		hbox1.setVisible(true);
+		hbox2.setVisible(true);
+		ensaioButton.setVisible(false);
+	}
+		
 }
 

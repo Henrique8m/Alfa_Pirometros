@@ -124,33 +124,76 @@
                         </VBox>
                      </children>
                   </AnchorPane>
-                  <AnchorPane minHeight="300.0" prefHeight="831.0" style="-fx-background-color: #e1e1e1; -fx-background-radius: 15;">
+                  <AnchorPane minHeight="300.0" style="-fx-background-color: #e1e1e1; -fx-background-radius: 15;">
                      <children>
-                        <HBox prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <TableView fx:id="tableOrcamentos" onMouseClicked="#clickOrcamento" prefHeight="803.0" prefWidth="914.0" style="-fx-background-radius: 10;">
-                                 <columns>
-                                    <TableColumn fx:id="relatorioTable" prefWidth="97.0" text="Relatorio" />
-                                    <TableColumn fx:id="chegadaTable" prefWidth="95.0" text="Chegada" />
-                                    <TableColumn fx:id="saidaTable" prefWidth="86.0" text="Saída" />
-                                    <TableColumn fx:id="nfe" prefWidth="75.0" text="nfe" />
-                                    <TableColumn fx:id="situation" prefWidth="198.0" text="Situação" />
-                                 </columns>
-                                 <padding>
-                                    <Insets left="10.0" />
-                                 </padding>
-                              </TableView>
-                              <TableView fx:id="tableOrcamento" minHeight="300.0" minWidth="300.0" style="-fx-background-radius: 10;">
-                                 <columns>
-                                    <TableColumn fx:id="item" minWidth="100.0" prefWidth="500.0" text="Item" />
-                                    <TableColumn fx:id="quantidade" minWidth="50.0" prefWidth="94.0" text="Quantidade" />
-                                 </columns>
-                                 <columnResizePolicy>
-                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                                 </columnResizePolicy>
-                              </TableView>
+                              <HBox prefHeight="638.0" prefWidth="1488.0">
+                                 <children>
+                                    <VBox alignment="TOP_CENTER">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Saída de Material" />
+                                          <TableView fx:id="MaterialOutTable" onMouseClicked="#clickOrcamento" style="-fx-background-radius: 10;">
+                                             <columns>
+                                                <TableColumn fx:id="MaterialOutData" prefWidth="95.0" text="Data" />
+                                                <TableColumn fx:id="MaterialOutNfe" prefWidth="75.0" text="nfe" />
+                                                <TableColumn fx:id="MaterialOutEmpresa" prefWidth="198.0" text="Empresa Referente" />
+                                                <TableColumn fx:id="MaterialOutAuthor" prefWidth="85.0" text="Author" />
+                                             </columns>
+                                             <padding>
+                                                <Insets left="10.0" />
+                                             </padding>
+                                             <columnResizePolicy>
+                                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                             </columnResizePolicy>
+                                          </TableView>
+                                       </children>
+                                    </VBox>
+                                    <VBox alignment="TOP_CENTER">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Manutenção em equipamentos" />
+                                          <TableView fx:id="MaintenanceTable" onMouseClicked="#clickOrcamento" style="-fx-background-radius: 10;">
+                                             <columns>
+                                                <TableColumn fx:id="MaintenanceRelatorio" prefWidth="97.0" text="Relatorio" />
+                                                <TableColumn fx:id="MaintenanceDateIn" prefWidth="95.0" text="Chegada" />
+                                                <TableColumn fx:id="MaintenanceDateOut" prefWidth="86.0" text="Saída" />
+                                                <TableColumn fx:id="MaintenanceSituation" prefWidth="198.0" text="Situação" />
+                                                <TableColumn fx:id="MaintenanceEmploye" prefWidth="75.0" text="Empresa" />
+                                                <TableColumn fx:id="MaintenanceNS" prefWidth="75.0" text="NS" />
+                                                <TableColumn fx:id="MaintenancePat" prefWidth="75.0" text="Pat" />
+                                             </columns>
+                                             <padding>
+                                                <Insets left="10.0" />
+                                             </padding>
+                                             <columnResizePolicy>
+                                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                             </columnResizePolicy>
+                                          </TableView>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <VBox alignment="TOP_CENTER">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Materiais usado" />
+                                    <TableView fx:id="productSelectedTable" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="700.0" prefWidth="640.0" style="-fx-background-radius: 10;">
+                                       <columns>
+                                          <TableColumn fx:id="productsSelected" maxWidth="440.0" minWidth="100.0" prefWidth="270.0" text="Produto" />
+                                          <TableColumn fx:id="descriptionSelected" maxWidth="440.0" minWidth="100.0" prefWidth="270.0" text="Descrição" />
+                                          <TableColumn fx:id="amountSelected" maxWidth="75.0" minWidth="75.0" prefWidth="75.0" text="Quantidade" />
+                                          <TableColumn fx:id="unitMeasurementSelected" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="Unidade Medida" />
+                                       </columns>
+                                       <columnResizePolicy>
+                                          <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                       </columnResizePolicy>
+                                       <VBox.margin>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" />
+                                       </VBox.margin>
+                                    </TableView>
+                                 </children>
+                              </VBox>
                            </children>
-                        </HBox>
+                        </VBox>
                      </children>
                   </AnchorPane>
                </items>
