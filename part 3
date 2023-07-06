@@ -1,0 +1,707 @@
+[33mcommit af2a17415519bbf91de6d5d36ffc5c7394e727d7[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Wed Jul 5 16:18:57 2023 -0300
+
+    Implementando products part 3
+
+[33mcommit c7c37b7894155de97b58d9d82cd9befc99a0865d[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Wed Jul 5 08:18:15 2023 -0300
+
+     Implementando products part 3
+
+[33mcommit 029c4080576b944ca086596438d367353aa4f6ed[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Thu Jun 29 16:53:11 2023 -0300
+
+     Implementando products part 2
+
+[33mcommit 05d2d2bf0d92c4600b54586881c47685ca4f94b3[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Wed Jun 28 16:30:44 2023 -0300
+
+     Implementando products part 2
+
+[33mcommit 635e2eb18a93b7cd4163e95fff76a0b026cffe7c[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Tue Jun 27 12:33:44 2023 -0300
+
+    Implementando products part 2
+
+[33mcommit e96b9d6273c3a702a27be7e85e462e8010d8a5ed[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Fri Jun 23 15:19:26 2023 -0300
+
+    Implementando products part 1
+
+[33mcommit 4d73fdbd3ba2a1a7db7e46680c41202abf6313ca[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Tue Jun 13 10:24:13 2023 -0300
+
+     geracao do certificado part3
+
+[33mcommit 9facfc25608bf9fa94bd5fc6655ad162c23b9e2a[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Thu Jun 1 10:06:17 2023 -0300
+
+    geracao do certificado part 2
+
+[33mcommit b73508154fa3a20783628ec105082401d277a890[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Tue May 30 16:31:14 2023 -0300
+
+    Implementando a geracao do certificado part 1
+
+[33mcommit a29b2340b6a0e12d87adcb0277486540e6058953[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Wed May 24 16:21:10 2023 -0300
+
+    certificado pdf part 1
+
+[33mcommit 236575d778d18b2d2e905e3f3614675d2eb047cf[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Wed May 24 12:18:17 2023 -0300
+
+    ensaios part 2
+
+[33mcommit 2e6293610cec8ad24f1617ef8ad0318fc5b427c3[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Fri May 19 08:38:11 2023 -0300
+
+    Implementando ensaios phase 1
+
+[33mcommit 194b40e111d464b9308e5ef02a5b74c4cacac452[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Wed May 17 11:22:06 2023 -0300
+
+    Adiconar e editar equipamentos pela pagina de busca
+
+[33mcommit c1ba081c32c96a857ca6b4f0d5745aec30a8b15d[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Tue May 16 15:30:06 2023 -0300
+
+    Implementando o relatorio
+
+[33mcommit 43b5ec340759e77e783b1a0a4435c68e5c64d0ab[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Thu May 4 16:59:51 2023 -0300
+
+    Organizando Projeto
+
+[33mcommit 2513677492f993f2bfd8c438fb1e93c68180a015[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Thu May 4 13:02:33 2023 -0300
+
+    Atualização
+
+[33mcommit 680b0a203bd7c457673062d2fc42f70f8201ac4c[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Mon Dec 12 14:07:50 2022 -0300
+
+    Update
+
+[33mcommit 7cadcbf90bed00a6eee38f8f804e5a05b84e84c7[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Fri Nov 4 15:42:44 2022 -0300
+
+    Check Box na busca de relatorios
+
+[33mcommit 1bbd939f9e91bac02309392bf9aafa70842eb032[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Fri Nov 4 08:23:21 2022 -0300
+
+    Atualizar empresa funcionando, Imagens adcionadas
+
+[33mcommit df6be854af4e39a4a9c545af95b2acc2c1b67dce[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Fri Nov 4 07:34:53 2022 -0300
+
+    Inserir empresa na pagina empresa
+
+[33mcommit 4db0dd530efbf5a9713bde8091527811f052037f[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Thu Oct 27 15:33:57 2022 -0300
+
+    Busca valento nas tres Tab com comboBox
+
+[33mcommit e5216f173ed8b23527e23e3c65e90e4190762902[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Thu Oct 27 08:31:32 2022 -0300
+
+    Saido do equipamento em area, somente apos envio do orcamento
+
+[33mcommit 376b7b31ff0e4df2b259fe08e92e245c64842362[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Thu Oct 27 07:55:01 2022 -0300
+
+    Delete certificado, delete empressa
+
+[33mcommit 541ff816ae7422bac2b35428103237fcd1a21ca2[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Mon Sep 26 14:00:07 2022 -0300
+
+    Inserir numero do relatorio na pagina de busca
+
+[33mcommit 708ee79f7e4ab2e09025b52c77260cce4de8f71d[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Mon Sep 26 13:45:12 2022 -0300
+
+    Update itens do relatorio na pagina de busca
+
+[33mcommit 6365c51b2a6310bc6f53c43b72af274f3a6c5143[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Mon Sep 26 13:01:11 2022 -0300
+
+    Editar coletor e orcamento pagina de busca
+
+[33mcommit 75c8a7dcd3ce4ca578ce7badbf0740bd5d437df1[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Mon Sep 26 11:15:53 2022 -0300
+
+    Saida de material de sinal, update
+
+[33mcommit 6fe92977ec985d75f09795870ca35a7d976abe14[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Mon Sep 26 10:55:32 2022 -0300
+
+    Saida de material de consumo com query errada
+
+[33mcommit c2ba72dcdacaa650d8d69170e71a2ad1aa12c73a[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Mon Sep 26 10:33:10 2022 -0300
+
+    Data tentativa de concerto
+
+[33mcommit d96e746a74ecbfb93e0828a75f5e33a9ef63473f[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Mon Sep 26 10:23:36 2022 -0300
+
+    Empresa update
+
+[33mcommit 09147934881429d477d23096a319e6a387478fa7[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Fri Sep 23 13:28:41 2022 -0300
+
+    Empresa editou nome
+
+[33mcommit 607e59e6aa1e06dab1644bb02a5b92fc3ce3806f[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Fri Sep 23 13:23:33 2022 -0300
+
+    Switch das fases do orcamento
+
+[33mcommit 66a50e04f841f8061d11776ff312d9c10dd1be4d[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Thu Sep 22 16:30:17 2022 -0300
+
+    Edicao da data de chegada
+
+[33mcommit 7c69bc90985a7d7ab6815c99166add43963689d4[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Thu Sep 22 15:19:03 2022 -0300
+
+    Bug, na tab pane
+
+[33mcommit 4bf932734ff3321bfb06197411bbff2c09d94172[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Thu Sep 22 13:43:45 2022 -0300
+
+    Bug, orcamento nao recebe coletor id na saida de material
+
+[33mcommit cba26aef859f7079a49411de46258265a16c420b[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Thu Sep 22 12:15:11 2022 -0300
+
+    Bug na edicao do orcamento, voltava com status errado
+
+[33mcommit bebb15e9711f474c8f8c916f3bc1cc92eb14c967[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Thu Sep 22 11:59:09 2022 -0300
+
+    Bug botoes na tela de orcamento
+
+[33mcommit b031ef5cdd2f18175b4d3697f9d0aa9098d77a8a[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Thu Sep 22 11:46:42 2022 -0300
+
+    Refresh table pegando o filtro
+
+[33mcommit c67f1c260b2d45a53e62f3e6463adb7a289e7d53[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Thu Sep 22 11:18:06 2022 -0300
+
+    Data +1 full
+
+[33mcommit 984f540a8f80f957a8e905ef7459f3c6a2cf51f7[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Mon Sep 19 11:32:29 2022 -0300
+
+    Acertos
+
+[33mcommit d4345d0be768e3f7ca67048ab355c9e9d5dd3a06[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Thu Sep 8 15:14:18 2022 -0300
+
+    Atualizações no estoque
+
+[33mcommit 1299b891cb23f4121aed1eeaba8b82774dbaed63[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Thu Sep 1 16:41:19 2022 -0300
+
+    Contornando erros
+
+[33mcommit 39c69ecccfecf2bfff5cf245d3b8cefd4670606b[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Thu Sep 1 13:49:45 2022 -0300
+
+    Null get quantidade
+
+[33mcommit 2ba8701d86b55a4467c30ac438f32ead54f3480a[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Thu Sep 1 12:46:15 2022 -0300
+
+    Pagina de orcamentos
+
+[33mcommit 0d2185b01909f229360169329e5d8bc5ba4363ee[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Thu Sep 1 11:49:32 2022 -0300
+
+    Estoque saida
+
+[33mcommit 04600450c601090841f3fabb0b462d7da6dd6159[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Thu Sep 1 10:59:10 2022 -0300
+
+    Estoque entrada controller
+
+[33mcommit 1414485e818c8fcfb46b2fed565121edf277cfc9[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Wed Aug 31 16:48:01 2022 -0300
+
+    estoque pag, estoque cabos
+
+[33mcommit 01da9e06f14a657ca8ac5b9872f8dc3a72e67c9b[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Tue Aug 30 14:38:56 2022 -0300
+
+    certificados funcionando
+
+[33mcommit a1888555540be244178ff6d95ab5ab8c93b8b5cf[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Mon Aug 29 15:21:25 2022 -0300
+
+    Orcamento funcionando
+
+[33mcommit 8ff6e099efc8730e4e2cd296ea0ec3191d2f4914[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Fri Aug 26 15:46:37 2022 -0300
+
+    updatede
+
+[33mcommit f9f88ee014dd901612de514b238c2052fcd4bda4[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Thu Aug 25 15:05:36 2022 -0300
+
+    View de orcamento sendo alimentada com o banco de dados
+
+[33mcommit a2cd7bb7e38f900c5e5a3f886d734f322eeb854b[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Thu Aug 25 14:20:29 2022 -0300
+
+    rolo doido
+
+[33mcommit b8af2bb6b0548bfb79059d4adcf92ed5dcca8b50[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Thu Aug 25 13:07:16 2022 -0300
+
+    Insert new orcament ok?
+
+[33mcommit f4e7ad7ec250ec36c65d5f7a32b3adb6cb12224a[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Thu Aug 25 08:04:02 2022 -0300
+
+    itens updatede
+
+[33mcommit 3da8a151623e00f39611df0672631bd52c9ddafb[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Wed Aug 24 15:35:43 2022 -0300
+
+    entidades itens
+
+[33mcommit d14ae1d3e1be23b70fd050e26e05ad903be78c0f[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Wed Aug 24 15:30:33 2022 -0300
+
+    Inicio da atualização dos orcamentos
+
+[33mcommit b38a0a4248ed7b84fbd5d899ecb78c98c8a4cf06[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Wed Aug 24 13:54:16 2022 -0300
+
+    Orcamento e add equipamento atualizado
+
+[33mcommit 7e6b6157f68da3c1f9c5e961083ee2e1cd1703eb[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Fri Aug 19 13:13:21 2022 -0300
+
+    Trabalhando na nova view de orçamento
+
+[33mcommit 662cab678976b086679e7b8a20424fae12fa345c[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Thu Aug 18 13:23:05 2022 -0300
+
+    Trabalhando na nova pagina de busca
+
+[33mcommit 82c8439c5120f50b1ded7509968a8772223b7483[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Thu Aug 18 10:02:33 2022 -0300
+
+    Pacote para tratar a saida de equipamento
+
+[33mcommit 9ff4df170e518adb5285b8ffb15b87d1ec404bde[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Thu Aug 18 10:00:09 2022 -0300
+
+    Trocando main view para pacote diferente
+
+[33mcommit 64814ca8dfbed70079d1863280f4168436231fff[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Thu Aug 18 09:59:19 2022 -0300
+
+    Update informação de data
+
+[33mcommit a288b74996ca9b98805bb7cf5c2106c6cc506938[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Tue Aug 16 16:30:21 2022 -0300
+
+    Tratamento null pointer
+
+[33mcommit a8f8e8bfd682eacd128f9570b01915de606dcba2[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Tue Aug 16 16:23:09 2022 -0300
+
+    day +1 na entidade
+
+[33mcommit e8d36cb6c6e6e2a326ee2eebbf5e4c8d5d9cb3a0[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Tue Aug 16 16:12:30 2022 -0300
+
+    Format table date dd/MM/yyyy
+
+[33mcommit 38024e273176838ac6f5751566f4372a9418df38[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Mon Aug 15 16:34:56 2022 -0300
+
+    Created pag certificados
+
+[33mcommit 03f1a5ee38bcfc8e7b19e70925a3acc194450179[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Mon Aug 15 16:25:04 2022 -0300
+
+    Table com date
+
+[33mcommit 05ca3e9765de51a39c7bde2906eda4b28e90fb8f[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Mon Aug 15 16:14:41 2022 -0300
+
+    Busca pelo nome da empresa update
+
+[33mcommit 6003b4c74071a66b2d23cead96987ba90c4c3226[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Mon Aug 15 16:10:53 2022 -0300
+
+    Busca pelo nome da empresa
+
+[33mcommit 665ae49a655de6b1ba192f7a193166c7452d7e2a[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Mon Aug 15 15:18:07 2022 -0300
+
+    Coletor update, View Busca update
+
+[33mcommit f0ffb578b7ca23b1047a66c078952ef4e8371537[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Mon Aug 15 11:26:00 2022 -0300
+
+    Updatede banco de dados para date
+
+[33mcommit 86cf38daf7778e286521db99f880f9c7f5eaf453[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Fri Aug 12 13:53:02 2022 -0300
+
+    Result set parce equipament
+
+[33mcommit 0ff79b78b6f0ddda751d607207b1c8fc4d48b5b0[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Fri Aug 12 13:07:18 2022 -0300
+
+    Entrada com date
+
+[33mcommit 42814de63cf3a2e6ead120c52857c3be9426b43a[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Thu Aug 4 13:55:48 2022 -0300
+
+    Separando as pastas
+
+[33mcommit 78c6184168fc95f91ebdefa58dedd990fbd1ed1b[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Thu Aug 4 09:45:30 2022 -0300
+
+    ajuste de erra ao atualizar a tabela pelo timer
+
+[33mcommit 109e6db35b4b158602d3df913d257273b3ed984e[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Tue Aug 2 11:07:25 2022 -0300
+
+    alerts delit
+
+[33mcommit 1535ca5536c8e3eb3ce7cfd77bf6592c1c0321f9[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Tue Aug 2 10:58:10 2022 -0300
+
+    Filtred list, duplo click
+
+[33mcommit dd31e913af50ab92cf4814c43f1e7f25418fe9a4[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Thu Jul 14 07:44:40 2022 -0300
+
+    Divisao do projeto
+
+[33mcommit c9e2a97e5a0938ff54b3d1d16e09984d056cda70[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Wed Jul 13 13:40:03 2022 -0300
+
+    sort List
+
+[33mcommit af190b2fddca9c961f4e79aa75955d17d7a72c1c[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Wed Jun 29 16:49:58 2022 -0300
+
+    Updatede Main View Controller
+
+[33mcommit 42e451e6d1d2d4a11344e834b67bdb3e2913c81b[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Wed Jun 29 15:49:37 2022 -0300
+
+    Updatede Package
+
+[33mcommit b070a76a7db868b710922b3beb7df7f8ec41218e[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Wed Jun 29 15:46:56 2022 -0300
+
+    Updatede Package
+
+[33mcommit 870c628ad49db8232b559e9b9e8ccdcb77e94e67[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Wed Jun 29 15:43:54 2022 -0300
+
+    Created package updatede
+
+[33mcommit eb16d8cc82ff7259a7e403c889c8c7038c462ec2[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Wed Jun 29 15:42:05 2022 -0300
+
+    Created package insert
+
+[33mcommit 7b963f02ff9beba3476df7d440efc07df5f3ff02[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Wed Jun 29 15:35:37 2022 -0300
+
+    Start DB.conection lost
+
+[33mcommit cb2bf435ea75349d61056d36c7dd85e7b20668d8[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Wed Jun 29 13:59:30 2022 -0300
+
+    Updatede EquipamentoRepository Part2
+
+[33mcommit 1d5bf2d2f700978bf825cadc9f7779d33c8cca15[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Wed Jun 29 13:51:56 2022 -0300
+
+    Updatede OrcamentoRepository
+
+[33mcommit 59e7fa85ea7886bffc395e13a40123609262ec7c[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Wed Jun 29 13:43:17 2022 -0300
+
+    Updatede EquipamentoRepository
+
+[33mcommit 233dd709a8d119e92d4076e9c89e54fc92f298b1[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Wed Jun 29 09:37:00 2022 -0300
+
+    Refactoring EquipamentoController and EquipamentoService and EquipamentoRepository
+
+[33mcommit 0d958814812f8ca51115a805ef641ee2bd626797[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Wed Jun 29 08:41:35 2022 -0300
+
+    Package db relocated in DAO
+
+[33mcommit 3eeeddc99eb0a09a868b9aec7c78fb48ca2ca20c[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Wed Jun 29 08:40:05 2022 -0300
+
+    Package repository, DAO
+
+[33mcommit 1db697a83b12a0211d27ba9d0c9044ba1aaafdbb[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Wed Jun 29 08:37:30 2022 -0300
+
+    Separando Controller Orcamento
+
+[33mcommit 2a79fff51d5c1f4b74062f750299acf1fdebf667[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Wed Jun 29 08:33:43 2022 -0300
+
+    Separando Controller Empressa
+
+[33mcommit 2c1dc86111d15dbd7b95c91fdd870f8c4432ac51[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Wed Jun 29 08:23:56 2022 -0300
+
+    Separando Controller Equipamento
+
+[33mcommit 82bf8d7d273c8458a8f794256b1e21abe6561ecb[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Wed Jun 29 08:12:13 2022 -0300
+
+    Separando Controller Coletor
+
+[33mcommit f18a5da68cbd45d833e0492a371608aaa6e894f0[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Tue Jun 28 15:40:30 2022 -0300
+
+    SupresWarnings, organizando imports
+
+[33mcommit d173d27b7578c7160e0270c64e7eb3d48d05705a[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Tue Jun 28 15:37:37 2022 -0300
+
+    Alteração de modal para não modal, views menos importantes
+
+[33mcommit 195411ce1b502e599c28728a687d2cc5383643d9[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Tue Jun 28 14:12:07 2022 -0300
+
+    Classe Busca
+
+[33mcommit 87ec15f4ed1ce399e1b2270975c6ba223924dafa[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Mon Jun 27 14:54:09 2022 -0300
+
+    Inicio do extends
+
+[33mcommit 4adb19bf29aedc602f193cb3d1a6a82299e61da2[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Thu Jun 23 15:41:59 2022 -0300
+
+    PDF funcionando
+
+[33mcommit df16b48b3efce7e7823ffde0a3fa512a51125c9e[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Thu Jun 23 11:47:16 2022 -0300
+
+    Equipamento view controller super class
+
+[33mcommit dabda7127925fd92151c5ebd1072b458f5082b9e[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Thu Jun 23 11:22:47 2022 -0300
+
+    Editar orcamento e editar equipamento
+
+[33mcommit 6aa919d61bf4052a0d8e7d8decce2afc1a100b94[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Wed Jun 22 16:38:59 2022 -0300
+
+    Criado a coleta
+
+[33mcommit 3dd8d6b4d9f8d9e0e7fc108385413935496d7405[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Tue Jun 7 17:11:46 2022 -0300
+
+    Botao Find Pelo Ns
+
+[33mcommit dd13073df912eaef7710eaabb9f73d397c3039ae[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Mon Jun 6 17:14:40 2022 -0300
+
+    InputFilter
+
+[33mcommit bdb5c50909c6afb8dcaf1303c065dc0f75072ea9[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Fri Jun 3 15:26:38 2022 -0300
+
+    Tela de updated e responsiva
+
+[33mcommit 6090b9bacddd9f82166163b3f8a8d597ef95bc47[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Tue May 31 16:23:46 2022 -0300
+
+    Updatede
+
+[33mcommit 88ea4db34595d0f4b8c820988c48ecb2804be0ea[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Mon May 30 16:54:10 2022 -0300
+
+    ComboBox funcionando
+
+[33mcommit 30a63e944390d1f33dc8117d4edf7e8ec65088eb[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Fri May 27 15:33:11 2022 -0300
+
+    Funcionando
+
+[33mcommit c70a135a88dd22e96d137e35812bb0987cfa83ee[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Tue May 24 13:13:48 2022 -0300
+
+    Update conforme Pejeto carvao MetalNobre
+
+[33mcommit f8df0a71b53ccc6f8f65291ca2fb3456b7df73a6[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Thu May 5 14:50:31 2022 -0300
+
+    Load MainView, startup springBoot
+
+[33mcommit b7d3508eafea1649143120067c06f2b22e03b055[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Thu May 5 14:37:19 2022 -0300
+
+    Start Load View Com controller
+
+[33mcommit cbe6eabf2601794b4e4be52137e45071d35fa1d4[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Thu May 5 12:03:01 2022 -0300
+
+    Spring Starting
+
+[33mcommit 35316b116e680e921591bca6d3d72e06cb5c5947[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Thu May 5 11:13:12 2022 -0300
+
+    Starting com a imagem da Yggdrasil
+
+[33mcommit 9cbd469ef570eb33c7e2a72d88c2899fa07287f5[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Thu May 5 11:09:59 2022 -0300
+
+    Iniciando com uma tela Branca
+
+[33mcommit 4339fd85cb43207f715f166c21553f9c0def7d0b[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Thu May 5 10:59:20 2022 -0300
+
+    Add dependencis JavaFx
+
+[33mcommit d8f23fca2f513ecdcf2421969863f3c706f45c28[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Thu May 5 10:58:17 2022 -0300
+
+    updatede Readme
+
+[33mcommit 1195784955c85adb8550bc1eae1d7df88f94e42a[m
+Author: Henrique Rodrigues <hyck.rocha@gmail.com>
+Date:   Thu May 5 10:53:57 2022 -0300
+
+    Projeto criado

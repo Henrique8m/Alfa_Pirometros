@@ -3,8 +3,6 @@ package com.hrodriguesdev.entities;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Orcamento {
 	
@@ -211,49 +209,49 @@ public class Orcamento {
 		this.coletor_id = coletor_id;
 	}
 
-	public static List<Orcamento> getList(String itens, EstoqueConsumo consumo2, EstoqueEstetico estetico2,
-			EstoqueEletricos eletrico, EstoqueEletronicos eletronico, EstoqueSinal sinal2, EstoqueCabos cabos) {
-		List<Orcamento> list = new ArrayList<>();
-		try {
-			list.addAll(EstoqueConsumo.orcamentoListConsumo(consumo2));
-		}catch(NullPointerException e){
-			e.printStackTrace();
-		}
-		try {
-			list.addAll(EstoqueEstetico.orcamentoListEstetico(estetico2));
-		}catch(NullPointerException e){
-			e.printStackTrace();
-		}
-		try {
-			list.addAll(EstoqueEletricos.orcamentoListEletrico(eletrico));
-		}catch(NullPointerException e){
-			e.printStackTrace();
-		}
-		try {
-			list.addAll(EstoqueEletronicos.orcamentoListEletronico(eletronico));
-		}catch(NullPointerException e){
-			e.printStackTrace();
-		}
-		try {
-				list.addAll(EstoqueSinal.orcamentoListSinal(sinal2));
-		}catch(NullPointerException e){
-			e.printStackTrace();
-		}
-		try {
-			list.addAll(EstoqueCabos.cabosListSinal(cabos));
-		}catch(NullPointerException e){
-			e.printStackTrace();
-		}
-		
-		if(!itens.isBlank()) {
-			String[] Itens = itens.split("\n");
-			for(@SuppressWarnings("unused") String newIten: Itens) {
-				list.add( new Orcamento());
-				}
-		}
-		
-		return list;
-	}
+//	public static List<Orcamento> getList(String itens, EstoqueConsumo consumo2, EstoqueEstetico estetico2,
+//			EstoqueEletricos eletrico, EstoqueEletronicos eletronico, EstoqueSinal sinal2, EstoqueCabos cabos) {
+//		List<Orcamento> list = new ArrayList<>();
+//		try {
+//			list.addAll(EstoqueConsumo.orcamentoListConsumo(consumo2));
+//		}catch(NullPointerException e){
+//			e.printStackTrace();
+//		}
+//		try {
+//			list.addAll(EstoqueEstetico.orcamentoListEstetico(estetico2));
+//		}catch(NullPointerException e){
+//			e.printStackTrace();
+//		}
+//		try {
+//			list.addAll(EstoqueEletricos.orcamentoListEletrico(eletrico));
+//		}catch(NullPointerException e){
+//			e.printStackTrace();
+//		}
+//		try {
+//			list.addAll(EstoqueEletronicos.orcamentoListEletronico(eletronico));
+//		}catch(NullPointerException e){
+//			e.printStackTrace();
+//		}
+//		try {
+//				list.addAll(EstoqueSinal.orcamentoListSinal(sinal2));
+//		}catch(NullPointerException e){
+//			e.printStackTrace();
+//		}
+//		try {
+//			list.addAll(EstoqueCabos.cabosListSinal(cabos));
+//		}catch(NullPointerException e){
+//			e.printStackTrace();
+//		}
+//		
+//		if(!itens.isBlank()) {
+//			String[] Itens = itens.split("\n");
+//			for(@SuppressWarnings("unused") String newIten: Itens) {
+//				list.add( new Orcamento());
+//				}
+//		}
+//		
+//		return list;
+//	}
 
 	public Long getCabos() {
 		return cabos;

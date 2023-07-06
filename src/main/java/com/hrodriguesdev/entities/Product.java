@@ -83,5 +83,42 @@ public class Product {
 	public void setUnidadeMedida(String unidadeMedida) {
 		this.unidadeMedida = unidadeMedida;
 	}
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((valor_pago == null) ? 0 : valor_pago.hashCode());
+		result = prime * result + ((valor_venda == null) ? 0 : valor_venda.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Product other = (Product) obj;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (valor_pago == null) {
+			if (other.valor_pago != null)
+				return false;
+		} else if (!valor_pago.equals(other.valor_pago))
+			return false;
+		if (valor_venda == null) {
+			if (other.valor_venda != null)
+				return false;
+		} else if (!valor_venda.equals(other.valor_venda))
+			return false;
+		return true;
+	}
 
+	
+	
 }

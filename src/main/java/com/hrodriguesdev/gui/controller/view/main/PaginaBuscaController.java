@@ -22,6 +22,7 @@ import com.hrodriguesdev.gui.controller.view.updatede.OrcamentoUpdatedeDois;
 import com.hrodriguesdev.utilitary.Format;
 import com.hrodriguesdev.utilitary.InputFilter;
 import com.hrodriguesdev.utilitary.NewView;
+import com.hrodriguesdev.utilitary.fxml.FXMLPath;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -153,6 +154,7 @@ public class PaginaBuscaController extends EquipamentoMainView implements Initia
 //		super.click(event);
 //		if(event.getTarget() == tableFindEquipamentos)
 		if(tableFindEquipamentos.getSelectionModel().getSelectedItem() != null) {
+			clearProduct();
 			equipamento = tableFindEquipamentos.getSelectionModel().getSelectedItem();
 			obsOrcamento = FXCollections.observableArrayList();
 			obsOrcamento = orcamentoController.findAllIdEquipamento(equipamento.getId());
@@ -220,6 +222,7 @@ public class PaginaBuscaController extends EquipamentoMainView implements Initia
 	    		
 	    	}    
 	}
+	
 	
 	@FXML
 	public void clickOrcamento(MouseEvent event) throws SQLException {
@@ -297,7 +300,7 @@ public class PaginaBuscaController extends EquipamentoMainView implements Initia
 		else if(event.getTarget() == tableOrcamentos) {
 			if(event.getCode().toString() == "F2") {
 				if(orcamento!=null){
-					NewView.getNewView("Editar Orcamento", "orcamento", new OrcamentoUpdatedeDois(equipamento, orcamento));
+					NewView.getNewView("Editar Orcamento", FXMLPath.ADD_PRODUCT_OS, new OrcamentoUpdatedeDois(equipamento, orcamento,obsMateriais,itensOrcamentoClick.getText()));
 				}
 			}
 			else if(event.getCode().toString() == "F3") {
@@ -638,5 +641,11 @@ public class PaginaBuscaController extends EquipamentoMainView implements Initia
 		obsMateriais = controller.findAllOsByOrcamentoId(id);
 		productSelectedTable.setItems(obsMateriais);
 	}
+	
+	private void clearProduct() {
+		obsMateriais = FXCollections.observableArrayList();
+		productSelectedTable.setItems(obsMateriais);
+	}
+	
 	
 }

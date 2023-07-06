@@ -146,6 +146,7 @@ public class OrcamentoInsert extends RegisterProductsController implements Initi
 								prod.setQtde(qtde);
 								obsMateriais.add(prod);
 							});
+					productSelectedTable.setItems(obsMateriais);
 					productSelectedTable.refresh();
 
 				}else

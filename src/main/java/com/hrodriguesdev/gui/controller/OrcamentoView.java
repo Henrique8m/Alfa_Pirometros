@@ -1,11 +1,15 @@
 package com.hrodriguesdev.gui.controller;
 
+import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import com.hrodriguesdev.AlfaPirometrosApplication;
 import com.hrodriguesdev.controller.EnsaiosController;
 import com.hrodriguesdev.controller.EstoqueRepController;
+import com.hrodriguesdev.controller.OSController;
 import com.hrodriguesdev.controller.ProductsController;
 import com.hrodriguesdev.dao.db.DbException;
 import com.hrodriguesdev.dao.repository.SaidaEquipamentoTransacao;
@@ -13,14 +17,17 @@ import com.hrodriguesdev.entities.Ensaios;
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.entities.Orcamento;
 import com.hrodriguesdev.entities.Product;
+import com.hrodriguesdev.entities.products.ProductsOs;
+import com.hrodriguesdev.enums.OSStatus;
 import com.hrodriguesdev.gui.alert.Alerts;
 import com.hrodriguesdev.gui.controller.view.insert.CertificadoInsert;
 import com.hrodriguesdev.gui.controller.view.main.MainViewController;
 import com.hrodriguesdev.relatorio.RelatorioGeneratorPDF;
 import com.hrodriguesdev.utilitary.Format;
 import com.hrodriguesdev.utilitary.Geral;
-import com.hrodriguesdev.utilitary.Itens;
+import com.hrodriguesdev.utilitary.Log;
 import com.hrodriguesdev.utilitary.NewView;
+import com.hrodriguesdev.utilitary.fxml.FXMLPath;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -37,9 +44,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
 /*
- * chamado na main view em OrcamentoMainView linha 120 e 39
+ * chamado na main view em OrcamentoMainView linha 38
  * 
 */
 
@@ -68,7 +77,7 @@ public class OrcamentoView extends EnsaioViewController implements Initializable
 	private RelatorioGeneratorPDF pdf = new RelatorioGeneratorPDF();
 	private Equipamento equipamento;
 	private Orcamento orcamento;
-	private Itens itens;
+
 	protected SaidaEquipamentoTransacao transaction = new SaidaEquipamentoTransacao();
 	private EnsaiosController ensaioController = new EnsaiosController();
 	private EstoqueRepController estoqueController = new EstoqueRepController();
@@ -95,67 +104,11 @@ public class OrcamentoView extends EnsaioViewController implements Initializable
 		obs.setText(orcamento.getItem());
 	}	
 	
-	
-
-//	Atraves do status em que se encontra o relatorio,
-//	Libera o botão pertinente
-	
-
-	private void switchStatus(int status) {
-		switch (status) {
-		case 3:
-			aprovado.setVisible(true);
-			naoAprovado.setVisible(true);
-			break;
-		case 4:
-			liberado.setVisible(true);
-			break;
-		case 5:			
-			break;
-		case 6:			
-			break;		
-		case 8:
-			liberadoSemOrcamento.setVisible(true);
-			orcamentoEnviado.setVisible(true);
-			break;
-		case 9:			
-			orcamentoEnviado.setVisible(true);
-			break;
-		case 12:	
-			orcamentoEnviado.setVisible(true);
-			break;
-		case 13:
-			aprovado.setVisible(true);
-			break;
-		case 15:
-			orcamentoEnviado.setVisible(true);
-			break;
-		case 16:
-			aprovado.setVisible(true);
-			break;
-		case 100:
-			cancelar.setVisible(true);
-			orcamentoEnviado.setVisible(true);
-			aprovado.setVisible(true);
-			aprovadoSemOrca.setVisible(true);
-			liberado.setVisible(true); 
-			naoAprovado.setVisible(true); 
-			liberadoSemOrcamento.setVisible(true); 
-			manutencaoArea.setVisible(true);
-		default:
-			orcamentoEnviado.setVisible(true);
-			aprovadoSemOrca.setVisible(true);
-			manutencaoArea.setVisible(true);
-			
-			break;
-		}
-		
+	@FXML
+	public void cancelar(ActionEvent event) {
+		NewView.fecharView();
 	}
 
-	protected void update(int status) {		
-		orcamento.setStatus(status);
-	}
-	
 	/*
 	 * 
 	 * 
@@ -165,12 +118,6 @@ public class OrcamentoView extends EnsaioViewController implements Initializable
 	 * 
 	 * 
 	 */
-	
-	@FXML
-	public void esc(KeyEvent e) {
-		
-	}
-	
 	@FXML
 	protected void salvar(ActionEvent event) {
 		if(orcamento.getStatus() == 100)
@@ -211,6 +158,28 @@ public class OrcamentoView extends EnsaioViewController implements Initializable
 		}
 		NewView.fecharView();
 	}
+	
+	
+	@FXML
+	private void ensaioOpen(ActionEvent e) {
+		NewView.getNewView("Ensaios","ensaioInserts" , new EnsaioViewController(equipamento, orcamento));
+	}
+	
+	@FXML
+	private void relatorio(ActionEvent event) {
+		Ensaios ensaios = ensaioController.findByOrcamentoId(orcamento.getId());
+		pdf.printRelatorioPdf(equipamento, ensaios, orcamento, obs.getText());
+		
+	}
+	
+
+	
+	@FXML
+	public void esc(KeyEvent e) {
+		
+	}
+	
+	
 
 	/*
 	 * 
@@ -233,7 +202,7 @@ public class OrcamentoView extends EnsaioViewController implements Initializable
 		}
 //		Manutenção executada, baixa no estoque	
 		
-		if(!itens.setSaida(orcamento.getId()) ) {
+		if(outProducts(obsMateriais) ) {
 			NewView.fecharView();
 			Alerts.showAlert("Erro", "Falha ao dar saida no banco de dados", "Ocorreu uma falha ao atualizar o orcamento", AlertType.ERROR);
 		}
@@ -294,7 +263,6 @@ public class OrcamentoView extends EnsaioViewController implements Initializable
 	@FXML
 	private void manutencaoArea(ActionEvent e) {
 		if(!gerarCertificado()) {
-			NewView.fecharView();
 			Alerts.showAlert("Erro", "Falha ao gerar certificado", "", AlertType.ERROR);
 			return;
 		}
@@ -347,10 +315,10 @@ public class OrcamentoView extends EnsaioViewController implements Initializable
 	private void liberadoSemOrcamento(ActionEvent e) {
 		if(!gerarCertificado()) {
 			NewView.fecharView();
-			Alerts.showAlert("Erro", "Falha ao gerar certificado", "", AlertType.ERROR);
+//			Alerts.showAlert("Erro", "Falha ao gerar certificado", "", AlertType.ERROR);
 			return;
 		}
-		if(!itens.setSaida(orcamento.getId()) ) {
+		if(outProducts(obsMateriais)  ) {
 			NewView.fecharView();
 			Alerts.showAlert("Erro", "Falha ao dar saida no banco de dados", "Ocorreu uma falha ao atualizar o orcamento", AlertType.ERROR);
 		}
@@ -360,10 +328,7 @@ public class OrcamentoView extends EnsaioViewController implements Initializable
 		orcamentoEnviado.setVisible(false);
 	}
 			
-	@FXML
-	public void cancelar(ActionEvent event) {
-		NewView.fecharView();
-	}
+
 
 	@FXML
 	private void format(KeyEvent event) {
@@ -373,23 +338,79 @@ public class OrcamentoView extends EnsaioViewController implements Initializable
     	}
 		
 	}
-	
-	@FXML
-	private void ensaioOpen(ActionEvent e) {
-		NewView.getNewView("Ensaios","ensaioInserts" , new EnsaioViewController(equipamento, orcamento));
-	}
-	
-	@FXML
-	private void relatorio(ActionEvent event) {
-		Ensaios ensaios = ensaioController.findByOrcamentoId(orcamento.getId());
-		pdf.printRelatorioPdf(equipamento, ensaios, orcamento, obs.getText());
-		
+
+	private boolean outProducts(ObservableList<Product> list) {
+		List<ProductsOs> listProductsOs = new ArrayList<>();
+		list.forEach((product) -> {
+			listProductsOs.add(new ProductsOs(orcamento.getId(), product.getId(), product.getQtde()));				
+		});		
+		OSController osController = new OSController();
+		return osController.createNewOSOut(listProductsOs);
 	}
 	
 	private boolean gerarCertificado() {
-		NewView.getNewView("Novo certificado", "certificadoInsert", new CertificadoInsert(equipamento, getEnsaio() ));
+		Ensaios ensaio = getEnsaio();
+		if(ensaio == null) {
+			Alerts.showAlert("Erro", "Falta inserir o ensaio", "", AlertType.ERROR);
+			return false;
+		}
+		try {
+			NewView.getNewViewModall("Novo certificado",
+					(Pane) NewView.loadFXML(FXMLPath.CERTIFICADO, new CertificadoInsert(equipamento, ensaio )) ,
+					(Stage) cancelar.getParent().getScene().getWindow());
+			
+		} catch (IOException e) {
+			Log.logString("OrcamentoView", e.getMessage());
+			e.printStackTrace();
+		} 
 		return true;
+		
 	}	
+	
+//	Atraves do status em que se encontra o relatorio,
+//	Libera o botão pertinente
+	
+
+	private void switchStatus(Integer status) {
+		if(status.equals(OSStatus.STATUS_3_AG_OS.getStatusInt()) ){
+			aprovado.setVisible(true);
+			naoAprovado.setVisible(true);			
+		}else if(status.equals(OSStatus.STATUS_4_AG_OS.getStatusInt()) ){
+			liberado.setVisible(true);
+		}else if(status.equals(OSStatus.STATUS_8_AG_OS.getStatusInt()) ){
+			liberadoSemOrcamento.setVisible(true);
+			orcamentoEnviado.setVisible(true);
+		}else if(status.equals(OSStatus.STATUS_9_AG_OS.getStatusInt()) ){
+			orcamentoEnviado.setVisible(true);
+		}else if(status.equals(OSStatus.STATUS_12_AG_OS.getStatusInt()) ){
+			orcamentoEnviado.setVisible(true);
+		}else if(status.equals(OSStatus.STATUS_13_AG_OS.getStatusInt()) ){
+			aprovado.setVisible(true);
+		}else if(status.equals(OSStatus.STATUS_15_AG_OS.getStatusInt()) ){
+			orcamentoEnviado.setVisible(true);
+		}else if(status.equals(OSStatus.STATUS_16_AG_OS.getStatusInt()) ){
+			aprovado.setVisible(true);
+		}else if(status.equals(100) ){
+			cancelar.setVisible(true);
+			orcamentoEnviado.setVisible(true);
+			aprovado.setVisible(true);
+			aprovadoSemOrca.setVisible(true);
+			liberado.setVisible(true); 
+			naoAprovado.setVisible(true); 
+			liberadoSemOrcamento.setVisible(true); 
+			manutencaoArea.setVisible(true);
+		}else {
+			orcamentoEnviado.setVisible(true);
+			aprovadoSemOrca.setVisible(true);
+			manutencaoArea.setVisible(true);
+		}
+
+	}
+
+	protected void update(int status) {		
+		orcamento.setStatus(status);
+	}
+	
 	
 //	Inicia as tabelas conforme os dados que vao ser inseridos na mesma
 	public void startTable() {	

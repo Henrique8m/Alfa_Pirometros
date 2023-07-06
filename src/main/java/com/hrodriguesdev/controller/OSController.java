@@ -33,4 +33,8 @@ public class OSController {
 		return service.findAllIn();
 	}
 
+	public boolean updatOS(List<ProductsOs> listProductsOs) {
+		return service.updatOS(listProductsOs);
+	}
+
 }

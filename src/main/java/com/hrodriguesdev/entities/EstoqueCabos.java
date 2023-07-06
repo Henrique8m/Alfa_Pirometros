@@ -3,8 +3,6 @@ package com.hrodriguesdev.entities;
 import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 //@Entity
 //@Table(name = "tb_sinal")
@@ -105,56 +103,56 @@ public class EstoqueCabos implements Serializable {
 		k_extensao=0;
 	}
 
-	public static List<Orcamento> cabosListSinal(EstoqueCabos sinal) {
-		List<Orcamento> list = new ArrayList<>();
-		try {
-			
-		if(sinal.getS_borracha() > 0) 
-			list.add(new Orcamento("Cabo_S_borracha", sinal.getS_borracha() ) );
-		
-		}catch(NullPointerException e) {}
-
-		try {
-
-				if( sinal.getS_miolo() > 0) 
-			list.add(new Orcamento("Cabo_S_miolo_lanca", sinal.getS_miolo() ) );
-		
-		}catch(NullPointerException e) {}
-		
-		try {
-
-
-		if( sinal.getS_extensao() > 0) 
-			list.add(new Orcamento("Cabo_S_extensao", sinal.getS_extensao() ) );
-			
-		}catch(NullPointerException e) {}
-		try {
-
-					
-		if( sinal.getK_borracha() > 0) 
-			list.add(new Orcamento("Cabo_K_borracha", sinal.getK_borracha())  );
-		
-		}catch(NullPointerException e) {}
-		try {
-			
-		if( sinal.getK_miolo() > 0) 
-			list.add(new Orcamento("Cabo_K_Fibra_Fibra", sinal.getK_miolo() ) );
-		
-			
-		}catch(NullPointerException e) {}
-		
-		try {
-			
-		if( sinal.getK_extensao() > 0) 
-			list.add(new Orcamento("Cabo_K_Fibra_Silicone", sinal.getK_extensao() ) );
-		
-		}catch(NullPointerException e) {}
-		
-
-
-		
-		return list;
-	}
+//	public static List<Orcamento> cabosListSinal(EstoqueCabos sinal) {
+//		List<Orcamento> list = new ArrayList<>();
+//		try {
+//			
+//		if(sinal.getS_borracha() > 0) 
+//			list.add(new Orcamento("Cabo_S_borracha", sinal.getS_borracha() ) );
+//		
+//		}catch(NullPointerException e) {}
+//
+//		try {
+//
+//				if( sinal.getS_miolo() > 0) 
+//			list.add(new Orcamento("Cabo_S_miolo_lanca", sinal.getS_miolo() ) );
+//		
+//		}catch(NullPointerException e) {}
+//		
+//		try {
+//
+//
+//		if( sinal.getS_extensao() > 0) 
+//			list.add(new Orcamento("Cabo_S_extensao", sinal.getS_extensao() ) );
+//			
+//		}catch(NullPointerException e) {}
+//		try {
+//
+//					
+//		if( sinal.getK_borracha() > 0) 
+//			list.add(new Orcamento("Cabo_K_borracha", sinal.getK_borracha())  );
+//		
+//		}catch(NullPointerException e) {}
+//		try {
+//			
+//		if( sinal.getK_miolo() > 0) 
+//			list.add(new Orcamento("Cabo_K_Fibra_Fibra", sinal.getK_miolo() ) );
+//		
+//			
+//		}catch(NullPointerException e) {}
+//		
+//		try {
+//			
+//		if( sinal.getK_extensao() > 0) 
+//			list.add(new Orcamento("Cabo_K_Fibra_Silicone", sinal.getK_extensao() ) );
+//		
+//		}catch(NullPointerException e) {}
+//		
+//
+//
+//		
+//		return list;
+//	}
 
 	public void setId(Long id) {
 		this.id = id;

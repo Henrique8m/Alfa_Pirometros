@@ -3,8 +3,6 @@ package com.hrodriguesdev.entities;
 import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 //@Entity
 //@Table(name = "tb_eletronicos")
@@ -119,59 +117,59 @@ public class EstoqueEletronicos implements Serializable {
 		CIIndicmax=0;
 	}
 
-	public static List<Orcamento> orcamentoListEletronico(EstoqueEletronicos eletronicos) {
-		List<Orcamento> list = new ArrayList<>();
-		try {
-		if( eletronicos.getPCIFIII() > 0) 
-			list.add(new Orcamento("PCIFIII", eletronicos.getPCIFIII() ) );
-			
-		}catch(NullPointerException e) {}
-		try {
-		if( eletronicos.getPCIFKal() > 0) 
-			list.add(new Orcamento("PCIFKal", eletronicos.getPCIFKal() ) );
-			
-		}catch(NullPointerException e) {}
-		try {
-		if( eletronicos.getDispFKal() > 0) 
-			list.add(new Orcamento("DispFKal", eletronicos.getDispFKal() ) );
-			
-		}catch(NullPointerException e) {}
-		try {
-		if( eletronicos.getFIII() > 0) 
-			list.add(new Orcamento("FIII", eletronicos.getFIII())  );
-			
-		}catch(NullPointerException e) {}
-		try {
-		if( eletronicos.getIndicmax() > 0) 
-			list.add(new Orcamento("Indicmax", eletronicos.getIndicmax() ) );
-			
-		}catch(NullPointerException e) {}
-		try {
-		if( eletronicos.getCIFII() > 0) 
-			list.add(new Orcamento("CIFII", eletronicos.getCIFII() ) );
-			
-		}catch(NullPointerException e) {}
-		try {
-		
-		if( eletronicos.getCIIndicmax() > 0) 
-			list.add(new Orcamento("CIIndicmax", eletronicos.getCIIndicmax() ) );
-			
-		}catch(NullPointerException e) {}
-
-		try {
-		if( eletronicos.getSirene() > 0) 
-			list.add(new Orcamento("sirene", eletronicos.getSirene() ) );
-			
-		}catch(NullPointerException e) {}
-
-		
-
-
-		
-
-		
-		return list;
-	}
+//	public static List<Orcamento> orcamentoListEletronico(EstoqueEletronicos eletronicos) {
+//		List<Orcamento> list = new ArrayList<>();
+//		try {
+//		if( eletronicos.getPCIFIII() > 0) 
+//			list.add(new Orcamento("PCIFIII", eletronicos.getPCIFIII() ) );
+//			
+//		}catch(NullPointerException e) {}
+//		try {
+//		if( eletronicos.getPCIFKal() > 0) 
+//			list.add(new Orcamento("PCIFKal", eletronicos.getPCIFKal() ) );
+//			
+//		}catch(NullPointerException e) {}
+//		try {
+//		if( eletronicos.getDispFKal() > 0) 
+//			list.add(new Orcamento("DispFKal", eletronicos.getDispFKal() ) );
+//			
+//		}catch(NullPointerException e) {}
+//		try {
+//		if( eletronicos.getFIII() > 0) 
+//			list.add(new Orcamento("FIII", eletronicos.getFIII())  );
+//			
+//		}catch(NullPointerException e) {}
+//		try {
+//		if( eletronicos.getIndicmax() > 0) 
+//			list.add(new Orcamento("Indicmax", eletronicos.getIndicmax() ) );
+//			
+//		}catch(NullPointerException e) {}
+//		try {
+//		if( eletronicos.getCIFII() > 0) 
+//			list.add(new Orcamento("CIFII", eletronicos.getCIFII() ) );
+//			
+//		}catch(NullPointerException e) {}
+//		try {
+//		
+//		if( eletronicos.getCIIndicmax() > 0) 
+//			list.add(new Orcamento("CIIndicmax", eletronicos.getCIIndicmax() ) );
+//			
+//		}catch(NullPointerException e) {}
+//
+//		try {
+//		if( eletronicos.getSirene() > 0) 
+//			list.add(new Orcamento("sirene", eletronicos.getSirene() ) );
+//			
+//		}catch(NullPointerException e) {}
+//
+//		
+//
+//
+//		
+//
+//		
+//		return list;
+//	}
 	
 	@Override
 	public String toString() {

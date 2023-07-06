@@ -137,4 +137,36 @@ public class OSRepository {
 		}
 		return null;			
 	}
+	
+	public void updateProd(String table, ProductsOs productOs) {
+		conn = DB.getConnection();
+		try {
+			conn.setAutoCommit(false);							
+				pst = conn.prepareStatement("UPDATE alfaestoque." + table
+						+ "SET id_orcamento = ?, "
+						+ "product_id = ?, "
+						+ "qtde = ? "
+						+ "WHERE "
+						+ "(id = ?)");
+				pst.setLong(1, productOs.getIdOrcamento());
+				pst.setLong(2, productOs.getProductId());
+				pst.setDouble(3, productOs.getQtde());
+				pst.setLong(4, productOs.getId());
+				pst.executeUpdate();					
+				conn.commit();					
+			
+		}catch (SQLException e) {
+			Log.logString("OSRepository", e.getMessage());
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		}
+		finally {
+			DB.closeConnection();
+			DB.closeStatement(pst);
+		}
+	}
 }

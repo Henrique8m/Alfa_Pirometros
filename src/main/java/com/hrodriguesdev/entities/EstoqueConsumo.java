@@ -3,8 +3,6 @@ package com.hrodriguesdev.entities;
 import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 //@Entity
 //@Table(name = "tb_consumo")
@@ -61,26 +59,26 @@ public class EstoqueConsumo implements Serializable {
 
 	}
 
-	public static List<Orcamento> orcamentoListConsumo(EstoqueConsumo consumo) {
-		List<Orcamento> list = new ArrayList<>();
-		try {
-		if( consumo.getBotaoLiga() > 0) 
-			list.add(new Orcamento("BotaoLiga", consumo.getBotaoLiga() ) );
-			
-		}catch(NullPointerException e) {}
-		try {
-		if( consumo.getBoMeFIIFIIIIndicmax() > 0) 
-			list.add(new Orcamento("BoMeFIIFIIIIndicmax", consumo.getBoMeFIIFIIIIndicmax() ) );
-			
-		}catch(NullPointerException e) {}
-		try {
-		if( consumo.getCaixaBat() > 0) 
-			list.add(new Orcamento("CaixaBat", consumo.getCaixaBat() ) );
-			
-		}catch(NullPointerException e) {}
-
-		return list;
-	}
+//	public static List<Orcamento> orcamentoListConsumo(EstoqueConsumo consumo) {
+//		List<Orcamento> list = new ArrayList<>();
+//		try {
+//		if( consumo.getBotaoLiga() > 0) 
+//			list.add(new Orcamento("BotaoLiga", consumo.getBotaoLiga() ) );
+//			
+//		}catch(NullPointerException e) {}
+//		try {
+//		if( consumo.getBoMeFIIFIIIIndicmax() > 0) 
+//			list.add(new Orcamento("BoMeFIIFIIIIndicmax", consumo.getBoMeFIIFIIIIndicmax() ) );
+//			
+//		}catch(NullPointerException e) {}
+//		try {
+//		if( consumo.getCaixaBat() > 0) 
+//			list.add(new Orcamento("CaixaBat", consumo.getCaixaBat() ) );
+//			
+//		}catch(NullPointerException e) {}
+//
+//		return list;
+//	}
 	
 	@Override
 	public String toString() {

@@ -3,8 +3,6 @@ package com.hrodriguesdev.entities;
 import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 //@Entity
 //@Table(name = "tb_sinal")
@@ -118,72 +116,72 @@ public class EstoqueSinal implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public static List<Orcamento> orcamentoListSinal(EstoqueSinal sinal) {
-		List<Orcamento> list = new ArrayList<>();
-		
-		try {
-
-			if( sinal.getReceptaculoS() > 0) 
-				list.add(new Orcamento("ReceptaculoS", sinal.getReceptaculoS() ) );
-		
-		}catch(NullPointerException e) {}
-
-		try {
-
-			
-			if( sinal.getReceptaculoSU() > 0) 
-				list.add(new Orcamento("ReceptaculoSU", sinal.getReceptaculoSU() ) );
-			
-			
-
-		}catch(NullPointerException e) {}
-		
-		try {
-	if( sinal.getReceptaculoEcil() > 0) 
-			list.add(new Orcamento("ReceptaculoEcil", sinal.getReceptaculoEcil() ) );
-			
-		}catch(NullPointerException e) {}
-	
-		try {
-
-					if( sinal.getReceptaculoK() > 0) 
-			list.add(new Orcamento("ReceptaculoK", sinal.getReceptaculoK())  );
-		}catch(NullPointerException e) {}
-		try {
-
-				if( sinal.getPlugFS() > 0) 
-			list.add(new Orcamento("PlugFS", sinal.getPlugFS() ) );
-		
-		}catch(NullPointerException e) {}
-
-		try {
-	
-		if( sinal.getPlugFK() > 0) 
-			list.add(new Orcamento("PlugFK", sinal.getPlugFK() ) );
-			
-		}catch(NullPointerException e) {}
-
-		try {
-		if( sinal.getPlugMS() > 0) 
-			list.add(new Orcamento("PlugMS", sinal.getPlugMS() ) );
-			
-		}catch(NullPointerException e) {}
-		try {
-
-					
-		if( sinal.getPlugMK() > 0) 
-			list.add(new Orcamento("PlugMK", sinal.getPlugMK() ) );
-		}catch(NullPointerException e) {}
-
-		try {
-
-					if( sinal.getTomadaS() > 0) 
-			list.add(new Orcamento("TomadaS", sinal.getTomadaS() ) );
-		}catch(NullPointerException e) {}
-
-		
-		return list;
-	}
+//	public static List<Orcamento> orcamentoListSinal(EstoqueSinal sinal) {
+//		List<Orcamento> list = new ArrayList<>();
+//		
+//		try {
+//
+//			if( sinal.getReceptaculoS() > 0) 
+//				list.add(new Orcamento("ReceptaculoS", sinal.getReceptaculoS() ) );
+//		
+//		}catch(NullPointerException e) {}
+//
+//		try {
+//
+//			
+//			if( sinal.getReceptaculoSU() > 0) 
+//				list.add(new Orcamento("ReceptaculoSU", sinal.getReceptaculoSU() ) );
+//			
+//			
+//
+//		}catch(NullPointerException e) {}
+//		
+//		try {
+//	if( sinal.getReceptaculoEcil() > 0) 
+//			list.add(new Orcamento("ReceptaculoEcil", sinal.getReceptaculoEcil() ) );
+//			
+//		}catch(NullPointerException e) {}
+//	
+//		try {
+//
+//					if( sinal.getReceptaculoK() > 0) 
+//			list.add(new Orcamento("ReceptaculoK", sinal.getReceptaculoK())  );
+//		}catch(NullPointerException e) {}
+//		try {
+//
+//				if( sinal.getPlugFS() > 0) 
+//			list.add(new Orcamento("PlugFS", sinal.getPlugFS() ) );
+//		
+//		}catch(NullPointerException e) {}
+//
+//		try {
+//	
+//		if( sinal.getPlugFK() > 0) 
+//			list.add(new Orcamento("PlugFK", sinal.getPlugFK() ) );
+//			
+//		}catch(NullPointerException e) {}
+//
+//		try {
+//		if( sinal.getPlugMS() > 0) 
+//			list.add(new Orcamento("PlugMS", sinal.getPlugMS() ) );
+//			
+//		}catch(NullPointerException e) {}
+//		try {
+//
+//					
+//		if( sinal.getPlugMK() > 0) 
+//			list.add(new Orcamento("PlugMK", sinal.getPlugMK() ) );
+//		}catch(NullPointerException e) {}
+//
+//		try {
+//
+//					if( sinal.getTomadaS() > 0) 
+//			list.add(new Orcamento("TomadaS", sinal.getTomadaS() ) );
+//		}catch(NullPointerException e) {}
+//
+//		
+//		return list;
+//	}
 
 	public void setId(Long id) {
 		this.id = id;

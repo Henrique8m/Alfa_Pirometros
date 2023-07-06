@@ -31,7 +31,7 @@
                         <VBox alignment="TOP_CENTER">
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Saída/Entrada de Material" />
-                              <TableView fx:id="MaterialOutTable" onMouseClicked="#clickOrcamento" style="-fx-background-radius: 10;">
+                              <TableView fx:id="MaterialOutTable" onMouseClicked="#clickMaterialOutTable" style="-fx-background-radius: 10;">
                                  <columns>
                                     <TableColumn fx:id="MaterialOutData" minWidth="80.0" text="Data" />
                                     <TableColumn fx:id="MaterialOutNfe" minWidth="80.0" text="nfe" />
@@ -51,7 +51,7 @@
                         <VBox alignment="TOP_CENTER">
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Manutenção em equipamentos" />
-                              <TableView fx:id="MaintenanceTable" onMouseClicked="#clickOrcamento" style="-fx-background-radius: 10;">
+                              <TableView fx:id="MaintenanceTable" onMouseClicked="#clickMaintenanceTable" style="-fx-background-radius: 10;">
                                  <columns>
                                     <TableColumn fx:id="MaintenanceRelatorio" minWidth="80.0" text="Relatorio" />
                                     <TableColumn fx:id="MaintenanceDateIn" minWidth="80.0" text="Chegada" />

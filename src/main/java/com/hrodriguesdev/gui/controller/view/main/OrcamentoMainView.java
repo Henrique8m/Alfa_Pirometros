@@ -8,7 +8,6 @@ import com.hrodriguesdev.entities.Orcamento;
 import com.hrodriguesdev.gui.alert.Alerts;
 import com.hrodriguesdev.gui.controller.OrcamentoView;
 import com.hrodriguesdev.gui.controller.view.insert.OrcamentoInsert;
-import com.hrodriguesdev.gui.controller.view.updatede.OrcamentoUpdatedeDois;
 import com.hrodriguesdev.utilitary.NewView;
 import com.hrodriguesdev.utilitary.fxml.FXMLPath;
 
@@ -16,7 +15,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.input.KeyEvent;
 
 public class OrcamentoMainView extends TableMainView{
 	
@@ -66,62 +64,62 @@ public class OrcamentoMainView extends TableMainView{
     	
     }   
     
-	protected void updatedEquipamento(KeyEvent keyEvent) throws IOException {
-		Orcamento orcamento;
-	    if(keyEvent.getCode().toString() == "F3" ) {			
-			if(tableFilaEquipamentos.getSelectionModel().getSelectedItem() != null) 
-			{
-				try {
-					orcamento = controller.findById( tableFilaEquipamentos.getSelectionModel().getSelectedItem().getOrcamento_id() );
-					NewView.addChildrenToMain((Node) NewView.loadFXML( FXMLPath.ADD_PRODUCT_OS, new OrcamentoUpdatedeDois(
-							tableFilaEquipamentos.getSelectionModel().getSelectedItem(),
-							orcamento
-							) ));
-					refreshTable();
-					
-				} catch (SQLException e1) {
-					e1.printStackTrace();
-				}
-				
-	
-			}else if(tableFindEquipamentos.getSelectionModel().getSelectedItem() != null) 
-			{
-				try {
-					orcamento = controller.findById( tableFindEquipamentos.getSelectionModel().getSelectedItem().getOrcamento_id() );
-					NewView.addChildrenToMain((Node) NewView.loadFXML(FXMLPath.ADD_PRODUCT_OS, new OrcamentoUpdatedeDois(
-							tableFilaEquipamentos.getSelectionModel().getSelectedItem(),
-							orcamento
-							)));
-					refreshTable();
-					
-				} catch (SQLException e1) {
-					e1.printStackTrace();
-				}
-	
-			}
-			 		
-	    }
-	    else if(keyEvent.getCode().toString() == "F2" ) {
-	    	
-	    	if(tableFilaEquipamentos.getSelectionModel().getSelectedItem() != null) {
-	    		try {
-					orcamento = controller.findById( tableFilaEquipamentos.getSelectionModel().getSelectedItem().getOrcamento_id() );
-					dbConection = true;
-				} catch (SQLException e1) {
-					showAlerts("DB exception ", "Erro na comunicação com banco de dados", e1.getMessage(), AlertType.ERROR );
-					dbConection = false;
-					return;
-				}
-	    		if(orcamento != null) {
-		    		if(orcamento.getStatus()>1){
-		    			orcamento.setStatus(100);
-		    			NewView.addChildrenToMain((Node) NewView.loadFXML(FXMLPath.OS_VIEW, new OrcamentoView(tableFilaEquipamentos.getSelectionModel().getSelectedItem(), orcamento ) ));
-		    		}
-	    		}	    		
-	    	}		       
-	    	refreshTable();
-	    }
-    }
-    
+//	protected void updatedEquipamento(KeyEvent keyEvent) throws IOException {
+//		Orcamento orcamento;
+//	    if(keyEvent.getCode().toString() == "F3" ) {			
+//			if(tableFilaEquipamentos.getSelectionModel().getSelectedItem() != null) 
+//			{
+//				try {
+//					orcamento = controller.findById( tableFilaEquipamentos.getSelectionModel().getSelectedItem().getOrcamento_id() );
+//					NewView.addChildrenToMain((Node) NewView.loadFXML( FXMLPath.ADD_PRODUCT_OS, new OrcamentoUpdatedeDois(
+//							tableFilaEquipamentos.getSelectionModel().getSelectedItem(),
+//							orcamento
+//							) ));
+//					refreshTable();
+//					
+//				} catch (SQLException e1) {
+//					e1.printStackTrace();
+//				}
+//				
+//	
+//			}else if(tableFindEquipamentos.getSelectionModel().getSelectedItem() != null) 
+//			{
+//				try {
+//					orcamento = controller.findById( tableFindEquipamentos.getSelectionModel().getSelectedItem().getOrcamento_id() );
+//					NewView.addChildrenToMain((Node) NewView.loadFXML(FXMLPath.ADD_PRODUCT_OS, new OrcamentoUpdatedeDois(
+//							tableFilaEquipamentos.getSelectionModel().getSelectedItem(),
+//							orcamento
+//							)));
+//					refreshTable();
+//					
+//				} catch (SQLException e1) {
+//					e1.printStackTrace();
+//				}
+//	
+//			}
+//			 		
+//	    }
+//	    else if(keyEvent.getCode().toString() == "F2" ) {
+//	    	
+//	    	if(tableFilaEquipamentos.getSelectionModel().getSelectedItem() != null) {
+//	    		try {
+//					orcamento = controller.findById( tableFilaEquipamentos.getSelectionModel().getSelectedItem().getOrcamento_id() );
+//					dbConection = true;
+//				} catch (SQLException e1) {
+//					showAlerts("DB exception ", "Erro na comunicação com banco de dados", e1.getMessage(), AlertType.ERROR );
+//					dbConection = false;
+//					return;
+//				}
+//	    		if(orcamento != null) {
+//		    		if(orcamento.getStatus()>1){
+//		    			orcamento.setStatus(100);
+//		    			NewView.addChildrenToMain((Node) NewView.loadFXML(FXMLPath.OS_VIEW, new OrcamentoView(tableFilaEquipamentos.getSelectionModel().getSelectedItem(), orcamento ) ));
+//		    		}
+//	    		}	    		
+//	    	}		       
+//	    	refreshTable();
+//	    }
+//    }
+//    
 
 }

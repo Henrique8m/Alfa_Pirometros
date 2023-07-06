@@ -3,6 +3,7 @@ package com.hrodriguesdev.gui.controller.view.main;
 import java.net.URL;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -20,7 +21,6 @@ import com.hrodriguesdev.gui.alert.Alerts;
 import com.hrodriguesdev.gui.controller.CertificadoOrcamentoEnsaio;
 import com.hrodriguesdev.resources.file.FileEquipamento;
 import com.hrodriguesdev.utilitary.Format;
-import com.hrodriguesdev.utilitary.Geral;
 import com.hrodriguesdev.utilitary.InputFilter;
 import com.hrodriguesdev.utilitary.NewView;
 
@@ -33,6 +33,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.DialogEvent;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TableCell;
@@ -101,7 +102,10 @@ public class CertificadoPaginaController extends EmpresaViewController {
 	private TableColumn<Certificado, Integer> numeroCertificado;
 
 	@FXML
-	private TextField numeroCertificadoNovo, dataCalibracaoNovo;
+	private TextField numeroCertificadoNovo;
+	
+	@FXML
+	private DatePicker dataCalibracaoNovo;
 
 	@FXML
 	private Tab tabCertificado;
@@ -112,6 +116,7 @@ public class CertificadoPaginaController extends EmpresaViewController {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		super.initialize(location, resources);
+		dataCalibracaoNovo.setValue(LocalDate.now());
 		Image image = new Image(
 				AlfaPirometrosApplication.class.getResource("gui/resources/icons-certificado.png").toString());
 		certificadoImg.setImage(image);
@@ -269,36 +274,24 @@ public class CertificadoPaginaController extends EmpresaViewController {
 	@FXML
 	private void salvarCertificado(ActionEvent event) {
 		Certificado certificado;
-		if (!dataCalibracaoNovo.getText().isBlank() && !numeroCertificadoNovo.getText().isBlank()) {
-			if (dataCalibracaoNovo.getText().length() < 10)
-				return;
+		if (!numeroCertificadoNovo.getText().isBlank()) {
 			Long certificado_id = repositoryCertificado
-					.add(new Certificado(equipamento.getId(), Geral.dateParceString(dataCalibracaoNovo.getText()),
+					.add(new Certificado(equipamento.getId(), Date.valueOf(dataCalibracaoNovo.getValue()),
 							Integer.parseInt(numeroCertificadoNovo.getText())));
 			
 			if (equipamento.getUltimaCalibDate() == null
-					|| equipamento.getUltimaCalibDate().before(Geral.dateParceString(dataCalibracaoNovo.getText())))
+					|| equipamento.getUltimaCalibDate().before(Date.valueOf(dataCalibracaoNovo.getValue() ) ) )
 				if (certificado_id != null) {
 					repositoryCertificado.updateEquipamento(certificado_id, equipamento.getId(),
-							Geral.dateParceString(dataCalibracaoNovo.getText()));
+							Date.valueOf(dataCalibracaoNovo.getValue() ) );
 					certificado = certificadoController.findById(certificado_id);
 					NewView.getNewView("Controlador de certificado","certificadoOrcamentoEnsaio" , new CertificadoOrcamentoEnsaio(equipamento,certificado) );	
 				}
 			tableCertUpdate();
 		}
-		
-		
+				
 	}
 
-//    Formatar em tempo real a data inserida
-
-	@FXML
-	private void formatarData(KeyEvent event) {
-		if (!dataCalibracaoNovo.getText().isBlank()) {
-			dataCalibracaoNovo.setText(Format.replaceData(dataCalibracaoNovo.getText()));
-			dataCalibracaoNovo.end();
-		}
-	}
 
 	/*
 	 * Logicaa para o delete de Certificado, tecla alt tem que estar apertada!!

@@ -1,7 +1,5 @@
 package com.hrodriguesdev.utilitary;
 
-import java.util.List;
-
 import com.hrodriguesdev.dao.db.DbException;
 import com.hrodriguesdev.dao.repository.ItensRepository;
 import com.hrodriguesdev.dao.repository.ItensRepositoryFind;
@@ -18,6 +16,7 @@ import com.hrodriguesdev.entities.Orcamento;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+@SuppressWarnings("unused")
 public class Itens {
 
 	private EstoqueEletricos eletricos;
@@ -336,9 +335,9 @@ public class Itens {
 		EstoqueSinal sinal = repository.sinalByOrcamentoId(id);
 		EstoqueCabos cabos = repository.cabosByOrcamentoId(id);
 		
-		List<Orcamento> list = Orcamento.getList(itens ,consumo, estetico, eletrico, eletronico, sinal, cabos);
+//		List<Orcamento> list = Orcamento.getList(itens ,consumo, estetico, eletrico, eletronico, sinal, cabos);
 		ObservableList<Orcamento> obs = FXCollections.observableArrayList();
-		obs.addAll(list);
+//		obs.addAll(list);
 		
 		return obs;
 	}

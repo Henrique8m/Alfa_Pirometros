@@ -5,20 +5,15 @@ import java.net.URL;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 import com.hrodriguesdev.AlfaPirometrosApplication;
-import com.hrodriguesdev.controller.EquipamentoController;
-import com.hrodriguesdev.controller.OSController;
 import com.hrodriguesdev.controller.OrcamentoController;
 import com.hrodriguesdev.controller.ProductsController;
-import com.hrodriguesdev.entities.Orcamento;
 import com.hrodriguesdev.entities.Product;
 import com.hrodriguesdev.entities.DTO.OrcamentoDTOEquipamento;
 import com.hrodriguesdev.entities.DTO.OrcamentoDTORelatorio;
-import com.hrodriguesdev.entities.products.ProductsOs;
 import com.hrodriguesdev.utilitary.Format;
 import com.hrodriguesdev.utilitary.NewView;
 
@@ -44,7 +39,6 @@ import javafx.scene.input.MouseEvent;
 public class RelatoriosController implements Initializable{
 	
 	private OrcamentoController orcamentoController = new OrcamentoController();
-	private EquipamentoController equipamentoController = new EquipamentoController();
 
 	@FXML
 	protected DatePicker inicioDatePiker, finalDatePiker;
@@ -203,27 +197,26 @@ public class RelatoriosController implements Initializable{
 	
 //	Acao de click na tabela de saida de material e na tabela de manutencao em equipamentos
 	@FXML
-	public void clickOrcamento(MouseEvent event) throws SQLException {
-			
-
-			if(!MaterialOutTable.getSelectionModel().isEmpty()) {
-				ProductsController controller = new ProductsController();
-				obsMateriais = controller.findAllByOrcamentoId( MaterialOutTable.getSelectionModel().getSelectedItem().getId());
-				productSelectedTable.setItems(obsMateriais);
-				productSelectedTable.refresh();
-				System.out.println(obsMateriais.get(0).getName());
-//
-			}else {
-//				ProductsController controller = new ProductsController();
-//				obsMateriais = controller.findAllOsByOrcamentoId( MaterialOutTable.getSelectionModel().getSelectedItem().getId());
-//				productSelectedTable.setItems(obsMateriais);
-//				productSelectedTable.refresh();
-//				System.out.println("Teste");
-			}
-				
+	public void clickMaterialOutTable(MouseEvent event) throws SQLException {
+		MaintenanceTable.getSelectionModel().clearSelection();
+		if(!MaterialOutTable.getSelectionModel().isEmpty()) {
+			ProductsController controller = new ProductsController();
+			obsMateriais = controller.findAllByOrcamentoId( MaterialOutTable.getSelectionModel().getSelectedItem().getId());
+			productSelectedTable.setItems(obsMateriais);
+		}		
 			
 	}
 	
+	@FXML
+	public void clickMaintenanceTable(MouseEvent event) throws SQLException {
+		MaterialOutTable.getSelectionModel().clearSelection();
+		if(!MaintenanceTable.getSelectionModel().isEmpty()) {
+			ProductsController controller = new ProductsController();
+			obsMateriais = controller.findAllByOrcamentoId( MaintenanceTable.getSelectionModel().getSelectedItem().getId());
+			productSelectedTable.setItems(obsMateriais);
+		}		
+			
+	}
 
 	private void startTable() {			
 		MaterialOutTable.setEditable(false);		

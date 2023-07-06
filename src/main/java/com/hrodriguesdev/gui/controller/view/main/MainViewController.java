@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 import com.hrodriguesdev.AlfaPirometrosApplication;
 import com.hrodriguesdev.controller.ColetorController;
@@ -24,12 +25,14 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -65,6 +68,9 @@ public class MainViewController implements Initializable{
 //	public static Orcamento orcamento;
 //	public static Orcamento orcamentoColeta;
 	public static Boolean FILTER = true;
+	
+	@FXML
+	private ProgressIndicator ProgressIndicator;
 	
 	@FXML
 	private ImageView logoYgg, cadastrar, refresh, abrir, cadastrar2, inserirColeta, home, buscar, buscar1, pdf, logout;
@@ -173,11 +179,8 @@ public class MainViewController implements Initializable{
 		}
 
 		strartTable();
-		try {
-			updateProductsCombobox();
-		}catch (DbException e) {
-			e.printStackTrace();
-		}
+		taskInicial();
+
 		
 		Image image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/Yggdrasilicon.jpg").toString() );
 		logoYgg.setImage(image);
@@ -198,8 +201,7 @@ public class MainViewController implements Initializable{
 		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-pdf.png").toString() );
 		pdf.setImage(image);
 		
-		sortTable();
-		beginTimer();
+		
 //		ItensRepositoryFind repo = new ItensRepositoryFind();
 //		repo.UpdateSinal();
 		
@@ -207,18 +209,36 @@ public class MainViewController implements Initializable{
 		
 	}	 	
 	
+	public void taskInicial() {
+		Task<Void> task = new Task<Void>() {
+		    @Override public Void call() {	    	
+    			if( dbConection ) {
+					try {
+						obsListTableFilaEquipamentos = orcamentoController.findAllLaboratorio(true);
+			    		oldObs = obsListTableFilaEquipamentos;
+			
+				    }catch(DbException e) {
+				    	dbConection = false;
+				    } 
+				}
+    			try {
+    				updateProductsCombobox();
+    			}catch (DbException e) {
+    				e.printStackTrace();
+    			}
+    			sortTable();
+    			beginTimer();
+    			ProgressIndicator.setVisible(false);
+		        return null;
+		    }
+		};
 	
-	public void strartTable() {	
-		
-		if( dbConection ) {
-			try {
-				obsListTableFilaEquipamentos = orcamentoController.findAllLaboratorio(true);
-	    		oldObs = obsListTableFilaEquipamentos;
+		ProgressIndicator.progressProperty().bind(task.progressProperty());
+		new Thread(task).start();
+	}
 	
-		    }catch(DbException e) {
-		    	dbConection = false;
-		    } 
-		}
+	public void strartTable() {		
+
 				
 	    tableFilaEquipamentos.setEditable(false);	 
 	    

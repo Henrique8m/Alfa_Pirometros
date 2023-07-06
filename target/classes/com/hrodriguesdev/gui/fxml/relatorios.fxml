@@ -31,7 +31,7 @@
                         <VBox alignment="TOP_CENTER">
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Saída/Entrada de Material" />
-                              <TableView fx:id="MaterialOutTable" onMouseClicked="#clickOrcamento" style="-fx-background-radius: 10;">
+                              <TableView fx:id="MaterialOutTable" onMouseClicked="#clickMaterialOutTable" style="-fx-background-radius: 10;">
                                  <columns>
                                     <TableColumn fx:id="MaterialOutData" minWidth="80.0" text="Data" />
                                     <TableColumn fx:id="MaterialOutNfe" minWidth="80.0" text="nfe" />
@@ -51,7 +51,7 @@
                         <VBox alignment="TOP_CENTER">
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Manutenção em equipamentos" />
-                              <TableView fx:id="MaintenanceTable" onMouseClicked="#clickOrcamento" style="-fx-background-radius: 10;">
+                              <TableView fx:id="MaintenanceTable" onMouseClicked="#clickMaintenanceTable" style="-fx-background-radius: 10;">
                                  <columns>
                                     <TableColumn fx:id="MaintenanceRelatorio" minWidth="80.0" text="Relatorio" />
                                     <TableColumn fx:id="MaintenanceDateIn" minWidth="80.0" text="Chegada" />
@@ -79,10 +79,10 @@
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Materiais usado" />
                               <TableView fx:id="productSelectedTable" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="700.0" prefWidth="640.0" style="-fx-background-radius: 10;">
                                  <columns>
-                                    <TableColumn fx:id="productsSelected" maxWidth="440.0" minWidth="100.0" prefWidth="270.0" text="Produto" />
-                                    <TableColumn fx:id="descriptionSelected" maxWidth="440.0" minWidth="100.0" prefWidth="270.0" text="Descrição" />
-                                    <TableColumn fx:id="amountSelected" maxWidth="75.0" minWidth="75.0" prefWidth="75.0" text="Quantidade" />
-                                    <TableColumn fx:id="unitMeasurementSelected" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="Unidade Medida" />
+                                    <TableColumn fx:id="productsSelected" minWidth="100.0" prefWidth="270.0" text="Produto" />
+                                    <TableColumn fx:id="descriptionSelected" minWidth="100.0" prefWidth="270.0" text="Descrição" />
+                                    <TableColumn fx:id="amountSelected" minWidth="75.0" prefWidth="75.0" text="Quantidade" />
+                                    <TableColumn fx:id="unitMeasurementSelected" minWidth="75.0" prefWidth="75.0" text="Unidade Medida" />
                                  </columns>
                                  <columnResizePolicy>
                                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
