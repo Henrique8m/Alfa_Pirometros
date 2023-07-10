@@ -17,11 +17,23 @@ import javafx.stage.StageStyle;
 
 public class NewView {	
 	
-	public static Scene scene;
+	public static Scene SCENE_MAIN_VIEW;
+	public static Stage STAGE_MAIN_VIEW;
 	public static TabPane TABPANE;
 	public static AnchorPane anchorPane;
-
+	private final static Image ICON = new Image(
+			AlfaPirometrosApplication.CAMINHO_ICONS + "Yggdrasilicon.jpg");
+	private final static Image LOGO = new Image(
+			AlfaPirometrosApplication.class.getResource("gui/resources/" + "Yggdrasil.jpg").toString());
 	
+	public static Image getIcon() {
+		return ICON;
+	}
+	
+	public static Image getLogo() {
+		return LOGO;
+	}
+		
 	public static synchronized <T> Object loadFXML(String fxml, Object controller) throws IOException {
 		try {
 			FXMLLoader fxmlLoader = new FXMLLoader(AlfaPirometrosApplication.class.getResource("gui/resources/" + fxml + ".fxml"));
@@ -32,13 +44,6 @@ public class NewView {
 			fxmlLoader.setController(controller);
 			return fxmlLoader.load();	
 		}
-	}
-	
-	public static synchronized <T> Object loadMainView(String fxml, Object controller) throws IOException {
-		FXMLLoader fxmlLoader = new FXMLLoader(AlfaPirometrosApplication.class.getResource("gui/resources/" + fxml + ".fxml"));
-		fxmlLoader.setController(controller);
-		anchorPane = fxmlLoader.load();
-		return anchorPane;
 	}
 	
 	public static void getNewViewModall(String title, Pane pane, Stage stageEvent){
@@ -103,7 +108,7 @@ public class NewView {
 
 	public static void fecharView() {
 		try {
-	    	AnchorPane pane = (AnchorPane) NewView.scene.getRoot();
+	    	AnchorPane pane = (AnchorPane) NewView.SCENE_MAIN_VIEW.getRoot();
 	    	pane.getChildren().clear();	    	
 	    	pane.getChildren().add(NewView.TABPANE);
 
@@ -115,7 +120,7 @@ public class NewView {
 	
 	@SuppressWarnings("static-access")
 	public static void addChildrenToMain(Node node) {
-    	AnchorPane pane = (AnchorPane) NewView.scene.getRoot();
+    	AnchorPane pane = (AnchorPane) NewView.SCENE_MAIN_VIEW.getRoot();
     	NewView.TABPANE = (TabPane) pane.getChildren().get(0);
 	   	pane.getChildren().clear(); 
     	pane.getChildren().add(node);
@@ -129,7 +134,7 @@ public class NewView {
 	
 	@SuppressWarnings("static-access")
 	public static void addChildrenn(Node node) {
-    	AnchorPane pane = (AnchorPane) NewView.scene.getRoot();
+    	AnchorPane pane = (AnchorPane) NewView.SCENE_MAIN_VIEW.getRoot();
 	   	pane.getChildren().clear(); 
     	pane.getChildren().add(node);
     	pane.setBottomAnchor(pane.getChildren().get(0), (double) 0);

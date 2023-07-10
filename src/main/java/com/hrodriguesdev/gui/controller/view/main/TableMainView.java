@@ -36,7 +36,6 @@ public class TableMainView extends CertificadoPaginaController implements Runnab
     		listShort(obsList); 		
     		
     		obsListTableFilaEquipamentos = obsList;
-    		oldObs = obsListTableFilaEquipamentos;
 			tableFilaEquipamentos.setItems(obsListTableFilaEquipamentos);			
     		dbConection = true;  
     		tableFilaEquipamentos.refresh();

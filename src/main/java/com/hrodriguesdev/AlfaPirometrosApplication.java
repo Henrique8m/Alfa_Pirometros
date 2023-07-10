@@ -5,38 +5,31 @@ import java.io.IOException;
 import com.hrodriguesdev.gui.controller.LoadViewController;
 import com.hrodriguesdev.gui.controller.view.main.PaginaBuscaController;
 import com.hrodriguesdev.utilitary.NewView;
+import com.hrodriguesdev.utilitary.fxml.FXMLPath;
 
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.stage.WindowEvent;
 
 public class AlfaPirometrosApplication extends Application{
 	private static Scene scene;
 	public static Stage stage;
-	private ImageView starting;
-	private Image icon;
 		
-// 1: return "Aguardando Orçamento";
-// 2: return "Enviar Orçamento";
-// 3: return "Aguardando Aprovação";
-// 4: return "Aprovado, aquardando Reparo!";
-// 5: return "Liberado, aquardando Coleta!";
-// 6: return "Não Aprovado, aquardando coleta!";
+	public static boolean springStart = false;	
 	
-	public static boolean springStart = false;
-	
-	
-	public static int UPDATETIME = 60; //em segundos
-	
+	public static int UPDATETIME = 60; //em segundos	
 	
 	public static String caminhoPDF = "\\Desktop\\Relatorios";
-	
+	public static String CAMINHO_ICONS = AlfaPirometrosApplication.class.getResource(
+			"gui/resources/").toString();
 	
 //	
 //	public static ObservableList<String> OBS_PRODUCTS = FXCollections.observableArrayList(
@@ -60,10 +53,7 @@ public class AlfaPirometrosApplication extends Application{
 			
 	public static ObservableList<String> obsQuantidade = FXCollections.observableArrayList("1","2","3","4","5","6","7","8","9","10");
 
-	private final String nameIcon = "Yggdrasilicon.jpg";
-	private final String nameImageViewStarting = "Yggdrasil.jpg";
-	
-	
+
 	
 	public static String URL_CONEXAO = "C:\\Program Files\\Java\\resources";
 	
@@ -78,38 +68,51 @@ public class AlfaPirometrosApplication extends Application{
 	public static String URL_AREA_DE_TRABALHO = System.getProperty("user.home").toString() + "\\Desktop"; 
 	public static String CERTIFICADO_CAMINHO = AlfaPirometrosApplication.URL_AREA_DE_TRABALHO + "\\Certificados YggDrasil";
 	
-	public static PaginaBuscaController viewController = new PaginaBuscaController();
+	public static PaginaBuscaController viewController;
 	
+		
 
 	//Carregando a view de Load
 	@Override
 	public void start(Stage arg0) throws ExceptionAlfa, IOException{
-
-		loadImage(nameImageViewStarting);
-		Pane pane = (Pane) NewView.loadFXML("loadView", new LoadViewController());
-		pane.getChildren().add(starting);
-		scene = new Scene(pane, 400, 300);		
+		LoadViewController loadView = new LoadViewController();
+		Pane pane = (Pane) NewView.loadFXML(FXMLPath.LOAD_VIEW, loadView);
+		scene = new Scene(pane);		
 		stage = arg0;
 		stage = new Stage();
+		NewView.STAGE_MAIN_VIEW = new Stage();
 		stage.initStyle(StageStyle.UNDECORATED);
 		stage.setScene(scene);
-		stage.setTitle("Pirometros");
-		stage.getIcons().add(icon);
+		stage.setTitle("Pirometros");		
+		stage.getIcons().add(NewView.getIcon());
+		AlfaPirometrosApplication.stage.setOnShowing(new EventHandler<WindowEvent>() {
+			@Override
+			public void handle(WindowEvent event) {
+				Task<Void> task = new Task<Void>() {
+				    @Override public Void call() {
+						try {
+							viewController =  new PaginaBuscaController();
+							AnchorPane anchorPane = (AnchorPane) NewView.loadFXML("mainView", viewController);
+							NewView.SCENE_MAIN_VIEW = new Scene(anchorPane);
+						} catch (IOException e) {
+							e.printStackTrace();
+							System.exit(1);
+						}
+						springStart=true;		
+				        return null;
+				    }
+				};
+				new Thread(task).start();
+			}
+		
+		});
 		stage.show();
-
 	}
 		
 	
 	public static void main(String[] args) {
-		 springStart=true;
-		 launch(args);
+		launch(args);
 		System.exit(1);
 	}
-	
-	//Carrega as imagens de fundo para a tela de startup
-	private void loadImage(String nameImageViewStarting) {
-		starting = new ImageView(new Image(
-				AlfaPirometrosApplication.class.getResource("gui/resources/" + nameImageViewStarting).toString()));
-		icon = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/" + nameIcon).toString());
-	}
+
 }

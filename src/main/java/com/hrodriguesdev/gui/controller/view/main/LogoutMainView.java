@@ -7,6 +7,6 @@ public class LogoutMainView extends OrcamentoMainView {
 	
 	@FXML
 	public void logout(ActionEvent event) {
-		
+
 	}
 }

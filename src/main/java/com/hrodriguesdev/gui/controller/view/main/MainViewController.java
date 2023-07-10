@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 
 import com.hrodriguesdev.AlfaPirometrosApplication;
 import com.hrodriguesdev.controller.ColetorController;
@@ -18,6 +17,7 @@ import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.gui.alert.Alerts;
 import com.hrodriguesdev.gui.controller.EstoqueController;
 import com.hrodriguesdev.utilitary.Format;
+import com.hrodriguesdev.utilitary.Log;
 import com.hrodriguesdev.utilitary.NewView;
 
 import javafx.animation.Animation;
@@ -27,6 +27,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -34,6 +35,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -42,6 +44,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.WindowEvent;
+import javafx.util.Duration;
 
 //@Component
 public class MainViewController implements Initializable{
@@ -167,67 +172,51 @@ public class MainViewController implements Initializable{
 
 
 	
-	public void initialize(URL location, ResourceBundle resources) {
-		try {
-			DB.getConnection();
-			dbConection = true;
-		}catch (DbException e) {
-			e.printStackTrace();
-			dbConection = false;
-		}finally {
-			DB.closeConnection();
-		}
+	public void initialize(URL location, ResourceBundle resources) {		
+		taskInicial();	
+		NewView.STAGE_MAIN_VIEW.setOnShowing(new EventHandler<WindowEvent>() {
+			@Override
+			public void handle(WindowEvent event) {
 
-		strartTable();
-		taskInicial();
+				    	tabsOpen();
 
+
+			}
 		
-		Image image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/Yggdrasilicon.jpg").toString() );
-		logoYgg.setImage(image);
-		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-refresh.png").toString() );
-		refresh.setImage(image);
-		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-adicionar.png").toString() );
-		cadastrar.setImage(image);
-		cadastrar2.setImage(image);
-		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-abrir-arquivo.png").toString() );
-		abrir.setImage(image);
-		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-insert.png").toString() );
-		inserirColeta.setImage(image);
-		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-bandeira-de-chegada.png").toString() );
-		home.setImage(image);
-		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-pesquisar.png").toString() );
-		buscar.setImage(image);
-		buscar1.setImage(image);
-		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-pdf.png").toString() );
-		pdf.setImage(image);
-		
-		
-//		ItensRepositoryFind repo = new ItensRepositoryFind();
-//		repo.UpdateSinal();
-		
-		
-		
+		});
 	}	 	
 	
+//	direciona todo processo de inicialização para o segundo plano
 	public void taskInicial() {
 		Task<Void> task = new Task<Void>() {
-		    @Override public Void call() {	    	
-    			if( dbConection ) {
-					try {
-						obsListTableFilaEquipamentos = orcamentoController.findAllLaboratorio(true);
-			    		oldObs = obsListTableFilaEquipamentos;
-			
-				    }catch(DbException e) {
-				    	dbConection = false;
-				    } 
-				}
+		    @Override public Void call() throws InterruptedException {	
+//		    	Primeira coneção com banco de dados
+				try {
+					
+					Thread.sleep(5000);
+					DB.getConnection();
+					dbConection = true;
+					strartTable();
+					updateTable();			
+					sortTable();
+					imageInit();
+					
+				}catch (DbException e) {
+					Log.logString("MainViewController", e.getMessage());
+					e.printStackTrace();
+					dbConection = false;
+				}finally {
+					DB.closeConnection();
+				}		    	
+		    	
     			try {
     				updateProductsCombobox();
     			}catch (DbException e) {
     				e.printStackTrace();
     			}
-    			sortTable();
     			beginTimer();
+
+    			
     			ProgressIndicator.setVisible(false);
 		        return null;
 		    }
@@ -237,123 +226,29 @@ public class MainViewController implements Initializable{
 		new Thread(task).start();
 	}
 	
-	public void strartTable() {		
-
-				
-	    tableFilaEquipamentos.setEditable(false);	 
-	    
-	    empressa.setCellValueFactory(new PropertyValueFactory<Equipamento, String>("empressaName"));
-	    status.setCellValueFactory(new PropertyValueFactory<Equipamento, String>("statusStr"));	    
-//		dataChegada.setCellValueFactory( new PropertyValueFactory<Equipamento, String>("dataChegada"));	
-	    
-		dateChegada.setCellValueFactory( new PropertyValueFactory<>("dateChegada"));		
-		dateChegada.setCellFactory( cell -> {
-            return new TableCell<Equipamento, Date>() {
-				@Override
-                protected void updateItem( Date item, boolean empty) {
-                   super.updateItem(item, empty);
-                   if( !empty ) {
-                	   try {
-                		   setText( Format.formatData.format(item) );
-                	   }catch(NullPointerException e){
-                           setText("");
-                           setGraphic(null);
-                	   }
-                   }else {
-                      setText("");
-                      setGraphic(null);
-                   }
-                }
-            };        
-         } );		
-		
-		modelo.setCellValueFactory(new PropertyValueFactory<Equipamento, String>("modelo"));
-		ns.setCellValueFactory(new PropertyValueFactory<Equipamento, String>("ns"));
-		pat.setCellValueFactory(new PropertyValueFactory<Equipamento, String>("pat"));
-		relatorio.setCellValueFactory(new PropertyValueFactory<Equipamento, String>("relatorio"));
-		ultimaCal.setCellValueFactory(new PropertyValueFactory<>("ultimaCalibDate"));
-		ultimaCal.setCellFactory( cell -> {
-            return new TableCell<Equipamento, Date>() {
-                @Override
-                protected void updateItem( Date item, boolean empty) {
-                   super.updateItem(item, empty);
-                   if( !empty ) {
-                	   try {
-                		   setText( Format.formatData.format(item) );
-                	   }catch(NullPointerException e){
-                           setText("");
-                           setGraphic(null);
-                	   }
-                      
-                   }else {
-                      setText("");
-                      setGraphic(null);
-                   }
-                }
-            };        
-         } );		
-		tableFilaEquipamentos.setItems(obsListTableFilaEquipamentos);		
-		
-		tableFindEquipamentos.setEditable(false);	 	    
-	    empressaFind.setCellValueFactory(new PropertyValueFactory<Equipamento, String>("empressaName"));
-	    nsFind.setCellValueFactory(new PropertyValueFactory<Equipamento, String>("ns"));
-	    patFind.setCellValueFactory(new PropertyValueFactory<Equipamento, String>("pat"));
-	    
-//	    dataChegadaFind.setCellValueFactory( new PropertyValueFactory<Equipamento, String>("dataChegada"));	
-	    
-	    dateChegadaFind.setCellValueFactory( new PropertyValueFactory<>("dateChegada"));
-	    dateChegadaFind.setCellFactory( cell -> {
-            return new TableCell<Equipamento, Date>() {
-                @Override
-                protected void updateItem( Date item, boolean empty) {
-                   super.updateItem(item, empty);
-                   if( !empty ) {
-                	   try {
-                		   setText( Format.formatData.format(item) );
-                	   }catch(NullPointerException e){
-                           setText("");
-                           setGraphic(null);
-                	   }
-                   }else {
-                      setText("");
-                      setGraphic(null);
-                   }
-                }
-            };        
-         } );	
-	    
-	    dataSaidaFind.setCellValueFactory(new PropertyValueFactory<>("dateSaida"));	
-	    dataSaidaFind.setCellFactory( cell -> {
-            return new TableCell<Equipamento, Date>() {
-                @Override
-                protected void updateItem( Date item, boolean empty) {
-                   super.updateItem(item, empty);
-                   if( !empty ) {
-                	   try {
-                		   setText( Format.formatData.format(item) );
-                	   }catch(NullPointerException e){
-                           setText("");
-                           setGraphic(null);
-                	   }
-                   }else {
-                      setText("");
-                      setGraphic(null);
-                   }
-                }
-            };        
-         } );	
-		
-	    tableFindEquipamentos.setItems(obsListTableFindEquipamentos);	
-		
+	private void tabsOpen() {
+		try {
+			TabPane tabPane = (TabPane) NewView.loadFXML("tab", new Teste());	
+			
+			AnchorPane pane = (AnchorPane) NewView.SCENE_MAIN_VIEW.getRoot();			
+	    	NewView.TABPANE = (TabPane) pane.getChildren().get(0);	    	
+			NewView.TABPANE.getTabs().add(tabPane.getTabs().get(0));
+//			NewView.TABPANE.getTabs().get(0)
+			
+			
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
-	protected ObservableList<Equipamento> oldObs = FXCollections.observableArrayList();
-	private void beginTimer() {
-		
-		timeline = new Timeline(new KeyFrame(javafx.util.Duration.seconds(AlfaPirometrosApplication.UPDATETIME), ev -> {
+	
+//	Atualiza a tabela de tempos em tempos
+	private void beginTimer() {		
+		timeline = new Timeline(new KeyFrame(Duration.seconds(AlfaPirometrosApplication.UPDATETIME), ev -> {
 			if(dbConection) {
-				if(FILTER) {
-					
+				if(FILTER) {					
 					updateTable();
 					updateProductsCombobox();
 					
@@ -374,52 +269,23 @@ public class MainViewController implements Initializable{
 	}
 
 	public void updateTable() {
-		try {
-			
+		try {			
 			ObservableList<Equipamento> obsList = FXCollections.observableArrayList();
 			obsList = orcamentoController.findAllLaboratorio(true);
 			listShort(obsList);
-	    	obsListTableFilaEquipamentos = obsList;
-						
-		oldObs = obsListTableFilaEquipamentos;
-		tableFilaEquipamentos.setItems(obsListTableFilaEquipamentos);			
-		dbConection = true;  
-		tableFilaEquipamentos.refresh();
-		
-//					obsListTableFilaEquipamentos = equipamentoController.findAllByLaboratorio(true);
-//					if(obsListTableFilaEquipamentos.size() > oldObs.size() ) {						
-//						List<Equipamento> list1 = obsListTableFilaEquipamentos.stream().filter(item1 -> {
-//							return oldObs.stream().filter(item2 -> item2.equals(item1) ).findAny().isPresent();
-//						}).collect( Collectors.toList() );
-//						obsListTableFilaEquipamentos.addAll(list1);
-//						
-////					        List<Integer> interseccao = lista1.stream().filter(item1 -> {
-////					            return lista2.stream().filter(item2 -> new Integer(item2).equals(item1)).findAny().isPresent();
-////					        }).collect(Collectors.toList());
-//
-////						showAlerts("Updatede Lista", "", "Equipamento da empressa " + obsListTableFilaEquipamentos.get(obsListTableFilaEquipamentos.size()-1).getEmpressaName() + " foi adcionado equipamento na lista ", AlertType.INFORMATION);
-//						oldObs = obsListTableFilaEquipamentos;
-//						return;
-//					}
-//					if(obsListTableFilaEquipamentos.size() < oldObs.size() ) {
-//						oldObs = obsListTableFilaEquipamentos;
-//						return;
-//					}
-//					for(int i =0; i< oldObs.size(); i++) {
-//						if( obsListTableFilaEquipamentos.get(i).getStatus() != oldObs.get(i).getStatus() ) {
-////							showAlerts("Updatede Lista", "", "Equipamento da empressa " + obsListTableFilaEquipamentos.get(obsListTableFilaEquipamentos.size()-1).getEmpressaName() + " teve o status alterado ", AlertType.ERROR);
-//						}
-//					}
-//					oldObs = obsListTableFilaEquipamentos;
+	    	obsListTableFilaEquipamentos = obsList;							
+			tableFilaEquipamentos.setItems(obsListTableFilaEquipamentos);			
+			dbConection = true;  
+			tableFilaEquipamentos.refresh();
 		} catch (DbException e) {
-//					showAlerts("begin Timer ", "", e.getMessage(), AlertType.INFORMATION );
+			e.printStackTrace();
+			Log.logString("MainViewController", e.getMessage());
 		}
 	}
 	
 	protected void showAlerts(String title, String mensage, String error, AlertType alertType) {
 		Alerts.showAlert( title , mensage, error , alertType);
 	}
-
 	
 	public ObservableList<Equipamento> listShort(ObservableList<Equipamento> list){
 		if(sortCal.isSelected()) {
@@ -444,6 +310,7 @@ public class MainViewController implements Initializable{
 		return list;
 	}
 	
+//	Para manter somento um selecionado
     public void sortTable() {
 		sortCal.selectedProperty().addListener((value)->{
 			if(sortCal.isSelected()){
@@ -524,7 +391,132 @@ public class MainViewController implements Initializable{
 			};
 		});
 		
+    }
+    
+    private void imageInit() {		
+		Image image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/Yggdrasilicon.jpg").toString() );
+		logoYgg.setImage(image);
+		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-refresh.png").toString() );
+		refresh.setImage(image);
+		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-adicionar.png").toString() );
+		cadastrar.setImage(image);
+		cadastrar2.setImage(image);
+		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-abrir-arquivo.png").toString() );
+		abrir.setImage(image);
+		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-insert.png").toString() );
+		inserirColeta.setImage(image);
+		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-bandeira-de-chegada.png").toString() );
+		home.setImage(image);
+		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-pesquisar.png").toString() );
+		buscar.setImage(image);
+		buscar1.setImage(image);
+		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-pdf.png").toString() );
+		pdf.setImage(image);
 		
     }
+    
+//  Configuração inicial das tabelas    
+	private void strartTable() {	
+		
+	    tableFilaEquipamentos.setEditable(false);		    
+	    empressa.setCellValueFactory(new PropertyValueFactory<Equipamento, String>("empressaName"));
+	    status.setCellValueFactory(new PropertyValueFactory<Equipamento, String>("statusStr"));	    	    
+		dateChegada.setCellValueFactory( new PropertyValueFactory<>("dateChegada"));		
+		dateChegada.setCellFactory( cell -> {
+            return new TableCell<Equipamento, Date>() {
+				@Override
+                protected void updateItem( Date item, boolean empty) {
+                   super.updateItem(item, empty);
+                   if( !empty ) {
+                	   try {
+                		   setText( Format.formatData.format(item) );
+                	   }catch(NullPointerException e){
+                           setText("");
+                           setGraphic(null);
+                	   }
+                   }else {
+                      setText("");
+                      setGraphic(null);
+                   }
+                }
+            };        
+         } );		
+		
+		modelo.setCellValueFactory(new PropertyValueFactory<Equipamento, String>("modelo"));
+		ns.setCellValueFactory(new PropertyValueFactory<Equipamento, String>("ns"));
+		pat.setCellValueFactory(new PropertyValueFactory<Equipamento, String>("pat"));
+		relatorio.setCellValueFactory(new PropertyValueFactory<Equipamento, String>("relatorio"));
+		ultimaCal.setCellValueFactory(new PropertyValueFactory<>("ultimaCalibDate"));
+		ultimaCal.setCellFactory( cell -> {
+            return new TableCell<Equipamento, Date>() {
+                @Override
+                protected void updateItem( Date item, boolean empty) {
+                   super.updateItem(item, empty);
+                   if( !empty ) {
+                	   try {
+                		   setText( Format.formatData.format(item) );
+                	   }catch(NullPointerException e){
+                           setText("");
+                           setGraphic(null);
+                	   }
+                      
+                   }else {
+                      setText("");
+                      setGraphic(null);
+                   }
+                }
+            };        
+         } );		
+		tableFilaEquipamentos.setItems(obsListTableFilaEquipamentos);		
+		
+		tableFindEquipamentos.setEditable(false);	 	    
+	    empressaFind.setCellValueFactory(new PropertyValueFactory<Equipamento, String>("empressaName"));
+	    nsFind.setCellValueFactory(new PropertyValueFactory<Equipamento, String>("ns"));
+	    patFind.setCellValueFactory(new PropertyValueFactory<Equipamento, String>("pat"));
+	    dateChegadaFind.setCellValueFactory( new PropertyValueFactory<>("dateChegada"));
+	    dateChegadaFind.setCellFactory( cell -> {
+            return new TableCell<Equipamento, Date>() {
+                @Override
+                protected void updateItem( Date item, boolean empty) {
+                   super.updateItem(item, empty);
+                   if( !empty ) {
+                	   try {
+                		   setText( Format.formatData.format(item) );
+                	   }catch(NullPointerException e){
+                           setText("");
+                           setGraphic(null);
+                	   }
+                   }else {
+                      setText("");
+                      setGraphic(null);
+                   }
+                }
+            };        
+         } );	
+	    
+	    dataSaidaFind.setCellValueFactory(new PropertyValueFactory<>("dateSaida"));	
+	    dataSaidaFind.setCellFactory( cell -> {
+            return new TableCell<Equipamento, Date>() {
+                @Override
+                protected void updateItem( Date item, boolean empty) {
+                   super.updateItem(item, empty);
+                   if( !empty ) {
+                	   try {
+                		   setText( Format.formatData.format(item) );
+                	   }catch(NullPointerException e){
+                           setText("");
+                           setGraphic(null);
+                	   }
+                   }else {
+                      setText("");
+                      setGraphic(null);
+                   }
+                }
+            };        
+         } );	
+		
+	    tableFindEquipamentos.setItems(obsListTableFindEquipamentos);	
+		
+	}
 	
 }

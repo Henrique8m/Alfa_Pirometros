@@ -1,6 +1,5 @@
 package com.hrodriguesdev.gui.controller;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -9,46 +8,58 @@ import com.hrodriguesdev.utilitary.NewView;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.concurrent.Task;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class LoadViewController implements Initializable {
 	
-	private Timeline timeline;
-	public static Stage stage;	
-
-
+	private Timeline timeline;	
+	
+	@FXML
+	private ProgressBar progressBar;
+	@FXML
+	private ImageView logo;
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		stage = new Stage();
 		beginTimer();
+		logo.setImage(NewView.getLogo());		
+	
 	}
 
-	private void beginTimer() {
+	public void openView() {
+		NewView.getNewView("Controle de Estoque", NewView.SCENE_MAIN_VIEW, NewView.STAGE_MAIN_VIEW);
 		
-		timeline = new Timeline(new KeyFrame(javafx.util.Duration.seconds(5), ev -> {
+	}
+	
+	private void beginTimer() {
+		Task<Void> task = new Task<Void>() {
+		    @Override public Void call() {
+		        return null;
+		    }
+		};	
+		progressBar.progressProperty().bind(task.progressProperty());
+		
+		new Thread(task).start();		
+		
+		timeline = new Timeline(new KeyFrame(Duration.seconds(1), ev -> {
 			if (AlfaPirometrosApplication.springStart) {
-				//System.out.println("spring Start true ");
-				try {
-					AnchorPane anchorPane = (AnchorPane) NewView.loadMainView("mainView", AlfaPirometrosApplication.viewController);
-					NewView.scene = new Scene(anchorPane);
-					NewView.getNewView("Controle de Estoque", NewView.scene, stage);
-					Thread.sleep(100);
-//					NewView.TABPANE = (TabPane) anchorPane.getChildren().get(0);
-				} catch (IOException | InterruptedException e) {
-					e.printStackTrace();
-					System.exit(1);
-				}
+				timeline.pause();
+				openView();
 				AlfaPirometrosApplication.stage.close();
 				timeline.stop();
 			}
 		}));
 
-	timeline.setCycleCount(10);
-	timeline.play();
+		timeline.setCycleCount(Timeline.INDEFINITE);
+		timeline.play();
 
 	}
 		
 }
+

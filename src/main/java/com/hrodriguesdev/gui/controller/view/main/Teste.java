@@ -18,6 +18,7 @@ import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DialogEvent;
@@ -31,8 +32,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Text;
 
-public class EmpresaViewController extends MainViewController{
+public class Teste implements Initializable{
 	private EmpresaController empresaController = new EmpresaController();
 	private EmpresaRepository repository = new EmpresaRepository();
 	private Alert alert;
@@ -306,7 +308,17 @@ public class EmpresaViewController extends MainViewController{
 			}
 			else empresa = null;
 	}
+	
+	@FXML
+	private void click(MouseEvent e) {
+		System.out.println("Teste");
+	}
+	
+	@FXML
+	private void format(KeyEvent e) {
 		
+	}
+	
 	@FXML
 	private void formatarDados(KeyEvent event) {
 		if(event.getCode().toString() != "BACK_SPACE" ) {
