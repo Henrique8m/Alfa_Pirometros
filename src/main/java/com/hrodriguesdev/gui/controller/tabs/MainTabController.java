@@ -11,6 +11,7 @@ import com.hrodriguesdev.controller.EquipamentoController;
 import com.hrodriguesdev.controller.EstoqueRepController;
 import com.hrodriguesdev.controller.OrcamentoController;
 import com.hrodriguesdev.dao.db.DbException;
+import com.hrodriguesdev.dependency.InjecaoDependency;
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.entities.Orcamento;
 import com.hrodriguesdev.gui.alert.Alerts;
@@ -52,15 +53,6 @@ import javafx.util.Duration;
 //@Component
 public class MainTabController implements Initializable, Runnable{
 	
-	public static String comboBoxBusca = "";	
-
-	private OrcamentoController orcamentoController = new OrcamentoController();
-	private EquipamentoController equipamentoController = new EquipamentoController();	
-	private EstoqueRepController estoqueRepController = new EstoqueRepController();
-
-	private Timeline timeline;
-	private boolean dbConection;
-	
 	@FXML
     public CheckBox sortCal, sortPat, sortNS, sortChegada, sortModelo, sortStatus, sortEmpresa;
 	
@@ -93,7 +85,17 @@ public class MainTabController implements Initializable, Runnable{
 	@FXML
 	protected TextField filtro;	
 	private boolean isFilter = true;		
-	private Thread threadFiltro = new Thread(this);
+	private Thread threadFiltro = new Thread(this);	
+	
+	public static String comboBoxBusca = "";	
+	
+	//@Autowired
+	protected EquipamentoController equipamentoController = InjecaoDependency.EQUIPAMENTO_CONTROLLER;
+	protected OrcamentoController orcamentoController = InjecaoDependency.ORCAMENTO_CONTROLLER;
+	private EstoqueRepController estoqueRepController = new EstoqueRepController();
+
+	private Timeline timeline;
+	private boolean dbConection;
 	
 	
 	public void initialize(URL location, ResourceBundle resources) {		
@@ -447,7 +449,7 @@ public class MainTabController implements Initializable, Runnable{
 	private void strartTable() {	
 		
 	    tableFilaEquipamentos.setEditable(false);		    
-	    empressa.setCellValueFactory(new PropertyValueFactory<Equipamento, String>("empressaName"));
+	    empressa.setCellValueFactory(new PropertyValueFactory<Equipamento, String>("empresaName"));
 	    status.setCellValueFactory(new PropertyValueFactory<Equipamento, String>("statusStr"));	    	    
 		dateChegada.setCellValueFactory( new PropertyValueFactory<>("dateChegada"));		
 		dateChegada.setCellFactory( cell -> {

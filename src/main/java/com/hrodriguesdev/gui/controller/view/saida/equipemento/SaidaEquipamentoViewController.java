@@ -20,7 +20,6 @@ import com.hrodriguesdev.gui.alert.Alerts;
 import com.hrodriguesdev.relatorio.GeneratorPDF;
 import com.hrodriguesdev.utilitary.Format;
 import com.hrodriguesdev.utilitary.InputFilter;
-import com.hrodriguesdev.utilitary.tabsLoad.TabsMainView;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -121,7 +120,7 @@ public class SaidaEquipamentoViewController implements Initializable {
 			error( "Null Pointer " ,"Null Pointer Exeption");	
 			
 		}		
-		TabsMainView.MAIN_TAB_CONTROLLER.refreshTableMain();
+		InjecaoDependency.MAIN_TAB_CONTROLLER.refreshTableMain();
 		
 	}
 

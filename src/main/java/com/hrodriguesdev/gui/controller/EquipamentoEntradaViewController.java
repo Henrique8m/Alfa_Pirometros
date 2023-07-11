@@ -19,7 +19,6 @@ import com.hrodriguesdev.utilitary.Format;
 import com.hrodriguesdev.utilitary.Geral;
 import com.hrodriguesdev.utilitary.InputFilter;
 import com.hrodriguesdev.utilitary.NewView;
-import com.hrodriguesdev.utilitary.tabsLoad.TabsMainView;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -167,7 +166,7 @@ public class EquipamentoEntradaViewController implements Initializable{
 				if(orcamento_id != null)
 					equipamentoController.updatede(tableEquipamentos.getSelectionModel().getSelectedItem().getId(), true, orcamento_id);
 				
-				TabsMainView.MAIN_TAB_CONTROLLER.refreshTableMain();
+				InjecaoDependency.MAIN_TAB_CONTROLLER.refreshTableMain();
 				NewView.fecharView();		
 			}	
 		}catch(NullPointerException e) {

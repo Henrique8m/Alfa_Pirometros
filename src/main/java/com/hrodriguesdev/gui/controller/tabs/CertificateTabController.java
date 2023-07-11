@@ -419,7 +419,7 @@ public class CertificateTabController implements Initializable{
 	
 	private void startTable() {
 		tableEquipamentosCertificados.setEditable(false);
-		empressaCertificado.setCellValueFactory(new PropertyValueFactory<Equipamento, String>("empressaName"));
+		empressaCertificado.setCellValueFactory(new PropertyValueFactory<Equipamento, String>("empresaName"));
 		modeloCertificado.setCellValueFactory(new PropertyValueFactory<Equipamento, String>("modelo"));
 		nsCertificado.setCellValueFactory(new PropertyValueFactory<Equipamento, String>("ns"));
 		patCertificado.setCellValueFactory(new PropertyValueFactory<Equipamento, String>("pat"));

@@ -10,6 +10,7 @@ import com.hrodriguesdev.AlfaPirometrosApplication;
 import com.hrodriguesdev.controller.EnsaiosController;
 import com.hrodriguesdev.controller.OSController;
 import com.hrodriguesdev.controller.OrcamentoController;
+import com.hrodriguesdev.dependency.InjecaoDependency;
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.entities.Orcamento;
 import com.hrodriguesdev.entities.Product;
@@ -22,7 +23,6 @@ import com.hrodriguesdev.utilitary.Geral;
 import com.hrodriguesdev.utilitary.InputFilter;
 import com.hrodriguesdev.utilitary.Log;
 import com.hrodriguesdev.utilitary.NewView;
-import com.hrodriguesdev.utilitary.tabsLoad.TabsMainView;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -244,7 +244,7 @@ public class OrcamentoInsert extends RegisterProductsController implements Initi
 //				erro.setText("Erro");
 //			}
 //		}		
-		TabsMainView.MAIN_TAB_CONTROLLER.refreshTableMain();
+		InjecaoDependency.MAIN_TAB_CONTROLLER.refreshTableMain();
 	
 	}	
 		

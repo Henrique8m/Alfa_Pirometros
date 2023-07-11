@@ -624,7 +624,7 @@ public class FindTabController implements Initializable{
 	
 	private void startTable() {
 		tableFindEquipamentos.setEditable(false);	 	    
-	    empressaFind.setCellValueFactory(new PropertyValueFactory<Equipamento, String>("empressaName"));
+	    empressaFind.setCellValueFactory(new PropertyValueFactory<Equipamento, String>("empresaName"));
 	    nsFind.setCellValueFactory(new PropertyValueFactory<Equipamento, String>("ns"));
 	    patFind.setCellValueFactory(new PropertyValueFactory<Equipamento, String>("pat"));
 	    dateChegadaFind.setCellValueFactory( new PropertyValueFactory<>("dateChegada"));

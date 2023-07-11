@@ -30,7 +30,6 @@ import com.hrodriguesdev.utilitary.Geral;
 import com.hrodriguesdev.utilitary.Log;
 import com.hrodriguesdev.utilitary.NewView;
 import com.hrodriguesdev.utilitary.fxml.FXMLPath;
-import com.hrodriguesdev.utilitary.tabsLoad.TabsMainView;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -157,7 +156,7 @@ public class OrcamentoView extends EnsaioViewController implements Initializable
 		} catch (DbException e1) {
 //			Alerts.showAlert("DB exception ", "Erro na comunicação com banco de dados", e1.getMessage(), AlertType.ERROR);
 		}
-		TabsMainView.MAIN_TAB_CONTROLLER.refreshTableMain();
+		InjecaoDependency.MAIN_TAB_CONTROLLER.refreshTableMain();
 		try{
 			Thread.sleep(200);
 		}catch(InterruptedException e) {
