@@ -8,11 +8,14 @@ import java.util.ResourceBundle;
 
 import com.hrodriguesdev.AlfaPirometrosApplication;
 import com.hrodriguesdev.controller.EnsaiosController;
+import com.hrodriguesdev.controller.EquipamentoController;
 import com.hrodriguesdev.controller.EstoqueRepController;
 import com.hrodriguesdev.controller.OSController;
+import com.hrodriguesdev.controller.OrcamentoController;
 import com.hrodriguesdev.controller.ProductsController;
 import com.hrodriguesdev.dao.db.DbException;
 import com.hrodriguesdev.dao.repository.SaidaEquipamentoTransacao;
+import com.hrodriguesdev.dependency.InjecaoDependency;
 import com.hrodriguesdev.entities.Ensaios;
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.entities.Orcamento;
@@ -21,13 +24,13 @@ import com.hrodriguesdev.entities.products.ProductsOs;
 import com.hrodriguesdev.enums.OSStatus;
 import com.hrodriguesdev.gui.alert.Alerts;
 import com.hrodriguesdev.gui.controller.view.insert.CertificadoInsert;
-import com.hrodriguesdev.gui.controller.view.main.MainViewController;
 import com.hrodriguesdev.relatorio.RelatorioGeneratorPDF;
 import com.hrodriguesdev.utilitary.Format;
 import com.hrodriguesdev.utilitary.Geral;
 import com.hrodriguesdev.utilitary.Log;
 import com.hrodriguesdev.utilitary.NewView;
 import com.hrodriguesdev.utilitary.fxml.FXMLPath;
+import com.hrodriguesdev.utilitary.tabsLoad.TabsMainView;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -78,6 +81,10 @@ public class OrcamentoView extends EnsaioViewController implements Initializable
 	private Equipamento equipamento;
 	private Orcamento orcamento;
 
+	//@Autowired
+	private OrcamentoController orcamentoController = InjecaoDependency.ORCAMENTO_CONTROLLER;
+	private EquipamentoController equipamentoController = InjecaoDependency.EQUIPAMENTO_CONTROLLER;
+	
 	protected SaidaEquipamentoTransacao transaction = new SaidaEquipamentoTransacao();
 	private EnsaiosController ensaioController = new EnsaiosController();
 	private EstoqueRepController estoqueController = new EstoqueRepController();
@@ -138,19 +145,19 @@ public class OrcamentoView extends EnsaioViewController implements Initializable
 //			No cado de manutenção na area, com o orçamento aprovado
 			
 			if(orcamento.getStatus() == 20) {
-				if(!MainViewController.equipamentoController.updateSaida(equipamento) ) {
+				if(!equipamentoController.updateSaida(equipamento) ) {
 //					Alerts.showAlert("Equipamento ", "Falha em dar saida no equipamento", "" , AlertType.ERROR);
 					return;
 				}
 			}
 			
 			
-			MainViewController.orcamentoController.updatedeStatusRelatorio( orcamento.getId(), orcamento.getStatus(), orcamento );
+			orcamentoController.updatedeStatusRelatorio( orcamento.getId(), orcamento.getStatus(), orcamento );
 //			Alerts.showAlert("Status ", "Status Alterado com sucesso", "Equipamento da Empressa " + equipamento.getEmpressaName() , AlertType.INFORMATION);
 		} catch (DbException e1) {
 //			Alerts.showAlert("DB exception ", "Erro na comunicação com banco de dados", e1.getMessage(), AlertType.ERROR);
 		}
-		AlfaPirometrosApplication.viewController.refreshTable();
+		TabsMainView.MAIN_TAB_CONTROLLER.refreshTableMain();
 		try{
 			Thread.sleep(200);
 		}catch(InterruptedException e) {
@@ -437,7 +444,7 @@ public class OrcamentoView extends EnsaioViewController implements Initializable
 	
 //	insere as informações dos equipamento assim que a view abre
 	protected void textFildInserts() {
-		nomeEmpressa.setText(equipamento.getEmpressaName());
+		nomeEmpressa.setText(equipamento.getEmpresaName());
 		data.setText(Format.formatData.format(orcamento.getData_chegada()));
 		modelo.setText(equipamento.getModelo());
 		ns.setText(equipamento.getNs());

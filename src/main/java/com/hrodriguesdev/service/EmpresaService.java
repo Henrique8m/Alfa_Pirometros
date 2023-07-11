@@ -9,7 +9,7 @@ import com.hrodriguesdev.entities.Empresa;
 public class EmpresaService {
 	private EmpresaRepository repository = new EmpresaRepository();
 	
-	public Long addEmpressa(Empresa empressa) {
+	public Long addEmpresa(Empresa empressa) {
 		return repository.addEmpressa(empressa);
 		
 	}
@@ -23,12 +23,24 @@ public class EmpresaService {
 		
 	}
 
-	public Empresa findEmpressa(Long empressa) {
+	public Empresa findEmpresa(Long empressa) {
 		return repository.findEmpressa(empressa);
 	}
 
 	public List<Empresa> getAllEmpresa() {
 		return repository.getAllEmpresa();
+	}
+
+	public boolean updateEmpresa(Empresa empresa, Boolean nameUpdate) {
+		return repository.updateEmpresa(empresa, nameUpdate);
+	}
+
+	public boolean exist(String name) {
+		return repository.exist(name);
+	}
+
+	public boolean delete(Empresa empresa) {
+		return repository.delete(empresa);
 	}
 	
 	

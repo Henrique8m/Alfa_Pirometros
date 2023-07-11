@@ -30,7 +30,7 @@ public class ColetorRepository {
 					+ "(?, ?, ?, ?, ?)",
 					Statement.RETURN_GENERATED_KEYS);			
 			
-			pst.setString(1, coletor.getEmpressaName());
+			pst.setString(1, coletor.getEmpresaName());
 			pst.setString(2, coletor.getNomeColetor() );
 			pst.setLong(3, coletor.getOrcamento_id() );		
 			pst.setDate(4, coletor.getDate());

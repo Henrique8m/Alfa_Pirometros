@@ -91,7 +91,6 @@ public class EstoqueService {
 
 	public void refreshObsProducts() {
 		List<String> list = repositoryProducts.findAllNameProducts();
-		AlfaPirometrosApplication.OBS_PRODUCTS.addAll(list);
 		
 	}
 

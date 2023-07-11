@@ -21,7 +21,7 @@ public class ReadFiles {
        
     
     public static String[] readFile(String nameFile) throws com.hrodriguesdev.ExceptionAlfa {    
-    	ReadFiles.pathToFile = System.getProperty("user.home").toString() + AlfaPirometrosApplication.strDiretorioYggDrasil +"\\" + nameFile;
+    	ReadFiles.pathToFile = System.getProperty("user.home").toString() + AlfaPirometrosApplication.URL_DIRETORIO_YGGDRASIL +"\\" + nameFile;
     	
     	if(pathToFile!=null)
     		try(BufferedReader br = new BufferedReader(new FileReader(pathToFile, StandardCharsets.UTF_8) ) ){
@@ -53,7 +53,7 @@ public class ReadFiles {
 
 	public static boolean saveOrUpdatedeFile(String fileName, String[] lines) {
 		try {
-			File diretorio = new File(System.getProperty("user.home").toString() + AlfaPirometrosApplication.strDiretorioYggDrasil);
+			File diretorio = new File(System.getProperty("user.home").toString() + AlfaPirometrosApplication.URL_DIRETORIO_YGGDRASIL);
 			diretorio.mkdir();
 			File arquivo = new File(diretorio, fileName );
 			

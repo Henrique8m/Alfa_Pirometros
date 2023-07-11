@@ -28,7 +28,7 @@ public class GeneratorPDF {
 		
 		String local = System.getProperty("user.home")
 						.toString() + 
-						AlfaPirometrosApplication.caminhoPDF;
+						AlfaPirometrosApplication.URL_RELATORIOS;
 		
 		try {
 			File diretorio1 = new File(local);
@@ -133,7 +133,7 @@ public class GeneratorPDF {
 
 	private String coletroStr(Coletor coletor) {
 		return "Declaro, para os devidos fins, que eu, " + coletor.getNomeColetor() +
-				", trabalhando na empressa " + coletor.getEmpressaName() +
+				", trabalhando na empressa " + coletor.getEmpresaName() +
 				", levarei sobe minha responsabilidade o(s) equipamento(s) descrito, na data de hoje "
 				+ coletor.getDataHoraColeta();
 	}

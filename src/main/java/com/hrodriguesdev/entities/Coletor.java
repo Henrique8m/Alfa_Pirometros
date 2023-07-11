@@ -9,7 +9,7 @@ public class Coletor implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	private Long id;
-	private String empressaName;
+	private String empresaName;
 	private Long orcamento_id;
 	private String nomeColetor;
 	private String dataHoraColeta;
@@ -25,11 +25,11 @@ public class Coletor implements Serializable{
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getEmpressaName() {
-		return empressaName;
+	public String getEmpresaName() {
+		return empresaName;
 	}
-	public void setEmpressaName(String empressaName) {
-		this.empressaName = empressaName;
+	public void setEmpresaName(String empresaName) {
+		this.empresaName = empresaName;
 	}
 	public String getNomeColetor() {
 		return nomeColetor;
@@ -42,8 +42,8 @@ public class Coletor implements Serializable{
 		return orcamento_id;
 	}
 
-	public void setOrcamento_id(Long empressa_id) {
-		this.orcamento_id = empressa_id;
+	public void setOrcamento_id(Long empresa_id) {
+		this.orcamento_id = empresa_id;
 	}
 
 
@@ -62,7 +62,7 @@ public class Coletor implements Serializable{
 		if(rs != null) {
 			try {
 				coletor.setId( rs.getLong(1) );	
-				coletor.setEmpressaName( rs.getString("empressaName") );
+				coletor.setEmpresaName( rs.getString("empressaName") );
 				coletor.setNomeColetor( rs.getString("nomeColetor") );
 				
 				if(rs.getString( "dataHoraColeta" )!= null)

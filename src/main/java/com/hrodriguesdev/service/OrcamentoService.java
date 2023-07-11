@@ -199,7 +199,7 @@ public class OrcamentoService {
 					 OrcamentoDTORelatorio dto = new OrcamentoDTORelatorio(orcamento);
 					 Coletor coletor = coletorController.findById(orcamento.getColetor_id());
 					 dto.setAuthor(coletor.getNomeColetor());
-					 dto.setEmpresa(coletor.getEmpressaName());
+					 dto.setEmpresa(coletor.getEmpresaName());
 					 listOSIn.stream().filter(osIn -> osIn.getIdOrcamento().equals(orcamento.getId())).findFirst().ifPresentOrElse( 
 							 x -> {
 								 dto.setFinalidade("Entrada");
@@ -225,7 +225,7 @@ public class OrcamentoService {
 						if(os.getStatusInt() == orcamento.getStatus())
 							dto.setSituation(os.getStatusStr());
 					}		
-					dto.setEmpresa(equipamento.getEmpressaName());
+					dto.setEmpresa(equipamento.getEmpresaName());
 					dto.setNs(equipamento.getNs());
 					dto.setPat(equipamento.getPat());
 				}catch(ExceptionAlfa e) {

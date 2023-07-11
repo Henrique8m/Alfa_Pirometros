@@ -32,16 +32,40 @@ public class EmpresaController {
 	
 	}
 	
-	public Long add(Empresa empressa) {
-		return empresaService.addEmpressa(empressa);
+	public Long add(Empresa empresa) {
+		return empresaService.addEmpresa(empresa);
 		
 	}
-	public Empresa find(Long empressa) {
-		return empresaService.findEmpressa(empressa);
+	public Empresa find(Long empresa) {
+		return empresaService.findEmpresa(empresa);
 	}
 
 	public Long isExist(String empresaName) {
 		return empresaService.findEmpresaId(empresaName);
 		
+	}
+
+	public Long findEmpresaId(String name) {
+		return empresaService.findEmpresaId(name);
+	}
+
+	public Empresa findEmpresa(Long id) {
+		return empresaService.findEmpresa(id);
+	}
+
+	public boolean updateEmpresa(Empresa empresa, Boolean nameUpdate) {
+		return empresaService.updateEmpresa(empresa, nameUpdate);
+	}
+
+	public void addEmpresa(Empresa empresa) {
+		empresaService.addEmpresa(empresa);		
+	}
+
+	public boolean exist(String name) {
+		return empresaService.exist(name);
+	}
+
+	public boolean delete(Empresa empresa) {
+		return empresaService.delete(empresa);
 	}
 }

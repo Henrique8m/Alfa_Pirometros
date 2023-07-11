@@ -30,7 +30,7 @@ public class ColetorUpdatede extends SaidaEquipamentoViewController{
 	protected void gerarPDF(ActionEvent event) {
 		GeneratorPDF pdf = new GeneratorPDF();	
 		Coletor coletor = getColetor();
-		Empresa empressa = empressaController.find( equipamento.getEmpressa() );			
+		Empresa empressa = empresaController.find( equipamento.getEmpresa() );			
 		
 		pdf.newDocument(coletor, equipamento, empressa, orcamento);
 		Stage stage = (Stage) salvar.getScene().getWindow();
@@ -42,7 +42,7 @@ public class ColetorUpdatede extends SaidaEquipamentoViewController{
 	public void initialize(URL location, ResourceBundle resources) {		
 		super.imageInit();
 		
-		nomeEmpressa.setText(equipamento.getEmpressaName());
+		nomeEmpressa.setText(equipamento.getEmpresaName());
 	    data.setText(Format.formatData.format( orcamento.getData_chegada() ) );
 	    if(equipamento.getUltimaCalibDate() != null)
 	    	ultimaCal.setText(Format.formatData.format( equipamento.getUltimaCalibDate() ) );
@@ -53,7 +53,7 @@ public class ColetorUpdatede extends SaidaEquipamentoViewController{
 		
 		Coletor coletor = coletorController.findById( orcamento.getColetor_id() );
 		nomeColetor.setText( coletor.getNomeColetor() );
-		coleta.setValue(  coletor.getEmpressaName() );
+		coleta.setValue(  coletor.getEmpresaName() );
 		
 		cancelar.setVisible(false);
 		coleta.setEditable(false);

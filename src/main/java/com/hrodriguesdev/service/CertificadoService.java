@@ -49,7 +49,7 @@ public class CertificadoService {
 	 **/	
 	@SuppressWarnings("unchecked")
 	public List<LineTableEntradaEquipamento> getFem(String termopar){
-		File file = new File(System.getProperty("user.home").toString() + AlfaPirometrosApplication.strDiretorioYggDrasil +"\\" + termopar + ".xls");
+		File file = new File(System.getProperty("user.home").toString() + AlfaPirometrosApplication.URL_DIRETORIO_YGGDRASIL +"\\" + termopar + ".xls");
 		return (List<LineTableEntradaEquipamento>) readFile.getLines(file);
 	}
 //	public CalibracaoEnsaio getCalibracaoEnsaioCarbomax(Ensaios ensaio, List<LineTableEntradaEquipamento> listEntrada) throws NullPointerException{
@@ -136,6 +136,23 @@ public class CertificadoService {
 
 	public Certificado findById(Long id) {
 		return repository.findById(id);
+	}
+
+	public List<Certificado> findAllByEquipamento(Long id) {
+		return repository.findAllByEquipamento(id);
+	}
+
+	public Long add(Certificado certificado) {
+		return repository.add(certificado);
+	}
+
+	public void updateEquipamento(Long certificado_id, Long id, Date valueOf) {
+		repository.updateEquipamento(certificado_id, id, valueOf);
+		
+	}
+
+	public boolean delete(Certificado certificado) {
+		return repository.delete(certificado);
 	}
 	
 }

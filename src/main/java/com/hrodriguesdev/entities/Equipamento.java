@@ -13,11 +13,11 @@ public class Equipamento implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private Long id;
-	private String empressaName;
+	private String empresaName;
 	private String modelo;
 	private String ns;
 	private String pat;
-	private Long empressa;	
+	private Long empresa;	
 	private Long orcamento_id;	
 	private Boolean laboratorio;
 	private Date ultimaCalibDate;	
@@ -36,13 +36,13 @@ public class Equipamento implements Serializable {
 	
 	public Equipamento() {}
 
-	public Equipamento(String empressaName, String modelo, String ns, String pat, Long empressa, String fabricante, String instrumento) {
+	public Equipamento(String empresaName, String modelo, String ns, String pat, Long empresa, String fabricante, String instrumento) {
 		super();
-		this.empressaName = empressaName;
+		this.empresaName = empresaName;
 		this.modelo = modelo;
 		this.ns = ns;
 		this.pat = pat;
-		this.empressa = empressa;
+		this.empresa = empresa;
 		this.fabricante = fabricante;
 		this.instrumento = instrumento;
 	}
@@ -51,11 +51,11 @@ public class Equipamento implements Serializable {
 		Equipamento obj = new Equipamento();
 		try {
 			obj.setId( rs.getLong("Id") );	
-			obj.setEmpressaName( rs.getString("empressaName") );				
+			obj.setEmpresaName( rs.getString("empressaName") );				
 			obj.setModelo( rs.getString("modelo") );  
 			obj.setNs(rs.getString("ns"));
 			obj.setPat(rs.getString("pat"));
-			obj.setEmpressa( rs.getLong( "empresa_id" ) );
+			obj.setEmpresa( rs.getLong( "empresa_id" ) );
 			obj.setOrcamento_id( rs.getLong("orcamento_id"));
 			obj.setLaboratorio( rs.getBoolean( "laboratorio" ));
 			if(rs.getDate( "ultimaCalibDate" )!= null)
@@ -103,12 +103,12 @@ public class Equipamento implements Serializable {
 		this.id = id;
 	}
 
-	public String getEmpressaName() {
-		return empressaName;
+	public String getEmpresaName() {
+		return empresaName;
 	}
 
-	public void setEmpressaName(String empressaName) {
-		this.empressaName = empressaName;
+	public void setEmpresaName(String empresaName) {
+		this.empresaName = empresaName;
 	}
 
 	public String getModelo() {
@@ -151,12 +151,12 @@ public class Equipamento implements Serializable {
 		this.certificado = certificado;
 	}
 
-	public Long getEmpressa() {
-		return empressa;
+	public Long getEmpresa() {
+		return empresa;
 	}
 
-	public void setEmpressa(Long empressa) {
-		this.empressa = empressa;
+	public void setEmpresa(Long empresa) {
+		this.empresa = empresa;
 	}
 
 	public Long getOrcamento_id() {

@@ -22,7 +22,7 @@ public class NewView {
 	public static TabPane TABPANE;
 	public static AnchorPane anchorPane;
 	private final static Image ICON = new Image(
-			AlfaPirometrosApplication.CAMINHO_ICONS + "Yggdrasilicon.jpg");
+			AlfaPirometrosApplication.class.getResource("gui/resources/" + "Yggdrasilicon.jpg").toString());
 	private final static Image LOGO = new Image(
 			AlfaPirometrosApplication.class.getResource("gui/resources/" + "Yggdrasil.jpg").toString());
 	
@@ -40,9 +40,15 @@ public class NewView {
 			fxmlLoader.setController(controller);
 			return fxmlLoader.load();			
 		}catch(IllegalStateException e) {
-			FXMLLoader fxmlLoader = new FXMLLoader(AlfaPirometrosApplication.class.getResource("gui/fxml/" + fxml + ".fxml"));
-			fxmlLoader.setController(controller);
-			return fxmlLoader.load();	
+			try {
+				FXMLLoader fxmlLoader = new FXMLLoader(AlfaPirometrosApplication.class.getResource("gui/fxml/" + fxml + ".fxml"));
+				fxmlLoader.setController(controller);
+				return fxmlLoader.load();	
+			}catch(IllegalStateException e1) {
+					FXMLLoader fxmlLoader = new FXMLLoader(AlfaPirometrosApplication.class.getResource("gui/fxml/tabs/" + fxml + ".fxml"));
+					fxmlLoader.setController(controller);
+					return fxmlLoader.load();	
+			}
 		}
 	}
 	

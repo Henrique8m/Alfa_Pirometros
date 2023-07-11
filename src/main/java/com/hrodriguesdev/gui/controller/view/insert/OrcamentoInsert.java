@@ -22,6 +22,7 @@ import com.hrodriguesdev.utilitary.Geral;
 import com.hrodriguesdev.utilitary.InputFilter;
 import com.hrodriguesdev.utilitary.Log;
 import com.hrodriguesdev.utilitary.NewView;
+import com.hrodriguesdev.utilitary.tabsLoad.TabsMainView;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -243,7 +244,7 @@ public class OrcamentoInsert extends RegisterProductsController implements Initi
 //				erro.setText("Erro");
 //			}
 //		}		
-		AlfaPirometrosApplication.viewController.refreshTable();
+		TabsMainView.MAIN_TAB_CONTROLLER.refreshTableMain();
 	
 	}	
 		
@@ -335,7 +336,7 @@ public class OrcamentoInsert extends RegisterProductsController implements Initi
 	
 //	insere as informações dos equipamento assim que a view abre
 	protected void textFildInserts() {
-				data.setText( Format.formatData.format(orcamento.getData_chegada()) );nomeEmpressa.setText(equipamento.getEmpressaName());
+				data.setText( Format.formatData.format(orcamento.getData_chegada()) );nomeEmpressa.setText(equipamento.getEmpresaName());
 
 		modelo.setText(equipamento.getModelo());
 		ns.setText(equipamento.getNs());

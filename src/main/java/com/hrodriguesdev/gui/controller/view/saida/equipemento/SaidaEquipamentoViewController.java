@@ -11,15 +11,16 @@ import com.hrodriguesdev.controller.EquipamentoController;
 import com.hrodriguesdev.controller.OrcamentoController;
 import com.hrodriguesdev.dao.db.DbException;
 import com.hrodriguesdev.dao.repository.SaidaEquipamentoTransacao;
+import com.hrodriguesdev.dependency.InjecaoDependency;
 import com.hrodriguesdev.entities.Coletor;
 import com.hrodriguesdev.entities.Empresa;
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.entities.Orcamento;
 import com.hrodriguesdev.gui.alert.Alerts;
-import com.hrodriguesdev.gui.controller.view.main.MainViewController;
 import com.hrodriguesdev.relatorio.GeneratorPDF;
 import com.hrodriguesdev.utilitary.Format;
 import com.hrodriguesdev.utilitary.InputFilter;
+import com.hrodriguesdev.utilitary.tabsLoad.TabsMainView;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -44,10 +45,10 @@ public class SaidaEquipamentoViewController implements Initializable {
 	}
 	
 	//@Autowired
-	protected OrcamentoController controller = MainViewController.orcamentoController;
-	protected EquipamentoController equipamentoController = MainViewController.equipamentoController;
-	protected ColetorController coletorController = MainViewController.coletorController;
-	protected EmpresaController empressaController = MainViewController.empressaController;
+	protected OrcamentoController controller = InjecaoDependency.ORCAMENTO_CONTROLLER;
+	protected EquipamentoController equipamentoController = InjecaoDependency.EQUIPAMENTO_CONTROLLER;
+	protected ColetorController coletorController = InjecaoDependency.COLETOR_CONTROLLER;
+	protected EmpresaController empresaController = InjecaoDependency.EMPRESA_CONTROLLER;
 	protected Equipamento equipamento;
 	protected Orcamento orcamento;
 	protected SaidaEquipamentoTransacao transaction = new SaidaEquipamentoTransacao();
@@ -83,7 +84,7 @@ public class SaidaEquipamentoViewController implements Initializable {
 			if(coletor == null)
 				return;
 			GeneratorPDF pdf = new GeneratorPDF();				
-			Empresa empressa = empressaController.find( equipamento.getEmpressa() );		
+			Empresa empressa = empresaController.find( equipamento.getEmpresa() );		
 			
 			if( equipamentoController.updatedeNsPatModelo(equipamento) ) {
 				orcamento.setData_saida(new java.sql.Date(System.currentTimeMillis()));
@@ -120,7 +121,7 @@ public class SaidaEquipamentoViewController implements Initializable {
 			error( "Null Pointer " ,"Null Pointer Exeption");	
 			
 		}		
-		AlfaPirometrosApplication.viewController.refreshTable();;
+		TabsMainView.MAIN_TAB_CONTROLLER.refreshTableMain();
 		
 	}
 
@@ -167,12 +168,12 @@ public class SaidaEquipamentoViewController implements Initializable {
 					return null;
 		}
 		try {	
-			if ( empressaController.isExist(coleta.getValue()) == null ) {
+			if ( empresaController.isExist(coleta.getValue()) == null ) {
 				throw new DbException("Empresa não existe");
 			}
 
 			coletor.setOrcamento_id( equipamento.getOrcamento_id() );	
-			coletor.setEmpressaName(coleta.getValue());
+			coletor.setEmpresaName(coleta.getValue());
 			coletor.setNomeColetor(nomeColetor.getText());
 			coletor.setDataHoraColeta( dataColeta.getText() );
 			coletor.setDate(new java.sql.Date(System.currentTimeMillis()));
@@ -209,7 +210,7 @@ public class SaidaEquipamentoViewController implements Initializable {
 		addListener();
 		imageInit();
 		
-		nomeEmpressa.setText(equipamento.getEmpressaName());
+		nomeEmpressa.setText(equipamento.getEmpresaName());
 	    data.setText(Format.formatData.format( equipamento.getDateChegada() ) );
 	    if(equipamento.getUltimaCalibDate()!=null) 
 	    	ultimaCal.setText(Format.formatData.format( equipamento.getUltimaCalibDate() ) );
@@ -230,7 +231,7 @@ public class SaidaEquipamentoViewController implements Initializable {
 	}
 
 	public void addListener() {
-		obsString =  MainViewController.empressaController.findAll();
+		obsString =  empresaController.findAll();
 		filteredList = new FilteredList<>(obsString);  
 		inputFilter = new InputFilter<String>( coleta, filteredList );
 		coleta.getEditor().textProperty().addListener(inputFilter);	

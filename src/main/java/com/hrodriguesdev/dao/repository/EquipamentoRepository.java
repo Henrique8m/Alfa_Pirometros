@@ -292,11 +292,11 @@ public class EquipamentoRepository {
 					+ "(empressaName, modelo, ns, pat, empresa_id, laboratorio, fabricante, instrumento) " + "VALUES " + "(?, ?, ?, ?, ?, ?, ?, ?)",
 					Statement.RETURN_GENERATED_KEYS);
 
-			pst.setString(1, equipamento.getEmpressaName());
+			pst.setString(1, equipamento.getEmpresaName());
 			pst.setString(2, equipamento.getModelo());
 			pst.setString(3, equipamento.getNs());
 			pst.setString(4, equipamento.getPat());
-			pst.setLong(5, equipamento.getEmpressa());
+			pst.setLong(5, equipamento.getEmpresa());
 			pst.setBoolean(6, false);
 			pst.setString(7, equipamento.getFabricante());
 			pst.setString(8, equipamento.getInstrumento());

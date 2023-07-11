@@ -59,7 +59,7 @@ public class RelatorioGeneratorPDF {
 			
 //			Linha 1
 			List<String> list = new ArrayList<String>();
-			String client = equipamento.getEmpressaName();
+			String client = equipamento.getEmpresaName();
 			client = client.length() <= 34 ? client : client.substring(0,34);
 			list.add("Cliente: " + client );
 			table.addCell(addCell(list,10,10,Element.ALIGN_LEFT));

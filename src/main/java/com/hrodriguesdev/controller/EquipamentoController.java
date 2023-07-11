@@ -18,8 +18,8 @@ public class EquipamentoController {
 		return equipamentoService.findByName(name);
 	}
 	
-	public ObservableList<Equipamento> findByIdEmpressa(Long id, Boolean laboratorio) throws DbException, SQLException {
-		return equipamentoService.findByIdEmpressa(id, laboratorio);
+	public ObservableList<Equipamento> findByIdEmpresa(Long id, Boolean laboratorio) throws DbException, SQLException {
+		return equipamentoService.findByIdEmpresa(id, laboratorio);
 	}
 		
 //		public ObservableList<Equipamento> findAllByLaboratorio(boolean laboratorio) throws DbException, SQLException {

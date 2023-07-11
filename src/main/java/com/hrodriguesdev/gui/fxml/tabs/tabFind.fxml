@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<TabPane tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+   <tabs>
+      <Tab fx:id="tabBuscar" disable="true" text="Busca/ Equipamentos">
+         <content>
+            <AnchorPane minHeight="300.0" minWidth="400.0" prefHeight="700.0" prefWidth="1250.0">
+               <children>
+                  <HBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="500.0" minWidth="500.0" prefHeight="1031.0" prefWidth="726.0" style="-fx-background-color: #c9c9c9; -fx-background-radius: 15;">
+                           <children>
+                              <HBox alignment="CENTER" minWidth="500.0" prefHeight="36.0" prefWidth="750.0">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="BUSCA DE EQUIPAMENTOS / EMPRESA " textAlignment="CENTER" wrappingWidth="403.27734375">
+                                       <font>
+                                          <Font name="Comic Sans MS" size="20.0" />
+                                       </font>
+                                    </Text>
+                                 </children>
+                              </HBox>
+                              <HBox minHeight="50.0" minWidth="500.0" prefHeight="50.0" prefWidth="726.0">
+                                 <children>
+                                    <VBox minWidth="225.0" prefHeight="67.0" prefWidth="300.0" style="-fx-background-color: #c9c9c9;">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Empresa" wrappingWidth="154.13671875" />
+                                          <ComboBox fx:id="textEmpresa" editable="true" focusTraversable="false" minWidth="225.0" onKeyReleased="#enter" prefHeight="25.0" prefWidth="300.0" />
+                                       </children>
+                                    </VBox>
+                                    <VBox minWidth="100.0" prefHeight="67.0" prefWidth="170.0">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="NS" wrappingWidth="110.13671875" />
+                                          <TextField fx:id="textNsEquip" minWidth="95.0" onKeyReleased="#enter" prefHeight="25.0" prefWidth="170.0" />
+                                       </children>
+                                       <HBox.margin>
+                                          <Insets left="20.0" />
+                                       </HBox.margin>
+                                    </VBox>
+                                    <VBox minWidth="100.0" prefHeight="67.0" prefWidth="170.0">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="PAT" wrappingWidth="91.13671875" />
+                                          <TextField fx:id="textPatEquip" minWidth="86.0" onKeyReleased="#enter" prefHeight="25.0" prefWidth="170.0" />
+                                       </children>
+                                       <opaqueInsets>
+                                          <Insets />
+                                       </opaqueInsets>
+                                       <HBox.margin>
+                                          <Insets left="20.0" right="10.0" />
+                                       </HBox.margin>
+                                    </VBox>
+                                 </children>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                                 <padding>
+                                    <Insets left="20.0" />
+                                 </padding>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" minHeight="50.0" minWidth="500.0" prefHeight="50.0" prefWidth="726.0">
+                                 <children>
+                                    <Button mnemonicParsing="false" onAction="#buscar" prefHeight="35.0" prefWidth="135.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Buscar">
+                                       <graphic>
+                                          <ImageView fx:id="buscar1" fitHeight="23.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true" />
+                                       </graphic>
+                                       <HBox.margin>
+                                          <Insets left="20.0" right="20.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                    <Button mnemonicParsing="false" onAction="#adcionarEquipamento" prefHeight="35.0" prefWidth="224.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Habilitar adcionar equipamento">
+                                       <graphic>
+                                          <ImageView fx:id="pdf" fitHeight="23.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true" />
+                                       </graphic>
+                                       <padding>
+                                          <Insets left="10.0" />
+                                       </padding>
+                                       <HBox.margin>
+                                          <Insets left="20.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                    <Button fx:id="Adcionar" mnemonicParsing="false" onAction="#adcionar" prefHeight="35.0" prefWidth="135.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Adcionar" visible="false">
+                                       <HBox.margin>
+                                          <Insets left="20.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                    <Button fx:id="EditarEquip" mnemonicParsing="false" onAction="#editar" prefHeight="35.0" prefWidth="135.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Editar" visible="false" />
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="10.0" />
+                                 </padding>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </HBox>
+                              <HBox alignment="TOP_RIGHT" prefHeight="43.0" prefWidth="726.0">
+                                 <children>
+                                    <Button fx:id="cancelar" mnemonicParsing="false" onAction="#cancelarEdit" prefHeight="35.0" prefWidth="135.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Cancelar" visible="false">
+                                       <graphic>
+                                          <ImageView fx:id="cancelarImg" fitHeight="24.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true" />
+                                       </graphic>
+                                    </Button>
+                                    <Button fx:id="salvar" mnemonicParsing="false" onAction="#salvarEdit" prefHeight="35.0" prefWidth="135.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Salvar" visible="false">
+                                       <graphic>
+                                          <ImageView fx:id="salvarImg" fitHeight="23.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true" />
+                                       </graphic>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                              <TableView fx:id="tableFindEquipamentos" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="300.0" minWidth="500.0" onKeyPressed="#deletEquipamento" onMouseClicked="#clickEquipamentos" prefHeight="924.0" prefWidth="750.0" style="-fx-background-radius: 10;">
+                                 <columns>
+                                    <TableColumn fx:id="empressaFind" maxWidth="200.0" minWidth="150.0" prefWidth="200.0" text="Empresa" />
+                                    <TableColumn fx:id="nsFind" maxWidth="137.5" minWidth="87.5" prefWidth="137.5" text="Ns" />
+                                    <TableColumn fx:id="patFind" maxWidth="137.5" minWidth="87.5" prefWidth="137.5" text="Pat" />
+                                    <TableColumn fx:id="dateChegadaFind" maxWidth="137.5" minWidth="87.5" prefWidth="137.5" text="Data Chegada" />
+                                    <TableColumn fx:id="dataSaidaFind" maxWidth="137.5" minWidth="87.5" prefWidth="137.5" text="Data Saída" />
+                                 </columns>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
+                              </TableView>
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                        </VBox>
+                        <SplitPane dividerPositions="0.21671525753158405" focusTraversable="false" minWidth="520.0" orientation="VERTICAL" prefHeight="1031.0" prefWidth="715.0">
+                           <items>
+                              <AnchorPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="232.0" prefWidth="707.0">
+                                 <children>
+                                    <VBox alignment="CENTER" style="-fx-background-color: #e1e1e1; -fx-background-radius: 15;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <children>
+                                          <HBox fx:id="buscaHbox1" alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="58.0">
+                                             <children>
+                                                <VBox maxHeight="-Infinity" minHeight="-Infinity" prefHeight="44.0" prefWidth="330.0">
+                                                   <children>
+                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="NOME DA EMPRESSA" wrappingWidth="174.13671875" />
+                                                      <TextField fx:id="nomeEmpressaClick" editable="false" focusTraversable="false" minWidth="225.0" prefWidth="300.0" />
+                                                   </children>
+                                                </VBox>
+                                                <VBox maxHeight="-Infinity" minHeight="-Infinity" prefHeight="45.0" prefWidth="138.0">
+                                                   <children>
+                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="NS" wrappingWidth="39.13671875" />
+                                                      <TextField fx:id="nsClick" editable="false" focusTraversable="false" minWidth="100.0" prefHeight="25.0" prefWidth="170.0" />
+                                                   </children>
+                                                   <HBox.margin>
+                                                      <Insets left="20.0" />
+                                                   </HBox.margin>
+                                                </VBox>
+                                                <VBox maxHeight="-Infinity" minHeight="-Infinity" prefHeight="45.0" prefWidth="138.0">
+                                                   <children>
+                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="PAT" wrappingWidth="30.13671875" />
+                                                      <TextField fx:id="patClick" editable="false" focusTraversable="false" prefHeight="25.0" prefWidth="79.0" />
+                                                   </children>
+                                                   <HBox.margin>
+                                                      <Insets left="20.0" />
+                                                   </HBox.margin>
+                                                </VBox>
+                                             </children>
+                                          </HBox>
+                                          <HBox fx:id="buscaHbox2" alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="58.0">
+                                             <children>
+                                                <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="64.0" prefHeight="45.0" prefWidth="138.0">
+                                                   <children>
+                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="MODELO" wrappingWidth="75.13671875" />
+                                                      <TextField fx:id="modeloClick" editable="false" focusTraversable="false" onKeyReleased="#onKeyModelo" prefHeight="25.0" prefWidth="138.0" />
+                                                   </children>
+                                                   <HBox.margin>
+                                                      <Insets />
+                                                   </HBox.margin>
+                                                </VBox>
+                                                <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="64.0" prefHeight="45.0" prefWidth="138.0">
+                                                   <children>
+                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="FABRICANTE" wrappingWidth="75.13671875" />
+                                                      <TextField fx:id="fabricanteClick" editable="false" focusTraversable="false" prefHeight="25.0" prefWidth="138.0" />
+                                                   </children>
+                                                   <HBox.margin>
+                                                      <Insets left="20.0" />
+                                                   </HBox.margin>
+                                                </VBox>
+                                                <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="64.0" prefHeight="42.0" prefWidth="330.0">
+                                                   <children>
+                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="EQUIPAMENTO" wrappingWidth="89.13671875" />
+                                                      <TextField fx:id="equipamentoClick" editable="false" focusTraversable="false" prefHeight="25.0" prefWidth="138.0" />
+                                                   </children>
+                                                   <HBox.margin>
+                                                      <Insets left="20.0" />
+                                                   </HBox.margin>
+                                                </VBox>
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER" minHeight="-Infinity" prefHeight="58.0">
+                                             <children>
+                                                <VBox maxHeight="-Infinity" minHeight="-Infinity" prefHeight="45.0" prefWidth="138.0">
+                                                   <children>
+                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="DATA CHEGADA" wrappingWidth="92.13671875" />
+                                                      <TextField fx:id="dataChegadaClick" editable="false" focusTraversable="false" prefHeight="25.0" />
+                                                   </children>
+                                                   <HBox.margin>
+                                                      <Insets />
+                                                   </HBox.margin>
+                                                </VBox>
+                                                <VBox maxHeight="-Infinity" minHeight="-Infinity" prefHeight="45.0" prefWidth="155.0">
+                                                   <children>
+                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="RELATORIO" wrappingWidth="75.13671875" />
+                                                      <TextField fx:id="relatorioClick" editable="false" focusTraversable="false" prefHeight="25.0" />
+                                                   </children>
+                                                   <HBox.margin>
+                                                      <Insets left="20.0" />
+                                                   </HBox.margin>
+                                                </VBox>
+                                                <VBox maxHeight="-Infinity" minHeight="-Infinity" prefHeight="45.0" prefWidth="155.0">
+                                                   <children>
+                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="OS" wrappingWidth="75.13671875" />
+                                                      <TextField fx:id="osClick" editable="false" focusTraversable="false" prefHeight="25.0" />
+                                                   </children>
+                                                   <HBox.margin>
+                                                      <Insets left="20.0" />
+                                                   </HBox.margin>
+                                                </VBox>
+                                                <VBox maxHeight="-Infinity" minHeight="-Infinity" prefHeight="45.0" prefWidth="138.0">
+                                                   <HBox.margin>
+                                                      <Insets left="20.0" />
+                                                   </HBox.margin>
+                                                   <children>
+                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ULTIMA CAL" wrappingWidth="69.13671875" />
+                                                      <TextField fx:id="ultimaCalClick" editable="false" focusTraversable="false" prefHeight="25.0" />
+                                                   </children>
+                                                </VBox>
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="58.0">
+                                             <children>
+                                                <VBox maxHeight="-Infinity" minHeight="-Infinity" prefHeight="45.0" prefWidth="138.0">
+                                                   <children>
+                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="DATA SAÍDA" wrappingWidth="75.13671875" />
+                                                      <TextField fx:id="dataSaidaClick" editable="false" focusTraversable="false" prefHeight="25.0" />
+                                                   </children>
+                                                </VBox>
+                                                <VBox maxHeight="-Infinity" minHeight="-Infinity" prefHeight="45.0" prefWidth="155.0">
+                                                   <children>
+                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="EMPRESSA / COLETA" wrappingWidth="117.13671875" />
+                                                      <TextField fx:id="empressaColetaClick" editable="false" focusTraversable="false" prefHeight="25.0" />
+                                                   </children>
+                                                   <HBox.margin>
+                                                      <Insets left="20.0" />
+                                                   </HBox.margin>
+                                                </VBox>
+                                                <VBox maxHeight="-Infinity" minHeight="-Infinity" prefHeight="45.0" prefWidth="155.0">
+                                                   <HBox.margin>
+                                                      <Insets left="20.0" />
+                                                   </HBox.margin>
+                                                   <children>
+                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="DATA COLETA" wrappingWidth="91.13671875" />
+                                                      <TextField fx:id="dataColetaClick" editable="false" focusTraversable="false" prefHeight="25.0" />
+                                                   </children>
+                                                </VBox>
+                                                <VBox maxHeight="-Infinity" minHeight="-Infinity" prefHeight="45.0" prefWidth="138.0">
+                                                   <children>
+                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="NOME COLETOR" wrappingWidth="102.13671875" />
+                                                      <TextField fx:id="nomeColetorClick" editable="false" focusTraversable="false" prefHeight="25.0" />
+                                                   </children>
+                                                   <HBox.margin>
+                                                      <Insets left="20.0" />
+                                                   </HBox.margin>
+                                                </VBox>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                       <opaqueInsets>
+                                          <Insets />
+                                       </opaqueInsets>
+                                    </VBox>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane style="-fx-background-color: #e1e1e1; -fx-background-radius: 15;">
+                                 <children>
+                                    <VBox alignment="TOP_CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <children>
+                                          <HBox>
+                                             <children>
+                                                <VBox alignment="TOP_CENTER">
+                                                   <children>
+                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ORCAMENTOS" textAlignment="CENTER">
+                                                         <VBox.margin>
+                                                            <Insets bottom="10.0" top="5.0" />
+                                                         </VBox.margin>
+                                                      </Text>
+                                                      <TableView fx:id="tableOrcamentos" onKeyPressed="#editOrcamento" onMouseClicked="#clickOrcamento" prefHeight="300.0">
+                                                         <columns>
+                                                            <TableColumn fx:id="relatorioTable" maxWidth="200.0" minWidth="-Infinity" prefWidth="120.0" text="Relatorio" />
+                                                            <TableColumn fx:id="chegadaTable" maxWidth="200.0" minWidth="-Infinity" prefWidth="120.0" text="Chegada" />
+                                                            <TableColumn fx:id="saidaTable" maxWidth="200.0" minWidth="-Infinity" prefWidth="120.0" text="Saída" />
+                                                         </columns>
+                                                         <columnResizePolicy>
+                                                            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                                         </columnResizePolicy>
+                                                         <VBox.margin>
+                                                            <Insets bottom="5.0" left="5.0" />
+                                                         </VBox.margin>
+                                                      </TableView>
+                                                   </children>
+                                                </VBox>
+                                                <VBox alignment="TOP_CENTER">
+                                                   <children>
+                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="OBERVAÇÕES" textAlignment="CENTER">
+                                                         <VBox.margin>
+                                                            <Insets bottom="10.0" top="5.0" />
+                                                         </VBox.margin>
+                                                      </Text>
+                                                      <TextArea fx:id="itensOrcamentoClick" editable="false" focusTraversable="false" prefHeight="300.0">
+                                                         <VBox.margin>
+                                                            <Insets bottom="5.0" left="5.0" right="5.0" />
+                                                         </VBox.margin>
+                                                      </TextArea>
+                                                   </children>
+                                                </VBox>
+                                             </children>
+                                          </HBox>
+                                          <TableView fx:id="productSelectedTable" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+                                             <columns>
+                                                <TableColumn fx:id="productsSelected" maxWidth="440.0" minWidth="100.0" prefWidth="270.0" text="Produto" />
+                                                <TableColumn fx:id="descriptionSelected" maxWidth="440.0" minWidth="100.0" prefWidth="270.0" text="Descrição" />
+                                                <TableColumn fx:id="amountSelected" maxWidth="75.0" minWidth="75.0" prefWidth="75.0" text="Quantidade" />
+                                                <TableColumn fx:id="unitMeasurementSelected" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="Unidade Medida" />
+                                             </columns>
+                                             <columnResizePolicy>
+                                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                             </columnResizePolicy>
+                                          </TableView>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </AnchorPane>
+                           </items>
+                        </SplitPane>
+                     </children>
+                  </HBox>
+               </children>
+            </AnchorPane>
+         </content>
+         <graphic>
+            <ImageView fx:id="buscar" fitHeight="22.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true" />
+         </graphic>
+      </Tab>
+   </tabs>
+</TabPane>

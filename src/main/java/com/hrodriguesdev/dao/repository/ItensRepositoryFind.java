@@ -155,9 +155,7 @@ public class ItensRepositoryFind {
 					consumo.remove(rs);
 				else if(rs.getBoolean("entrada"))
 					consumo.add(rs);
-				else {
-//					System.out.println(rs.getBoolean("entrada"));
-//					System.out.println(rs.getBoolean("saida")+"\n");					
+				else {				
 					list.add(rs.getLong("orcamento_id"));
 				}
 		}catch(DbException | SQLException e) {
@@ -170,19 +168,6 @@ public class ItensRepositoryFind {
 			DB.closeConnection();
 			
 		}
-		/*
-		 * OrcamentoRepository repo = new OrcamentoRepository(); EquipamentoRepository
-		 * repoe = new EquipamentoRepository(); for(Long id : list) { Orcamento or =
-		 * repo.getOrcamento(id); try { Thread.sleep(100); Equipamento eq =
-		 * repoe.findById(or.getEquipamento_id()); System.out.println("Laboratorio = " +
-		 * or.getLaboratorio()+ "\nEmpresa = " + eq.getEmpressaName() + "\nItem = " +
-		 * or.getItem() + "Equipamento ns = "+ eq.getNs() +" - "+ eq.getPat() + "\n");
-		 * 
-		 * 
-		 * 
-		 * }catch (Exception e) { e.getMessage(); }
-		 *	}
-		 */		
 		return consumo;
 	}
 

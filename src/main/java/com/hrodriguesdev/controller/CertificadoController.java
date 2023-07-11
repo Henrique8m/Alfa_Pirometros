@@ -1,5 +1,8 @@
 package com.hrodriguesdev.controller;
 
+import java.sql.Date;
+import java.util.List;
+
 import com.hrodriguesdev.ExceptionAlfa;
 import com.hrodriguesdev.certificado.pdf.PdfCertificado;
 import com.hrodriguesdev.dao.db.DbException;
@@ -21,7 +24,7 @@ public class CertificadoController {
 	
 	public boolean gerarCertificadoPDF(Certificado certificado) throws ExceptionAlfa , DbException, NullPointerException{
 		Equipamento equipamento = equipamentoController.findById(certificado.getEquipamento_id());
-		Empresa empresa = empresaController.find(equipamento.getEmpressa());
+		Empresa empresa = empresaController.find(equipamento.getEmpresa());
 		DescricaoInstrumento descricao = service.getDescricao(equipamento.getModelo());
 		Padrao padrao = service.getPadrao(certificado.getDate_cal());
 		Ensaios ensaio = ensaioController.findById(certificado.getEnsaio_id());
@@ -49,6 +52,22 @@ public class CertificadoController {
 
 	public Certificado findById(Long id) {		
 		return service.findById(id);
+	}
+
+	public List<Certificado> findAllByEquipamento(Long id) {
+		return service.findAllByEquipamento(id);
+	}
+
+	public Long add(Certificado certificado) {
+		return service.add(certificado);
+	}
+
+	public void updateEquipamento(Long certificado_id, Long id, Date valueOf) {
+		service.updateEquipamento(certificado_id, id, valueOf);
+	}
+
+	public boolean delete(Certificado certificado) {
+		return service.delete(certificado);
 	}
 		
 }

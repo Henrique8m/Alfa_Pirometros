@@ -13,7 +13,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.ImageView;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class LoadViewController implements Initializable {
@@ -48,7 +47,7 @@ public class LoadViewController implements Initializable {
 		new Thread(task).start();		
 		
 		timeline = new Timeline(new KeyFrame(Duration.seconds(1), ev -> {
-			if (AlfaPirometrosApplication.springStart) {
+			if (AlfaPirometrosApplication.MAIN_TAB_VIEW_SHOW) {
 				timeline.pause();
 				openView();
 				AlfaPirometrosApplication.stage.close();

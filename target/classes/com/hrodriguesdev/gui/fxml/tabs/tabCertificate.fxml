@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<TabPane tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+   <tabs>
+      <Tab fx:id="tabCertificado" disable="true" text="Certificados">
+         <content>
+            <AnchorPane minHeight="300.0" minWidth="400.0" prefHeight="700.0" prefWidth="1250.0">
+               <children>
+                  <HBox prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="500.0" minWidth="500.0" prefHeight="1031.0" prefWidth="726.0" style="-fx-background-color: #c9c9c9; -fx-background-radius: 15;">
+                           <children>
+                              <HBox alignment="CENTER" minWidth="500.0" prefHeight="36.0" prefWidth="750.0">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="BUSCA DE EQUIPAMENTOS / EMPRESA " textAlignment="CENTER" wrappingWidth="403.27734375">
+                                       <font>
+                                          <Font name="Comic Sans MS" size="20.0" />
+                                       </font>
+                                    </Text>
+                                 </children>
+                              </HBox>
+                              <HBox minHeight="50.0" minWidth="500.0" prefHeight="50.0" prefWidth="726.0">
+                                 <children>
+                                    <VBox minWidth="225.0" prefHeight="67.0" prefWidth="300.0" style="-fx-background-color: #c9c9c9;">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Empresa" wrappingWidth="154.13671875" />
+                                          <ComboBox fx:id="textEmpresaCertificado" editable="true" minWidth="225.0" onKeyReleased="#enter" prefHeight="25.0" prefWidth="300.0" />
+                                       </children>
+                                    </VBox>
+                                    <VBox minWidth="100.0" prefHeight="67.0" prefWidth="170.0">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ns: Equipamento" wrappingWidth="110.13671875" />
+                                          <TextField fx:id="textNsEquipCertificado" minWidth="95.0" onKeyReleased="#enter" prefHeight="25.0" prefWidth="170.0" />
+                                       </children>
+                                       <HBox.margin>
+                                          <Insets left="20.0" />
+                                       </HBox.margin>
+                                    </VBox>
+                                    <VBox minWidth="100.0" prefHeight="67.0" prefWidth="170.0">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Pat Equipamento" wrappingWidth="91.13671875" />
+                                          <TextField fx:id="textPatEquipCertificado" minWidth="86.0" onKeyReleased="#enter" prefHeight="25.0" prefWidth="170.0" />
+                                       </children>
+                                       <opaqueInsets>
+                                          <Insets />
+                                       </opaqueInsets>
+                                       <HBox.margin>
+                                          <Insets left="20.0" right="10.0" />
+                                       </HBox.margin>
+                                    </VBox>
+                                 </children>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                                 <padding>
+                                    <Insets left="20.0" />
+                                 </padding>
+                              </HBox>
+                              <TableView fx:id="tableEquipamentosCertificados" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="300.0" minWidth="500.0" onMouseClicked="#clickEquipamentos" prefHeight="924.0" prefWidth="750.0" style="-fx-background-radius: 10;">
+                                 <columns>
+                                    <TableColumn fx:id="empressaCertificado" maxWidth="200.0" minWidth="150.0" prefWidth="200.0" text="Empresa" />
+                                    <TableColumn fx:id="nsCertificado" maxWidth="137.5" minWidth="87.5" prefWidth="137.5" text="Ns" />
+                                    <TableColumn fx:id="patCertificado" maxWidth="137.5" minWidth="87.5" prefWidth="137.5" text="Pat" />
+                                    <TableColumn fx:id="modeloCertificado" maxWidth="195.0" prefWidth="170.0" text="modelo" />
+                                 </columns>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
+                              </TableView>
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                        </VBox>
+                        <SplitPane dividerPositions="0.21671525753158405, 0.7687074829931972" focusTraversable="false" minWidth="500.0" orientation="VERTICAL" prefHeight="1031.0" prefWidth="687.0">
+                           <items>
+                              <AnchorPane maxHeight="220.0" minHeight="220.0">
+                                 <children>
+                                    <VBox alignment="CENTER" minHeight="220.0" minWidth="500.0" prefHeight="220.0" prefWidth="726.0" style="-fx-background-color: #e1e1e1; -fx-background-radius: 15;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <children>
+                                          <HBox>
+                                             <children>
+                                                <VBox minWidth="179.0" prefHeight="42.0" prefWidth="216.0">
+                                                   <children>
+                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="NOME DA EMPRESSA" wrappingWidth="174.13671875" />
+                                                      <TextField fx:id="nomeEmpressaClickCertificado" editable="false" focusTraversable="false" minWidth="154.0" prefHeight="25.0" prefWidth="154.0" />
+                                                   </children>
+                                                </VBox>
+                                                <VBox minWidth="100.0" prefHeight="42.0" prefWidth="104.0">
+                                                   <children>
+                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="NS" wrappingWidth="39.13671875" />
+                                                      <TextField fx:id="nsClickCertificado" editable="false" focusTraversable="false" minWidth="100.0" prefHeight="25.0" prefWidth="107.0" />
+                                                   </children>
+                                                   <HBox.margin>
+                                                      <Insets left="20.0" />
+                                                   </HBox.margin>
+                                                </VBox>
+                                                <VBox minWidth="100.0" prefHeight="42.0" prefWidth="115.0">
+                                                   <children>
+                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="PAT" wrappingWidth="65.13671875" />
+                                                      <TextField fx:id="patClickCertificado" editable="false" focusTraversable="false" prefHeight="25.0" prefWidth="120.0" />
+                                                   </children>
+                                                   <HBox.margin>
+                                                      <Insets left="20.0" />
+                                                   </HBox.margin>
+                                                </VBox>
+                                                <VBox minWidth="102.5" prefWidth="138.0">
+                                                   <children>
+                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="MODELO" wrappingWidth="75.13671875" />
+                                                      <TextField fx:id="modeloClickCertificado" editable="false" focusTraversable="false" minWidth="102.5" prefHeight="25.0" prefWidth="138.0" />
+                                                   </children>
+                                                   <HBox.margin>
+                                                      <Insets left="20.0" />
+                                                   </HBox.margin>
+                                                </VBox>
+                                             </children>
+                                             <padding>
+                                                <Insets left="20.0" right="20.0" top="20.0" />
+                                             </padding>
+                                          </HBox>
+                                          <HBox>
+                                             <padding>
+                                                <Insets left="20.0" right="20.0" top="20.0" />
+                                             </padding>
+                                          </HBox>
+                                          <HBox prefHeight="74.0" prefWidth="685.0">
+                                             <children>
+                                                <VBox minWidth="102.5" prefWidth="138.0">
+                                                   <children>
+                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Numero Certificado" wrappingWidth="135.13671875" />
+                                                      <TextField fx:id="numeroCertificadoNovo" minWidth="102.5" prefHeight="25.0" prefWidth="138.0" />
+                                                   </children>
+                                                   <HBox.margin>
+                                                      <Insets left="20.0" />
+                                                   </HBox.margin>
+                                                </VBox>
+                                                <VBox minWidth="102.5" prefWidth="138.0">
+                                                   <children>
+                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Data Calibração" wrappingWidth="135.13671875" />
+                                                      <DatePicker fx:id="dataCalibracaoNovo" />
+                                                   </children>
+                                                   <HBox.margin>
+                                                      <Insets left="20.0" />
+                                                   </HBox.margin>
+                                                </VBox>
+                                                <Button mnemonicParsing="false" onAction="#salvarCertificado" prefHeight="42.0" prefWidth="181.0" style="-fx-background-radius: 10;" text="Salvar Certificado">
+                                                   <HBox.margin>
+                                                      <Insets left="20.0" />
+                                                   </HBox.margin>
+                                                </Button>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                       <opaqueInsets>
+                                          <Insets />
+                                       </opaqueInsets>
+                                    </VBox>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane minHeight="300.0" prefHeight="831.0" style="-fx-background-color: #e1e1e1; -fx-background-radius: 15;">
+                                 <children>
+                                    <HBox prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <children>
+                                          <TableView fx:id="tableCertificado" onKeyPressed="#delete" onMouseClicked="#clickCertificado" prefHeight="562.0" prefWidth="386.0" style="-fx-background-radius: 10;">
+                                             <columns>
+                                                <TableColumn fx:id="dataCalibracao" prefWidth="159.0" text="DATA DA CALIBRAÇÂO" />
+                                                <TableColumn fx:id="numeroCertificado" minWidth="0.0" prefWidth="184.0" text="NUMERO DO CERTIFICADO" />
+                                             </columns>
+                                          </TableView>
+                                          <VBox alignment="TOP_CENTER" prefHeight="562.0" prefWidth="341.0">
+                                             <children>
+                                                <Button mnemonicParsing="false" onAction="#relacionarCertificado" prefHeight="42.0" prefWidth="181.0" style="-fx-background-radius: 10;" text="Relacionar C/Ensaio">
+                                                   <VBox.margin>
+                                                      <Insets bottom="20.0" />
+                                                   </VBox.margin>
+                                                </Button>
+                                                <Button mnemonicParsing="false" onAction="#printCertificado" prefHeight="42.0" prefWidth="181.0" style="-fx-background-radius: 10;" text="Print Certificado">
+                                                   <VBox.margin>
+                                                      <Insets bottom="20.0" />
+                                                   </VBox.margin>
+                                                </Button>
+                                                <Button mnemonicParsing="false" onAction="#referenciaEquipamento" prefHeight="42.0" prefWidth="181.0" style="-fx-background-radius: 10;" text="Referencia Equipamento">
+                                                   <VBox.margin>
+                                                      <Insets bottom="20.0" />
+                                                   </VBox.margin>
+                                                </Button>
+                                                <TextArea fx:id="certificadoText" prefHeight="200.0" prefWidth="200.0" wrapText="true">
+                                                   <VBox.margin>
+                                                      <Insets bottom="20.0" />
+                                                   </VBox.margin>
+                                                </TextArea>
+                                             </children>
+                                             <HBox.margin>
+                                                <Insets left="20.0" right="20.0" top="20.0" />
+                                             </HBox.margin>
+                                          </VBox>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </AnchorPane>
+                              <GridPane alignment="CENTER" gridLinesVisible="true" prefHeight="338.0" prefWidth="685.0">
+                                 <columnConstraints>
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="159.0" minWidth="10.0" prefWidth="159.0" />
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="133.0" minWidth="10.0" prefWidth="122.0" />
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="25.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="25.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="25.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="25.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Referencia" wrappingWidth="57.27734375" />
+                                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="1º Valor" />
+                                          <TextField fx:id="refeVal1" alignment="CENTER" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="25.0" prefWidth="100.0" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="2">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="2º Valor" />
+                                          <TextField fx:id="refeVal2" alignment="CENTER" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="25.0" prefWidth="100.0" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="3">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="3º Valor" />
+                                          <TextField fx:id="refeVal3" alignment="CENTER" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="25.0" prefWidth="100.0" />
+                                       </children>
+                                    </HBox>
+                                    <TextField fx:id="aplicado1" alignment="CENTER" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="25.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <TextField fx:id="aplicado2" alignment="CENTER" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="25.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <TextField fx:id="aplicado3" alignment="CENTER" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="25.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                    <TextField fx:id="sinalCalibr11" alignment="CENTER" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="25.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                    <TextField fx:id="sinalCalibr12" alignment="CENTER" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="25.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                                    <TextField fx:id="sinalCalibr13" alignment="CENTER" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="25.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                                    <TextField fx:id="sinalCalibr21" alignment="CENTER" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="25.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                                    <TextField fx:id="sinalCalibr22" alignment="CENTER" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="25.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                                    <TextField fx:id="sinalCalibr23" alignment="CENTER" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="25.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="1º Sinal Aplicado" GridPane.columnIndex="1" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="1º Sinal Calibração" GridPane.columnIndex="2" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="2º Sinal Calibração" GridPane.columnIndex="3" />
+                                 </children>
+                              </GridPane>
+                           </items>
+                        </SplitPane>
+                     </children>
+                  </HBox>
+               </children>
+            </AnchorPane>
+         </content>
+         <graphic>
+            <ImageView fx:id="certificadoImg" fitHeight="23.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true" />
+         </graphic>
+      </Tab>
+   </tabs>
+</TabPane>

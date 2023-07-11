@@ -12,7 +12,7 @@ import com.hrodriguesdev.AlfaPirometrosApplication;
 public class UserData {
 	
 	private File arquivoProperties;
-	private String caminho = System.getProperty("user.home").toString() + AlfaPirometrosApplication.strDiretorioYggDrasil;
+	private String caminho = System.getProperty("user.home").toString() + AlfaPirometrosApplication.URL_DIRETORIO_YGGDRASIL;
 	private String nameProperties = "UserConfig.properties";
 	
 	public void writeFile(String data) {

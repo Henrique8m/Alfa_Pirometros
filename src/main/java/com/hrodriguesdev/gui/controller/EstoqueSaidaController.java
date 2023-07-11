@@ -120,7 +120,7 @@ public class EstoqueSaidaController  extends OrcamentoInsert implements Initiali
 		Coletor coletor = new Coletor();
 		try {	
 			coletor.setOrcamento_id( orcamento_id);	
-			coletor.setEmpressaName(empressaComboBox.getValue());
+			coletor.setEmpresaName(empressaComboBox.getValue());
 			coletor.setNomeColetor(responsavel.getText());
 			coletor.setDate(new java.sql.Date(System.currentTimeMillis()));
 			coletor.setHoraColeta( Integer.parseInt( Format.formataTimeInt.format(new Date(System.currentTimeMillis() )  ) ) );

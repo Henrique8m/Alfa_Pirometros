@@ -6,15 +6,20 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import com.hrodriguesdev.AlfaPirometrosApplication;
+import com.hrodriguesdev.controller.ColetorController;
+import com.hrodriguesdev.controller.EmpresaController;
+import com.hrodriguesdev.controller.EquipamentoController;
+import com.hrodriguesdev.controller.OrcamentoController;
 import com.hrodriguesdev.dao.db.DbException;
+import com.hrodriguesdev.dependency.InjecaoDependency;
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.entities.Orcamento;
 import com.hrodriguesdev.gui.alert.Alerts;
-import com.hrodriguesdev.gui.controller.view.main.MainViewController;
 import com.hrodriguesdev.utilitary.Format;
 import com.hrodriguesdev.utilitary.Geral;
 import com.hrodriguesdev.utilitary.InputFilter;
 import com.hrodriguesdev.utilitary.NewView;
+import com.hrodriguesdev.utilitary.tabsLoad.TabsMainView;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -40,7 +45,7 @@ import javafx.scene.text.Text;
 //Chamado atraves do EquipamentoMainView
 //Chamado atraves do EquipamentoInsert
 public class EquipamentoEntradaViewController implements Initializable{
-	private String empressa;
+	private String empresa;
 	@FXML
 	protected ImageView cancelarImg, salvarImg,  logoYgg;
 	@FXML
@@ -68,17 +73,23 @@ public class EquipamentoEntradaViewController implements Initializable{
 	private TableColumn<Equipamento, Date> ultimaCal;
     private  ObservableList<Equipamento> obsListEquipamentos = FXCollections.observableArrayList();
     
+	//@Autowired
+	protected OrcamentoController orcamentoController = InjecaoDependency.ORCAMENTO_CONTROLLER;
+	protected EquipamentoController equipamentoController = InjecaoDependency.EQUIPAMENTO_CONTROLLER;
+	protected ColetorController coletorController = InjecaoDependency.COLETOR_CONTROLLER;
+	protected EmpresaController empresaController = InjecaoDependency.EMPRESA_CONTROLLER;
+    
     public EquipamentoEntradaViewController() {}
     
-    public EquipamentoEntradaViewController(String nomeEmpressa) {
-    	this.empressa = nomeEmpressa;
+    public EquipamentoEntradaViewController(String nomeEmpresa) {
+    	this.empresa = nomeEmpresa;
     }
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		addListener();
-		if(empressa != null) {
-			nomeEmpressa.setValue(empressa);
+		if(empresa != null) {
+			nomeEmpressa.setValue(empresa);
 			buscar(new ActionEvent());
 		}
 		
@@ -126,13 +137,13 @@ public class EquipamentoEntradaViewController implements Initializable{
 			return;
 		}
 		try {
-			Long empressa_id = MainViewController.empressaController.isExist( nomeEmpressa.getValue()  );
+			Long empressa_id = empresaController.isExist( nomeEmpressa.getValue()  );
 			if ( empressa_id == null ) {
 				erro.setVisible(true);
 				erro.setText("Empressa não existe");
 				throw new DbException("Empresa não existe");
 			}else {
-				obsListEquipamentos = MainViewController.equipamentoController.findByIdEmpressa( empressa_id, true);
+				obsListEquipamentos = equipamentoController.findByIdEmpresa( empressa_id, true);
 				tableEquipamentos.setItems(obsListEquipamentos);
 				tableEquipamentos.refresh();
 			}
@@ -152,11 +163,11 @@ public class EquipamentoEntradaViewController implements Initializable{
 						Geral.dateParceString(data.getText() ) , 
 						true					
 						);
-				Long orcamento_id = MainViewController.orcamentoController.add(orcamento);
+				Long orcamento_id = orcamentoController.add(orcamento);
 				if(orcamento_id != null)
-					MainViewController.equipamentoController.updatede(tableEquipamentos.getSelectionModel().getSelectedItem().getId(), true, orcamento_id);
+					equipamentoController.updatede(tableEquipamentos.getSelectionModel().getSelectedItem().getId(), true, orcamento_id);
 				
-				AlfaPirometrosApplication.viewController.refreshTable();
+				TabsMainView.MAIN_TAB_CONTROLLER.refreshTableMain();
 				NewView.fecharView();		
 			}	
 		}catch(NullPointerException e) {
@@ -215,7 +226,7 @@ public class EquipamentoEntradaViewController implements Initializable{
 	}
 	
 	public void addListener() {
-		obsString =  MainViewController.empressaController.findAll();
+		obsString =  empresaController.findAll();
 		filteredList = new FilteredList<>(obsString);  
 		inputFilter = new InputFilter<String>( nomeEmpressa, filteredList );
 		nomeEmpressa.getEditor().textProperty().addListener(inputFilter);	

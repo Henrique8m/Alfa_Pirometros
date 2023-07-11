@@ -30,8 +30,8 @@ public class EquipamentoService {
 	public ObservableList<Equipamento> findAll(Equipamento equipamento) {
 		List<Equipamento> equipamentolist = new ArrayList<>();		
 		
-		if( equipamento.getEmpressaName()!= null) {
-			equipamentolist =  repository.findAll(equipamento.getEmpressaName() );			
+		if( equipamento.getEmpresaName()!= null) {
+			equipamentolist =  repository.findAll(equipamento.getEmpresaName() );			
 		}
 		if(equipamento.getNs()!= null) {
 			if(equipamentolist.size()>0) {
@@ -84,7 +84,7 @@ public class EquipamentoService {
 		return null;
 	}	
 	
-	public ObservableList<Equipamento> findByIdEmpressa(Long id, Boolean laboratorio) {		
+	public ObservableList<Equipamento> findByIdEmpresa(Long id, Boolean laboratorio) {		
 		ObservableList<Equipamento> obs = FXCollections.observableArrayList();
 		List<Equipamento> list = repository.findByIdEmpressa(id, laboratorio) ;
 		if(list!=null) {
@@ -179,7 +179,7 @@ public class EquipamentoService {
 							x.setOrcamento(orcamentolist.stream().filter(y -> y.getEquipamento_id().equals(x.getId() ) ).findFirst().get());	
 				}
 				catch(NoSuchElementException e) {
-					System.out.println("\n\n" + x.getEmpressaName() + " - " + x.getNs() + "\n");
+					System.out.println("\n\n" + x.getEmpresaName() + " - " + x.getNs() + "\n");
 					e.printStackTrace();
 					}
 			} );

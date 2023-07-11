@@ -36,7 +36,7 @@ public class GeneratorPDFEstoque {
 		
 		String local = System.getProperty("user.home")
 						.toString() + 
-						AlfaPirometrosApplication.caminhoPDF;
+						AlfaPirometrosApplication.URL_RELATORIOS;
 		
 		try {
 			File diretorio1 = new File(local);

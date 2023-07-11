@@ -15,7 +15,7 @@ public class Log {
 	private static String logName = "log.txt";
 	
 	public static void logOfList(List<String> log) {
-		String path = System.getProperty("user.home").toString() + AlfaPirometrosApplication.strDiretorioYggDrasil +"\\" + logName;
+		String path = System.getProperty("user.home").toString() + AlfaPirometrosApplication.URL_DIRETORIO_YGGDRASIL +"\\" + logName;
 		File arquivo = new File(path);
 		
 		if( !arquivo.exists()){
