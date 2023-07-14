@@ -7,7 +7,6 @@ import java.util.ResourceBundle;
 
 import com.hrodriguesdev.controller.CertificadoController;
 import com.hrodriguesdev.controller.OrcamentoController;
-import com.hrodriguesdev.dao.repository.ItensRepositoryFind;
 import com.hrodriguesdev.entities.Certificado;
 import com.hrodriguesdev.entities.Ensaios;
 import com.hrodriguesdev.entities.Equipamento;
@@ -134,7 +133,7 @@ public class CertificadoOrcamentoEnsaio extends GridPaneEnsaios implements Initi
 				orcamento = orcamentoController.getOrcamento( tableOrcamentos.getSelectionModel().getSelectedItem().getId() ); 
 				if(orcamento == null)
 					return;	
-				itensOrcamentoClick.setText(allItens(orcamento.getId(), orcamento));
+				itensOrcamentoClick.setText(orcamento.getItem());
 				ensaio = ensaiosController.findByOrcamentoId(orcamento.getId());
 				if(ensaio!= null) {
 					writeValues(ensaio);
@@ -143,25 +142,7 @@ public class CertificadoOrcamentoEnsaio extends GridPaneEnsaios implements Initi
 			}
 			
 	}
-	
-	private String allItens(Long orcamento_id, Orcamento orcamento) {
-		ItensRepositoryFind find = new ItensRepositoryFind();
-		String output = "";
-		try{
-			output = output + find.consumoByOrcamentoId(orcamento_id).toString();
-			output = output + find.eletricosByOrcamentoId(orcamento_id).toString();
-			output = output + find.eletronicosByOrcamentoId(orcamento_id).toString();
-			output = output + find.esteticoByOrcamentoId(orcamento_id).toString();
-			output = output + find.sinalByOrcamentoId(orcamento_id).toString();
 		
-			output = output + find.cabosByOrcamentoId(orcamento_id).toString();
-		}catch (NullPointerException e) {
-		}
-		
-		output = output + orcamento.toString();
-		return output;
-	}
-	
 	@FXML
 	private void inserirEnsaio() {
 		if(orcamento != null) {

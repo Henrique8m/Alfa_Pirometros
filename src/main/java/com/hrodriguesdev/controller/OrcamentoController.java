@@ -24,12 +24,12 @@ public class OrcamentoController {
 		return orcamentoService.getOrcamento(id);
 	}
 	
-	public boolean updatede(Orcamento orcamento) {
-		return orcamentoService.updatedeOrcamento( orcamento );
-	}
-	
 	public boolean update(Orcamento orcamento) {
 		return orcamentoService.update( orcamento );
+	}
+	
+	public boolean insertColetorAndNfe(Orcamento orcamento) {
+		return orcamentoService.insertColetorAndNfe( orcamento );
 	}
 	
 
@@ -44,9 +44,9 @@ public class OrcamentoController {
 		
 	}
 	
-	public ObservableList<Orcamento> findAll(boolean entrada, boolean saida, boolean mRealizada, boolean mCurso) {
-		return orcamentoService.findAll(entrada, saida, mRealizada, mCurso);
-	}
+//	public ObservableList<Orcamento> findAll(boolean entrada, boolean saida, boolean mRealizada, boolean mCurso) {
+//		return orcamentoService.findAll(entrada, saida, mRealizada, mCurso);
+//	}
 	
 	public List<Orcamento> findAll(){
 		return orcamentoService.findAll();

@@ -6,12 +6,6 @@ import java.io.IOException;
 import java.util.Date;
 
 import com.hrodriguesdev.AlfaPirometrosApplication;
-import com.hrodriguesdev.entities.EstoqueCabos;
-import com.hrodriguesdev.entities.EstoqueConsumo;
-import com.hrodriguesdev.entities.EstoqueEletricos;
-import com.hrodriguesdev.entities.EstoqueEletronicos;
-import com.hrodriguesdev.entities.EstoqueEstetico;
-import com.hrodriguesdev.entities.EstoqueSinal;
 import com.hrodriguesdev.utilitary.Format;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -22,13 +16,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 public class GeneratorPDFEstoque {
 	
-	public Boolean newDocument(
-			EstoqueCabos cabos, 
-			EstoqueConsumo consumo, 
-			EstoqueEletricos eletricos, 
-			EstoqueEletronicos eletronicos, 
-			EstoqueEstetico estetico, 
-			EstoqueSinal sinal) {
+	public Boolean newDocument() {
 		
 		String data = Format.formatData2.format(new Date( System.currentTimeMillis() ) );
 		Paragraph paragraph;
@@ -84,7 +72,7 @@ public class GeneratorPDFEstoque {
     		
     		
     		
-			paragraph = new Paragraph( cabos.string() + consumo.string() + eletricos.string() + eletronicos.string() + estetico.string() + sinal.string() );
+			paragraph = new Paragraph(                   );
 			paragraph.setAlignment(Element.ALIGN_LEFT);
 			paragraph.setFont(font);
 			document.add(paragraph);

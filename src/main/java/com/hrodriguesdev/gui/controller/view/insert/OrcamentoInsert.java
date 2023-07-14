@@ -207,7 +207,7 @@ public class OrcamentoInsert extends RegisterProductsController implements Initi
 		OSController controller = new OSController();
 		OrcamentoController controllerOrcamento = new OrcamentoController();
 		if(controller.createNewOS(listProductsOs) )
-			if(controllerOrcamento.updatede(orcamento)) 
+			if(controllerOrcamento.update(orcamento)) 
 					NewView.fecharView();			
 			else {
 				Log.logString("OrcamentoInsert", "Erro ao Atualizar o orcamento");

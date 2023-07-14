@@ -8,7 +8,6 @@ import java.util.ResourceBundle;
 
 import com.hrodriguesdev.AlfaPirometrosApplication;
 import com.hrodriguesdev.controller.EquipamentoController;
-import com.hrodriguesdev.controller.EstoqueRepController;
 import com.hrodriguesdev.controller.OrcamentoController;
 import com.hrodriguesdev.dao.db.DbException;
 import com.hrodriguesdev.dependency.InjecaoDependency;
@@ -92,8 +91,7 @@ public class MainTabController implements Initializable, Runnable{
 	//@Autowired
 	protected EquipamentoController equipamentoController = InjecaoDependency.EQUIPAMENTO_CONTROLLER;
 	protected OrcamentoController orcamentoController = InjecaoDependency.ORCAMENTO_CONTROLLER;
-	private EstoqueRepController estoqueRepController = new EstoqueRepController();
-
+	
 	private Timeline timeline;
 	private boolean dbConection;
 	
@@ -242,7 +240,6 @@ public class MainTabController implements Initializable, Runnable{
 					refreshTableMain();			
 					sortTable();
 					imageInit();
-					updateProductsCombobox();
 					beginTimer();
 					
 				}catch (DbException e) {
@@ -260,9 +257,6 @@ public class MainTabController implements Initializable, Runnable{
 		new Thread(task).start();
 	}
 	
-	private void updateProductsCombobox() {
-		estoqueRepController.refreshObsProducts();		
-	}
 	
 //	Atualiza a tabela de tempos em tempos
 	private void beginTimer() {		
@@ -270,7 +264,6 @@ public class MainTabController implements Initializable, Runnable{
 			if(dbConection) {
 				if(isFilter) {					
 					refreshTableMain();
-					updateProductsCombobox();
 					
 				}
 			}else {
@@ -309,6 +302,7 @@ public class MainTabController implements Initializable, Runnable{
 				tableFilaEquipamentos.setItems(obsListTableFilaEquipamentos);			
 	    		dbConection = true;  
 	    		tableFilaEquipamentos.refresh();
+	    		    		
 	    		
 			} catch (DbException | SQLException e1) {
 				dbConection = false;
@@ -317,7 +311,7 @@ public class MainTabController implements Initializable, Runnable{
 	    	threadFiltro.suspend();
 		}
 	}
-	
+		
 	protected void showAlerts(String title, String mensage, String error, AlertType alertType) {
 		Alerts.showAlert( title , mensage, error , alertType);
 	}

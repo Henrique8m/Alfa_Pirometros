@@ -25,9 +25,9 @@ public class AlfaPirometrosApplication extends Application{
 
 	public static String URL_RELATORIOS = "\\Desktop\\Relatorios";
 	public static String URL_CONEXAO = "C:\\Program Files\\Java\\resources";	
-	public static String URL_CONEXAO_PRODUCAO = URL_CONEXAO + "\\Alfa.properties";
+	public static String URL_CONEXAO_PRODUCAO = URL_CONEXAO + "\\dbAlfa.properties";
 	public static String URL_CONEXAO_DESENVOLVIMENTO = URL_CONEXAO + "\\dbLocal.properties";	
-	public static String URL_CONEXAO_2 = "C:\\Program Files (x86)\\Java\\resources\\Alfa.properties";
+	public static String URL_CONEXAO_2 = "C:\\Program Files (x86)\\Java\\resources\\dbAlfa.properties";
 		
 	
 	public static String PROPERTIES = "Properties.properties";

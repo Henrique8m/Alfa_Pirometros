@@ -52,23 +52,23 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
-public class CertificateTabController implements Initializable{
-	
+public class CertificateTabController implements Initializable {
+
 	@FXML
 	private ComboBox<String> textEmpresaCertificado;
 	private FilteredList<String> filteredList;
 	private InputFilter<String> inputFilter;
 	private ObservableList<String> obsString = FXCollections.observableArrayList();
-	
+
 	@FXML
 	private DatePicker dataCalibracaoNovo;
-	
+
 	@FXML
 	private Tab tabCertificado;
 
 	@FXML
 	private ImageView certificadoImg;
-	
+
 	@FXML
 	private TableView<Equipamento> tableEquipamentosCertificados;
 	private ObservableList<Equipamento> osbListEquipamento = FXCollections.observableArrayList();
@@ -88,30 +88,29 @@ public class CertificateTabController implements Initializable{
 	private TableColumn<Certificado, Date> dataCalibracao;
 	@FXML
 	private TableColumn<Certificado, Integer> numeroCertificado;
-	
+
 	@FXML
 	private TextArea certificadoText;
 
 	@FXML
 	private TextField refeVal1, refeVal2, refeVal3, aplicado1, aplicado2, aplicado3, sinalCalibr11, sinalCalibr12,
-	sinalCalibr13, sinalCalibr21, sinalCalibr22, sinalCalibr23;
-	
+			sinalCalibr13, sinalCalibr21, sinalCalibr22, sinalCalibr23;
+
 	@FXML
 	private TextField textNsEquipCertificado, textPatEquipCertificado;
-	
+
 	@FXML
-	private TextField nomeEmpressaClickCertificado, nsClickCertificado, patClickCertificado, modeloClickCertificado, numeroCertificadoNovo;
-	
-	//@Autowired
+	private TextField nomeEmpressaClickCertificado, nsClickCertificado, patClickCertificado, modeloClickCertificado,
+			numeroCertificadoNovo;
+
+	// @Autowired
 	protected EquipamentoController equipamentoController = InjecaoDependency.EQUIPAMENTO_CONTROLLER;
 	protected CertificadoController certificadoController = InjecaoDependency.CERTIFICADO_CONTROLLER;
-	protected EmpresaController empresaController = InjecaoDependency.EMPRESA_CONTROLLER;	
+	protected EmpresaController empresaController = InjecaoDependency.EMPRESA_CONTROLLER;
 
-	
 	private Equipamento equipamento;
 	private Alert alert;
 	private EnsaiosController ensaiosController = new EnsaiosController();
-
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -131,18 +130,19 @@ public class CertificateTabController implements Initializable{
 			} else
 				removeListener();
 		});
-		
-		Task<Void> task = new Task<Void>() {
-		    @Override public Void call() throws InterruptedException {
-		    	dataCalibracaoNovo.setValue(LocalDate.now());
-		    	startTable();	
-		    	imageInit();
-		        return null;
-		    }
-		};
-		new Thread(task).start();	
 
-	}	
+		Task<Void> task = new Task<Void>() {
+			@Override
+			public Void call() throws InterruptedException {
+				dataCalibracaoNovo.setValue(LocalDate.now());
+				startTable();
+				imageInit();
+				return null;
+			}
+		};
+		new Thread(task).start();
+
+	}
 
 	@FXML
 	private void enter(KeyEvent event) {
@@ -159,7 +159,6 @@ public class CertificateTabController implements Initializable{
 		}
 
 	}
-
 
 	@FXML
 	protected void clickEquipamentos(MouseEvent event) throws SQLException {
@@ -210,33 +209,33 @@ public class CertificateTabController implements Initializable{
 	@FXML
 	private void relacionarCertificado(ActionEvent event) {
 		Certificado certificado = tableCertificado.getSelectionModel().getSelectedItem();
-		if(certificado !=null) 
-			if(certificado.getEnsaio_id()==null || certificado.getEnsaio_id() == 0)	
-					NewView.getNewView("Controlador de certificado","certificadoOrcamentoEnsaio" , new CertificadoOrcamentoEnsaio(equipamento,certificado) );			
-					
+		if (certificado != null)
+			if (certificado.getEnsaio_id() == null || certificado.getEnsaio_id() == 0)
+				NewView.getNewView("Controlador de certificado", "certificadoOrcamentoEnsaio",
+						new CertificadoOrcamentoEnsaio(equipamento, certificado));
+
 	}
-	
+
 	@FXML
 	private void salvarCertificado(ActionEvent event) {
 		Certificado certificado;
 		if (!numeroCertificadoNovo.getText().isBlank()) {
-			Long certificado_id = certificadoController
-					.add(new Certificado(equipamento.getId(), Date.valueOf(dataCalibracaoNovo.getValue()),
-							Integer.parseInt(numeroCertificadoNovo.getText())));
-			
+			Long certificado_id = certificadoController.add(new Certificado(equipamento.getId(),
+					Date.valueOf(dataCalibracaoNovo.getValue()), Integer.parseInt(numeroCertificadoNovo.getText())));
+
 			if (equipamento.getUltimaCalibDate() == null
-					|| equipamento.getUltimaCalibDate().before(Date.valueOf(dataCalibracaoNovo.getValue() ) ) )
+					|| equipamento.getUltimaCalibDate().before(Date.valueOf(dataCalibracaoNovo.getValue())))
 				if (certificado_id != null) {
 					certificadoController.updateEquipamento(certificado_id, equipamento.getId(),
-							Date.valueOf(dataCalibracaoNovo.getValue() ) );
+							Date.valueOf(dataCalibracaoNovo.getValue()));
 					certificado = certificadoController.findById(certificado_id);
-					NewView.getNewView("Controlador de certificado","certificadoOrcamentoEnsaio" , new CertificadoOrcamentoEnsaio(equipamento,certificado) );	
+					NewView.getNewView("Controlador de certificado", "certificadoOrcamentoEnsaio",
+							new CertificadoOrcamentoEnsaio(equipamento, certificado));
 				}
 			tableCertUpdate();
 		}
-				
-	}
 
+	}
 
 	/*
 	 * Logicaa para o delete de Certificado, tecla alt tem que estar apertada!!
@@ -251,22 +250,20 @@ public class CertificateTabController implements Initializable{
 							+ tableCertificado.getSelectionModel().getSelectedItem().getNumero() + "?",
 					"", AlertType.CONFIRMATION);
 	}
-	
+
 	@FXML
 	public void clickCertificado(MouseEvent e) {
 		Ensaios ensaio = null;
 		Long ensaio_id = 0l;
 		try {
 			ensaio_id = tableCertificado.getSelectionModel().getSelectedItem().getEnsaio_id();
-		}catch(NullPointerException e1) {
+		} catch (NullPointerException e1) {
 			certificadoText.setText("Sem ensaio selecionado");
 			throw new ExceptionAlfa("Sem ensaio selecionado");
 		}
-
-//		System.out.println(ensaio_id);
 		if (ensaio_id != null && ensaio_id != 0) {
 			ensaio = ensaiosController.findById(ensaio_id);
-		}else
+		} else
 			clearValues();
 		if (ensaio != null) {
 			writeValues(ensaio);
@@ -285,16 +282,16 @@ public class CertificateTabController implements Initializable{
 			certificadoText.setText("Emprimindo...");
 			try {
 				certificadoController.gerarCertificadoPDF(certif);
-				certificadoText.insertText(certificadoText.getLength(),"Empresso");
-			} catch (ExceptionAlfa|DbException|NullPointerException e1) {
+				certificadoText.insertText(certificadoText.getLength(), "Empresso");
+			} catch (ExceptionAlfa | DbException | NullPointerException e1) {
 				certificadoText.setText(e1.getMessage());
 				e1.printStackTrace();
 			}
-			
+
 		}
 
 	}
-	
+
 //	Confirmar Deletar
 	private void showAlert(String title, String header, String content, AlertType type) {
 		if (alert != null)
@@ -370,7 +367,7 @@ public class CertificateTabController implements Initializable{
 		sinalCalibr23.setText(value[2]);
 
 	}
-	
+
 	protected void clearValues() {
 		String referencia = "-\n-\n-";
 
@@ -378,26 +375,26 @@ public class CertificateTabController implements Initializable{
 
 		if (ref.length == 3)
 			writeRef(ref);
-			writeVal1(ref);
-			writeVal2(ref);
-			writeVal3(ref);
+		writeVal1(ref);
+		writeVal2(ref);
+		writeVal3(ref);
 	}
-	
+
 	@FXML
 	private void referenciaEquipamento(ActionEvent e) {
-		NewView.getNewView("Ensaios","ensaioInserts" , new FileEquipamento(new Equipamento(), new Orcamento()));
-		
+		NewView.getNewView("Ensaios", "ensaioInserts", new FileEquipamento(new Equipamento(), new Orcamento()));
+
 	}
-	
+
 	private void tableCertUpdate() {
-		List<Certificado> certificado =  certificadoController.findAllByEquipamento(equipamento.getId());
+		List<Certificado> certificado = certificadoController.findAllByEquipamento(equipamento.getId());
 		ObservableList<Certificado> obs = FXCollections.observableArrayList();
 		obs.addAll(certificado);
 		tableCertificado.setItems(obs);
 		tableCertificado.refresh();
 
 	}
-	
+
 	private void addListener() {
 		obsString = empresaController.findAll();
 		filteredList = new FilteredList<>(obsString);
@@ -409,14 +406,16 @@ public class CertificateTabController implements Initializable{
 	private void removeListener() {
 		textEmpresaCertificado.getEditor().textProperty().removeListener(inputFilter);
 		textEmpresaCertificado.setValue("");
+
 	}
-	
+
 	private void imageInit() {
 		Image image = new Image(
-			AlfaPirometrosApplication.class.getResource("gui/resources/icons-certificado.png").toString());
+				AlfaPirometrosApplication.class.getResource("gui/resources/icons-certificado.png").toString());
 		certificadoImg.setImage(image);
+
 	}
-	
+
 	private void startTable() {
 		tableEquipamentosCertificados.setEditable(false);
 		empressaCertificado.setCellValueFactory(new PropertyValueFactory<Equipamento, String>("empresaName"));
@@ -451,5 +450,5 @@ public class CertificateTabController implements Initializable{
 		tableCertificado.setItems(osbListCertificado);
 
 	}
-	
+
 }

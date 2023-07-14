@@ -15,12 +15,6 @@ public class Orcamento {
 	private String relatorio;
 	private Long coletor_id;
 	private int status;
-	private Long eletricos;
-	private Long consumo;
-	private Long eletronicos;
-	private Long estetico;
-	private Long sinal;
-	private Long cabos;
 	private String products;
 	
 //	private int nfe;
@@ -50,21 +44,15 @@ public class Orcamento {
 				data_saida( rs.getDate("data_saida"));
 			
 			data_chegada( rs.getDate("data_chegada"));
-			laboratorio = rs.getBoolean("laboratorio");
-			coletor_id = rs.getLong("coletor_id");
-			relatorio = rs.getString("relatorio");
-			status = rs.getInt("status");
-			eletricos = rs.getLong("eletricos");
-			consumo = rs.getLong("consumo");
-			eletronicos = rs.getLong("eletronicos");
-			estetico = rs.getLong("estetico");
-			sinal = rs.getLong("sinal");
-			setCabos(rs.getLong("cabos"));
+			this.laboratorio = rs.getBoolean("laboratorio");
+			this.coletor_id = rs.getLong("coletor_id");
+			this.relatorio = rs.getString("relatorio");
+			this.status = rs.getInt("status");
 			
 			
-			this.setNfe(rs.getInt("nfe"));
-			this.setAuthor(rs.getString("author"));
-			this.setEmpresaId(rs.getLong("empresa_id"));
+			this.nfe = rs.getInt("nfe");
+			this.author = rs.getString("author");
+			this.empresaId = rs.getLong("empresa_id");
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -90,47 +78,7 @@ public class Orcamento {
 	public void setStatus(int status) {
 		this.status = status;
 	}
-
-	public Long getEletricos() {
-		return eletricos;
-	}
-
-	public void setEletricos(Long eletricos) {
-		this.eletricos = eletricos;
-	}
-
-	public Long getConsumo() {
-		return consumo;
-	}
-
-	public void setConsumo(Long consumo) {
-		this.consumo = consumo;
-	}
-
-	public Long getEletronicos() {
-		return eletronicos;
-	}
-
-	public void setEletronicos(Long eletronicos) {
-		this.eletronicos = eletronicos;
-	}
-
-	public Long getEstetico() {
-		return estetico;
-	}
-
-	public void setEstetico(Long estetico) {
-		this.estetico = estetico;
-	}
-
-	public Long getSinal() {
-		return sinal;
-	}
-
-	public void setSinal(Long sinal) {
-		this.sinal = sinal;
-	}
-
+	
 	public Long getId() {
 		return id;
 	}
@@ -209,58 +157,6 @@ public class Orcamento {
 		this.coletor_id = coletor_id;
 	}
 
-//	public static List<Orcamento> getList(String itens, EstoqueConsumo consumo2, EstoqueEstetico estetico2,
-//			EstoqueEletricos eletrico, EstoqueEletronicos eletronico, EstoqueSinal sinal2, EstoqueCabos cabos) {
-//		List<Orcamento> list = new ArrayList<>();
-//		try {
-//			list.addAll(EstoqueConsumo.orcamentoListConsumo(consumo2));
-//		}catch(NullPointerException e){
-//			e.printStackTrace();
-//		}
-//		try {
-//			list.addAll(EstoqueEstetico.orcamentoListEstetico(estetico2));
-//		}catch(NullPointerException e){
-//			e.printStackTrace();
-//		}
-//		try {
-//			list.addAll(EstoqueEletricos.orcamentoListEletrico(eletrico));
-//		}catch(NullPointerException e){
-//			e.printStackTrace();
-//		}
-//		try {
-//			list.addAll(EstoqueEletronicos.orcamentoListEletronico(eletronico));
-//		}catch(NullPointerException e){
-//			e.printStackTrace();
-//		}
-//		try {
-//				list.addAll(EstoqueSinal.orcamentoListSinal(sinal2));
-//		}catch(NullPointerException e){
-//			e.printStackTrace();
-//		}
-//		try {
-//			list.addAll(EstoqueCabos.cabosListSinal(cabos));
-//		}catch(NullPointerException e){
-//			e.printStackTrace();
-//		}
-//		
-//		if(!itens.isBlank()) {
-//			String[] Itens = itens.split("\n");
-//			for(@SuppressWarnings("unused") String newIten: Itens) {
-//				list.add( new Orcamento());
-//				}
-//		}
-//		
-//		return list;
-//	}
-
-	public Long getCabos() {
-		return cabos;
-	}
-
-	public void setCabos(Long cabos) {
-		this.cabos = cabos;
-	}
-
 	public String getSituation() {
 		return situation;
 	}
@@ -319,6 +215,4 @@ public class Orcamento {
 		this.nfe = nfe;
 	}
 
-	
-	
 }

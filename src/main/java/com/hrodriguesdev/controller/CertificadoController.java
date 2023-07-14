@@ -6,6 +6,7 @@ import java.util.List;
 import com.hrodriguesdev.ExceptionAlfa;
 import com.hrodriguesdev.certificado.pdf.PdfCertificado;
 import com.hrodriguesdev.dao.db.DbException;
+import com.hrodriguesdev.dependency.InjecaoDependency;
 import com.hrodriguesdev.entities.CalibracaoEnsaio;
 import com.hrodriguesdev.entities.Certificado;
 import com.hrodriguesdev.entities.DescricaoInstrumento;
@@ -16,26 +17,27 @@ import com.hrodriguesdev.entities.Padrao;
 import com.hrodriguesdev.service.CertificadoService;
 
 public class CertificadoController {
-	private CertificadoService service = new CertificadoService();
-	private EquipamentoController equipamentoController = new EquipamentoController();
-	private EmpresaController empresaController = new EmpresaController();
-	private EnsaiosController ensaioController = new EnsaiosController();
+	
+	private EquipamentoController equipamentoController = InjecaoDependency.EQUIPAMENTO_CONTROLLER;
+	private CertificadoService certificadoService = new CertificadoService();
+	private EmpresaController empresaController = InjecaoDependency.EMPRESA_CONTROLLER;
+	private EnsaiosController ensaioController = InjecaoDependency.ENSAIO_CONTROLLER;
 	private PdfCertificado pdfCertificado = new PdfCertificado();
 	
 	public boolean gerarCertificadoPDF(Certificado certificado) throws ExceptionAlfa , DbException, NullPointerException{
 		Equipamento equipamento = equipamentoController.findById(certificado.getEquipamento_id());
 		Empresa empresa = empresaController.find(equipamento.getEmpresa());
-		DescricaoInstrumento descricao = service.getDescricao(equipamento.getModelo());
-		Padrao padrao = service.getPadrao(certificado.getDate_cal());
+		DescricaoInstrumento descricao = certificadoService.getDescricao(equipamento.getModelo());
+		Padrao padrao = certificadoService.getPadrao(certificado.getDate_cal());
 		Ensaios ensaio = ensaioController.findById(certificado.getEnsaio_id());
 		if(ensaio == null)  throw new ExceptionAlfa("Nao tem ensaio para este certificado");
 		
 		if(descricao.getInstrumento().contentEquals("Analisador carboquimico")) {
 			
 		}		
-		CalibracaoEnsaio calibraco = service.getCalibracaoEnsaio(
+		CalibracaoEnsaio calibraco = certificadoService.getCalibracaoEnsaio(
 				ensaio,
-				service.getFem(descricao.getSensor()));
+				certificadoService.getFem(descricao.getSensor()));
 		
 		return pdfCertificado.generatedCertificado(
 				equipamento, 
@@ -47,27 +49,27 @@ public class CertificadoController {
 	}
 
 	public void updateEnsaio(Long ensaio_id, Long id) {
-		service.updateEnsaio(ensaio_id,id);		
+		certificadoService.updateEnsaio(ensaio_id,id);		
+	}
+	
+	public void updateEquipamento(Long certificado_id, Long id, Date valueOf) {
+		certificadoService.updateEquipamento(certificado_id, id, valueOf);
 	}
 
 	public Certificado findById(Long id) {		
-		return service.findById(id);
+		return certificadoService.findById(id);
 	}
 
 	public List<Certificado> findAllByEquipamento(Long id) {
-		return service.findAllByEquipamento(id);
+		return certificadoService.findAllByEquipamento(id);
 	}
 
 	public Long add(Certificado certificado) {
-		return service.add(certificado);
-	}
-
-	public void updateEquipamento(Long certificado_id, Long id, Date valueOf) {
-		service.updateEquipamento(certificado_id, id, valueOf);
+		return certificadoService.add(certificado);
 	}
 
 	public boolean delete(Certificado certificado) {
-		return service.delete(certificado);
+		return certificadoService.delete(certificado);
 	}
 		
 }

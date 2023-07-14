@@ -9,7 +9,6 @@ import java.util.ResourceBundle;
 import com.hrodriguesdev.AlfaPirometrosApplication;
 import com.hrodriguesdev.controller.EnsaiosController;
 import com.hrodriguesdev.controller.EquipamentoController;
-import com.hrodriguesdev.controller.EstoqueRepController;
 import com.hrodriguesdev.controller.OSController;
 import com.hrodriguesdev.controller.OrcamentoController;
 import com.hrodriguesdev.controller.ProductsController;
@@ -86,7 +85,6 @@ public class OrcamentoView extends EnsaioViewController implements Initializable
 	
 	protected SaidaEquipamentoTransacao transaction = new SaidaEquipamentoTransacao();
 	private EnsaiosController ensaioController = new EnsaiosController();
-	private EstoqueRepController estoqueController = new EstoqueRepController();
 	
 	public OrcamentoView(Equipamento equipamento, Orcamento orcamento) {
 		super(equipamento, orcamento);
@@ -99,7 +97,6 @@ public class OrcamentoView extends EnsaioViewController implements Initializable
 		imageInit();
 		textFildInserts();
 		switchStatus(orcamento.getStatus());
-//		obs.setText( allItens(orcamento.getId(), orcamento) );
 		findOS();
 		startTable();
 		
@@ -145,7 +142,7 @@ public class OrcamentoView extends EnsaioViewController implements Initializable
 			
 			if(orcamento.getStatus() == 20) {
 				if(!equipamentoController.updateSaida(equipamento) ) {
-//					Alerts.showAlert("Equipamento ", "Falha em dar saida no equipamento", "" , AlertType.ERROR);
+					Alerts.showAlert("Equipamento ", "Falha em dar saida no equipamento", "" , AlertType.ERROR);
 					return;
 				}
 			}
@@ -208,7 +205,7 @@ public class OrcamentoView extends EnsaioViewController implements Initializable
 		}
 //		Manutenção executada, baixa no estoque	
 		
-		if(outProducts(obsMateriais) ) {
+		if(!outProducts(obsMateriais) ) {
 			NewView.fecharView();
 			Alerts.showAlert("Erro", "Falha ao dar saida no banco de dados", "Ocorreu uma falha ao atualizar o orcamento", AlertType.ERROR);
 		}
@@ -273,7 +270,7 @@ public class OrcamentoView extends EnsaioViewController implements Initializable
 			return;
 		}
 		
-		if(!estoqueController.saidaDoEstoque(orcamento.getId()) ) {
+		if(!outProducts(obsMateriais)) {
 			NewView.fecharView();
 			Alerts.showAlert("Erro", "Falha ao dar saida no banco de dados", "Ocorreu uma falha ao atualizar o orcamento", AlertType.ERROR);
 		}
@@ -324,7 +321,7 @@ public class OrcamentoView extends EnsaioViewController implements Initializable
 //			Alerts.showAlert("Erro", "Falha ao gerar certificado", "", AlertType.ERROR);
 			return;
 		}
-		if(outProducts(obsMateriais)  ) {
+		if(!outProducts(obsMateriais)  ) {
 			NewView.fecharView();
 			Alerts.showAlert("Erro", "Falha ao dar saida no banco de dados", "Ocorreu uma falha ao atualizar o orcamento", AlertType.ERROR);
 		}

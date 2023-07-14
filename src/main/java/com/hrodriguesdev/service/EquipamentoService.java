@@ -179,8 +179,8 @@ public class EquipamentoService {
 							x.setOrcamento(orcamentolist.stream().filter(y -> y.getEquipamento_id().equals(x.getId() ) ).findFirst().get());	
 				}
 				catch(NoSuchElementException e) {
-					System.out.println("\n\n" + x.getEmpresaName() + " - " + x.getNs() + "\n");
-					e.printStackTrace();
+					System.out.println("\n\n" + x.getEmpresaName() + " - " + x.getNs() + " Nao possui orcamento\n");
+//					e.printStackTrace();
 					}
 			} );
 		

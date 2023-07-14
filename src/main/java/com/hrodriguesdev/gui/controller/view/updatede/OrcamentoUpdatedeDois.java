@@ -66,7 +66,7 @@ public class OrcamentoUpdatedeDois extends OrcamentoInsert implements Initializa
 		OSController osController = new OSController();
 		OrcamentoController orcamentoController = new OrcamentoController();
 		if(osController.updatOS(listProductsOs) )
-			if(orcamentoController.updatede(orcamento)) 
+			if(orcamentoController.update(orcamento)) 
 				fecharView();
 			else {
 				Log.logString("OrcamentoInsert", "Erro ao Atualizar o orcamento");

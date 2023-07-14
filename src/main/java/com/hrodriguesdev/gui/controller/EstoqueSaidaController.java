@@ -93,7 +93,7 @@ public class EstoqueSaidaController  extends OrcamentoInsert implements Initiali
 			
 			orcamento.setColetor_id(coletor.getId());
 			orcamento.setNfe(nfe);
-			if(!orcamentoController.updatede(orcamento)) {
+			if(!orcamentoController.update(orcamento)) {
 				erro.setText("Erro ao atualizar orcamento");
 			};		
 			
