@@ -124,8 +124,8 @@ public class RepositoryProducts {
 			pst.setString(2, product.getDescricao());
 			pst.setDouble(3, product.getValor_pago());
 			pst.setDouble(4, product.getValor_venda());
-			pst.setLong(6, product.getUnidade_medida());
-			pst.setLong(7, product.getId());
+			pst.setLong(5, product.getUnidade_medida());
+			pst.setLong(6, product.getId());
 			
 			int rowsAccepted = pst.executeUpdate();
 			conn.commit();

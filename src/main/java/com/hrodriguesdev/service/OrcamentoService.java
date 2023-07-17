@@ -24,8 +24,8 @@ public class OrcamentoService {
 	private OrcamentoRepository repository = new OrcamentoRepository();
 
 	public Long addOrcamento(Orcamento orcamento) {
-		
-		return repository.add( orcamento );
+
+		return repository.add(orcamento);
 	}
 
 	public Orcamento getOrcamento(Long id) throws SQLException {
@@ -33,137 +33,37 @@ public class OrcamentoService {
 	}
 
 	public boolean update(Orcamento orcamento) {
-		return repository.updatede( orcamento );
+		return repository.updatede(orcamento);
 	}
 
 	public boolean insertColetorAndNfe(Orcamento orcamento) {
-		return repository.insertColetorAndNfe( orcamento );
+		return repository.insertColetorAndNfe(orcamento);
 	}
-	
-	public List<Orcamento> findAllLaboratorio(boolean laboratorio) {	
-		return repository.findAllLaboratorio(laboratorio);	
-		
+
+	public List<Orcamento> findAllLaboratorio(boolean laboratorio) {
+		return repository.findAllLaboratorio(laboratorio);
+
 	}
-	
-	public ObservableList<Orcamento> findAllIdEquipamento(Long equipamento_id) {	
+
+	public ObservableList<Orcamento> findAllIdEquipamento(Long equipamento_id) {
 		ObservableList<Orcamento> obs = FXCollections.observableArrayList();
 		obs.addAll(repository.findAllIdEquipamento(equipamento_id));
 		return obs;
-		
+
 	}
-	
-	public List<Orcamento> findAll(){
+
+	public List<Orcamento> findAll() {
 		return repository.findAll();
 	}
-	
-//	public ObservableList<Orcamento> findAll(boolean entrada, boolean saida, boolean mRealizada, boolean mCurso) {
-//		List<Orcamento> listaFmCurso = new ArrayList<>();		
-//		List<Orcamento> listaBruta = findAll();	
-//		
-//		listaBruta.forEach((listaBru) -> {
-//			if(!mCurso) {						
-//				if(!listaBru.getLaboratorio())
-//					listaFmCurso.add(listaBru);
-//			}else
-//				listaFmCurso.add(listaBru);
-//				
-//		});
-//		
-//		List<Orcamento> listaFCE = listaFmCurso;
-//		List<Orcamento> listaFES = new ArrayList<>();
-//		
-//		listaFCE.forEach((listaFEntrada)->{
-//			if(!entrada) {
-//					consumoList.forEach((consumo)->{						
-//						if(consumo.getOrcamento_id().equals(listaFEntrada.getId())) {
-//							if(!consumo.getEntrada())
-//								listaFES.add(listaFEntrada);
-//						}
-//		
-//					});
-//				
-//			}else listaFES.add(listaFEntrada);
-//		});
-//		
-//		List<Orcamento> listaFESR = new ArrayList<>();
-//		if(!saida) {
-//			listaFES.forEach((listaFEntradaSaida)->{
-//				
-//					if(listaFEntradaSaida.getEquipamento_id() == 0) {
-//						consumoList.forEach((consumo)->{						
-//							if(consumo.getOrcamento_id().equals(listaFEntradaSaida.getId())) {							
-//								if(!consumo.getSaida())
-//									listaFESR.add(listaFEntradaSaida);							
-//							}
-//			
-//						});
-//						
-//					}else listaFESR.add(listaFEntradaSaida);
-//				
-//			});
-//			
-//		}else listaFESR.addAll(listaFES);
-//		
-////		listaFES.forEach((objList)-> {
-////			consumoList.stream().findFirst().filter((consumo)-> consumo.getOrcamento_id().equals(objList.getId( )) )
-////		} );
-//		
-//		ObservableList<Orcamento> obs = FXCollections.observableArrayList();
-//		
-//		listaFESR.forEach((listaFEntradaSaidaMrealizada)->{
-//			if(!mRealizada) {
-//				if(listaFEntradaSaidaMrealizada.getEquipamento_id() != 0) {
-//					consumoList.forEach((consumo)->{						
-//						if(consumo.getOrcamento_id().equals(listaFEntradaSaidaMrealizada.getId())) {							
-//							if(!consumo.getSaida()){
-//								obs.add(listaFEntradaSaidaMrealizada);
-////								System.out.println("Teste 01 ");
-//							}
-//						}		
-//					});
-//					
-//				}else {
-//					obs.add(listaFEntradaSaidaMrealizada);
-////					System.out.println("Teste 02 ");
-//				}
-//			}else obs.add(listaFEntradaSaidaMrealizada);
-//		});
-//						
-//		obs.forEach((orcamento)->{
-//			
-//			consumoList.forEach((consumo)->{				
-//				if(consumo.getOrcamento_id().equals(orcamento.getId())) {
-//					if(consumo.getNfe()!= null)
-////						orcamento.setNfe(consumo.getNfe());
-//					if(consumo.getEntrada())
-//						orcamento.setSituation("Entrada para Estoque");
-//					else if(orcamento.getEquipamento_id() != 0) {
-//						if(orcamento.getStatus() > 13)
-//							orcamento.setSituation("Manutenção de equipamento na área");
-//						else 
-//							orcamento.setSituation("Manutenção de equipamento em laboratorio");
-//					}						
-//					else if(consumo.getSaida() && orcamento.getEquipamento_id() == 0)
-//						orcamento.setSituation("Manutenção em area ou venda");
-//
-//				}
-//
-//			});
-//		
-//			
-//		});
-//		
-//		return obs;
-//	}
-	
-	public List<Orcamento> findById(List<Long> orcamento_id) {		
-		return repository.findAllLaboratorio(orcamento_id);	
+
+	public List<Orcamento> findById(List<Long> orcamento_id) {
+		return repository.findAllLaboratorio(orcamento_id);
 	}
 
 	public boolean existOrcamento(Long equipamento_id) {
 		return repository.existOrcamento(equipamento_id);
 	}
-	
+
 	public boolean updatedeStatusRelatorio(Long id, int status, Orcamento orcamento) {
 		return repository.updatedeStatusRelatorio(id, status, orcamento);
 	}
@@ -172,14 +72,13 @@ public class OrcamentoService {
 		ObservableList<Orcamento> obs = FXCollections.observableArrayList();
 		ObservableList<Orcamento> obs2 = FXCollections.observableArrayList();
 		obs.addAll(repository.findAllIdEquipamento(id));
-		
-		
-		for(Orcamento orc: obs) {
+
+		for (Orcamento orc : obs) {
 //			Ensaios ensaios = ensaioController.findByOrcamentoId(orc.getId());
 //			if(ensaios==null)
-				obs2.add(orc);
+			obs2.add(orc);
 		}
-		
+
 		return obs2;
 	}
 
@@ -190,19 +89,20 @@ public class OrcamentoService {
 		List<OrcamentoDTORelatorio> list = new ArrayList<>();
 		List<Orcamento> listOrcamento = findAll();
 		listOrcamento.forEach(orcamento -> {
-			if(orcamento.getEquipamento_id()==0)
-				if(orcamento.getColetor_id()!=0) {
-					 OrcamentoDTORelatorio dto = new OrcamentoDTORelatorio(orcamento);
-					 Coletor coletor = coletorController.findById(orcamento.getColetor_id());
-					 dto.setAuthor(coletor.getNomeColetor());
-					 dto.setEmpresa(coletor.getEmpresaName());
-					 listOSIn.stream().filter(osIn -> osIn.getIdOrcamento().equals(orcamento.getId())).findFirst().ifPresentOrElse( 
-							 x -> {
-								 dto.setFinalidade("Entrada");
-							 },() -> {
+			if (orcamento.getEquipamento_id() == 0)
+				if (orcamento.getColetor_id() != 0) {
+					OrcamentoDTORelatorio dto = new OrcamentoDTORelatorio(orcamento);
+					Coletor coletor = coletorController.findById(orcamento.getColetor_id());
+					dto.setAuthor(coletor.getNomeColetor());
+					dto.setEmpresa(coletor.getEmpresaName());
+					listOSIn.stream().filter(osIn -> osIn.getIdOrcamento().equals(orcamento.getId())).findFirst()
+							.ifPresentOrElse(x -> {
+								dto.setFinalidade("Entrada");
+							}, () -> {
 								dto.setFinalidade("Saida");
-							 });;
-					 list.add(dto);
+							});
+					;
+					list.add(dto);
 				}
 		});
 		return list;
@@ -213,26 +113,24 @@ public class OrcamentoService {
 		List<OrcamentoDTOEquipamento> list = new ArrayList<>();
 		List<Orcamento> listOrcamento = findAll();
 		listOrcamento.forEach(orcamento -> {
-			if(orcamento.getEquipamento_id()!=0) {
+			if (orcamento.getEquipamento_id() != 0) {
 				OrcamentoDTOEquipamento dto = new OrcamentoDTOEquipamento(orcamento);
 				try {
 					Equipamento equipamento = equipamentoController.findById(orcamento.getEquipamento_id());
-					for(OSStatus os : OSStatus.values()) {
-						if(os.getStatusInt() == orcamento.getStatus())
+					for (OSStatus os : OSStatus.values()) {
+						if (os.getStatusInt() == orcamento.getStatus())
 							dto.setSituation(os.getStatusStr());
-					}		
+					}
 					dto.setEmpresa(equipamento.getEmpresaName());
 					dto.setNs(equipamento.getNs());
 					dto.setPat(equipamento.getPat());
-				}catch(ExceptionAlfa e) {
+				} catch (ExceptionAlfa e) {
 					e.printStackTrace();
-				}				
+				}
 				list.add(dto);
 			}
 		});
 		return list;
 	}
 
-
-	
 }

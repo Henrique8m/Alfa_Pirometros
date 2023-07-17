@@ -83,7 +83,7 @@
                         <Insets left="10.0" />
                      </HBox.margin>
                   </VBox>
-                  <VBox alignment="CENTER" prefHeight="66.0" prefWidth="65.0" style="-fx-background-radius: 10; -fx-background-color: #c3c3c3;">
+                  <VBox alignment="CENTER" prefHeight="66.0" prefWidth="65.0" style="-fx-background-radius: 10; -fx-background-color: #c3c3c3;" visible="false">
                      <children>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Quantidade" />
                         <TextField fx:id="amountField" alignment="CENTER_RIGHT" maxWidth="-Infinity" onKeyReleased="#filtredDouble" prefWidth="60.0" />

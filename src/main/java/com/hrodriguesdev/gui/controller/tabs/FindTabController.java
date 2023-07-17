@@ -22,7 +22,7 @@ import com.hrodriguesdev.gui.alert.Alerts;
 import com.hrodriguesdev.gui.controller.view.updatede.ColetorUpdatede;
 import com.hrodriguesdev.gui.controller.view.updatede.EquipamentoUpdatede;
 import com.hrodriguesdev.gui.controller.view.updatede.NumeroRelatorioUpdate;
-import com.hrodriguesdev.gui.controller.view.updatede.OrcamentoUpdatedeDois;
+import com.hrodriguesdev.gui.controller.view.updatede.OrcamentoUpdate;
 import com.hrodriguesdev.utilitary.Format;
 import com.hrodriguesdev.utilitary.InputFilter;
 import com.hrodriguesdev.utilitary.NewView;
@@ -167,7 +167,7 @@ public class FindTabController implements Initializable{
 		    }
 		};
 		new Thread(task).start();	
-		
+		textEmpresa.setTooltip(new Tooltip("Campo para inserir o nome da empresa"));
 	}
 		
 	@FXML
@@ -236,7 +236,7 @@ public class FindTabController implements Initializable{
 		if(event.getTarget() == tableOrcamentos) {
 			if(event.getCode().toString() == "F2") {
 				if(orcamento!=null){
-					NewView.getNewView("Editar Orcamento", FXMLPath.ADD_PRODUCT_OS, new OrcamentoUpdatedeDois(equipamento, orcamento,obsMateriais,itensOrcamentoClick.getText()));
+					NewView.getNewView("Editar Orcamento", FXMLPath.ADD_PRODUCT_OS, new OrcamentoUpdate(equipamento, orcamento,obsMateriais,itensOrcamentoClick.getText()));
 				}
 			}
 			else if(event.getCode().toString() == "F3") {
@@ -358,7 +358,7 @@ public class FindTabController implements Initializable{
 				if(orcamento == null)
 					return;
 				
-				if(event.getClickCount()>1) {
+				if(event!=null && event.getClickCount()>1) {
 					NewView.getNewView("Numero Relatorio", "numeroRelatorio", new NumeroRelatorioUpdate(orcamento));
 				}else {		
 					Coletor coletor = new Coletor();					
@@ -402,9 +402,6 @@ public class FindTabController implements Initializable{
 			else orcamento = null;
 		setEditable(false);
 	}
-
-	
-	
 	
 	@FXML
 	private void onKeyModelo(KeyEvent e) {
@@ -579,7 +576,8 @@ public class FindTabController implements Initializable{
 		filteredList = new FilteredList<>(obsString);  
 		inputFilter = new InputFilter<String>( textEmpresa, filteredList );	
 		textEmpresa.getEditor().textProperty().addListener(inputFilter);	
-		textEmpresa.setTooltip(new Tooltip("Campo para inserir o nome da empresa"));
+
+		textEmpresa.hide();
 
 	}	
 			

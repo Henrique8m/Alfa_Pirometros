@@ -1,4 +1,4 @@
-package com.hrodriguesdev.certificado.pdf;
+package com.hrodriguesdev.relatorio.certificado;
 
 import java.io.File;
 import java.io.FileOutputStream;

@@ -4,8 +4,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 
-import com.hrodriguesdev.AlfaPirometrosApplication;
 import com.hrodriguesdev.utilitary.Format;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -16,16 +16,12 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 public class GeneratorPDFEstoque {
 	
-	public Boolean newDocument() {
+	public Boolean newDocument(List<String> products, String local) {
 		
 		String data = Format.formatData2.format(new Date( System.currentTimeMillis() ) );
 		Paragraph paragraph;
 		Document document = new Document();
-		
-		String local = System.getProperty("user.home")
-						.toString() + 
-						AlfaPirometrosApplication.URL_RELATORIOS;
-		
+			
 		try {
 			File diretorio1 = new File(local);
 			diretorio1.mkdir();
@@ -67,16 +63,17 @@ public class GeneratorPDFEstoque {
     		paragraph = new Paragraph(" ");    		
     		document.add(paragraph);
     		
-    		
-    		
-    		
-    		
-    		
-			paragraph = new Paragraph(                   );
-			paragraph.setAlignment(Element.ALIGN_LEFT);
-			paragraph.setFont(font);
-			document.add(paragraph);
-    	
+    		products.forEach(product -> {
+				try {
+					Paragraph paragrap = new Paragraph(product);
+					paragrap.setAlignment(Element.ALIGN_LEFT);
+					paragrap.setFont(font);
+					document.add(paragrap);
+				} catch (DocumentException e) {
+					e.printStackTrace();
+				}
+    		});    		
+
 	        document.addCreationDate();  
 	         
 	    }catch(DocumentException de) {

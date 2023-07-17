@@ -37,4 +37,11 @@ public class OSController {
 		return service.updatOS(listProductsOs);
 	}
 
+	public boolean isContentOs(Long id) {
+		return service.isContentOs(id);
+	}
+
+	public boolean isContentOsOut(Long id) {
+		return service.isContentOsOut(id);
+	}
 }

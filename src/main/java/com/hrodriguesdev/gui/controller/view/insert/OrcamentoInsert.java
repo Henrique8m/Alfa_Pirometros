@@ -10,7 +10,6 @@ import com.hrodriguesdev.AlfaPirometrosApplication;
 import com.hrodriguesdev.controller.EnsaiosController;
 import com.hrodriguesdev.controller.OSController;
 import com.hrodriguesdev.controller.OrcamentoController;
-import com.hrodriguesdev.dependency.InjecaoDependency;
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.entities.Orcamento;
 import com.hrodriguesdev.entities.Product;
@@ -38,6 +37,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -50,12 +50,12 @@ import javafx.scene.text.Text;
 //gui update OrcamentoUpdateDois
 
 public class OrcamentoInsert extends RegisterProductsController implements Initializable {
-	
+
 	public OrcamentoInsert(Equipamento equipamento, Orcamento orcamento) {
 		this.equipamento = equipamento;
 		this.orcamento = orcamento;
 	}
-	
+
 	protected Equipamento equipamento;
 	protected Orcamento orcamento;
 	protected EnsaiosController controllerEnsaios = new EnsaiosController();
@@ -63,29 +63,29 @@ public class OrcamentoInsert extends RegisterProductsController implements Initi
 	protected Long orcamentoId;
 	protected String list = "";
 	protected String nova = "";
-	
+
 	@FXML
 	protected VBox observacaoVbox;
-	
+
 	@FXML
 	protected HBox hboxOrcamento1, hboxOrcamento2, hbox1, hbox2;
-	
-	//Button
+
+	// Button
 	@FXML
 	protected Button salvar, cancelar, ensaioButton;
-	
-	//Image Button
+
+	// Image Button
 	@FXML
 	protected ImageView cancelarImg, salvarImg, ensaioImg;
-	
+
 	@FXML
 	protected Text erro;
-	
-	//Info Employee 
+
+	// Info Employee
 	@FXML
 	protected TextField nomeEmpressa, data, modelo, ns, pat, ultimaCal, nfeText, responsavel;
-		
-	//Table
+
+	// Table
 	@FXML
 	protected TableView<Product> productSelectedTable = new TableView<>();
 	protected ObservableList<Product> obsMateriais = FXCollections.observableArrayList();
@@ -93,122 +93,114 @@ public class OrcamentoInsert extends RegisterProductsController implements Initi
 	protected TableColumn<Product, String> productsSelected, descriptionSelected, unitMeasurementSelected;
 	@FXML
 	protected TableColumn<Product, Double> amountSelected;
-	
-	//Add Orçamentos
+
+	// Add Orçamentos
 	@FXML
 	protected TextField obs, quantidadeItem, obsSelected, filterProductsTextField;
-	
-	@FXML 
+
+	@FXML
 	protected ComboBox<String> empressaComboBox;
-	
-	//config combobox
+
+	// config combobox
 	protected InputFilter<String> inputFilterNewItem;
 	protected InputFilter<String> listener;
-			
 
-	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		quantidadeItem.setText("1");
 		imageInit();
 		textFildInserts();
 		startTable();
-		data.setEditable(true);				
-	}	
-	
+		data.setEditable(true);
+	}
 
-	
 //	Acaoes dos botoes da view
-	
+
 //	Acaoes dos referente aos orcamentos
-	
+
 	@FXML
 	protected void addItem(ActionEvent event) {
-		if(!obs.getText().isBlank()) {
+		if (!obs.getText().isBlank()) {
 			orcamento.setItem(obs.getText());
-			if(!obsSelected.getText().isBlank())
-				obsSelected.setText(obsSelected.getText() 
-						+ ", " 
-						+ obs.getText());
-			else 
+			if (!obsSelected.getText().isBlank())
+				obsSelected.setText(obsSelected.getText() + ", " + obs.getText());
+			else
 				obsSelected.setText(obs.getText());
-			
-		}else if(!productTable.getSelectionModel().isEmpty()){
+
+		} else if (!productTable.getSelectionModel().isEmpty()) {
 			try {
 				double qtde = Double.valueOf(quantidadeItem.getText());
-				if(qtde >0) {
+				if (qtde > 0) {
 					Product prod = productTable.getSelectionModel().getSelectedItem();
-					
-					obsMateriais.stream().filter(produto -> produto.equals(prod)).findFirst().ifPresentOrElse(
-							(a) -> {
-								a.setQtde(a.getQtde() + qtde);
-								} , 
-							() -> {
-								prod.setQtde(qtde);
-								obsMateriais.add(prod);
-							});
+
+					obsMateriais.stream().filter(produto -> produto.equals(prod)).findFirst().ifPresentOrElse((a) -> {
+						a.setQtde(a.getQtde() + qtde);
+					}, () -> {
+						prod.setQtde(qtde);
+						obsMateriais.add(prod);
+					});
 					productSelectedTable.setItems(obsMateriais);
 					productSelectedTable.refresh();
 
-				}else
+				} else
 					erro.setText("Quantidade tem que ser maior que 0");
-			}catch(NumberFormatException e) {
+			} catch (NumberFormatException e) {
 				Log.logString("OrcamentoInsert", e.getMessage());
 				e.printStackTrace();
 			}
-						
+
 		}
-		descelectAll();	
-	}	
-	
-	
+		descelectAll();
+	}
+
 	@FXML
 	protected void removeItem(ActionEvent event) {
-		if(!productSelectedTable.getSelectionModel().isEmpty()) {
-			obsMateriais.remove(productSelectedTable.getSelectionModel().getSelectedItem() );
+		if (!productSelectedTable.getSelectionModel().isEmpty()) {
+			obsMateriais.remove(productSelectedTable.getSelectionModel().getSelectedItem());
 			productSelectedTable.setItems(obsMateriais);
 			productSelectedTable.refresh();
-		}else
+		} else
 			obsSelected.setText("");
-		}	
-	
+	}
+
 //	botao para fecha a tela
 	@FXML
 	protected void cancelar(ActionEvent event) throws IOException {
 		NewView.fecharView();
 	}
-	
+
 //	Botao pra inserir o ensaio do equipamento em questao
 	@FXML
 	private void ensaio() {
-		NewView.getNewView("Ensaios","ensaioInserts" , new EnsaioViewController(equipamento, orcamento));
+		NewView.getNewView("Ensaios", "ensaioInserts", new EnsaioViewController(equipamento, orcamento));
 	}
 
 //	botao para salvar os dados alterado 
 	@FXML
 	protected void salvar(ActionEvent event) throws IOException {
 		orcamentoId = orcamento.getId();
-		
+
 		List<ProductsOs> listProductsOs = new ArrayList<>();
-		
-		if(!obsSelected.getText().isBlank())
+
+		if (!obsSelected.getText().isBlank())
 			orcamento.setItem(obsSelected.getText());
-		if(obsMateriais.size()>0) {
+		if (obsMateriais.size() > 0) {
 			obsMateriais.forEach((product) -> {
-				listProductsOs.add(new ProductsOs(orcamentoId, product.getId(), product.getQtde()));				
+				listProductsOs.add(new ProductsOs(orcamentoId, product.getId(), product.getQtde()));
 			});
-		}else if(obsSelected.getText().isBlank())
-			return ;
-		if(orcamento.getStatus() == 1)
+		} else if (obsSelected.getText().isBlank())
+			return;
+		if (orcamento.getStatus() == 1)
 			orcamento.setStatus(2);
-		if(data.getText().length() == 10)
+		if (data.getText().length() == 10)
 			orcamento.setData_chegada(Geral.dateParceString(data.getText()));
-		
-		OSController controller = new OSController();
+
+		OSController osController = new OSController();
 		OrcamentoController controllerOrcamento = new OrcamentoController();
-		if(controller.createNewOS(listProductsOs) )
-			if(controllerOrcamento.update(orcamento)) 
-					NewView.fecharView();			
+
+		if (osController.createNewOS(listProductsOs))
+			if (controllerOrcamento.update(orcamento))
+				NewView.fecharView();
 			else {
 				Log.logString("OrcamentoInsert", "Erro ao Atualizar o orcamento");
 				System.out.println("Erro ao Atualizar o orcamento\nOrcamentoInsert\n");
@@ -218,78 +210,63 @@ public class OrcamentoInsert extends RegisterProductsController implements Initi
 			Alerts.showAlert("Error", "Contatar Adm", "", AlertType.ERROR);
 			System.out.println("Erro Criar a lista da os\nOrcamentoInsert\n");
 		}
-						
-//		Itens itens = new Itens(orcamentoId, false , 0, false);		
-//		if(obsMateriais.size()>0) {
-//			obsMateriais.forEach((orcamento)-> {	
-//
-//				if( !itens.addItem(orcamento.getItemRealString(), orcamento.getQuantidade() ) )	{
-////					String itemStr = orcamento.getItem();
-//					this.nova = this.list + itemStr  + "\n";
-//					this.list = nova;
-//				}				
-//			});
-//			
-//			if(!this.list.isEmpty())
-//				orcamento.setItem(list);	
 
-//			if(itens.saveAll( orcamento) ) {
-//				try {
-//					NewView.fecharView();
-//				
-//				} catch (NumberFormatException e) {
-//					e.printStackTrace();
-//				}
-//			}else {
-//				erro.setText("Erro");
-//			}
-//		}		
-		InjecaoDependency.MAIN_TAB_CONTROLLER.refreshTableMain();
-	
-	}	
-		
+	}
+
 //	Acoes de tecla
-	
+
 //	TextField de obervacao, a area de add orcamento
 	@FXML
 	protected void addComEnter(KeyEvent event) {
-		if(event.getCode().toString()=="ENTER") {
+		if (event.getCode().toString() == "ENTER") {
 			addItem(new ActionEvent());
-
-		}
-	}
-	
-	@FXML
-	protected void esc(KeyEvent event) {
-		if(event.getCode().toString()=="ESC") {
+			if (event.getTarget().equals(super.productTable)) {
+				filterProductsTextField.requestFocus();
+			}
+		} else if (event.getCode().toString() == KeyCode.ESCAPE.toString()) {
 			descelectAll();
 		}
 	}
-	
+
+	@FXML
+	protected void filterList(KeyEvent event) {
+		if (!filterProductsTextField.getText().isBlank()) {
+			productTable.setItems(super.obs.filtered(product -> product.getName().toUpperCase()
+					.contains(filterProductsTextField.getText().toUpperCase())));
+			productTable.refresh();
+
+		}
+	}
+
+	@FXML
+	protected void esc(KeyEvent event) {
+		if (event.getCode().toString() == "ESC") {
+			descelectAll();
+		}
+	}
+
 //	filtro para inserir quantidade de produto no orcamento 
 	@FXML
 	private void filtredDouble(KeyEvent eventKey) {
-		if(eventKey.getTarget().equals(quantidadeItem)) {
+		if (eventKey.getTarget().equals(quantidadeItem)) {
 			quantidadeItem.setText(quantidadeItem.getText().replaceAll("[^0-9-.]+", ""));
 			quantidadeItem.end();
 		}
 	}
-	
-	
+
 	@FXML
 	protected void format(KeyEvent event) {
-		if(event.getTarget() == nfeText) {
-			nfeText.setText( nfeText.getText().replaceAll("[^0-9]+", "") );
+		if (event.getTarget() == nfeText) {
+			nfeText.setText(nfeText.getText().replaceAll("[^0-9]+", ""));
 			nfeText.end();
-		}
-		else if(event.getTarget() == data) {
+		} else if (event.getTarget() == data) {
 			data.setText(Format.replaceData(data.getText()));
 			data.end();
 		}
-	}	
-		
+	}
+
 //	metodos auxiliares
-	
+
 //	tira a selecao de todas as tabelas, limpa a quantidade, e limpa o campo de observacao
 	protected void descelectAll() {
 		obs.setText("");
@@ -297,58 +274,56 @@ public class OrcamentoInsert extends RegisterProductsController implements Initi
 		productSelectedTable.getSelectionModel().clearSelection();
 		quantidadeItem.setText("1");
 		erro.setText("");
-		
+		filterProductsTextField.setText("");
+		super.refresh();
+
 	}
-	
-//	Inicia as tabelas conforme os dados que vao ser inseridos na mesma
-	@Override
-	public void startTable() {	
-//		Tabela de produtos selecionados
-		productsSelected.setCellValueFactory(new PropertyValueFactory<Product, String>("name"));		
-		descriptionSelected.setCellValueFactory(new PropertyValueFactory<Product, String>("descricao"));
-		unitMeasurementSelected.setCellValueFactory(new PropertyValueFactory<Product, String>("unidadeMedida"));
-		amountSelected.setCellValueFactory(new PropertyValueFactory<Product, Double>("qtde"));		
-		productSelectedTable.setItems(obsMateriais);
-				
-//		tabela com todos os produtos
-		productTable.setEditable(false); 			
-		products.setCellValueFactory(new PropertyValueFactory<Product, String>("name"));		
-		description.setCellValueFactory(new PropertyValueFactory<Product, String>("descricao"));
-		unitMeasurement.setCellValueFactory(new PropertyValueFactory<Product, String>("unidadeMedida"));	
-		
-		refresh();
-	}
-	
-	
-//	Inicia todas as imagens contidas na view
-	protected void imageInit() {
-		Image image =  new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-adicionar.png").toString() );
-		salvarImg.setImage(image);
-		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-excluir.png").toString() );
-		cancelarImg.setImage(image);
-		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-ensaio.png").toString() );
-		try {
-			ensaioImg.setImage(image);
-		}catch(NullPointerException e) {
-			e.printStackTrace();
-		}
-	}
-	
+
 //	insere as informações dos equipamento assim que a view abre
 	protected void textFildInserts() {
-				data.setText( Format.formatData.format(orcamento.getData_chegada()) );nomeEmpressa.setText(equipamento.getEmpresaName());
+		data.setText(Format.formatData.format(orcamento.getData_chegada()));
+		nomeEmpressa.setText(equipamento.getEmpresaName());
 
 		modelo.setText(equipamento.getModelo());
 		ns.setText(equipamento.getNs());
 		pat.setText(equipamento.getPat());
-		if(equipamento.getUltimaCalibDate() != null) 
-			ultimaCal.setText( Format.formatData.format(equipamento.getUltimaCalibDate()) );
+		if (equipamento.getUltimaCalibDate() != null)
+			ultimaCal.setText(Format.formatData.format(equipamento.getUltimaCalibDate()));
 //		ultimaCal.setText(equipamento.getUltimaCalib());	
 	}
-	
-		
-// Table Products	
-	
-	
-	
+
+//	Inicia todas as imagens contidas na view
+	protected void imageInit() {
+		Image image = new Image(
+				AlfaPirometrosApplication.class.getResource("gui/resources/icons-adicionar.png").toString());
+		salvarImg.setImage(image);
+		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-excluir.png").toString());
+		cancelarImg.setImage(image);
+		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-ensaio.png").toString());
+		try {
+			ensaioImg.setImage(image);
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+		}
+	}
+
+//	Inicia as tabelas conforme os dados que vao ser inseridos na mesma
+	@Override
+	public void startTable() {
+//		Tabela de produtos selecionados
+		productsSelected.setCellValueFactory(new PropertyValueFactory<Product, String>("name"));
+		descriptionSelected.setCellValueFactory(new PropertyValueFactory<Product, String>("descricao"));
+		unitMeasurementSelected.setCellValueFactory(new PropertyValueFactory<Product, String>("unidadeMedida"));
+		amountSelected.setCellValueFactory(new PropertyValueFactory<Product, Double>("qtde"));
+		productSelectedTable.setItems(obsMateriais);
+
+//		tabela com todos os produtos
+		productTable.setEditable(false);
+		products.setCellValueFactory(new PropertyValueFactory<Product, String>("name"));
+		description.setCellValueFactory(new PropertyValueFactory<Product, String>("descricao"));
+		unitMeasurement.setCellValueFactory(new PropertyValueFactory<Product, String>("unidadeMedida"));
+
+		refresh();
+	}
+
 }

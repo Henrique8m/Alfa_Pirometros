@@ -2,11 +2,15 @@ package com.hrodriguesdev.gui.controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import com.hrodriguesdev.AlfaPirometrosApplication;
+import com.hrodriguesdev.controller.ProductsController;
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.entities.Orcamento;
+import com.hrodriguesdev.gui.alert.Alerts;
 import com.hrodriguesdev.relatorio.GeneratorPDFEstoque;
 import com.hrodriguesdev.utilitary.NewView;
 import com.hrodriguesdev.utilitary.fxml.FXMLPath;
@@ -15,6 +19,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -55,7 +60,16 @@ public class EstoqueController extends RegisterProductsController implements Ini
 	
 	@FXML
 	protected void relatoriosPdf(ActionEvent event) throws IOException {
-//			Alerts.showAlert("Relatorio", "Relatorio gerado com sucesso", "", AlertType.INFORMATION);
+		String local = System.getProperty("user.home")
+				.toString() + 
+				AlfaPirometrosApplication.URL_RELATORIOS;
+		ProductsController products = new ProductsController();
+		List<String> listProducts = new ArrayList<>();
+		products.findAll().forEach(product ->{
+			listProducts.add(product.getName());
+		});
+		if(pdf.newDocument(listProducts, local))
+			Alerts.showAlert("Relatorio", "Relatorio gerado com sucesso em , "+ local, "", AlertType.INFORMATION);
 	}
 			
 

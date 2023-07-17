@@ -183,7 +183,7 @@
                                                       <Font size="14.0" />
                                                    </font>
                                                 </Text>
-                                                <TextField fx:id="filterProductsTextField" maxHeight="-Infinity" maxWidth="-Infinity" onKeyPressed="#addComEnter" prefHeight="25.0" prefWidth="145.0">
+                                                <TextField fx:id="filterProductsTextField" maxHeight="-Infinity" maxWidth="-Infinity" onKeyReleased="#filterList" prefHeight="25.0" prefWidth="145.0">
                                                    <HBox.margin>
                                                       <Insets left="10.0" top="5.0" />
                                                    </HBox.margin>
@@ -193,7 +193,7 @@
                                                 <Insets bottom="2.0" left="5.0" top="4.0" />
                                              </VBox.margin>
                                           </HBox>
-                                          <TableView fx:id="productTable" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onKeyPressed="#esc" prefHeight="700.0" prefWidth="640.0">
+                                          <TableView fx:id="productTable" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onKeyPressed="#addComEnter" prefHeight="700.0" prefWidth="640.0">
                                             <columns>
                                               <TableColumn fx:id="products" maxWidth="440.0" minWidth="100.0" prefWidth="270.0" text="Produto" />
                                               <TableColumn fx:id="description" maxWidth="440.0" minWidth="100.0" prefWidth="270.0" text="Descrição" />

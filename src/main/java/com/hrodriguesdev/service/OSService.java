@@ -10,6 +10,18 @@ public class OSService {
 
 	private OSRepository repositoryOs = new OSRepository();
 	
+	public boolean isContentOs(Long idOrcamento) {
+		if(repositoryOs.findAllByOrcamentoId(idOrcamento, "products_os ").isEmpty())
+			return false;			
+		return true;
+	}
+	
+	public boolean isContentOsOut(Long idOrcamento) {
+		if(repositoryOs.findAllByOrcamentoId(idOrcamento, "products_out ").isEmpty())
+			return false;			
+		return true;
+	}	
+	
 	public boolean createNewOs(List<ProductsOs> list) {
 		if(list.size()>0)
 			if(repositoryOs.findAllByOrcamentoId(list.get(0).getIdOrcamento(), "products_os ").isEmpty())
@@ -100,5 +112,6 @@ public class OSService {
 //			
 		});
 	}
-	
+
+
 }

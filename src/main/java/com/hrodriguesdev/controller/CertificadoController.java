@@ -4,7 +4,6 @@ import java.sql.Date;
 import java.util.List;
 
 import com.hrodriguesdev.ExceptionAlfa;
-import com.hrodriguesdev.certificado.pdf.PdfCertificado;
 import com.hrodriguesdev.dao.db.DbException;
 import com.hrodriguesdev.dependency.InjecaoDependency;
 import com.hrodriguesdev.entities.CalibracaoEnsaio;
@@ -14,6 +13,7 @@ import com.hrodriguesdev.entities.Empresa;
 import com.hrodriguesdev.entities.Ensaios;
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.entities.Padrao;
+import com.hrodriguesdev.relatorio.certificado.PdfCertificado;
 import com.hrodriguesdev.service.CertificadoService;
 
 public class CertificadoController {
