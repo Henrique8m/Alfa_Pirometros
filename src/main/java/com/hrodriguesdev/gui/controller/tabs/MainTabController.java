@@ -205,10 +205,10 @@ public class MainTabController implements Initializable, Runnable{
 			orcamento = orcamentoController.findById( tableFilaEquipamentos.getSelectionModel().getSelectedItem().getOrcamento_id() );
 			if(status == 5 || status == 6 || status == 9) {					
     			if( orcamento.getColetor_id() == null || orcamento.getColetor_id() == 0) {
-    				NewView.getNewView("Saida de equipamento", "saidaEquipamento", new SaidaEquipamentoViewController(tableFilaEquipamentos.getSelectionModel().getSelectedItem(), orcamento ) );
+    				NewView.getNewView("Saida de equipamento", FXMLPath.SAIDA_EQUIPAMENTO, new SaidaEquipamentoViewController(tableFilaEquipamentos.getSelectionModel().getSelectedItem(), orcamento ) );
 
     			} else{
-    				NewView.getNewView("Saida de equipamento", "saidaEquipamento", new OpenSaidaEquipamentoViewController(tableFilaEquipamentos.getSelectionModel().getSelectedItem(), orcamento));
+    				NewView.getNewView("Saida de equipamento", FXMLPath.SAIDA_EQUIPAMENTO, new OpenSaidaEquipamentoViewController(tableFilaEquipamentos.getSelectionModel().getSelectedItem(), orcamento));
 
     			}
     		}else

@@ -23,7 +23,8 @@ public class AlfaPirometrosApplication extends Application{
 	
 	public static int REFRESH_TABLE_MAIN_VIEW = 60; //em segundos	
 
-	public static String URL_RELATORIOS = "\\Desktop\\Relatorios";
+	public static String URL_RELATORIOS = System.getProperty("user.home")
+			.toString() + "\\Desktop\\Relatorios";
 	public static String URL_CONEXAO = "C:\\Program Files\\Java\\resources";	
 	public static String URL_CONEXAO_PRODUCAO = URL_CONEXAO + "\\dbAlfa.properties";
 	public static String URL_CONEXAO_DESENVOLVIMENTO = URL_CONEXAO + "\\dbLocal.properties";	

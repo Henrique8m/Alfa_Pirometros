@@ -36,12 +36,13 @@ public class RelatorioGeneratorPDF {
 		Document documento = new Document();
 		String id = orcamento.getId().toString();
 		String idOrcamento = id + "-" + Format.formatYear.format(orcamento.getData_chegada());
-		String caminho = AlfaPirometrosApplication.URL_AREA_DE_TRABALHO + "\\Relatorios" + "\\";
+		String caminho = AlfaPirometrosApplication.URL_RELATORIOS;
 		try {	
 			
 			// Faz o apontamento para o arquivo de destino
 			File diretorio = new File(caminho);
 			diretorio.mkdir();
+			caminho = caminho + "\\";
 			String arquivo = caminho + idOrcamento + ".pdf";
 			
 			PdfWriter.getInstance(documento, new FileOutputStream(arquivo));			

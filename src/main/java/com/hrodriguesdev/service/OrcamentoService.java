@@ -133,4 +133,8 @@ public class OrcamentoService {
 		return list;
 	}
 
+	public boolean updateDataSaida(Orcamento orcamento) {
+		return repository.updateDataSaida(orcamento);
+	}
+
 }

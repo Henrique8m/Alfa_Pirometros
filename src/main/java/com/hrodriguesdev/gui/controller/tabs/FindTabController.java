@@ -19,7 +19,7 @@ import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.entities.Orcamento;
 import com.hrodriguesdev.entities.Product;
 import com.hrodriguesdev.gui.alert.Alerts;
-import com.hrodriguesdev.gui.controller.view.updatede.ColetorUpdatede;
+import com.hrodriguesdev.gui.controller.view.updatede.ColetorUpdateViewController;
 import com.hrodriguesdev.gui.controller.view.updatede.EquipamentoUpdatede;
 import com.hrodriguesdev.gui.controller.view.updatede.NumeroRelatorioUpdate;
 import com.hrodriguesdev.gui.controller.view.updatede.OrcamentoUpdate;
@@ -64,8 +64,7 @@ public class FindTabController implements Initializable{
 	private Button Adcionar, EditarEquip, cancelar, salvar;
 	
     @FXML
-    private ComboBox<String> textEmpresa;
-    
+    private ComboBox<String> textEmpresa;    
     private static ObservableList<String> obsString = FXCollections.observableArrayList();
     private FilteredList<String> filteredList;
 	private InputFilter<String> inputFilter;
@@ -241,7 +240,7 @@ public class FindTabController implements Initializable{
 			}
 			else if(event.getCode().toString() == "F3") {
 				if(orcamento.getColetor_id()!= null && orcamento.getColetor_id() != 0)
-					NewView.getNewView("Editar coletor", FXMLPath.SAIDA_EQUIPAMENTO, new ColetorUpdatede(equipamento, orcamento));
+					NewView.getNewView("Editar coletor", FXMLPath.SAIDA_EQUIPAMENTO, new ColetorUpdateViewController(equipamento, orcamento));
 			}
 		}
 	}

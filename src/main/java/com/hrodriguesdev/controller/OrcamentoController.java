@@ -76,6 +76,10 @@ public class OrcamentoController {
 		return orcamentoService.findAllNoCertificado(id);
 	}
 
+	public boolean updateDataSaida(Orcamento orcamento) {
+		return orcamentoService.updateDataSaida(orcamento);
+	}
+
 
 	
 }

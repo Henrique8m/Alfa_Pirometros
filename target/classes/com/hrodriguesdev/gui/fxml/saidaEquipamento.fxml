@@ -116,7 +116,7 @@
                               <VBox prefHeight="47.0" prefWidth="215.0" style="-fx-background-color: #c9c9c9;">
                                  <children>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="NOME DA EMPRESSA" wrappingWidth="174.13671875" />
-                                    <ComboBox fx:id="coleta" editable="true" prefHeight="25.0" prefWidth="209.0" />
+                                    <ComboBox fx:id="empresaColeta" editable="true" prefHeight="25.0" prefWidth="209.0" />
                                  </children>
                                  <padding>
                                     <Insets right="10.0" />

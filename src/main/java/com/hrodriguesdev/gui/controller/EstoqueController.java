@@ -60,9 +60,7 @@ public class EstoqueController extends RegisterProductsController implements Ini
 	
 	@FXML
 	protected void relatoriosPdf(ActionEvent event) throws IOException {
-		String local = System.getProperty("user.home")
-				.toString() + 
-				AlfaPirometrosApplication.URL_RELATORIOS;
+		String local = 	AlfaPirometrosApplication.URL_RELATORIOS;
 		ProductsController products = new ProductsController();
 		List<String> listProducts = new ArrayList<>();
 		products.findAll().forEach(product ->{
