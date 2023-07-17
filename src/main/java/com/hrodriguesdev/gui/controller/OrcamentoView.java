@@ -74,7 +74,6 @@ public class OrcamentoView extends EnsaioViewController implements Initializable
 	@FXML
 	protected TableColumn<Product, Double> amountSelected;
 	
-	
 	private RelatorioGeneratorPDF pdf = new RelatorioGeneratorPDF();
 	private Equipamento equipamento;
 	private Orcamento orcamento;
@@ -171,12 +170,10 @@ public class OrcamentoView extends EnsaioViewController implements Initializable
 	@FXML
 	private void relatorio(ActionEvent event) {
 		Ensaios ensaios = ensaioController.findByOrcamentoId(orcamento.getId());
-		pdf.printRelatorioPdf(equipamento, ensaios, orcamento, obs.getText());
+		pdf.printRelatorioPdf(equipamento, ensaios, orcamento, obs.getText(), obsMateriais);
 		
 	}
-	
-
-	
+		
 	@FXML
 	public void esc(KeyEvent e) {
 		
@@ -372,8 +369,6 @@ public class OrcamentoView extends EnsaioViewController implements Initializable
 	
 //	Atraves do status em que se encontra o relatorio,
 //	Libera o botão pertinente
-	
-
 	private void switchStatus(Integer status) {
 		if(status.equals(OSStatus.STATUS_3_AG_OS.getStatusInt()) ){
 			aprovado.setVisible(true);
@@ -414,30 +409,6 @@ public class OrcamentoView extends EnsaioViewController implements Initializable
 		orcamento.setStatus(status);
 	}
 	
-	
-//	Inicia as tabelas conforme os dados que vao ser inseridos na mesma
-	public void startTable() {	
-//		Tabela de produtos selecionados
-		productsSelected.setCellValueFactory(new PropertyValueFactory<Product, String>("name"));		
-		descriptionSelected.setCellValueFactory(new PropertyValueFactory<Product, String>("descricao"));
-		unitMeasurementSelected.setCellValueFactory(new PropertyValueFactory<Product, String>("unidadeMedida"));
-		amountSelected.setCellValueFactory(new PropertyValueFactory<Product, Double>("qtde"));		
-		productSelectedTable.setItems(obsMateriais);
-	}
-	
-//	Inicia todas as imagens contidas na view
-	protected void imageInit() {
-		Image image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-excluir.png").toString() );
-		cancelarImg.setImage(image);
-		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-salvar-arquivo.png").toString() );
-		salvarImg.setImage(image);
-		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-pdf.png").toString() );
-		relatorioImg.setImage(image);
-		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-ensaio.png").toString() );
-		ensaioImg.setImage(image);
-		
-	}
-	
 //	insere as informações dos equipamento assim que a view abre
 	protected void textFildInserts() {
 		nomeEmpressa.setText(equipamento.getEmpresaName());
@@ -466,6 +437,29 @@ public class OrcamentoView extends EnsaioViewController implements Initializable
 		ProductsController controller = new ProductsController();
 		obsMateriais = controller.findAllOsByOrcamentoId(orcamento.getId());
 		
+	}
+	
+//	Inicia todas as imagens contidas na view
+	protected void imageInit() {
+		Image image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-excluir.png").toString() );
+		cancelarImg.setImage(image);
+		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-salvar-arquivo.png").toString() );
+		salvarImg.setImage(image);
+		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-pdf.png").toString() );
+		relatorioImg.setImage(image);
+		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-ensaio.png").toString() );
+		ensaioImg.setImage(image);
+		
+	}
+	
+//	Inicia as tabelas conforme os dados que vao ser inseridos na mesma
+	public void startTable() {	
+//		Tabela de produtos selecionados
+		productsSelected.setCellValueFactory(new PropertyValueFactory<Product, String>("name"));		
+		descriptionSelected.setCellValueFactory(new PropertyValueFactory<Product, String>("descricao"));
+		unitMeasurementSelected.setCellValueFactory(new PropertyValueFactory<Product, String>("unidadeMedida"));
+		amountSelected.setCellValueFactory(new PropertyValueFactory<Product, Double>("qtde"));		
+		productSelectedTable.setItems(obsMateriais);
 	}
 	
 }

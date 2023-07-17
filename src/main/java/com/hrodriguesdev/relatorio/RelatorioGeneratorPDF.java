@@ -10,6 +10,7 @@ import com.hrodriguesdev.AlfaPirometrosApplication;
 import com.hrodriguesdev.entities.Ensaios;
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.entities.Orcamento;
+import com.hrodriguesdev.entities.Product;
 import com.hrodriguesdev.utilitary.Format;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Element;
@@ -17,6 +18,8 @@ import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+
+import javafx.collections.ObservableList;
 
 public class RelatorioGeneratorPDF {	
 //	private  Font fonteCabecalho = new Font(Font.FontFamily.COURIER, 18, Font.BOLD);
@@ -26,21 +29,24 @@ public class RelatorioGeneratorPDF {
 	
 	private TableEnsaios tableEnsaios;
 	
-	public void printRelatorioPdf(Equipamento equipamento, Ensaios ensaios, Orcamento orcamento, String obsList) {
+	public void printRelatorioPdf(Equipamento equipamento, Ensaios ensaios, Orcamento orcamento, String obserList, ObservableList<Product> obsMateriais) {
 		tableEnsaios = new TableEnsaios(ensaios);
 		
 		// Criação do objeto que será um documento PDF
 		Document documento = new Document();
 		String id = orcamento.getId().toString();
 		String idOrcamento = id + "-" + Format.formatYear.format(orcamento.getData_chegada());
-		String caminho = AlfaPirometrosApplication.URL_AREA_DE_TRABALHO + "/Relatorios";
+		String caminho = AlfaPirometrosApplication.URL_AREA_DE_TRABALHO + "\\Relatorios" + "\\";
 		try {	
 			
 			// Faz o apontamento para o arquivo de destino
 			File diretorio = new File(caminho);
 			diretorio.mkdir();
-			PdfWriter.getInstance(documento, new FileOutputStream(caminho + "\\" + idOrcamento + ".pdf"));
+			String arquivo = caminho + idOrcamento + ".pdf";
 			
+			PdfWriter.getInstance(documento, new FileOutputStream(arquivo));			
+			
+		
 			// Realiza a abertura do arquivo para escrita
 			documento.open();
 	
@@ -176,17 +182,20 @@ public class RelatorioGeneratorPDF {
 			table.setWidthPercentage(100);
 
 			list = new ArrayList<String>();
-			list.add(obsList.replaceAll("\n", ", "));		
-			table.addCell(addCell(list,1,5,Element.ALIGN_LEFT));
+			list.add(list.size()+1 + " - "  + obserList);
 			
+			for(Product prod: obsMateriais) {
+				list.add(list.size()+1 + " - "  + prod.getName() + ", " + prod.getQtde() + " " + prod.getUnidadeMedida());	
+			}			
+			table.addCell(addCell(list,1,5,Element.ALIGN_LEFT));			
 			documento.add(table);
-			
-			
 			
 			documento.setMargins(0, 0, 10, 10);
 	
 			// Fecha o arquivo após a escrita da mensagem
 			documento.close();
+			Runtime.getRuntime().exec("explorer.exe " + caminho);
+			Runtime.getRuntime().exec("explorer.exe " + arquivo);
 
 		} catch (Exception e) {
 			documento.close();
