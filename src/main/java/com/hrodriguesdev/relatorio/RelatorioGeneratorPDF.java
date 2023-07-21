@@ -12,6 +12,7 @@ import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.entities.Orcamento;
 import com.hrodriguesdev.entities.Product;
 import com.hrodriguesdev.utilitary.Format;
+import com.hrodriguesdev.utilitary.Log;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Phrase;
@@ -107,8 +108,10 @@ public class RelatorioGeneratorPDF {
 			list.add("Ultima Calibração:");
 			String dataCal = "";
 			try {
+				if(!equipamento.getUltimaCalibDate().toString().isBlank())
 				dataCal = Format.formatData.format( equipamento.getUltimaCalibDate());
 			}catch(NullPointerException e) {
+				Log.logString("RelatoiroGeneratorPDF", e.getMessage());
 				e.printStackTrace();
 			}		
 			list.add(dataCal);		
