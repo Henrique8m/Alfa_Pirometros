@@ -279,7 +279,7 @@ public class CertificateTabController implements Initializable {
 			certificadoText.setText("Selecionar um certificado");
 			return;
 		} else {
-			certificadoText.setText("Emprimindo...");
+			certificadoText.setText("Emprimindo...\n");
 			try {
 				certificadoController.gerarCertificadoPDF(certif);
 				certificadoText.insertText(certificadoText.getLength(), "Empresso");

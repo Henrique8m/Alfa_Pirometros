@@ -18,13 +18,18 @@ import com.hrodriguesdev.service.CertificadoService;
 
 public class CertificadoController {
 	
-	private EquipamentoController equipamentoController = InjecaoDependency.EQUIPAMENTO_CONTROLLER;
+	private EquipamentoController equipamentoController;
 	private CertificadoService certificadoService = new CertificadoService();
-	private EmpresaController empresaController = InjecaoDependency.EMPRESA_CONTROLLER;
-	private EnsaiosController ensaioController = InjecaoDependency.ENSAIO_CONTROLLER;
+	private EmpresaController empresaController;
+	private EnsaiosController ensaioController;
 	private PdfCertificado pdfCertificado = new PdfCertificado();
 	
 	public boolean gerarCertificadoPDF(Certificado certificado) throws ExceptionAlfa , DbException, NullPointerException{
+		equipamentoController = InjecaoDependency.EQUIPAMENTO_CONTROLLER;
+		empresaController = InjecaoDependency.EMPRESA_CONTROLLER;
+		ensaioController = InjecaoDependency.ENSAIO_CONTROLLER;
+
+		
 		Equipamento equipamento = equipamentoController.findById(certificado.getEquipamento_id());
 		Empresa empresa = empresaController.find(equipamento.getEmpresa());
 		DescricaoInstrumento descricao = certificadoService.getDescricao(equipamento.getModelo());
