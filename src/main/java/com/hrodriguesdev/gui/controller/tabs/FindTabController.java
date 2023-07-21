@@ -486,7 +486,7 @@ public class FindTabController implements Initializable{
 			return false;
 		}
 		try {
-//			empresa = MainViewController.empressaController.isExist( textEmpresa.getValue() );
+			empresa = empresaController.isExist( textEmpresa.getValue() );
 			if ( empresa == null ) {
 				error( "Empresa" ,"Empresa não existe");
 				throw new DbException("Empresa não existe");
