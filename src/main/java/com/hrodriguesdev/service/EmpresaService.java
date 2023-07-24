@@ -27,7 +27,7 @@ public class EmpresaService {
 		return repository.findEmpressa(empressa);
 	}
 
-	public List<Empresa> getAllEmpresa() {
+	public List<Empresa> findAll() {
 		return repository.getAllEmpresa();
 	}
 

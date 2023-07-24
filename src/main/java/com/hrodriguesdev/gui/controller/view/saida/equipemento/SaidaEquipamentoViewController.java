@@ -224,7 +224,7 @@ public class SaidaEquipamentoViewController implements Initializable {
 	}
 	
 	public void addListener() {
-		obsString =  empresaController.findAll();
+		obsString =  empresaController.findAllObs();
 		filteredList = new FilteredList<>(obsString);  
 		inputFilter = new InputFilter<String>( empresaColeta, filteredList );
 		empresaColeta.getEditor().textProperty().addListener(inputFilter);	

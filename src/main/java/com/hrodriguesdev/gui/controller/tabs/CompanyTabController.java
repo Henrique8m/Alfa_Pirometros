@@ -309,7 +309,7 @@ public class CompanyTabController implements Initializable{
 	 * acordo com a digitação
 	 */	
 	private void addListener() {
-			obsString = empresaController.findAll();
+			obsString = empresaController.findAllObs();
 			filteredList = new FilteredList<>(obsString);  
 			inputFilter = new InputFilter<String>( findEmpresaComboBox, filteredList );
 			findEmpresaComboBox.getEditor().textProperty().addListener(inputFilter);	

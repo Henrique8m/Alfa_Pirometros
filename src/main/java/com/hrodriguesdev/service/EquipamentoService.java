@@ -63,7 +63,7 @@ public class EquipamentoService {
 		return null;
 	}
 
-	public ObservableList<Equipamento> findAll() {	
+	public ObservableList<Equipamento> findAllObs() {	
 		ObservableList<Equipamento> obs = FXCollections.observableArrayList();
 		List<Equipamento> list = repository.findAll() ;
 		if(list!=null) {
@@ -72,6 +72,10 @@ public class EquipamentoService {
 		}
 					
 		return null;
+	}
+	
+	public List<Equipamento> findAll(){
+		return repository.findAll();
 	}
 	
 	public ObservableList<Equipamento> findByName(String name) {		

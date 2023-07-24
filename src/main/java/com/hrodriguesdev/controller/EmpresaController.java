@@ -1,5 +1,6 @@
 package com.hrodriguesdev.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.hrodriguesdev.entities.Empresa;
@@ -11,10 +12,12 @@ import javafx.collections.ObservableList;
 public class EmpresaController {
 	private EmpresaService empresaService = new EmpresaService();
 	
-	public ObservableList<String> findAll(){	
+	public ObservableList<String> findAllObs(){	
 		ObservableList<String> obs = FXCollections.observableArrayList();
-		List<String> list = empresaService.getAll();
-		if(list!=null) {
+		List<Empresa> listEmpresa = findAllEmpresa();
+		List<String> list = new ArrayList<>();
+		listEmpresa.forEach(empresa -> list.add(empresa.getName()));
+		if(!list.isEmpty()) {
 			obs.addAll(list);
 			return obs;
 		}
@@ -22,9 +25,13 @@ public class EmpresaController {
 	
 	}
 	
+	public List<Empresa> findAll(){	
+		return empresaService.findAll();	
+	}
+	
 	public ObservableList<Empresa> findAllEmpresa(){	
 		ObservableList<Empresa> obs = FXCollections.observableArrayList();
-		List<Empresa> list = empresaService.getAllEmpresa();
+		List<Empresa> list = findAll();
 		list.sort((x,y)-> x.getName().compareTo(y.getName()) );
 		if(list!=null) 
 			obs.addAll(list);

@@ -19,6 +19,7 @@ import com.hrodriguesdev.entities.Certificado;
 import com.hrodriguesdev.entities.Ensaios;
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.entities.Orcamento;
+import com.hrodriguesdev.entities.DTO.CertificadoDTO;
 import com.hrodriguesdev.gui.alert.Alerts;
 import com.hrodriguesdev.gui.controller.CertificadoOrcamentoEnsaio;
 import com.hrodriguesdev.resources.file.FileEquipamento;
@@ -90,6 +91,24 @@ public class CertificateTabController implements Initializable {
 	private TableColumn<Certificado, Integer> numeroCertificado;
 
 	@FXML
+	private TableView<CertificadoDTO> tableCertificadoAll;
+	private ObservableList<CertificadoDTO> obsbListCertificadoAll = FXCollections.observableArrayList();
+	@FXML
+	private TableColumn<CertificadoDTO, Date> dataCalibracaoAll;
+	@FXML
+	private TableColumn<CertificadoDTO, Integer> numeroCertificadoAll;
+	@FXML
+	private TableColumn<CertificadoDTO, String> empresaCertificadoAll;
+	@FXML
+	private TableColumn<CertificadoDTO, String> modeloCertificadoAll;
+	@FXML
+	private TableColumn<CertificadoDTO, String> nsCertificadoAll;
+	@FXML
+	private TableColumn<CertificadoDTO, String> patCertificadoAll;
+	
+	
+	
+	@FXML
 	private TextArea certificadoText;
 
 	@FXML
@@ -137,6 +156,9 @@ public class CertificateTabController implements Initializable {
 				dataCalibracaoNovo.setValue(LocalDate.now());
 				startTable();
 				imageInit();
+				List<CertificadoDTO> list = certificadoController.findAllDTO();
+				list.sort((a,b) -> a.getDateCal().compareTo(b.getDateCal()));				
+				obsbListCertificadoAll.addAll(list);
 				return null;
 			}
 		};
@@ -196,7 +218,7 @@ public class CertificateTabController implements Initializable {
 			osbListEquipamento = obs;
 			MainTabController.comboBoxBusca = textEmpresaCertificado.getValue();
 		} else {
-			osbListEquipamento = equipamentoController.findAll();
+			osbListEquipamento = equipamentoController.findAllObs();
 			MainTabController.comboBoxBusca = "";
 		}
 
@@ -396,7 +418,7 @@ public class CertificateTabController implements Initializable {
 	}
 
 	private void addListener() {
-		obsString = empresaController.findAll();
+		obsString = empresaController.findAllObs();
 		filteredList = new FilteredList<>(obsString);
 		inputFilter = new InputFilter<String>(textEmpresaCertificado, filteredList);
 		textEmpresaCertificado.getEditor().textProperty().addListener(inputFilter);
@@ -449,6 +471,33 @@ public class CertificateTabController implements Initializable {
 		});
 		tableCertificado.setItems(osbListCertificado);
 
+		dataCalibracaoAll.setCellValueFactory(new PropertyValueFactory<>("dateCal"));
+		dataCalibracaoAll.setCellFactory(cell -> {
+			return new TableCell<CertificadoDTO, Date>() {
+				@Override
+				protected void updateItem(Date item, boolean empty) {
+					super.updateItem(item, empty);
+					if (!empty) {
+						try {
+							setText(Format.formatData.format(item));
+						} catch (NullPointerException e) {
+							setText("");
+							setGraphic(null);
+						}
+
+					} else {
+						setText("");
+						setGraphic(null);
+					}
+				}
+			};
+		});
+		numeroCertificadoAll.setCellValueFactory(new PropertyValueFactory<CertificadoDTO, Integer>("numero"));
+		modeloCertificadoAll.setCellValueFactory(new PropertyValueFactory<CertificadoDTO, String>("modelo"));
+		nsCertificadoAll.setCellValueFactory(new PropertyValueFactory<CertificadoDTO, String>("ns"));
+		patCertificadoAll.setCellValueFactory(new PropertyValueFactory<CertificadoDTO, String>("pat"));
+		empresaCertificadoAll.setCellValueFactory(new PropertyValueFactory<CertificadoDTO, String>("empresa"));
+		
 	}
 
 }

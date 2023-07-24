@@ -212,7 +212,7 @@ public class FindTabController implements Initializable{
     		MainTabController.comboBoxBusca = textEmpresa.getValue();
 
     	}else { 		
-    		obsListTableFindEquipamentos = equipamentoController.findAll(); 
+    		obsListTableFindEquipamentos = equipamentoController.findAllObs(); 
     		MainTabController.comboBoxBusca = "";
     	}
     	tableFindEquipamentos.setItems(obsListTableFindEquipamentos);
@@ -571,7 +571,7 @@ public class FindTabController implements Initializable{
 	}
 	
 	private void addListener() {
-		obsString = empresaController .findAll();
+		obsString = empresaController .findAllObs();
 		filteredList = new FilteredList<>(obsString);  
 		inputFilter = new InputFilter<String>( textEmpresa, filteredList );	
 		textEmpresa.getEditor().textProperty().addListener(inputFilter);	

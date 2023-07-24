@@ -30,7 +30,11 @@ public class EquipamentoController {
 		return equipamentoService.findAll(equipamento);
 	}	
 	
-	public ObservableList<Equipamento> findAll() {		
+	public ObservableList<Equipamento> findAllObs() {		
+		return equipamentoService.findAllObs();	
+	}
+	
+	public List<Equipamento> findAll() {		
 		return equipamentoService.findAll();	
 	}
 

@@ -13,6 +13,7 @@ import com.hrodriguesdev.entities.Empresa;
 import com.hrodriguesdev.entities.Ensaios;
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.entities.Padrao;
+import com.hrodriguesdev.entities.DTO.CertificadoDTO;
 import com.hrodriguesdev.relatorio.certificado.PdfCertificado;
 import com.hrodriguesdev.service.CertificadoService;
 
@@ -79,6 +80,10 @@ public class CertificadoController {
 
 	public  List<Certificado> findAll() {
 		return certificadoService.findAll();
+	}
+
+	public List<CertificadoDTO> findAllDTO() {
+		return certificadoService.findAllDTO();
 	}
 		
 }

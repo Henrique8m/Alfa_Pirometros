@@ -2,15 +2,19 @@ package com.hrodriguesdev.service;
 
 import java.io.File;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.hrodriguesdev.AlfaPirometrosApplication;
 import com.hrodriguesdev.dao.repository.CertificadoRepository;
+import com.hrodriguesdev.dependency.InjecaoDependency;
 import com.hrodriguesdev.entities.CalibracaoEnsaio;
 import com.hrodriguesdev.entities.Certificado;
 import com.hrodriguesdev.entities.DescricaoInstrumento;
 import com.hrodriguesdev.entities.Ensaios;
+import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.entities.Padrao;
+import com.hrodriguesdev.entities.DTO.CertificadoDTO;
 import com.hrodriguesdev.resources.calibracao.CalculoIncerteza;
 import com.hrodriguesdev.resources.calibracao.LineTableEntradaEquipamento;
 import com.hrodriguesdev.resources.file.ReadFileExel;
@@ -157,6 +161,28 @@ public class CertificadoService {
 
 	public List<Certificado> findAll() {
 		return repository.findAll();
+	}
+
+	public List<CertificadoDTO> findAllDTO() {
+		List<Certificado> listCertificado = repository.findAll();
+		List<Equipamento> listEquipamento = InjecaoDependency.EQUIPAMENTO_CONTROLLER.findAll();
+		List<CertificadoDTO> listDto = new ArrayList<>();
+		
+		listCertificado.forEach(certificado -> {
+			Equipamento equipamentoFind = listEquipamento.stream()
+					.filter(equipamento -> equipamento.getId()==certificado.getEquipamento_id())
+					.findFirst().get();
+			
+			listDto.add(new CertificadoDTO(
+					certificado.getNumero(),
+					certificado.getDate_cal(),
+					equipamentoFind.getModelo(),
+					equipamentoFind.getNs(),
+					equipamentoFind.getPat(),
+					equipamentoFind.getEmpresaName()));
+		});		
+
+		return listDto;
 	}
 	
 }

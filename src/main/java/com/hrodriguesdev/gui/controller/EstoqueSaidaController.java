@@ -143,7 +143,7 @@ public class EstoqueSaidaController  extends OrcamentoInsert implements Initiali
 	}
 	
 	public void addListener() {
-		obsString = empressaController.findAll();
+		obsString = empressaController.findAllObs();
 		filteredList = new FilteredList<>(obsString);  
 		inputFilter = new InputFilter<String>( empressaComboBox, filteredList );	
 		empressaComboBox.getEditor().textProperty().addListener(inputFilter);	
