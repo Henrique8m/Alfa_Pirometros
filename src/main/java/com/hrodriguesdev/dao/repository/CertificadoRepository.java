@@ -217,6 +217,33 @@ public class CertificadoRepository {
 		return certificado;
 	}	
 	
+	public List<Certificado> findAll() {
+		 List<Certificado> list = new ArrayList<>();		
+			try {
+				conn = DB.getConnection();			
+				st = conn.createStatement();			
+				rs = st.executeQuery("SELECT * FROM alfaestoque.tb_certificado;");			
+				
+				while (rs.next())  
+					list.add(new Certificado(rs));
+				
+			}
+			catch (SQLException e) {
+				e.printStackTrace();
+			}
+			finally {
+				DB.closeResultSet(rs);
+				DB.closeStatement(st);
+
+				conn = null;
+				st = null;
+				rs = null;
+			}
+
+			return list;
+
+	}
+	
 	private ResultSet getResultSet(String query) {
 		try {
 			conn = DB.getConnection();
@@ -227,5 +254,6 @@ public class CertificadoRepository {
 		}
 		return null;			
 	}
+
 	
 }

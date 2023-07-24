@@ -76,5 +76,9 @@ public class CertificadoController {
 	public boolean delete(Certificado certificado) {
 		return certificadoService.delete(certificado);
 	}
+
+	public  List<Certificado> findAll() {
+		return certificadoService.findAll();
+	}
 		
 }

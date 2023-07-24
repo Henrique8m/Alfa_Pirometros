@@ -61,7 +61,7 @@ public class Certificado {
 		this.date_cal = date_cal ;
 	}
 	
-	public int getNumero() {
+	public Integer getNumero() {
 		return numero;
 	}
 	public void setNumero(int numero) {
@@ -74,5 +74,11 @@ public class Certificado {
 	public Long getEnsaio_id() {
 		return ensaio_id;
 	}
+	
+	@Override
+	public String toString() {
+		return "Numero - " + numero + " Data - " + date_cal.toString() + "\n";
+	}
 		
+	
 }

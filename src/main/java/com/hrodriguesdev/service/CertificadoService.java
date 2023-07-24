@@ -154,5 +154,9 @@ public class CertificadoService {
 	public boolean delete(Certificado certificado) {
 		return repository.delete(certificado);
 	}
+
+	public List<Certificado> findAll() {
+		return repository.findAll();
+	}
 	
 }
