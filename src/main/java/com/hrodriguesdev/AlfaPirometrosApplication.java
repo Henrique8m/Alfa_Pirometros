@@ -22,6 +22,8 @@ public class AlfaPirometrosApplication extends Application{
 	public static boolean MAIN_TAB_VIEW_SHOW = false;	
 	
 	public static int REFRESH_TABLE_MAIN_VIEW = 60; //em segundos	
+	
+	public static String URL_KEY = "reg query HKEY_USERS\\.DEFAULT\\Software\\Yggdrasil\\Alfaestoque";
 
 	public static String URL_RELATORIOS = System.getProperty("user.home")
 			.toString() + "\\Desktop\\Relatorios";

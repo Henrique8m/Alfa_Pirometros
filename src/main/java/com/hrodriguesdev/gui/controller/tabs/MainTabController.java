@@ -2,7 +2,6 @@ package com.hrodriguesdev.gui.controller.tabs;
 
 import java.io.IOException;
 import java.net.URL;
-import java.rmi.registry.Registry;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
