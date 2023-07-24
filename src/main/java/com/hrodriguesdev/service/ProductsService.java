@@ -48,6 +48,7 @@ public class ProductsService {
 	public ObservableList<Product> findAllOsByOrcamentoId(Long id) {
 		OSController controller = new OSController();
 		ObservableList<Product> listFinal = FXCollections.observableArrayList();
+		
 		List<ProductsOs> listProOs = controller.findAllOsByOrcamentoId(id);
 		List<Product> listProdu = findAllObs();
 		

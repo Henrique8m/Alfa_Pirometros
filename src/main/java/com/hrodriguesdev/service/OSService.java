@@ -92,12 +92,9 @@ public class OSService {
 	private void metodoUpdateOs(List<ProductsOs> listNovosProductsOs, List<ProductsOs> listVindaBancoOs, String table) {		
 //		vou filtrar a lista do banco de dados "listOs" e deixar somente as novas inserçoes que estao vinda na listProductsOs
 		List<ProductsOs> listCriarNovo = listNovosProductsOs.stream().filter(prodNovo -> !listVindaBancoOs.contains(prodNovo)).collect(Collectors.toList());
-		listCriarNovo.forEach(x -> repositoryOs.createNewOs(listCriarNovo, table));
+		if(!listCriarNovo.isEmpty())
+			repositoryOs.createNewOs(listCriarNovo, table);
 
-//		vou filtrar a lista do banco de dados "listOs" e deixar somente os produtos que nao existe na nova lista
-//		depois apagar no banco os que estao sobresalente				
-		List<ProductsOs> listDelete = listVindaBancoOs.stream().filter(prodBanco -> !listNovosProductsOs.contains(prodBanco)).collect(Collectors.toList());
-		listDelete.forEach(x-> delete(x.getId(), table));
 		
 //		vou filtrar a lista do banco de dados "listOs" e deixar somente os produtos que ja existe!
 //		depois verificar a quantidade, se tiver alteração, iremos atulizar
@@ -111,6 +108,18 @@ public class OSService {
 					}
 //			
 		});
+		
+//		vou filtrar a lista do banco de dados "listOs" e deixar somente os produtos que nao existe na nova lista
+//		depois apagar no banco os que estao sobresalente				
+		List<ProductsOs> listDelete = listVindaBancoOs.stream().filter(prodBanco -> {
+			if(listNovosProductsOs.contains(prodBanco)) {
+				listNovosProductsOs.remove(prodBanco);
+				return false;
+			}
+			return true;
+		}).collect(Collectors.toList());
+		
+		listDelete.forEach(x-> delete(x.getId(), table));
 	}
 
 

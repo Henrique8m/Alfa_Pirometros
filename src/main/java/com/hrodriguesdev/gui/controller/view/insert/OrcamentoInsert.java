@@ -156,7 +156,7 @@ public class OrcamentoInsert extends RegisterProductsController implements Initi
 	@FXML
 	protected void removeItem(ActionEvent event) {
 		if (!productSelectedTable.getSelectionModel().isEmpty()) {
-			obsMateriais.remove(productSelectedTable.getSelectionModel().getSelectedItem());
+			obsMateriais.remove(productSelectedTable.getSelectionModel().getSelectedIndex() );
 			productSelectedTable.setItems(obsMateriais);
 			productSelectedTable.refresh();
 		} else

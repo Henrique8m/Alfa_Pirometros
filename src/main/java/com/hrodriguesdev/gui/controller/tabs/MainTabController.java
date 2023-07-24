@@ -24,7 +24,6 @@ import com.hrodriguesdev.utilitary.Format;
 import com.hrodriguesdev.utilitary.Log;
 import com.hrodriguesdev.utilitary.NewView;
 import com.hrodriguesdev.utilitary.fxml.FXMLPath;
-import com.sun.jna.Platform;
 
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -99,9 +98,6 @@ public class MainTabController implements Initializable, Runnable{
 	
 	public void initialize(URL location, ResourceBundle resources) {		
 		taskInicial();	
-		System.out.println(Platform.getOSType());
-		
-//		Runtime.getRuntime().exec();
 	}
 
 	
