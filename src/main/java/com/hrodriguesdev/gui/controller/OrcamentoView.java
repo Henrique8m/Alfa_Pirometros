@@ -159,6 +159,7 @@ public class OrcamentoView extends EnsaioViewController implements Initializable
 			e.printStackTrace();
 		}
 		NewView.fecharView();
+		InjecaoDependency.MAIN_TAB_CONTROLLER.refreshTableMain();
 	}
 	
 	

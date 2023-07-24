@@ -10,6 +10,7 @@ import com.hrodriguesdev.AlfaPirometrosApplication;
 import com.hrodriguesdev.controller.EnsaiosController;
 import com.hrodriguesdev.controller.OSController;
 import com.hrodriguesdev.controller.OrcamentoController;
+import com.hrodriguesdev.dependency.InjecaoDependency;
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.entities.Orcamento;
 import com.hrodriguesdev.entities.Product;
@@ -210,6 +211,7 @@ public class OrcamentoInsert extends RegisterProductsController implements Initi
 			Alerts.showAlert("Error", "Contatar Adm", "", AlertType.ERROR);
 			System.out.println("Erro Criar a lista da os\nOrcamentoInsert\n");
 		}
+		InjecaoDependency.MAIN_TAB_CONTROLLER.refreshTableMain();
 
 	}
 
