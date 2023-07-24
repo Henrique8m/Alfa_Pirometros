@@ -33,6 +33,10 @@ public class OSService {
 		if(list.size()>0)
 			if(repositoryOs.findAllByOrcamentoId(list.get(0).getIdOrcamento(), "products_out ").isEmpty())
 				return repositoryOs.createNewOs(list, "products_out ");
+			else {
+				System.out.println("Ja tem saida para este orcamento - Classe OSService.java");
+				return true;
+			}
 		return false;
 	}
 	
