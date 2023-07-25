@@ -165,21 +165,22 @@ public class CertificadoService {
 
 	public List<CertificadoDTO> findAllDTO() {
 		List<Certificado> listCertificado = repository.findAll();
-		List<Equipamento> listEquipamento = InjecaoDependency.EQUIPAMENTO_CONTROLLER.findAll();
+		List<Equipamento> listEquipamento = InjecaoDependency.EQUIPAMENTO_CONTROLLER.findAll();		
 		List<CertificadoDTO> listDto = new ArrayList<>();
 		
 		listCertificado.forEach(certificado -> {
-			Equipamento equipamentoFind = listEquipamento.stream()
-					.filter(equipamento -> equipamento.getId()==certificado.getEquipamento_id())
-					.findFirst().get();
-			
-			listDto.add(new CertificadoDTO(
-					certificado.getNumero(),
-					certificado.getDate_cal(),
-					equipamentoFind.getModelo(),
-					equipamentoFind.getNs(),
-					equipamentoFind.getPat(),
-					equipamentoFind.getEmpresaName()));
+					listEquipamento.stream()
+					.filter(equipamento -> equipamento.getId().equals(certificado.getEquipamento_id()))
+					.findFirst().ifPresent(equipamentoFind -> {
+						listDto.add(new CertificadoDTO(
+						certificado.getNumero(),
+						certificado.getDate_cal(),
+						equipamentoFind.getModelo(),
+						equipamentoFind.getNs(),
+						equipamentoFind.getPat(),
+						equipamentoFind.getEmpresaName()));
+					});			
+
 		});		
 
 		return listDto;

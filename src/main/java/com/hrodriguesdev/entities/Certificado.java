@@ -30,7 +30,7 @@ public class Certificado {
 		try {
 			this.id = (rs.getLong("id"));
 			this.equipamento_id = rs.getLong("equipamento_id");
-			date_cal( rs.getDate("date_cal") );
+			this.date_cal( rs.getDate("date_cal") );
 			this.numero = rs.getInt("numero");
 			this.ensaio_id = rs.getLong("ensaio_id");
 

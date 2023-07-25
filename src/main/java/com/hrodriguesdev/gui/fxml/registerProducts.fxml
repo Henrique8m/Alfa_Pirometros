@@ -38,11 +38,11 @@
             <TableView fx:id="productTable" onKeyReleased="#keyReleasedTable" prefHeight="412.0" prefWidth="915.0">
               <columns>
                 <TableColumn fx:id="products" editable="false" prefWidth="260.0" text="Produto" />
-                <TableColumn fx:id="description" editable="false" minWidth="0.0" prefWidth="266.0" sortable="false" text="Descrição" />
-                  <TableColumn fx:id="amountPaid" editable="false" maxWidth="99.0" minWidth="-1.0" prefWidth="97.0" sortable="false" text="Valor Pago" />
-                  <TableColumn fx:id="saleValue" editable="false" prefWidth="110.0" sortable="false" text="Valor Venda" />
-                  <TableColumn fx:id="amount" editable="false" sortable="false" text="Quantidade" />
-                  <TableColumn fx:id="unitMeasurement" editable="false" prefWidth="101.0" sortable="false" text="Unidade Medida" />
+                <TableColumn fx:id="description" editable="false" minWidth="0.0" prefWidth="266.0" text="Descrição" />
+                  <TableColumn fx:id="amountPaid" editable="false" maxWidth="99.0" minWidth="-1.0" prefWidth="97.0" text="Valor Pago" />
+                  <TableColumn fx:id="saleValue" editable="false" prefWidth="110.0" text="Valor Venda" />
+                  <TableColumn fx:id="amount" editable="false" text="Quantidade" />
+                  <TableColumn fx:id="unitMeasurement" editable="false" prefWidth="101.0" text="Unidade Medida" />
               </columns>
             </TableView>
             <HBox fx:id="editProductsBox" prefHeight="66.0" prefWidth="915.0" visible="false">

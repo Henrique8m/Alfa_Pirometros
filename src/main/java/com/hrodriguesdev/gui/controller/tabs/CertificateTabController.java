@@ -143,9 +143,11 @@ public class CertificateTabController implements Initializable {
 				if (MainTabController.comboBoxBusca != "") {
 					if (MainTabController.comboBoxBusca != "") {
 						textEmpresaCertificado.setValue(MainTabController.comboBoxBusca);
+						
 						buscar();
 					}
 				}
+				refreshTableCertificado();
 			} else
 				removeListener();
 		});
@@ -156,14 +158,20 @@ public class CertificateTabController implements Initializable {
 				dataCalibracaoNovo.setValue(LocalDate.now());
 				startTable();
 				imageInit();
-				List<CertificadoDTO> list = certificadoController.findAllDTO();
-				list.sort((a,b) -> a.getDateCal().compareTo(b.getDateCal()));				
-				obsbListCertificadoAll.addAll(list);
+				refreshTableCertificado();
 				return null;
 			}
 		};
 		new Thread(task).start();
 
+	}
+	
+	private void refreshTableCertificado() {
+		List<CertificadoDTO> list = certificadoController.findAllDTO();			
+		obsbListCertificadoAll = FXCollections.observableArrayList();
+		obsbListCertificadoAll.addAll(list);
+		obsbListCertificadoAll.sort((a,b) -> b.getDateCal().compareTo(a.getDateCal()));
+		tableCertificadoAll.setItems(obsbListCertificadoAll);
 	}
 
 	@FXML

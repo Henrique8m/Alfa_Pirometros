@@ -277,12 +277,12 @@
                         </SplitPane>
                         <TableView fx:id="tableCertificadoAll" minWidth="450.0">
                           <columns>
-                            <TableColumn fx:id="numeroCertificadoAll" minWidth="75.0" prefWidth="100.0" text="Numero" />
-                            <TableColumn fx:id="dataCalibracaoAll" minWidth="75.0" prefWidth="100.0" text="Data " />
+                            <TableColumn fx:id="numeroCertificadoAll" minWidth="30.0" prefWidth="60.0" text="Numero" />
+                            <TableColumn fx:id="dataCalibracaoAll" minWidth="60.0" prefWidth="75.0" text="Data " />
                               <TableColumn fx:id="empresaCertificadoAll" minWidth="75.0" prefWidth="150.0" text="Cliente" />
                               <TableColumn fx:id="modeloCertificadoAll" minWidth="75.0" prefWidth="100.0" text="Equipamento" />
                               <TableColumn fx:id="nsCertificadoAll" minWidth="75.0" prefWidth="100.0" text="N° Serie" />
-                              <TableColumn fx:id="patCertificadoAll" minWidth="75.0" prefWidth="100.0" text="Pat" />
+                              <TableColumn fx:id="patCertificadoAll" minWidth="75.0" prefWidth="95.0" text="Pat" />
                           </columns>
                         </TableView>
                      </children>

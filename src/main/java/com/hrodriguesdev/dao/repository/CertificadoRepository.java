@@ -20,7 +20,7 @@ public class CertificadoRepository {
 	PreparedStatement pst = null;
 	
 	public List<Certificado> findAllByEquipamento(Long equipamento_id) {
-		 List<Certificado> list = new ArrayList<>();		
+		List<Certificado> list = new ArrayList<>();		
 		try {
 			conn = DB.getConnection();			
 			st = conn.createStatement();			
@@ -218,29 +218,29 @@ public class CertificadoRepository {
 	}	
 	
 	public List<Certificado> findAll() {
-		 List<Certificado> list = new ArrayList<>();		
-			try {
-				conn = DB.getConnection();			
-				st = conn.createStatement();			
-				rs = st.executeQuery("SELECT * FROM alfaestoque.tb_certificado;");			
-				
-				while (rs.next())  
-					list.add(new Certificado(rs));
-				
-			}
-			catch (SQLException e) {
-				e.printStackTrace();
-			}
-			finally {
-				DB.closeResultSet(rs);
-				DB.closeStatement(st);
+		List<Certificado> list = new ArrayList<>();		
+		try {
+			conn = DB.getConnection();			
+			st = conn.createStatement();			
+			rs = st.executeQuery("SELECT * FROM alfaestoque.tb_certificado;");			
+			
+			while (rs.next())  
+				list.add(new Certificado(rs));
+			
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		finally {
+			DB.closeResultSet(rs);
+			DB.closeStatement(st);
 
-				conn = null;
-				st = null;
-				rs = null;
-			}
+			conn = null;
+			st = null;
+			rs = null;
+		}
 
-			return list;
+		return list;
 
 	}
 	
