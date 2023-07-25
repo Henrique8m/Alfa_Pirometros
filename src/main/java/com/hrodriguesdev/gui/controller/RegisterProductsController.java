@@ -208,6 +208,7 @@ public class RegisterProductsController implements Initializable {
 	protected void refresh() {
 		try {
 			obs = controllerProd.findAllObs();
+			obs.sort((a,b) -> a.getName().compareTo(b.getName()));
 			productTable.setItems(obs);
 			productTable.refresh();
 		} catch (DbException e) {

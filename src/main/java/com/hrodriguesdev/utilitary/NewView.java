@@ -6,6 +6,7 @@ import com.hrodriguesdev.AlfaPirometrosApplication;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
@@ -65,10 +66,11 @@ public class NewView {
 		stage.showAndWait();
 	}
 	
+
 	public static void getNewView(String title, String fxml, Object controller){		
 		try {
-			Pane Pane = (Pane) loadFXML(fxml, controller);
-			Scene scene = new Scene(Pane);
+//			AnchorPane anchorPane = (AnchorPane) ;
+			Scene scene = new Scene( (Parent) loadFXML(fxml, controller)  );
 			Stage stage = new Stage();
 			stage.setMaximized(false);
 			stage.setTitle(title);

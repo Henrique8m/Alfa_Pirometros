@@ -32,6 +32,11 @@ public class EstoqueController extends RegisterProductsController implements Ini
 	@FXML
 	protected Button cancelar;
 	
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {		
+		imgInit();		
+		startTable();		
+	}
 	
 	@FXML
 	protected void cancelar(ActionEvent event) {
@@ -69,11 +74,13 @@ public class EstoqueController extends RegisterProductsController implements Ini
 		if(pdf.newDocument(listProducts, local))
 			Alerts.showAlert("Relatorio", "Relatorio gerado com sucesso em , "+ local, "", AlertType.INFORMATION);
 	}
+	
+	@FXML
+	private void registerProducts(ActionEvent e) {
+		NewView.getNewView("Produtos", "registerProducts", new RegisterProductsController());
+	}
 			
-
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		
+	private void imgInit() {
 		Image image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/Yggdrasilicon.jpg").toString() );
 		logoYgg.setImage(image);
 		
@@ -94,14 +101,6 @@ public class EstoqueController extends RegisterProductsController implements Ini
 		
 		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-insert.png").toString() );
 		registerImg.setImage(image);
-		
-		startTable();
-		
-	}
-	
-	@FXML
-	private void registerProducts(ActionEvent e) {
-		NewView.getNewView("Produtos", "registerProducts", new RegisterProductsController());
 	}
 	
 }
