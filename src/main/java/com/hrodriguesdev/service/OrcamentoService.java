@@ -8,6 +8,7 @@ import com.hrodriguesdev.ExceptionAlfa;
 import com.hrodriguesdev.controller.ColetorController;
 import com.hrodriguesdev.controller.EquipamentoController;
 import com.hrodriguesdev.controller.OSController;
+import com.hrodriguesdev.controller.ProductsController;
 import com.hrodriguesdev.dao.repository.OrcamentoRepository;
 import com.hrodriguesdev.entities.Coletor;
 import com.hrodriguesdev.entities.Equipamento;
@@ -22,6 +23,8 @@ import javafx.collections.ObservableList;
 
 public class OrcamentoService {
 	private OrcamentoRepository repository = new OrcamentoRepository();
+	private ProductsController prodController = new ProductsController();
+	private OSController osController = new OSController();
 
 	public Long addOrcamento(Orcamento orcamento) {
 
@@ -83,7 +86,7 @@ public class OrcamentoService {
 	}
 
 	public List<OrcamentoDTORelatorio> findAllDTORelatorio() {
-		OSController osController = new OSController();
+
 		List<ProductsOs> listOSIn = osController.findAllIn();
 		ColetorController coletorController = new ColetorController();
 		List<OrcamentoDTORelatorio> list = new ArrayList<>();
@@ -130,6 +133,95 @@ public class OrcamentoService {
 				list.add(dto);
 			}
 		});
+		return list;
+	}
+	
+	public List<OrcamentoDTOEquipamento> findAllDTOEquipamentoNew(String prod) {
+		EquipamentoController equipamentoController = new EquipamentoController();	
+		List<ProductsOs> listOs = osController.findAllOs();
+		
+		List<OrcamentoDTOEquipamento> list = new ArrayList<>();
+		List<Orcamento> listOrcamento = findAll();
+		
+		
+		listOs.forEach(oss ->{
+			if(!prodController.findById( oss.getProductId()).getName().equals(prod))
+				return;
+			listOrcamento.stream().filter(orc-> orc.getId().equals(oss.getIdOrcamento()))
+			.findFirst()
+			.ifPresent(	orcamento -> {
+				if (orcamento.getEquipamento_id() != 0) {
+					OrcamentoDTOEquipamento dto = new OrcamentoDTOEquipamento(orcamento);
+					try {
+						Equipamento equipamento = equipamentoController.findById(orcamento.getEquipamento_id());
+						for (OSStatus os : OSStatus.values()) {
+							if (os.getStatusInt() == orcamento.getStatus())
+								dto.setSituation(os.getStatusStr());
+						}
+						dto.setEmpresa(equipamento.getEmpresaName());
+						dto.setNs(equipamento.getNs());
+						dto.setPat(equipamento.getPat());
+					} catch (ExceptionAlfa e) {
+						e.printStackTrace();
+					}
+					list.add(dto);
+				}
+			});
+		
+		});
+		
+		return list;
+	}
+	
+	public List<OrcamentoDTORelatorio> findAllDTORelatorioNew(String prod) {
+	
+		List<ProductsOs> listOSIn = osController.findAllIn();
+		List<ProductsOs> listOSOut = osController.findAllOut();
+		
+		ColetorController coletorController = new ColetorController();
+		List<OrcamentoDTORelatorio> list = new ArrayList<>();
+		List<Orcamento> listOrcamento = findAll();
+		
+		listOSIn.forEach(os -> {
+			if(!prodController.findById( os.getProductId()).getName().equals(prod))
+				return;
+			listOrcamento.stream().filter(orc-> orc.getId().equals(os.getIdOrcamento()))
+			.findFirst()
+			.ifPresent(	orcamento -> {
+				if (orcamento.getEquipamento_id() == 0)
+					if (orcamento.getColetor_id() != 0) {
+						OrcamentoDTORelatorio dto = new OrcamentoDTORelatorio(orcamento);
+						Coletor coletor = coletorController.findById(orcamento.getColetor_id());
+						
+						dto.setAuthor(coletor.getNomeColetor());
+						dto.setEmpresa(coletor.getEmpresaName());
+						dto.setFinalidade("Entrada");
+						list.add(dto);
+					}
+			});				
+			
+		});
+		
+		listOSOut.forEach(os -> {
+			if(!prodController.findById( os.getProductId()).getName().equals(prod))
+				return;
+			listOrcamento.stream().filter(orc-> orc.getId().equals(os.getIdOrcamento()))
+			.findFirst()
+			.ifPresent(	orcamento -> {
+				if (orcamento.getEquipamento_id() == 0)
+					if (orcamento.getColetor_id() != 0) {
+						OrcamentoDTORelatorio dto = new OrcamentoDTORelatorio(orcamento);
+						Coletor coletor = coletorController.findById(orcamento.getColetor_id());
+						dto.setAuthor(coletor.getNomeColetor());
+						dto.setEmpresa(coletor.getEmpresaName());
+						dto.setFinalidade("Saida");
+						list.add(dto);
+					}
+			});				
+			
+		});
+		
+		
 		return list;
 	}
 

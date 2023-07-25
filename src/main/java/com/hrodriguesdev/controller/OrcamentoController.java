@@ -56,8 +56,16 @@ public class OrcamentoController {
 		return orcamentoService.findAllDTORelatorio();
 	}
 	
+	public List<OrcamentoDTORelatorio> findAllDTORelatorioNew(String prod){
+		return orcamentoService.findAllDTORelatorioNew(prod);
+	}
+	
 	public List<OrcamentoDTOEquipamento> findAllDTOEquipamento(){
 		return orcamentoService.findAllDTOEquipamento();
+	}
+	
+	public List<OrcamentoDTOEquipamento> findAllDTOEquipamentoNew(String prod){
+		return orcamentoService.findAllDTOEquipamentoNew(prod);
 	}
 	
 	public boolean existOrcamento(Long equipamento_id) {		

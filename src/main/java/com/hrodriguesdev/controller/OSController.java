@@ -36,7 +36,11 @@ public class OSController {
 	public List<ProductsOs> findAllOut() {
 		return service.findAllOut();
 	}
-
+	
+	public List<ProductsOs> findAllOs() {
+		return service.findAllOs();
+	}
+	
 	public boolean updatOS(List<ProductsOs> listProductsOs) {
 		return service.updatOS(listProductsOs);
 	}
@@ -48,5 +52,7 @@ public class OSController {
 	public boolean isContentOsOut(Long id) {
 		return service.isContentOsOut(id);
 	}
+
+
 	
 }

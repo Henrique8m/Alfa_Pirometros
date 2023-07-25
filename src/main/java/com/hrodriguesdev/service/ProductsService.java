@@ -21,6 +21,10 @@ public class ProductsService {
 	public List<Product> findAll(){
 		return repository.findAllProducts();
 	}
+	
+	public Product findById(Long productId) {		
+		return findAll().stream().filter(x -> x.getId().equals(productId)).findFirst().get();
+	}
 
 	public ObservableList<Product> findAllObs() {
 		UnidadeMedidaController serviceUnidade = new UnidadeMedidaController();		
@@ -125,5 +129,6 @@ public class ProductsService {
 		
 		return listFinal;
 	}
+
 
 }

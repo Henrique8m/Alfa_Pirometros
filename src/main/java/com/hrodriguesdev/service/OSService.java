@@ -49,6 +49,10 @@ public class OSService {
 	
 	public List<ProductsOs> findAll(){
 		return repositoryOs.findAll("products_os ");
+	}	
+
+	public List<ProductsOs> findAllOs() {
+		return findAll();
 	}
 	
 	public List<ProductsOs> findAllIn() {
@@ -129,6 +133,7 @@ public class OSService {
 		
 		listDelete.forEach(x-> delete(x.getId(), table));
 	}
+
 
 
 }

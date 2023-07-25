@@ -38,5 +38,10 @@ public class ProductsController {
 	public ObservableList<Product> findAllByOrcamentoId(Long id) {
 		return service.findAllByOrcamentoId(id);
 	}
+
+
+	public Product findById(Long productId) {
+		return service.findById(productId);
+	}
 	
 }
