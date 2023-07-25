@@ -54,6 +54,10 @@ public class OSService {
 	public List<ProductsOs> findAllIn() {
 		return repositoryOs.findAll("products_inp ");
 	}
+	
+	public List<ProductsOs> findAllOut() {
+		return repositoryOs.findAll("products_out ");
+	}
 
 	public List<ProductsOs> findAllOsByOrcamentoId(Long id) {
 		return repositoryOs.findAllByOrcamentoId(id, "products_os ");
@@ -85,7 +89,7 @@ public class OSService {
 		 return true;
 	}
 
-	private void delete(Long id, String table) {
+	public void delete(Long id, String table) {
 		repositoryOs.delete(id, table);
 	}
 

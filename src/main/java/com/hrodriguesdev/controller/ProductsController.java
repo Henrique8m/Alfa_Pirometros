@@ -14,6 +14,7 @@ public class ProductsController {
 		return service.findAll();
 	}
 	
+		
 	public ObservableList<Product> findAllObs(){
 		return service.findAllObs();
 	}

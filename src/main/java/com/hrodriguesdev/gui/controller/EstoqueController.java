@@ -101,6 +101,8 @@ public class EstoqueController extends RegisterProductsController implements Ini
 		
 		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-insert.png").toString() );
 		registerImg.setImage(image);
+		
+		
 	}
 	
 }
