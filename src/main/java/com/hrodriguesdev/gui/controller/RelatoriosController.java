@@ -43,6 +43,7 @@ import javafx.scene.input.MouseEvent;
 public class RelatoriosController implements Initializable {
 
 	private OrcamentoController orcamentoController = new OrcamentoController();
+	private ProductsController controller = new ProductsController();
 
 	@FXML
 	protected DatePicker inicioDatePiker, finalDatePiker;
@@ -57,7 +58,7 @@ public class RelatoriosController implements Initializable {
 	private CheckBox manutencaoEmCurco, manutencaoRealizada, saidaMaterial, entradaMaterial;
 
 	@FXML
-	private ImageView cancelarImg, buscarImg;
+	private ImageView cancelarImg, buscarImg, pdfImg;
 
 	@FXML
 	private ProgressIndicator ProgressIndicator;
@@ -218,15 +219,55 @@ public class RelatoriosController implements Initializable {
 
 	}
 
+	@FXML
+	public void relatorioPdf() {
+		List<List<Product>> listOfListOrcamento = new ArrayList<>();
+		List<OrcamentoDTOEquipamento> listOrcamento = new ArrayList<>();
+		obsOrcamento.forEach(orca -> {
+			List<Product> listOrccamento = new ArrayList<>();
+			listOrccamento.addAll( controller
+			.findAllByOrcamentoId(orca.getId()) );
+			listOfListOrcamento.add(listOrccamento);
+			
+		});
+		
+		listOrcamento.addAll(listOrcamento);
+		
+		List<List<Product>> listOfListMaintenance = new ArrayList<>();
+		List<OrcamentoDTOEquipamento> listMaintenance = new ArrayList<>();
+		obsMaintenance.forEach(orca -> {
+			List<Product> listMaiantenance = new ArrayList<>();
+			listMaiantenance.addAll( controller
+			.findAllByOrcamentoId(orca.getId()) );
+			listOfListMaintenance.add(listMaiantenance);
+			
+		});
+		
+		listMaintenance.addAll(obsMaintenance);
+				
+		
+//		listOfListMaintenance.forEach(maintenance -> {
+//			System.out.println(
+//					"To string maintenance " 
+//					+ maintenance.toString() + "\n");
+//				
+//			maintenance.forEach(prod -> {
+//				System.out.println( " prod - " 
+//						+ prod.getName()
+//						);
+//			});
+//			
+//		});
+
+		
+	}
+	
 //	Acao de click na tabela de saida de material e na tabela de manutencao em equipamentos
 	@FXML
 	public void clickMaterialOutTable(MouseEvent event) throws SQLException {
 		MaintenanceTable.getSelectionModel().clearSelection();
 		if (!MaterialOutTable.getSelectionModel().isEmpty()) {
-			ProductsController controller = new ProductsController();
-			obsMateriais = controller
-					.findAllByOrcamentoId(MaterialOutTable.getSelectionModel().getSelectedItem().getId());
-			productSelectedTable.setItems(obsMateriais);
+			 selectMateriais(MaterialOutTable.getSelectionModel().getSelectedItem().getId() );
 		}
 
 	}
@@ -235,12 +276,15 @@ public class RelatoriosController implements Initializable {
 	public void clickMaintenanceTable(MouseEvent event) throws SQLException {
 		MaterialOutTable.getSelectionModel().clearSelection();
 		if (!MaintenanceTable.getSelectionModel().isEmpty()) {
-			ProductsController controller = new ProductsController();
-			obsMateriais = controller
-					.findAllByOrcamentoId(MaintenanceTable.getSelectionModel().getSelectedItem().getId());
-			productSelectedTable.setItems(obsMateriais);
+			 selectMateriais(MaintenanceTable.getSelectionModel().getSelectedItem().getId() );
 		}
 
+	}
+	
+	private void selectMateriais(Long id) {
+		obsMateriais = controller
+				.findAllByOrcamentoId(id);
+		productSelectedTable.setItems(obsMateriais);
 	}
 	
 
@@ -261,6 +305,9 @@ public class RelatoriosController implements Initializable {
 		cancelarImg.setImage(image);
 		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-pesquisar.png").toString());
 		buscarImg.setImage(image);
+		
+		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-pdf.png").toString());
+		pdfImg.setImage(image);
 
 	}
 

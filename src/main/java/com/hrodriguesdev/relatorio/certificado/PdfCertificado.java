@@ -12,48 +12,23 @@ import com.hrodriguesdev.entities.DescricaoInstrumento;
 import com.hrodriguesdev.entities.Empresa;
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.entities.Padrao;
+import com.hrodriguesdev.utilitary.Fontes;
 import com.hrodriguesdev.utilitary.Format;
+import com.hrodriguesdev.utilitary.pdf.PDFTableAuxiliar;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
-import com.itextpdf.text.Font;
-import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
-import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.text.pdf.codec.PngImage;
 
 public class PdfCertificado {
-	public final static Font comic_Sans_12 = FontFactory.getFont("C://windows//fonts//comic.ttf",
-			BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 11.0f, Font.NORMAL, BaseColor.BLACK);
-	
-	public final static	Font tahoma_Negrito_18 = FontFactory.getFont("C://windows//fonts//tahomabd.ttf",
-			BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 18.0f, Font.UNDERLINE, BaseColor.BLACK);
-	
-	public final static	Font TIMES_NEGRITO_10 = FontFactory.getFont("C://windows//fonts//timesbd.ttf",
-			BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 10.0f, Font.NORMAL, BaseColor.BLACK);
-	
-	public final static	Font TIMES_NEGRITO_10_RED = FontFactory.getFont("C://windows//fonts//timesbd.ttf",
-			BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 10.0f, Font.NORMAL, BaseColor.RED);
-	
-	public final static	Font times_Negrito_ITALICO_10 = FontFactory.getFont("C://windows//fonts//timesbi.ttf",
-			BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 10.0f, Font.NORMAL, BaseColor.BLACK);
-	
-	public final static	Font TIMES_10 = FontFactory.getFont("C://windows//fonts//times.ttf",
-			BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 10.0f, Font.NORMAL, BaseColor.BLACK);
-	
-	public final static	Font times_Negrito_12 = FontFactory.getFont("C://windows//fonts//timesbd.ttf",
-			BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 12.0f, Font.NORMAL, BaseColor.BLACK);
-	
-	public final static	Font VERDANA_8 = FontFactory.getFont("C://windows//fonts//verdana.ttf",
-			BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 8.0f, Font.NORMAL, BaseColor.BLACK);
-	
-	
+
 	
 //	Falta range + resoluçao
 	public boolean generatedCertificado(Equipamento equipamento, Certificado certificado, Empresa empresa, DescricaoInstrumento descricao, Padrao padrao, CalibracaoEnsaio calEnsaio) {
@@ -138,6 +113,7 @@ public class PdfCertificado {
 			certifNumero = certifNumero.length()==4 ? certifNumero : "0" + certifNumero;	
 		
 		String certificadoN = certifNumero + "/" + year;
+		String titleCertificadoN = "CERTIFICADO DE CALIBRAÇÃO N°:";
 		
 		
 		try {	
@@ -176,51 +152,17 @@ public class PdfCertificado {
 			Paragraph paragraph = new Paragraph();
 
 //			criado a tablela
-			PdfPTable tableHeader = new PdfPTable(2);
-			tableHeader.setWidthPercentage(100);
+
+
 			PdfPCell cell = new PdfPCell();			
 			
 		   
 		/*Cabeçalho
 		 * 	
 		 */
-				
-
-//			Logo Alfa
-			URL imageUrl = new URL(AlfaPirometrosApplication.class.getResource("gui/resources/icons/logo-alfa.png").toString() );			
-			Image img = PngImage.getImage(imageUrl);
-			img.scaleAbsolute(143, 50);
-			img.setAlignment(Element.ALIGN_LEFT);	
-			cell.addElement(img);
-			cell.setBorderColor(BaseColor.WHITE);	
-			tableHeader.addCell(cell);				
-			cell = new PdfPCell();			
-			
-//			Texto certificado de Calibração
-//			criou uma outra tabela para que ficasem na mesma linha e alinhamento do logo, com duas linhas
-			PdfPTable tableCertificado = new PdfPTable(1);
-			paragraph = new Paragraph("CERTIFICADO DE CALIBRAÇÃO N°:", comic_Sans_12);
-			paragraph.setAlignment(Element.ALIGN_CENTER);
-			cell.setBorderColor(BaseColor.WHITE);
-			cell.addElement(paragraph);			
-			tableCertificado.addCell(cell);
-			
-//			Numero do Certificado			
-			tableCertificado = new PdfPTable(1);
-			paragraph = new Paragraph(certificadoN, tahoma_Negrito_18);
-			paragraph.setAlignment(Element.ALIGN_CENTER);
-			cell.setBorderColor(BaseColor.WHITE);
-			cell.addElement(paragraph);			
-			tableCertificado.addCell(cell);
-			
-//			Colocando a string do certificado e na proxima linha o numero, dentro da tabela cabeçalho
-			cell = new PdfPCell();
-			cell.addElement(tableCertificado);
-			cell.setBorderColor(BaseColor.WHITE);		
-			tableHeader.addCell(cell);
 
 //			Add o cabeçalho no documento
-			documento.add(tableHeader);
+			documento.add(PDFTableAuxiliar.headerDefaultAlfa(titleCertificadoN, certificadoN));
 						
 			
 			/*
@@ -249,8 +191,8 @@ public class PdfCertificado {
 //			Cliente
 			cell = new PdfPCell();				
 			paragraph = new Paragraph();
-			paragraph.add(new Phrase("CLIENTE:", TIMES_NEGRITO_10));
-			paragraph.add(new Phrase(cliente, TIMES_10));	
+			paragraph.add(new Phrase("CLIENTE:", Fontes.TIMES_NEGRITO_10));
+			paragraph.add(new Phrase(cliente, Fontes.TIMES_10));	
 			cell.setBorderColor(BaseColor.WHITE);
 			cell.getColumn().go();
 			cell.addElement(paragraph);	
@@ -259,8 +201,8 @@ public class PdfCertificado {
 //			Cidade/estado		
 			cell = new PdfPCell();			
 			paragraph = new Paragraph();
-			paragraph.add(new Phrase("CIDADE / ESTADO:", TIMES_NEGRITO_10));
-			paragraph.add(new Phrase(cidade, TIMES_10));
+			paragraph.add(new Phrase("CIDADE / ESTADO:", Fontes.TIMES_NEGRITO_10));
+			paragraph.add(new Phrase(cidade, Fontes.TIMES_10));
 			cell.addElement(paragraph);
 			cell.setBorderColor(BaseColor.WHITE);
 			
@@ -281,8 +223,8 @@ public class PdfCertificado {
 //			Endereco
 			cell = new PdfPCell();				
 			paragraph = new Paragraph();
-			paragraph.add(new Phrase("ENDEREÇO:", TIMES_NEGRITO_10));
-			paragraph.add(new Phrase(endereco, TIMES_10));	
+			paragraph.add(new Phrase("ENDEREÇO:", Fontes.TIMES_NEGRITO_10));
+			paragraph.add(new Phrase(endereco, Fontes.TIMES_10));	
 			cell.setBorderColor(BaseColor.WHITE);
 			cell.addElement(paragraph);	
 			tableEndereco.addCell(cell);
@@ -290,8 +232,8 @@ public class PdfCertificado {
 //			Cidade/estado		
 			cell = new PdfPCell();			
 			paragraph = new Paragraph();
-			paragraph.add(new Phrase("CEP:", TIMES_NEGRITO_10));
-			paragraph.add(new Phrase(cep, TIMES_10));			
+			paragraph.add(new Phrase("CEP:", Fontes.TIMES_NEGRITO_10));
+			paragraph.add(new Phrase(cep, Fontes.TIMES_10));			
 			cell.setBorderColor(BaseColor.WHITE);
 			cell.addElement(paragraph);	
 			tableEndereco.addCell(cell);
@@ -314,7 +256,7 @@ public class PdfCertificado {
 			
 //			Instrumento
 			paragraph = new Paragraph();		
-			paragraph.add(new Phrase("1. DESCRIÇÃO DO INSTRUMENTO:", times_Negrito_12));
+			paragraph.add(new Phrase("1. DESCRIÇÃO DO INSTRUMENTO:", Fontes.times_Negrito_12));
 			documento.add(paragraph);
 			
 				
@@ -329,18 +271,18 @@ public class PdfCertificado {
 			PdfPTable tableInstrumento = getTable(2,100,totalWidths,widthsInstrumento);		
 			
 //			Instrumento
-			tableInstrumento.addCell(addCellWriteTopPading(new Paragraph("INSTRUMENTO:", TIMES_NEGRITO_10)));		
+			tableInstrumento.addCell(addCellWriteTopPading(new Paragraph("INSTRUMENTO:", Fontes.TIMES_NEGRITO_10)));		
 //			Descriçao do  Instrumento		
-			tableInstrumento.addCell(addCellWriteTopPading(new Paragraph(instrumento, TIMES_10)));	
+			tableInstrumento.addCell(addCellWriteTopPading(new Paragraph(instrumento, Fontes.TIMES_10)));	
 			
 			tableDescriInstrumento.addCell(tableInstrumento);
 			
 //			Segunda Linha
 			PdfPTable tableModelo = getTable(2,100,totalWidths,widthsInstrumento);			
 //			Modelo
-			tableModelo.addCell(addCellWriteTopPading(new Paragraph("MODELO:", TIMES_NEGRITO_10)));		
+			tableModelo.addCell(addCellWriteTopPading(new Paragraph("MODELO:", Fontes.TIMES_NEGRITO_10)));		
 //			Modelo do  Instrumento		
-			tableModelo.addCell(addCellWriteTopPading(new Paragraph(modelo, TIMES_10)));	
+			tableModelo.addCell(addCellWriteTopPading(new Paragraph(modelo, Fontes.TIMES_10)));	
 			
 			tableDescriInstrumento.addCell(tableModelo);			
 			documento.add(tableDescriInstrumento);								
@@ -358,33 +300,33 @@ public class PdfCertificado {
 //			Tabela Fabricante
 			
 //			Fabricante
-			tableMeia.addCell(addCellWriteTopPading(new Paragraph("FABRICANTE:", TIMES_NEGRITO_10)));	
+			tableMeia.addCell(addCellWriteTopPading(new Paragraph("FABRICANTE:", Fontes.TIMES_NEGRITO_10)));	
 //			Nome do fabricante
-			tableMeia.addCell(addCellWriteTopPading(new Paragraph(fabricante, TIMES_10)));			
+			tableMeia.addCell(addCellWriteTopPading(new Paragraph(fabricante, Fontes.TIMES_10)));			
 			tableDupla.addCell(tableMeia);	
 						
 //			Tabela Patrimonio
 						
 			tableMeia = getTable(2,50,260,widthsDupla);			
 //			Patrimonio
-			tableMeia.addCell(addCellWriteTopPading(new Paragraph("PATRIMONIO:", TIMES_NEGRITO_10)));	
+			tableMeia.addCell(addCellWriteTopPading(new Paragraph("PATRIMONIO:", Fontes.TIMES_NEGRITO_10)));	
 //			Pat do  Instrumento		
-			tableMeia.addCell(addCellWriteTopPading(new Paragraph(pat, TIMES_10)));			
+			tableMeia.addCell(addCellWriteTopPading(new Paragraph(pat, Fontes.TIMES_10)));			
 			tableDupla.addCell(tableMeia);	
 			
 			
 			tableMeia = getTable(2,50,260,widthsDupla);			
 //			Nserie
-			tableMeia.addCell(addCellWriteTopPading(new Paragraph("N.º SÉRIE:", TIMES_NEGRITO_10)));	
+			tableMeia.addCell(addCellWriteTopPading(new Paragraph("N.º SÉRIE:", Fontes.TIMES_NEGRITO_10)));	
 //			Nserie do  Instrumento		
-			tableMeia.addCell(addCellWriteTopPading(new Paragraph(nSerie, TIMES_10)));			
+			tableMeia.addCell(addCellWriteTopPading(new Paragraph(nSerie, Fontes.TIMES_10)));			
 			tableDupla.addCell(tableMeia);	
 			
 			tableMeia = getTable(2,50,260,widthsDupla);	
 //			Resolucao
-			tableMeia.addCell(addCellWriteTopPading(new Paragraph("RESOLUÇÃO:", TIMES_NEGRITO_10)));	
+			tableMeia.addCell(addCellWriteTopPading(new Paragraph("RESOLUÇÃO:", Fontes.TIMES_NEGRITO_10)));	
 //			Resoluçao do  Instrumento		
-			tableMeia.addCell(addCellWriteTopPading(new Paragraph(resolucao, TIMES_10)));			
+			tableMeia.addCell(addCellWriteTopPading(new Paragraph(resolucao, Fontes.TIMES_10)));			
 			tableDupla.addCell(tableMeia);				
 			
 			documento.add(tableDupla);
@@ -397,7 +339,7 @@ public class PdfCertificado {
 			
 //			Resultados da Calibração
 			paragraph = new Paragraph();		
-			paragraph.add(new Phrase("2. RESULTADOS DA CALIBRAÇÃO:", times_Negrito_12));
+			paragraph.add(new Phrase("2. RESULTADOS DA CALIBRAÇÃO:", Fontes.times_Negrito_12));
 			documento.add(paragraph);
 			
 						
@@ -406,71 +348,71 @@ public class PdfCertificado {
 			calibracao.setSpacingBefore(10);
 			
 //			Primeira linha
-			calibracao.addCell(addCellCentralizada(new Paragraph(medida,  times_Negrito_ITALICO_10))).setBorderColor(BaseColor.BLACK);
-			calibracao.addCell(addCellCentralizada(new Paragraph("F.E.M.",  times_Negrito_ITALICO_10))).setBorderColor(BaseColor.BLACK);
-			calibracao.addCell(addCellCentralizada(new Paragraph("E.M",  times_Negrito_ITALICO_10))).setBorderColor(BaseColor.BLACK);
-			calibracao.addCell(addCellCentralizada(new Paragraph("σ",  times_Negrito_ITALICO_10))).setBorderColor(BaseColor.BLACK);
-			calibracao.addCell(addCellCentralizada(new Paragraph("E.M",  times_Negrito_ITALICO_10))).setBorderColor(BaseColor.BLACK);
-			calibracao.addCell(addCellCentralizada(new Paragraph("I.S.M",  times_Negrito_ITALICO_10))).setBorderColor(BaseColor.BLACK);
-			calibracao.addCell(addCellCentralizada(new Paragraph("FATOR",  times_Negrito_ITALICO_10))).setBorderColor(BaseColor.BLACK);
+			calibracao.addCell(addCellCentralizada(new Paragraph(medida,  Fontes.times_Negrito_ITALICO_10))).setBorderColor(BaseColor.BLACK);
+			calibracao.addCell(addCellCentralizada(new Paragraph("F.E.M.",  Fontes.times_Negrito_ITALICO_10))).setBorderColor(BaseColor.BLACK);
+			calibracao.addCell(addCellCentralizada(new Paragraph("E.M", Fontes. times_Negrito_ITALICO_10))).setBorderColor(BaseColor.BLACK);
+			calibracao.addCell(addCellCentralizada(new Paragraph("σ",  Fontes.times_Negrito_ITALICO_10))).setBorderColor(BaseColor.BLACK);
+			calibracao.addCell(addCellCentralizada(new Paragraph("E.M",  Fontes.times_Negrito_ITALICO_10))).setBorderColor(BaseColor.BLACK);
+			calibracao.addCell(addCellCentralizada(new Paragraph("I.S.M",  Fontes.times_Negrito_ITALICO_10))).setBorderColor(BaseColor.BLACK);
+			calibracao.addCell(addCellCentralizada(new Paragraph("FATOR",  Fontes.times_Negrito_ITALICO_10))).setBorderColor(BaseColor.BLACK);
 			
 //			Segunda linha
-			calibracao.addCell(addCellCentralizada(new Paragraph(unidadeGrandesa,  times_Negrito_ITALICO_10))).setBorderColor(BaseColor.BLACK);
-			calibracao.addCell(addCellCentralizada(new Paragraph(fem,  times_Negrito_ITALICO_10))).setBorderColor(BaseColor.BLACK);
-			calibracao.addCell(addCellCentralizada(new Paragraph(fem,  times_Negrito_ITALICO_10))).setBorderColor(BaseColor.BLACK);
-			calibracao.addCell(addCellCentralizada(new Paragraph(unidadeGrandesa,  times_Negrito_ITALICO_10))).setBorderColor(BaseColor.BLACK);
-			calibracao.addCell(addCellCentralizada(new Paragraph(unidadeGrandesa, times_Negrito_ITALICO_10))).setBorderColor(BaseColor.BLACK);
-			calibracao.addCell(addCellCentralizada(new Paragraph(unidadeGrandesa,  times_Negrito_ITALICO_10))).setBorderColor(BaseColor.BLACK);
-			calibracao.addCell(addCellCentralizada(new Paragraph("K",  times_Negrito_ITALICO_10))).setBorderColor(BaseColor.BLACK);
+			calibracao.addCell(addCellCentralizada(new Paragraph(unidadeGrandesa,  Fontes.times_Negrito_ITALICO_10))).setBorderColor(BaseColor.BLACK);
+			calibracao.addCell(addCellCentralizada(new Paragraph(fem,  Fontes.times_Negrito_ITALICO_10))).setBorderColor(BaseColor.BLACK);
+			calibracao.addCell(addCellCentralizada(new Paragraph(fem,  Fontes.times_Negrito_ITALICO_10))).setBorderColor(BaseColor.BLACK);
+			calibracao.addCell(addCellCentralizada(new Paragraph(unidadeGrandesa,  Fontes.times_Negrito_ITALICO_10))).setBorderColor(BaseColor.BLACK);
+			calibracao.addCell(addCellCentralizada(new Paragraph(unidadeGrandesa,Fontes.times_Negrito_ITALICO_10))).setBorderColor(BaseColor.BLACK);
+			calibracao.addCell(addCellCentralizada(new Paragraph(unidadeGrandesa,  Fontes.times_Negrito_ITALICO_10))).setBorderColor(BaseColor.BLACK);
+			calibracao.addCell(addCellCentralizada(new Paragraph("K",  Fontes.times_Negrito_ITALICO_10))).setBorderColor(BaseColor.BLACK);
 
 //			Terceira linha
-			calibracao.addCell(addCellCentralizadaFechada(new Paragraph(valor1,  TIMES_10))).setBorderColor(BaseColor.BLACK);
-			calibracao.addCell(addCellCentralizadaFechada(new Paragraph(fem1,  TIMES_10))).setBorderColor(BaseColor.BLACK);
-			calibracao.addCell(addCellCentralizadaFechada(new Paragraph(em1,  TIMES_10))).setBorderColor(BaseColor.BLACK);
-			calibracao.addCell(addCellCentralizadaFechada(new Paragraph(desvio1,  TIMES_10))).setBorderColor(BaseColor.BLACK);
-			calibracao.addCell(addCellCentralizadaFechada(new Paragraph(emIndicada1, TIMES_10))).setBorderColor(BaseColor.BLACK);
-			calibracao.addCell(addCellCentralizadaFechada(new Paragraph(ism1,  TIMES_10))).setBorderColor(BaseColor.BLACK);
-			calibracao.addCell(addCellCentralizadaFechada(new Paragraph(fatorK,  TIMES_10))).setBorderColor(BaseColor.BLACK);
+			calibracao.addCell(addCellCentralizadaFechada(new Paragraph(valor1,  Fontes.TIMES_10))).setBorderColor(BaseColor.BLACK);
+			calibracao.addCell(addCellCentralizadaFechada(new Paragraph(fem1,  Fontes.TIMES_10))).setBorderColor(BaseColor.BLACK);
+			calibracao.addCell(addCellCentralizadaFechada(new Paragraph(em1,  Fontes.TIMES_10))).setBorderColor(BaseColor.BLACK);
+			calibracao.addCell(addCellCentralizadaFechada(new Paragraph(desvio1,  Fontes.TIMES_10))).setBorderColor(BaseColor.BLACK);
+			calibracao.addCell(addCellCentralizadaFechada(new Paragraph(emIndicada1, Fontes.TIMES_10))).setBorderColor(BaseColor.BLACK);
+			calibracao.addCell(addCellCentralizadaFechada(new Paragraph(ism1,  Fontes.TIMES_10))).setBorderColor(BaseColor.BLACK);
+			calibracao.addCell(addCellCentralizadaFechada(new Paragraph(fatorK,  Fontes.TIMES_10))).setBorderColor(BaseColor.BLACK);
 			
 //			Quarta linha
-			calibracao.addCell(addCellCentralizadaFechada(new Paragraph(valor2,  TIMES_10))).setBorderColor(BaseColor.BLACK);
-			calibracao.addCell(addCellCentralizadaFechada(new Paragraph(fem2,  TIMES_10))).setBorderColor(BaseColor.BLACK);
-			calibracao.addCell(addCellCentralizadaFechada(new Paragraph(em2,  TIMES_10))).setBorderColor(BaseColor.BLACK);
-			calibracao.addCell(addCellCentralizadaFechada(new Paragraph(desvio2,  TIMES_10))).setBorderColor(BaseColor.BLACK);
-			calibracao.addCell(addCellCentralizadaFechada(new Paragraph(emIndicada2, TIMES_10))).setBorderColor(BaseColor.BLACK);
-			calibracao.addCell(addCellCentralizadaFechada(new Paragraph(ism2,  TIMES_10))).setBorderColor(BaseColor.BLACK);
-			calibracao.addCell(addCellCentralizadaFechada(new Paragraph(fatorK,  TIMES_10))).setBorderColor(BaseColor.BLACK);
+			calibracao.addCell(addCellCentralizadaFechada(new Paragraph(valor2,  Fontes.TIMES_10))).setBorderColor(BaseColor.BLACK);
+			calibracao.addCell(addCellCentralizadaFechada(new Paragraph(fem2,  Fontes.TIMES_10))).setBorderColor(BaseColor.BLACK);
+			calibracao.addCell(addCellCentralizadaFechada(new Paragraph(em2,  Fontes.TIMES_10))).setBorderColor(BaseColor.BLACK);
+			calibracao.addCell(addCellCentralizadaFechada(new Paragraph(desvio2,  Fontes.TIMES_10))).setBorderColor(BaseColor.BLACK);
+			calibracao.addCell(addCellCentralizadaFechada(new Paragraph(emIndicada2, Fontes.TIMES_10))).setBorderColor(BaseColor.BLACK);
+			calibracao.addCell(addCellCentralizadaFechada(new Paragraph(ism2,  Fontes.TIMES_10))).setBorderColor(BaseColor.BLACK);
+			calibracao.addCell(addCellCentralizadaFechada(new Paragraph(fatorK,  Fontes.TIMES_10))).setBorderColor(BaseColor.BLACK);
 //						 		
 			
 			documento.add(calibracao);
 			
 			
 //			Legendas da Calibração
-			paragraph = new Paragraph("Legendas:", TIMES_10);		
+			paragraph = new Paragraph("Legendas:", Fontes.TIMES_10);		
 			paragraph.setSpacingBefore(-5);
 			documento.add(paragraph);
 			
 			paragraph = new Paragraph();	
-			paragraph.add(new Phrase("F.E.M", TIMES_NEGRITO_10));
-			paragraph.add(new Phrase(" = Força eletro motriz, gerada pelo termopar", TIMES_10));
+			paragraph.add(new Phrase("F.E.M", Fontes.TIMES_NEGRITO_10));
+			paragraph.add(new Phrase(" = Força eletro motriz, gerada pelo termopar", Fontes.TIMES_10));
 			paragraph.setSpacingBefore(-5);
 			documento.add(paragraph);
 			
 			paragraph = new Paragraph();	
-			paragraph.add(new Phrase("I.S.M", TIMES_NEGRITO_10));
-			paragraph.add(new Phrase(" = Incerteza do sistema de medição", TIMES_10));
+			paragraph.add(new Phrase("I.S.M", Fontes.TIMES_NEGRITO_10));
+			paragraph.add(new Phrase(" = Incerteza do sistema de medição", Fontes.TIMES_10));
 			paragraph.setSpacingBefore(-5);
 			documento.add(paragraph);
 			
 			paragraph = new Paragraph();	
-			paragraph.add(new Phrase("E.M", TIMES_NEGRITO_10));
-			paragraph.add(new Phrase(" = Erro da medição", TIMES_10));
+			paragraph.add(new Phrase("E.M", Fontes.TIMES_NEGRITO_10));
+			paragraph.add(new Phrase(" = Erro da medição", Fontes.TIMES_10));
 			paragraph.setSpacingBefore(-5);
 			documento.add(paragraph);
 			
 			paragraph = new Paragraph();	
-			paragraph.add(new Phrase("σ", TIMES_NEGRITO_10));
-			paragraph.add(new Phrase(" = Desvio padrão", TIMES_10));
+			paragraph.add(new Phrase("σ", Fontes.TIMES_NEGRITO_10));
+			paragraph.add(new Phrase(" = Desvio padrão", Fontes.TIMES_10));
 			paragraph.setSpacingBefore(-5);
 			documento.add(paragraph);			
 			paragraph = new Paragraph();	
@@ -480,12 +422,12 @@ public class PdfCertificado {
 			paragraph = new Paragraph("A incerteza da calibração foi obtida a partir do"
 					+ " Procedimento Italterm IO 016-25 , "
 					+ "para um nível de confiança de"
-					+ "aproximadamente 95%.", TIMES_10);	
+					+ "aproximadamente 95%.", Fontes.TIMES_10);	
 			documento.add(paragraph);			
 			paragraph = new Paragraph();	
 			documento.add(paragraph);
 
-			paragraph = new Paragraph("3. RASTREABILIDADE DOS PADRÕES UTILIZADOS:", times_Negrito_12);		
+			paragraph = new Paragraph("3. RASTREABILIDADE DOS PADRÕES UTILIZADOS:", Fontes.times_Negrito_12);		
 			documento.add(paragraph);
 			
 			float[] padraoWidths = new float[] { 90f, 90f, 80f, 100f, 80f, 80f };	
@@ -493,56 +435,56 @@ public class PdfCertificado {
 			padraoTable.setSpacingBefore(10);
 			
 //			Primeira linha
-			padraoTable.addCell(addCellCentralizada(new Paragraph("IDENTIFICAÇÃO\r\n(Patrimônio) \r\n",  times_Negrito_ITALICO_10))).setBorderColor(BaseColor.BLACK);
-			padraoTable.addCell(addCellCentralizada(new Paragraph("INSTRUMENTO\r\nDE MEDIÇÃO ",  times_Negrito_ITALICO_10))).setBorderColor(BaseColor.BLACK);
-			padraoTable.addCell(addCellCentralizada(new Paragraph("TIPO\r\n(MODELO) ",  times_Negrito_ITALICO_10))).setBorderColor(BaseColor.BLACK);
-			padraoTable.addCell(addCellCentralizada(new Paragraph("CERTIFICADO DE\r\nCALIBRAÇÃO",  times_Negrito_ITALICO_10))).setBorderColor(BaseColor.BLACK);
-			padraoTable.addCell(addCellCentralizada(new Paragraph("VALIDADE", times_Negrito_ITALICO_10))).setBorderColor(BaseColor.BLACK);
-			padraoTable.addCell(addCellCentralizada(new Paragraph("RASTREABI-\nLIDADE",  times_Negrito_ITALICO_10))).setBorderColor(BaseColor.BLACK);	
+			padraoTable.addCell(addCellCentralizada(new Paragraph("IDENTIFICAÇÃO\r\n(Patrimônio) \r\n",  Fontes.times_Negrito_ITALICO_10))).setBorderColor(BaseColor.BLACK);
+			padraoTable.addCell(addCellCentralizada(new Paragraph("INSTRUMENTO\r\nDE MEDIÇÃO ",  Fontes.times_Negrito_ITALICO_10))).setBorderColor(BaseColor.BLACK);
+			padraoTable.addCell(addCellCentralizada(new Paragraph("TIPO\r\n(MODELO) ",  Fontes.times_Negrito_ITALICO_10))).setBorderColor(BaseColor.BLACK);
+			padraoTable.addCell(addCellCentralizada(new Paragraph("CERTIFICADO DE\r\nCALIBRAÇÃO",  Fontes.times_Negrito_ITALICO_10))).setBorderColor(BaseColor.BLACK);
+			padraoTable.addCell(addCellCentralizada(new Paragraph("VALIDADE", Fontes.times_Negrito_ITALICO_10))).setBorderColor(BaseColor.BLACK);
+			padraoTable.addCell(addCellCentralizada(new Paragraph("RASTREABI-\nLIDADE",  Fontes.times_Negrito_ITALICO_10))).setBorderColor(BaseColor.BLACK);	
 			
 //			Segunda linha
-			padraoTable.addCell(addCellCentralizada(new Paragraph(nsPadrao,  TIMES_10))).setBorderColor(BaseColor.BLACK);
-			padraoTable.addCell(addCellCentralizada(new Paragraph("Fonte Padrão",  TIMES_10))).setBorderColor(BaseColor.BLACK);
-			padraoTable.addCell(addCellCentralizada(new Paragraph(modeloPadrao,  TIMES_10))).setBorderColor(BaseColor.BLACK);
-			padraoTable.addCell(addCellCentralizada(new Paragraph(certificadoPadra,  TIMES_10))).setBorderColor(BaseColor.BLACK);
-			padraoTable.addCell(addCellCentralizada(new Paragraph(validadePadra, TIMES_10))).setBorderColor(BaseColor.BLACK);
-			padraoTable.addCell(addCellCentralizada(new Paragraph(rastreabilidadePadrao,  TIMES_10))).setBorderColor(BaseColor.BLACK);	
+			padraoTable.addCell(addCellCentralizada(new Paragraph(nsPadrao,  Fontes.TIMES_10))).setBorderColor(BaseColor.BLACK);
+			padraoTable.addCell(addCellCentralizada(new Paragraph("Fonte Padrão",  Fontes.TIMES_10))).setBorderColor(BaseColor.BLACK);
+			padraoTable.addCell(addCellCentralizada(new Paragraph(modeloPadrao,  Fontes.TIMES_10))).setBorderColor(BaseColor.BLACK);
+			padraoTable.addCell(addCellCentralizada(new Paragraph(certificadoPadra,  Fontes.TIMES_10))).setBorderColor(BaseColor.BLACK);
+			padraoTable.addCell(addCellCentralizada(new Paragraph(validadePadra, Fontes.TIMES_10))).setBorderColor(BaseColor.BLACK);
+			padraoTable.addCell(addCellCentralizada(new Paragraph(rastreabilidadePadrao,  Fontes.TIMES_10))).setBorderColor(BaseColor.BLACK);	
 						
 			documento.add(padraoTable);
 			
 			
-			paragraph = new Paragraph("4. NOTAS", times_Negrito_12);		
+			paragraph = new Paragraph("4. NOTAS", Fontes.times_Negrito_12);		
 			documento.add(paragraph);
 			
 			paragraph = new Paragraph();	
-			paragraph.add(new Phrase("4.1", TIMES_NEGRITO_10));
-			paragraph.add(new Phrase(" – Calibração realizada através da injeção de um sinal equivalente na entrada de termopar do equipamento.", TIMES_10));
+			paragraph.add(new Phrase("4.1", Fontes.TIMES_NEGRITO_10));
+			paragraph.add(new Phrase(" – Calibração realizada através da injeção de um sinal equivalente na entrada de termopar do equipamento.", Fontes.TIMES_10));
 			paragraph.setSpacingBefore(-5);
 			documento.add(paragraph);
 			
 			paragraph = new Paragraph();	
-			paragraph.add(new Phrase("4.2", TIMES_NEGRITO_10));
-			paragraph.add(new Phrase(" – Normas de Referência: ITS-90, ANSI MC/96.1.", TIMES_10));
+			paragraph.add(new Phrase("4.2", Fontes.TIMES_NEGRITO_10));
+			paragraph.add(new Phrase(" – Normas de Referência: ITS-90, ANSI MC/96.1.", Fontes.TIMES_10));
 			paragraph.setSpacingBefore(-5);
 			documento.add(paragraph);
 			
 			paragraph = new Paragraph();	
-			paragraph.add(new Phrase("4.3", TIMES_NEGRITO_10));
-			paragraph.add(new Phrase(" – Temperatura ambiente não interfere no resultado da calibração pois os equipamentos possuem compensação junta fria.", TIMES_10));
+			paragraph.add(new Phrase("4.3", Fontes.TIMES_NEGRITO_10));
+			paragraph.add(new Phrase(" – Temperatura ambiente não interfere no resultado da calibração pois os equipamentos possuem compensação junta fria.", Fontes.TIMES_10));
 			paragraph.setSpacingBefore(-5);
 			documento.add(paragraph);
 			
 			
-			paragraph = new Paragraph(" ", TIMES_10);
+			paragraph = new Paragraph(" ", Fontes.TIMES_10);
 			documento.add(paragraph);
 			
 			
-			paragraph = new Paragraph("DIVINÓPOLIS, " + day + " "+ month + " de " + year + ".", TIMES_10);		
+			paragraph = new Paragraph("DIVINÓPOLIS, " + day + " "+ month + " de " + year + ".", Fontes.TIMES_10);		
 			paragraph.setAlignment(Element.ALIGN_CENTER);
 			documento.add(paragraph);
 			
-			imageUrl = new URL(AlfaPirometrosApplication.class.getResource("gui/resources/icons/asinatura-Henrique.png").toString() );			
-			img = PngImage.getImage(imageUrl);
+			URL imageUrl = new URL(AlfaPirometrosApplication.class.getResource("gui/resources/icons/asinatura-Henrique.png").toString() );			
+			Image img = PngImage.getImage(imageUrl);
 			img.scaleAbsolute(135, 50);
 			img.setAlignment(Element.ALIGN_CENTER);	
 			documento.add(img);
@@ -552,42 +494,35 @@ public class PdfCertificado {
 			paragraph.setAlignment(Element.ALIGN_CENTER);
 			paragraph.setSpacingBefore(-25);
 			documento.add(paragraph);			
-			paragraph = new Paragraph("Responsável Técnico:", TIMES_10);
+			paragraph = new Paragraph("Responsável Técnico:", Fontes.TIMES_10);
 			paragraph.setAlignment(Element.ALIGN_CENTER);
 			documento.add(paragraph);	
-			paragraph = new Paragraph("Henrique Rodrigues.\n",TIMES_10);
+			paragraph = new Paragraph("Henrique Rodrigues.\n",Fontes.TIMES_10);
 			paragraph.setAlignment(Element.ALIGN_CENTER);
 			documento.add(paragraph);	
 
-			paragraph = new Paragraph(" ",TIMES_10);
+			paragraph = new Paragraph(" ",Fontes.TIMES_10);
 			documento.add(paragraph);	
 			
 			paragraph = new Paragraph ("Os resultados apresentados neste certificado referem-se exclusivamente ao equipamento submetido à calibração nas\r\n"
 					+ "condições especificadas, não sendo extensivo a quaisquer lotes, mesmo que similares.\r\n"
 					+ ""
 					+ "A reprodução deste certificado para outros fins, só poderá ser feita integralmente, sem nenhuma alteração"
-					, TIMES_NEGRITO_10_RED);
+					, Fontes.TIMES_NEGRITO_10_RED);
 //			paragraph.getFont().setColor(BaseColor.RED);
 			paragraph.setAlignment(Element.ALIGN_CENTER);
 			
 			documento.add(paragraph);
 			
-			
-			paragraph = new Paragraph ("____________________________________________________________________________________________________\r\n"
-					+ "\n"
-					+ "Alfa Controle de Processos Industriais Eireli.\r\n"
-					+ "R. Itapecerica, 46 – Centro – Divinópolis – MG\r\n"
-					+ "Tel: (37) 3213-5791 – (37) 9 8402-6020 \r\n"
-					+ "henrique@alfacontroles.com\r\n"
-					+ "", VERDANA_8);
-			paragraph.setAlignment(Element.ALIGN_CENTER);
-			
-			documento.add(paragraph);
+			documento.add(PDFTableAuxiliar.footerDefaultAlfa());
 			
 			
 			
 			// Fecha o arquivo após a escrita da mensagem
 			documento.close();
+			
+//			Runtime.getRuntime().exec("explorer.exe " + caminho);
+//			Runtime.getRuntime().exec("explorer.exe " + arquivo);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;

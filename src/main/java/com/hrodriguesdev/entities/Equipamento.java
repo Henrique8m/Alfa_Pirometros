@@ -47,7 +47,7 @@ public class Equipamento implements Serializable {
 		this.instrumento = instrumento;
 	}
 	
-	public static Equipamento parseEquipamentoDois(ResultSet rs) {
+	public static Equipamento parse(ResultSet rs) {
 		Equipamento obj = new Equipamento();
 		try {
 			obj.setId( rs.getLong("Id") );	

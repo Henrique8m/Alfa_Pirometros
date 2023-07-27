@@ -25,6 +25,9 @@
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
+         <HBox.margin>
+            <Insets bottom="10.0" left="10.0" />
+         </HBox.margin>
       </TableView>
       <GridPane alignment="CENTER" minHeight="200.0" minWidth="244.0" prefHeight="1000.0" prefWidth="325.0" style="-fx-background-color: #a8a8a8; -fx-background-radius: 10;">
          <columnConstraints>

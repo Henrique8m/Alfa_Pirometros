@@ -20,7 +20,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<HBox xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<HBox style="-fx-background-color: #c9c9c9;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <AnchorPane minHeight="300.0" style="-fx-background-color: #e1e1e1; -fx-background-radius: 15;">
          <children>
@@ -33,18 +33,18 @@
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Saída/Entrada de Material" />
                               <TableView fx:id="MaterialOutTable" onMouseClicked="#clickMaterialOutTable" style="-fx-background-radius: 10;">
                                  <columns>
-                                    <TableColumn fx:id="MaterialOutData" minWidth="80.0" text="Data" />
-                                    <TableColumn fx:id="MaterialOutNfe" minWidth="80.0" text="nfe" />
-                                    <TableColumn fx:id="MaterialOutEmpresa" minWidth="100.0" prefWidth="200.0" text="Empresa Referente" />
+                                    <TableColumn fx:id="MaterialOutData" minWidth="80.0" prefWidth="100.0" text="Data" />
+                                    <TableColumn fx:id="MaterialOutNfe" minWidth="80.0" prefWidth="100.0" text="nfe" />
+                                    <TableColumn fx:id="MaterialOutEmpresa" minWidth="100.0" prefWidth="250.0" text="Empresa Referente" />
                                     <TableColumn fx:id="MaterialOutAuthor" minWidth="100.0" prefWidth="200.0" text="Author" />
-                                    <TableColumn fx:id="MaterialOutFinalidade" minWidth="80.0" text="Finalidade" />
+                                    <TableColumn fx:id="MaterialOutFinalidade" minWidth="80.0" prefWidth="100.0" text="Finalidade" />
                                  </columns>
-                                 <padding>
-                                    <Insets left="10.0" />
-                                 </padding>
                                  <columnResizePolicy>
                                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                  </columnResizePolicy>
+                                 <VBox.margin>
+                                    <Insets left="10.0" right="10.0" />
+                                 </VBox.margin>
                               </TableView>
                            </children>
                         </VBox>
@@ -57,16 +57,16 @@
                                     <TableColumn fx:id="MaintenanceDateIn" minWidth="80.0" text="Chegada" />
                                     <TableColumn fx:id="MaintenanceDateOut" minWidth="80.0" text="Saída" />
                                     <TableColumn fx:id="MaintenanceSituation" minWidth="100.0" prefWidth="198.0" text="Situação" />
-                                    <TableColumn fx:id="MaintenanceEmploye" minWidth="100.0" prefWidth="200.0" text="Empresa" />
+                                    <TableColumn fx:id="MaintenanceEmploye" minWidth="100.0" prefWidth="240.0" text="Empresa" />
                                     <TableColumn fx:id="MaintenanceNS" minWidth="80.0" text="NS" />
                                     <TableColumn fx:id="MaintenancePat" minWidth="80.0" text="Pat" />
                                  </columns>
-                                 <padding>
-                                    <Insets left="10.0" />
-                                 </padding>
                                  <columnResizePolicy>
                                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                  </columnResizePolicy>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
                               </TableView>
                            </children>
                         </VBox>
@@ -77,18 +77,18 @@
                         <VBox alignment="TOP_CENTER">
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Materiais usado" />
-                              <TableView fx:id="productSelectedTable" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="700.0" prefWidth="640.0" style="-fx-background-radius: 10;">
+                              <TableView fx:id="productSelectedTable" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="700.0" style="-fx-background-radius: 10;">
                                  <columns>
-                                    <TableColumn fx:id="productsSelected" minWidth="100.0" prefWidth="270.0" text="Produto" />
-                                    <TableColumn fx:id="descriptionSelected" minWidth="100.0" prefWidth="270.0" text="Descrição" />
-                                    <TableColumn fx:id="amountSelected" minWidth="75.0" prefWidth="75.0" text="Quantidade" />
-                                    <TableColumn fx:id="unitMeasurementSelected" minWidth="75.0" prefWidth="75.0" text="Unidade Medida" />
+                                    <TableColumn fx:id="productsSelected" minWidth="100.0" prefWidth="500.0" text="Produto" />
+                                    <TableColumn fx:id="descriptionSelected" minWidth="100.0" prefWidth="500.0" text="Descrição" />
+                                    <TableColumn fx:id="amountSelected" minWidth="100.0" prefWidth="300.0" text="Quantidade" />
+                                    <TableColumn fx:id="unitMeasurementSelected" minWidth="100.0" prefWidth="300.0" text="Unidade Medida" />
                                  </columns>
                                  <columnResizePolicy>
                                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                  </columnResizePolicy>
                                  <VBox.margin>
-                                    <Insets bottom="10.0" left="10.0" right="10.0" />
+                                    <Insets bottom="10.0" left="10.0" />
                                  </VBox.margin>
                               </TableView>
                            </children>
@@ -100,7 +100,7 @@
             </VBox>
          </children>
       </AnchorPane>
-      <GridPane alignment="CENTER" minHeight="600.0" minWidth="244.0" prefHeight="1000.0" prefWidth="325.0" style="-fx-background-color: #a8a8a8; -fx-background-radius: 10;">
+      <GridPane alignment="CENTER" minHeight="200.0" minWidth="244.0" prefHeight="1000.0" prefWidth="325.0" style="-fx-background-color: #a8a8a8; -fx-background-radius: 10;">
          <columnConstraints>
             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="314.0" prefWidth="100.0" />
          </columnConstraints>
@@ -221,10 +221,21 @@
                   </VBox>
                </children>
             </HBox>
+            <Button mnemonicParsing="false" onAction="#relatorioPdf" prefHeight="45.0" prefWidth="185.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Relatorio" GridPane.rowIndex="7">
+               <graphic>
+                  <ImageView fx:id="pdfImg" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" />
+               </graphic>
+            </Button>
          </children>
          <padding>
-            <Insets left="20.0" right="20.0" />
+            <Insets left="20.0" right="40.0" />
          </padding>
+         <HBox.margin>
+            <Insets left="20.0" right="20.0" />
+         </HBox.margin>
       </GridPane>
    </children>
+   <padding>
+      <Insets top="30.0" />
+   </padding>
 </HBox>

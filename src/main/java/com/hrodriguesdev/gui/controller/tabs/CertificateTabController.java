@@ -140,6 +140,7 @@ public class CertificateTabController implements Initializable {
 		tabCertificado.selectedProperty().addListener((observable, oldValue, newValue) -> {
 			if (newValue) {
 				addListener();
+				refreshTableCertificado();
 				if (MainTabController.comboBoxBusca != "") {
 					if (MainTabController.comboBoxBusca != "") {
 						textEmpresaCertificado.setValue(MainTabController.comboBoxBusca);
@@ -147,7 +148,6 @@ public class CertificateTabController implements Initializable {
 						buscar();
 					}
 				}
-				refreshTableCertificado();
 			} else
 				removeListener();
 		});

@@ -28,7 +28,7 @@ public class EquipamentoRepository {
 
 			while (rs.next())
 				if (rs.getLong("id") == id)
-					return Equipamento.parseEquipamentoDois(rs);
+					return Equipamento.parse(rs);
 			throw new ExceptionAlfa("Equipamento nao encontrado");
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -69,7 +69,7 @@ public class EquipamentoRepository {
 
 			while (rs.next())
 				if (rs.getBoolean("laboratorio") == true)
-					list.add(Equipamento.parseEquipamentoDois(rs));
+					list.add(Equipamento.parse(rs));
 
 		} catch (DbException | SQLException e) {
 			e.printStackTrace();
@@ -93,7 +93,7 @@ public class EquipamentoRepository {
 			while (rs.next())
 				if (rs.getString(2) != null)
 					if (rs.getString(2).equalsIgnoreCase(empressaName))
-						list.add(Equipamento.parseEquipamentoDois(rs));
+						list.add(Equipamento.parse(rs));
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -118,7 +118,7 @@ public class EquipamentoRepository {
 				if (rs.getString(2) != null) {
 					String nameEmpresa = rs.getString(2).toUpperCase();
 					if (nameEmpresa.contains(name.toUpperCase()) && rs.getBoolean("laboratorio") == true)
-						list.add(Equipamento.parseEquipamentoDois(rs));
+						list.add(Equipamento.parse(rs));
 				}
 
 		} catch (SQLException e) {
@@ -144,9 +144,9 @@ public class EquipamentoRepository {
 					if (rs.getLong("empresa_id") == id)
 						if (laboratorio) {
 							if (!rs.getBoolean("laboratorio"))
-								list.add(Equipamento.parseEquipamentoDois(rs));
+								list.add(Equipamento.parse(rs));
 						} else
-							list.add(Equipamento.parseEquipamentoDois(rs));
+							list.add(Equipamento.parse(rs));
 
 				}
 
@@ -171,7 +171,7 @@ public class EquipamentoRepository {
 			while (rs.next())
 				if (rs.getString("ns") != null)
 					if (rs.getString("ns").equalsIgnoreCase(ns))
-						list.add(Equipamento.parseEquipamentoDois(rs));
+						list.add(Equipamento.parse(rs));
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -195,7 +195,7 @@ public class EquipamentoRepository {
 			while (rs.next())
 				if (rs.getString(8) != null)
 					if (rs.getString(8).equalsIgnoreCase(pat))
-						list.add(Equipamento.parseEquipamentoDois(rs));
+						list.add(Equipamento.parse(rs));
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -219,7 +219,7 @@ public class EquipamentoRepository {
 			while (rs.next())
 				for (Long id : equipamento_id)
 					if (rs.getLong("id") == id)
-						list.add(Equipamento.parseEquipamentoDois(rs));
+						list.add(Equipamento.parse(rs));
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -240,14 +240,8 @@ public class EquipamentoRepository {
 			st = conn.createStatement();
 			rs = st.executeQuery("SELECT * FROM alfaestoque.tb_equipamento;");
 
-			int i = 0;
 			while (rs.next()) {
-			}
-			while (rs.previous() && i < 100) {
-//					if(rs.getBoolean("fila") == false){
-				i++;
-				list.add(Equipamento.parseEquipamentoDois(rs));
-//					}				
+				list.add(Equipamento.parse(rs));			
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -270,7 +264,7 @@ public class EquipamentoRepository {
 			while (rs.next())
 				if (rs.getString(7) != null)
 					if (rs.getString("ns").equalsIgnoreCase(ns))
-						equipamento = Equipamento.parseEquipamentoDois(rs);
+						equipamento = Equipamento.parse(rs);
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -380,7 +374,7 @@ public class EquipamentoRepository {
 				Long id = rs.getLong("empresa_id");
 				if (id != null) {
 					if (id.equals(empresa.getId()))
-						list.add(Equipamento.parseEquipamentoDois(rs));
+						list.add(Equipamento.parse(rs));
 				}
 			}
 			return list;

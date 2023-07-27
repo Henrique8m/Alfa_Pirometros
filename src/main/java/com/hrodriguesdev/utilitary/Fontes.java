@@ -26,4 +26,9 @@ public final class Fontes {
 	
 	public static final	Font VERDANA_8 = FontFactory.getFont("C://windows//fonts//verdana.ttf",
 		    BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 8.0f, Font.NORMAL, BaseColor.BLACK);
+
+	public final static	Font TIMES_NEGRITO_10_RED = FontFactory.getFont("C://windows//fonts//timesbd.ttf",
+			BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 10.0f, Font.NORMAL, BaseColor.RED);
+	
+	
 }
