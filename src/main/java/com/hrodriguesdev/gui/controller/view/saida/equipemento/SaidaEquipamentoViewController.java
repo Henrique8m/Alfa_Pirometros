@@ -106,10 +106,10 @@ public class SaidaEquipamentoViewController implements Initializable {
 
 	private boolean salvarSaidaDb() {
 		coletor = getColetor();
-		if(coletor.getId() == null && coletor.getId() == 0) {
-			return false;
-		}
 		try {
+			if(coletor.getId() == null && coletor.getId() == 0) {
+				return false;
+			}
 			updateEquipamentoAndOrcamento();
 			if( transaction.saidaEquipamento(equipamento, orcamento)) {
 				return true;
@@ -190,6 +190,7 @@ public class SaidaEquipamentoViewController implements Initializable {
 			coletor.setDate(new java.sql.Date(System.currentTimeMillis()));
 			coletor.setHoraColeta( Integer.parseInt( Format.formataTimeInt.format(new Date(System.currentTimeMillis() )  ) ) );
 			orcamento.setColetor_id( coletorController.add(coletor) );
+			coletor.setId(orcamento.getColetor_id());
 			
 		}catch(DbException e2) {
 			erro.setText("Empresa Não Encontrada");
