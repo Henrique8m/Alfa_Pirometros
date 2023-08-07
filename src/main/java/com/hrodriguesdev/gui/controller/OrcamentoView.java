@@ -171,7 +171,15 @@ public class OrcamentoView extends EnsaioViewController implements Initializable
 	@FXML
 	private void relatorio(ActionEvent event) {
 		Ensaios ensaios = ensaioController.findByOrcamentoId(orcamento.getId());
-		pdf.printRelatorioPdf(equipamento, ensaios, orcamento, obs.getText(), obsMateriais);
+		
+		try{
+			if(ensaios.getPrimeiro()==null || ensaios.getPrimeiro().isBlank()) 
+				throw new NullPointerException();		
+		}catch(NullPointerException e) {
+			Alerts.showAlert("Falta ensaios", "Favor inserir o primeiro ensaio", "", AlertType.ERROR);
+			return;
+		}
+		pdf.printRelatorioPdf(equipamento, ensaios, orcamento, obs.getText(), obsMateriais);	
 		
 	}
 		
