@@ -97,7 +97,7 @@ public class OrcamentoInsert extends RegisterProductsController implements Initi
 
 	// Add Orçamentos
 	@FXML
-	protected TextField obs, quantidadeItem, obsSelected, filterProductsTextField;
+	protected TextField quantidadeItem, obsSelected, filterProductsTextField;
 
 	@FXML
 	protected ComboBox<String> empressaComboBox;
@@ -121,14 +121,7 @@ public class OrcamentoInsert extends RegisterProductsController implements Initi
 
 	@FXML
 	protected void addItem(ActionEvent event) {
-		if (!obs.getText().isBlank()) {
-			orcamento.setItem(obs.getText());
-			if (!obsSelected.getText().isBlank())
-				obsSelected.setText(obsSelected.getText() + ", " + obs.getText());
-			else
-				obsSelected.setText(obs.getText());
-
-		} else if (!productTable.getSelectionModel().isEmpty()) {
+		if (!productTable.getSelectionModel().isEmpty()) {
 			try {
 				double qtde = Double.valueOf(quantidadeItem.getText());
 				if (qtde > 0) {
@@ -271,7 +264,6 @@ public class OrcamentoInsert extends RegisterProductsController implements Initi
 
 //	tira a selecao de todas as tabelas, limpa a quantidade, e limpa o campo de observacao
 	protected void descelectAll() {
-		obs.setText("");
 		productTable.getSelectionModel().clearSelection();
 		productSelectedTable.getSelectionModel().clearSelection();
 		quantidadeItem.setText("1");

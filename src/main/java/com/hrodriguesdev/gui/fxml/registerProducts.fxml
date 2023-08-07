@@ -48,7 +48,7 @@
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
             </TableView>
-            <HBox fx:id="editProductsBox" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="66.0" prefWidth="915.0">
+            <HBox fx:id="editProductsBox" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="66.0" prefWidth="915.0" visible="false">
                <children>
                   <VBox alignment="CENTER" prefHeight="66.0" prefWidth="250.0" style="-fx-background-radius: 10; -fx-background-color: #c3c3c3;">
                      <children>

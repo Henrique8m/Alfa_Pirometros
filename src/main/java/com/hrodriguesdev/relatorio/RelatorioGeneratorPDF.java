@@ -186,7 +186,8 @@ public class RelatorioGeneratorPDF {
 			table.setWidthPercentage(100);
 
 			list = new ArrayList<String>();
-			list.add(list.size()+1 + " - "  + obserList);
+			if(!obserList.isBlank())
+				list.add(list.size()+1 + " - "  + obserList);
 			
 			for(Product prod: obsMateriais) {
 				list.add(list.size()+1 + " - "  + prod.getName() + ", " + prod.getQtde() + " " + prod.getUnidadeMedida());	
