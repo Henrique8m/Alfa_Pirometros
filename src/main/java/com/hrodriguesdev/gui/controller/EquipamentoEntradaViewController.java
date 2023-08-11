@@ -189,7 +189,6 @@ public class EquipamentoEntradaViewController implements Initializable{
 	
 	protected void error(String titulo, String mensagem) {
 		Alerts.showAlert(titulo, "", mensagem, AlertType.ERROR);
-		NewView.fecharView();
 	}
 	
 	private void startTable() throws DbException, SQLException {
