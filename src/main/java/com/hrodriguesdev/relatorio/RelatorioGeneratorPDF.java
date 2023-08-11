@@ -1,10 +1,17 @@
 package com.hrodriguesdev.relatorio;
 
+import java.awt.print.PrinterJob;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import javax.print.PrintService;
+import javax.print.PrintServiceLookup;
+
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.printing.PDFPageable;
 
 import com.hrodriguesdev.AlfaPirometrosApplication;
 import com.hrodriguesdev.entities.Ensaios;
@@ -199,8 +206,24 @@ public class RelatorioGeneratorPDF {
 	
 			// Fecha o arquivo após a escrita da mensagem
 			documento.close();
-			Runtime.getRuntime().exec("explorer.exe " + caminho);
+//			Runtime.getRuntime().exec("explorer.exe " + caminho);
 			Runtime.getRuntime().exec("explorer.exe " + arquivo);
+
+
+			 PrintService servico = PrintServiceLookup.lookupDefaultPrintService();
+			  
+		//		        PrintService[] impressoras = PrintServiceLookup.lookupPrintServices(null, null);
+		//
+		//		        for (PrintService ps : impressoras) {
+		//		            System.out.println(ps.getName());
+		//		        }
+			  
+			 PDDocument documentoPdd = PDDocument.load(new File(arquivo));
+			 PrinterJob job = PrinterJob.getPrinterJob();
+			 job.setPageable( new PDFPageable(documentoPdd));
+			 job.setPrintService(servico);
+			 job.print();
+			 documentoPdd.close();
 
 		} catch (Exception e) {
 			documento.close();
