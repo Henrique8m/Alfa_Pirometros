@@ -184,7 +184,7 @@ public class EstoqueSaidaController  extends OrcamentoInsert implements Initiali
 		quantidadeItem.setText("1");		
 		hboxOrcamento1.setVisible(false);
 		hboxOrcamento2.setVisible(false);
-		observacaoVbox.setVisible(false);		
+		obsSelected.setEditable(false);		
 		hbox1.setVisible(true);
 		hbox2.setVisible(true);
 		ensaioButton.setVisible(false);

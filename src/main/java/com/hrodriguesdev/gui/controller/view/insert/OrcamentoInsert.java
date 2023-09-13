@@ -190,24 +190,33 @@ public class OrcamentoInsert extends RegisterProductsController implements Initi
 			orcamento.setData_chegada(Geral.dateParceString(data.getText()));
 
 		OSController osController = new OSController();
-		OrcamentoController controllerOrcamento = new OrcamentoController();
-
-		if (osController.createNewOS(listProductsOs))
-			if (controllerOrcamento.update(orcamento))
-				NewView.fecharView();
+		
+		if(listProductsOs.size() > 0) {
+			if (osController.createNewOS(listProductsOs))
+				updateOrcamento();
 			else {
-				Log.logString("OrcamentoInsert", "Erro ao Atualizar o orcamento");
-				System.out.println("Erro ao Atualizar o orcamento\nOrcamentoInsert\n");
-			}
-		else {
 			Log.logString("OrcamentoInsert", "Erro Criar a lista da os");
 			Alerts.showAlert("Error", "Contatar Adm", "", AlertType.ERROR);
 			System.out.println("Erro Criar a lista da os\nOrcamentoInsert\n");
-		}
+			}
+		}else 
+			updateOrcamento();
+			
 		InjecaoDependency.MAIN_TAB_CONTROLLER.refreshTableMain();
 
 	}
 
+	private void updateOrcamento() {
+		OrcamentoController controllerOrcamento = new OrcamentoController();
+		if (controllerOrcamento.update(orcamento))
+			NewView.fecharView();
+		else {
+			Log.logString("OrcamentoInsert", "Erro ao Atualizar o orcamento");
+			System.out.println("Erro ao Atualizar o orcamento\nOrcamentoInsert\n");
+		}
+	}
+	
+	
 //	Acoes de tecla
 
 //	TextField de obervacao, a area de add orcamento
