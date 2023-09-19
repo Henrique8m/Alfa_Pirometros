@@ -17,10 +17,10 @@
          <columns>
             <TableColumn fx:id="products" editable="false" minWidth="200.0" prefWidth="500.0" text="Produto" />
             <TableColumn fx:id="description" editable="false" minWidth="200.0" prefWidth="500.0" sortable="false" text="Descrição" />
-            <TableColumn fx:id="amountPaid" editable="false" maxWidth="300.0" minWidth="150.0" prefWidth="150.0" sortable="false" text="Valor Pago" />
-            <TableColumn fx:id="saleValue" editable="false" maxWidth="300.0" minWidth="150.0" prefWidth="150.0" sortable="false" text="Valor Venda" />
-            <TableColumn fx:id="amount" editable="false" maxWidth="-Infinity" minWidth="150.0" prefWidth="150.0" sortable="false" text="Quantidade" />
-            <TableColumn fx:id="unitMeasurement" editable="false" maxWidth="200.0" minWidth="150.0" prefWidth="150.0" sortable="false" text="Unidade Medida" />
+            <TableColumn fx:id="amountPaid" editable="false" maxWidth="300.0" minWidth="150.0" prefWidth="150.0" text="Valor Pago" />
+            <TableColumn fx:id="saleValue" editable="false" maxWidth="300.0" minWidth="150.0" prefWidth="150.0" text="Valor Venda" />
+            <TableColumn fx:id="amount" editable="false" maxWidth="-Infinity" minWidth="150.0" prefWidth="150.0" text="Quantidade" />
+            <TableColumn fx:id="unitMeasurement" editable="false" maxWidth="200.0" minWidth="150.0" prefWidth="150.0" text="Unidade Medida" />
          </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
