@@ -227,6 +227,9 @@ public class OrcamentoInsert extends RegisterProductsController implements Initi
 			if (event.getTarget().equals(super.productTable)) {
 				filterProductsTextField.requestFocus();
 			}
+			if (event.getTarget().equals(quantidadeItem)) {
+				filterProductsTextField.requestFocus();
+			}
 		} else if (event.getCode().toString() == KeyCode.ESCAPE.toString()) {
 			descelectAll();
 		}
