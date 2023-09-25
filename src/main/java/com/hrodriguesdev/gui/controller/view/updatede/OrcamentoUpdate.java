@@ -16,6 +16,7 @@ import com.hrodriguesdev.entities.Product;
 import com.hrodriguesdev.entities.products.ProductsOs;
 import com.hrodriguesdev.gui.alert.Alerts;
 import com.hrodriguesdev.gui.controller.view.insert.OrcamentoInsert;
+import com.hrodriguesdev.utilitary.Geral;
 import com.hrodriguesdev.utilitary.Log;
 
 import javafx.collections.ObservableList;
@@ -53,7 +54,7 @@ public class OrcamentoUpdate extends OrcamentoInsert implements Initializable {
 	@Override
 	protected void salvar(ActionEvent event) throws IOException {
 		orcamentoId = orcamento.getId();
-
+		orcamento.setData_chegada(Geral.dateParceString(data.getText()));
 		List<ProductsOs> listProductsOs = new ArrayList<>();
 
 		if (!obsSelected.getText().isBlank())
@@ -101,7 +102,7 @@ public class OrcamentoUpdate extends OrcamentoInsert implements Initializable {
 	}
 
 	private void fecharView() {
-		Stage stage = (Stage) observacaoVbox.getScene().getWindow();
+		Stage stage = (Stage) salvar.getScene().getWindow();
 		stage.close();
 	}
 }
