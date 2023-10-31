@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<TabPane tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+   <tabs>
+      <Tab fx:id="tabOs" disable="true" text="Todos Orcamentos">
+         <content>
+            <AnchorPane minHeight="300.0" minWidth="400.0" prefHeight="1080.0" prefWidth="1920.0">
+               <children>
+                  <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <AnchorPane minHeight="-Infinity" minWidth="844.0" prefHeight="36.0" prefWidth="1500.0">
+                           <children>
+                              <HBox alignment="CENTER_LEFT" minHeight="35.0" minWidth="200.0" prefHeight="35.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Organizar lista">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets right="10.0" />
+                                       </HBox.margin>
+                                    </Text>
+                                    <CheckBox fx:id="sortOs" mnemonicParsing="false" selected="true" text="Os" />
+                                    <CheckBox fx:id="sortSaida" mnemonicParsing="false" text="Saida">
+                                       <HBox.margin>
+                                          <Insets left="20.0" />
+                                       </HBox.margin>
+                                    </CheckBox>
+                                    <CheckBox fx:id="sortChegada" mnemonicParsing="false" text="Chegada">
+                                       <HBox.margin>
+                                          <Insets left="10.0" />
+                                       </HBox.margin>
+                                    </CheckBox>
+                                 </children>
+                                 <padding>
+                                    <Insets left="40.0" />
+                                 </padding>
+                              </HBox>
+                           </children>
+                        </AnchorPane>
+                        <TableView fx:id="tableOs" cache="true" depthTest="DISABLE" minHeight="200.0" minWidth="844.0" prefHeight="1000.0" prefWidth="1250.0" style="-fx-background-radius: 10;" tableMenuButtonVisible="true">
+                           <columns>
+                              <TableColumn fx:id="orcamentoN" minWidth="30.0" prefWidth="75.0" text="Orcamento N" />
+                              <TableColumn fx:id="empresa" editable="false" minWidth="160.0" prefWidth="350.0" text="Empresa" />
+                              <TableColumn fx:id="status" editable="false" minWidth="120.0" prefWidth="300.0" text="Status" />
+                              <TableColumn fx:id="dateChegada" editable="false" minWidth="40.0" prefWidth="150.0" text="Data Chegada" />
+                              <TableColumn fx:id="dataSaida" minWidth="40.0" prefWidth="150.0" text="Data Saida" />
+                              <TableColumn fx:id="modelo" editable="false" minWidth="40.0" prefWidth="150.0" text="Modelo" />
+                              <TableColumn fx:id="ns" editable="false" minWidth="40.0" prefWidth="150.0" text="Numero de Serie" />
+                              <TableColumn fx:id="pat" editable="false" minWidth="40.0" prefWidth="150.0" text="Patrimonio" />
+                              <TableColumn fx:id="ultimaCal" editable="false" minWidth="40.0" prefWidth="75.0" text="Ultima Clibração" />
+                              <TableColumn fx:id="relatorio" editable="false" minWidth="40.0" prefWidth="75.0" text="Relatório Nº" />
+                           </columns>
+                           <padding>
+                              <Insets left="10.0" right="10.0" />
+                           </padding>
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                        </TableView>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+         </content>
+         <graphic>
+            <ImageView fx:id="os" fitHeight="22.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true" />
+         </graphic>
+      </Tab>
+   </tabs>
+</TabPane>

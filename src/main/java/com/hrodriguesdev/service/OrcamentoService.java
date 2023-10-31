@@ -127,6 +127,9 @@ public class OrcamentoService {
 					dto.setEmpresa(equipamento.getEmpresaName());
 					dto.setNs(equipamento.getNs());
 					dto.setPat(equipamento.getPat());
+					dto.setOrcamentoN(orcamento.getId().toString());
+					dto.setUltimaCalibDate(equipamento.getUltimaCalibDate());
+					dto.setModelo(equipamento.getModelo());
 				} catch (ExceptionAlfa e) {
 					e.printStackTrace();
 				}

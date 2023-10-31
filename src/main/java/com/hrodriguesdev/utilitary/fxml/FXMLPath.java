@@ -12,6 +12,7 @@ public class FXMLPath {
 	public static String TAB_MAIN = "tabMain";
 	public static String TAB_CERTIFICATE = "tabCertificate";
 	public static String TAB_COMPANY = "tabCompany";
+	public static String TAB_OS = "tabAllOrcamento";	
 	public static String TAB_FIND = "tabFind";
 	public static String ENTRADA_EQUIPAMENTO = "entradaEquipamento";
 			

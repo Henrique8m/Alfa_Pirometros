@@ -15,6 +15,10 @@ public class OrcamentoDTOEquipamento {
 	private String pat;
 	private boolean laboratorio;
 	
+	private String orcamentoN;	
+	private Date ultimaCalibDate;
+	private String modelo;
+	
 	public OrcamentoDTOEquipamento(Orcamento orcamento) {
 		this.relatorio = orcamento.getRelatorio();
 		this.data_chegada = orcamento.getData_chegada();
@@ -69,6 +73,24 @@ public class OrcamentoDTOEquipamento {
 	}
 	public boolean isLaboratorio() {
 		return laboratorio;
+	}
+	public String getOrcamentoN() {
+		return orcamentoN;
+	}
+	public void setOrcamentoN(String orcamentoN) {
+		this.orcamentoN = orcamentoN;
+	}
+	public String getModelo() {
+		return modelo;
+	}
+	public void setModelo(String modelo) {
+		this.modelo = modelo;
+	}
+	public Date getUltimaCalibDate() {
+		return ultimaCalibDate;
+	}
+	public void setUltimaCalibDate(Date ultimaCalibDate) {
+		this.ultimaCalibDate = ultimaCalibDate;
 	}
 	
 }

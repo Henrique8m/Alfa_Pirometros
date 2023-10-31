@@ -36,7 +36,7 @@ public class EquipamentoRepository {
 		} finally {
 			DB.closeResultSet(rs);
 			DB.closeStatement(st);
-			DB.closeConnection();
+//			DB.closeConnection();
 
 		}
 	}
@@ -54,7 +54,7 @@ public class EquipamentoRepository {
 		} finally {
 			DB.closeResultSet(rs);
 			DB.closeStatement(st);
-			DB.closeConnection();
+//			DB.closeConnection();
 
 		}
 		return null;
@@ -77,7 +77,7 @@ public class EquipamentoRepository {
 		} finally {
 			DB.closeResultSet(rs);
 			DB.closeStatement(st);
-			DB.closeConnection();
+//			DB.closeConnection();
 
 		}
 		return list;
@@ -101,7 +101,7 @@ public class EquipamentoRepository {
 		} finally {
 			DB.closeResultSet(rs);
 			DB.closeStatement(st);
-			DB.closeConnection();
+//			DB.closeConnection();
 
 		}
 		return list;
@@ -127,7 +127,7 @@ public class EquipamentoRepository {
 		} finally {
 			DB.closeResultSet(rs);
 			DB.closeStatement(st);
-			DB.closeConnection();
+//			DB.closeConnection();
 		}
 
 		return list;
@@ -156,7 +156,7 @@ public class EquipamentoRepository {
 		} finally {
 			DB.closeResultSet(rs);
 			DB.closeStatement(st);
-			DB.closeConnection();
+//			DB.closeConnection();
 		}
 
 		return list;
@@ -179,7 +179,7 @@ public class EquipamentoRepository {
 		} finally {
 			DB.closeResultSet(rs);
 			DB.closeStatement(st);
-			DB.closeConnection();
+//			DB.closeConnection();
 		}
 
 		return list;
