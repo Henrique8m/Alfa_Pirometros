@@ -87,7 +87,10 @@ public class OrcamentoController {
 	public boolean updateDataSaida(Orcamento orcamento) {
 		return orcamentoService.updateDataSaida(orcamento);
 	}
-
+	
+	public boolean delete(Long id) {
+		return orcamentoService.delete(id);
+	}
 
 	
 }

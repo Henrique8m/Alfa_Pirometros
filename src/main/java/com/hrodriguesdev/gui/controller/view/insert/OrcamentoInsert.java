@@ -176,14 +176,12 @@ public class OrcamentoInsert extends RegisterProductsController implements Initi
 
 		List<ProductsOs> listProductsOs = new ArrayList<>();
 
-		if (!obsSelected.getText().isBlank())
-			orcamento.setItem(obsSelected.getText());
+					orcamento.setItem(obsSelected.getText());
 		if (obsMateriais.size() > 0) {
 			obsMateriais.forEach((product) -> {
 				listProductsOs.add(new ProductsOs(orcamentoId, product.getId(), product.getQtde()));
 			});
-		} else if (obsSelected.getText().isBlank())
-			return;
+		}
 		if (orcamento.getStatus() == 1)
 			orcamento.setStatus(2);
 		if (data.getText().length() == 10)

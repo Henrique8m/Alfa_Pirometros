@@ -336,6 +336,14 @@ public class FindTabController implements Initializable{
 	    	if(tableFindEquipamentos.getSelectionModel().getSelectedItem() != null) 
 	    		{
 	    			Equipamento equipament = tableFindEquipamentos.getSelectionModel().getSelectedItem();
+	    			ObservableList<Orcamento> list = orcamentoController.findAllIdEquipamento(equipament.getId());
+	    			if(list.size()==1) { 
+	    				if(!orcamentoController.delete(list.get(0).getId()) )
+	    					Alerts.showAlert("Falha ao deletar", "", "Erro ao deletar o orcamento do equipamento", AlertType.ERROR);
+	    			}else if(list.size()>2) {
+	    				Alerts.showAlert("Falha ao deletar", "", "Muitos orcamentos para este equipamento", AlertType.ERROR);
+	    				return;
+	    			}
 	    			if( !orcamentoController.existOrcamento(equipament.getId()) ) {
 	    				if (!equipamentoController.delete( equipament.getId() ) ) {
 	    					Alerts.showAlert("Falha ao deletar", "", "Erro desconhecido", AlertType.ERROR);

@@ -229,4 +229,8 @@ public class OrcamentoService {
 		return repository.updateDataSaida(orcamento);
 	}
 
+	public boolean delete(Long id) {
+		return repository.delete(id);
+	}
+
 }

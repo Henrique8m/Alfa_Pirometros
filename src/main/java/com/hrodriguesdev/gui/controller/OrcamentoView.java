@@ -211,10 +211,11 @@ public class OrcamentoView extends EnsaioViewController implements Initializable
 		}
 //		Manutenção executada, baixa no estoque	
 		
-		if(!outProducts(obsMateriais) ) {
-			NewView.fecharView();
-			Alerts.showAlert("Erro", "Falha ao dar saida no banco de dados", "Ocorreu uma falha ao atualizar o orcamento", AlertType.ERROR);
-		}
+		if(obsMateriais.size()>0)
+			if(!outProducts(obsMateriais) ) {
+				NewView.fecharView();
+				Alerts.showAlert("Erro", "Falha ao dar saida no banco de dados", "Ocorreu uma falha ao atualizar o orcamento", AlertType.ERROR);
+			}
 		
 		update(5);
 		liberado.setVisible(false);
@@ -275,11 +276,11 @@ public class OrcamentoView extends EnsaioViewController implements Initializable
 			Alerts.showAlert("Erro", "Falha ao gerar certificado", "", AlertType.ERROR);
 			return;
 		}
-		
-		if(!outProducts(obsMateriais)) {
-			NewView.fecharView();
-			Alerts.showAlert("Erro", "Falha ao dar saida no banco de dados", "Ocorreu uma falha ao atualizar o orcamento", AlertType.ERROR);
-		}
+		if(obsMateriais.size()>0)
+			if(!outProducts(obsMateriais)) {
+				NewView.fecharView();
+				Alerts.showAlert("Erro", "Falha ao dar saida no banco de dados", "Ocorreu uma falha ao atualizar o orcamento", AlertType.ERROR);
+			}
 		data.setEditable(true);
 		update(15);			
 		aprovado.setVisible(false);
@@ -327,10 +328,11 @@ public class OrcamentoView extends EnsaioViewController implements Initializable
 //			Alerts.showAlert("Erro", "Falha ao gerar certificado", "", AlertType.ERROR);
 			return;
 		}
-		if(!outProducts(obsMateriais)  ) {
-			NewView.fecharView();
-			Alerts.showAlert("Erro", "Falha ao dar saida no banco de dados", "Ocorreu uma falha ao atualizar o orcamento", AlertType.ERROR);
-		}
+		if(obsMateriais.size()>0)
+			if(!outProducts(obsMateriais)  ) {
+				NewView.fecharView();
+				Alerts.showAlert("Erro", "Falha ao dar saida no banco de dados", "Ocorreu uma falha ao atualizar o orcamento", AlertType.ERROR);
+			}
 		
 		update(9);
 		liberadoSemOrcamento.setVisible(false);
