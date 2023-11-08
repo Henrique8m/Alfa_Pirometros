@@ -35,6 +35,7 @@ public class AlfaPirometrosApplication extends Application{
 	
 	public static String PROPERTIES = "Properties.properties";
 	public static String URL_DIRETORIO_YGGDRASIL = "\\AppData\\Local\\YggDrasil";
+	public static String URL_DIRETORIO_MODELOS =  System.getProperty("user.home").toString() +  "\\AppData\\Local\\YggDrasil\\modelos";
 	public static String URL_AREA_DE_TRABALHO = System.getProperty("user.home").toString() + "\\Desktop"; 
 	public static String CERTIFICADO_CAMINHO = AlfaPirometrosApplication.URL_AREA_DE_TRABALHO + "\\Certificados YggDrasil";
 	

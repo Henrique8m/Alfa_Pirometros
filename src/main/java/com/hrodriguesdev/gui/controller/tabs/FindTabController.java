@@ -9,20 +9,25 @@ import java.util.ResourceBundle;
 import com.hrodriguesdev.AlfaPirometrosApplication;
 import com.hrodriguesdev.controller.ColetorController;
 import com.hrodriguesdev.controller.EmpresaController;
+import com.hrodriguesdev.controller.EnsaiosController;
 import com.hrodriguesdev.controller.EquipamentoController;
 import com.hrodriguesdev.controller.OrcamentoController;
 import com.hrodriguesdev.controller.ProductsController;
 import com.hrodriguesdev.dao.db.DbException;
 import com.hrodriguesdev.dependency.InjecaoDependency;
 import com.hrodriguesdev.entities.Coletor;
+import com.hrodriguesdev.entities.Ensaios;
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.entities.Orcamento;
 import com.hrodriguesdev.entities.Product;
+import com.hrodriguesdev.entities.DTO.EquipamentoComboBox;
 import com.hrodriguesdev.gui.alert.Alerts;
 import com.hrodriguesdev.gui.controller.view.updatede.ColetorUpdateViewController;
 import com.hrodriguesdev.gui.controller.view.updatede.EquipamentoUpdatede;
 import com.hrodriguesdev.gui.controller.view.updatede.NumeroRelatorioUpdate;
 import com.hrodriguesdev.gui.controller.view.updatede.OrcamentoUpdate;
+import com.hrodriguesdev.relatorio.RelatorioGeneratorPDF;
+import com.hrodriguesdev.resources.file.ReadFiles;
 import com.hrodriguesdev.utilitary.Format;
 import com.hrodriguesdev.utilitary.InputFilter;
 import com.hrodriguesdev.utilitary.NewView;
@@ -70,10 +75,16 @@ public class FindTabController implements Initializable{
 	private InputFilter<String> inputFilter;
 	
 	@FXML
+	private ComboBox<String> modeloClick;
+    private static ObservableList<String> obsStringModelo = FXCollections.observableArrayList();
+    private FilteredList<String> filteredListModelo;
+	private InputFilter<String> inputFilterModelo;
+	
+	@FXML
 	private HBox buscaHbox1, buscaHbox2;
 	
 	@FXML
-	private ImageView buscar, buscar1, cancelarImg, pdf, salvarImg;
+	private ImageView buscar, buscar1, cancelarImg, pdf, salvarImg, addEquipamento;
 	
 	@FXML
 	private Tab tabBuscar;	
@@ -83,7 +94,7 @@ public class FindTabController implements Initializable{
     public static ObservableList<Equipamento> obsListTableFindEquipamentos= FXCollections.observableArrayList();
 		
 	@FXML
-	private TableColumn<Equipamento, String> empressaFind;
+	private TableColumn<Equipamento, String> empressaFind, modeloFind;
 	@FXML
 	private TableColumn<Equipamento, String> nsFind;
 	@FXML
@@ -115,10 +126,13 @@ public class FindTabController implements Initializable{
 
 	@FXML
 	private TextField nomeEmpressaClick, nsClick, patClick,
-			modeloClick, dataChegadaClick, relatorioClick, 
+			dataChegadaClick, relatorioClick, 
 			ultimaCalClick, dataSaidaClick, empressaColetaClick,
 			dataColetaClick, nomeColetorClick, osClick, equipamentoClick, fabricanteClick,
 			textNsEquip, textPatEquip;
+	
+
+	
 	@FXML
 	private TextArea itensOrcamentoClick;
 	
@@ -254,8 +268,8 @@ public class FindTabController implements Initializable{
 		if( equipamento.getPat()!= null ) patClick.setText(equipamento.getPat() );
 		else  patClick.setText("");
 		
-		if( equipamento.getModelo()!= null ) modeloClick.setText( equipamento.getModelo() );
-		else modeloClick.setText("");
+		if( equipamento.getModelo()!= null ) modeloClick.setValue( equipamento.getModelo() );
+		else modeloClick.setValue("");
 		
 		if( equipamento.getUltimaCalibDate() != null ) {
 			Date date = new Date( equipamento.getUltimaCalibDate().getTime() );
@@ -296,8 +310,8 @@ public class FindTabController implements Initializable{
 			if( equipamento.getPat()!= null ) patClick.setText(equipamento.getPat() );
 			else  patClick.setText("");
 			
-			if( equipamento.getModelo()!= null ) modeloClick.setText( equipamento.getModelo() );
-			else modeloClick.setText("");
+			if( equipamento.getModelo()!= null ) modeloClick.setValue( equipamento.getModelo() );
+			else modeloClick.setValue("");
 			
 			if( equipamento.getUltimaCalibDate() != null ) {
 				Date date = new Date( equipamento.getUltimaCalibDate().getTime() );
@@ -409,16 +423,7 @@ public class FindTabController implements Initializable{
 			else orcamento = null;
 		setEditable(false);
 	}
-	
-	@FXML
-	private void onKeyModelo(KeyEvent e) {
-		if(modeloClick.getText().equalsIgnoreCase("Fornero II") ) {
-			fabricanteClick.setText("Italterm");
-			equipamentoClick.setText("Pirometro Portatil");
-		}
-	
-	}
-	
+		
 	@FXML
 	private void cancelarEdit(ActionEvent e) {
 		setEditable(false);		
@@ -426,7 +431,7 @@ public class FindTabController implements Initializable{
 	
 	@FXML
 	private void salvarEdit(ActionEvent e) {
-		equipamento.setModelo( modeloClick.getText() );  	
+		equipamento.setModelo( modeloClick.getValue() );  	
 		equipamento.setNs( nsClick.getText() );
 		equipamento.setPat( patClick.getText() );
 		equipamento.setFabricante(fabricanteClick.getText());
@@ -468,8 +473,13 @@ public class FindTabController implements Initializable{
 		fabricanteClick.setFocusTraversable(bool);
 		equipamentoClick.setEditable(bool);
 		equipamentoClick.setFocusTraversable(bool);
+		if(bool)
+			addListenerModelo();
+		else 
+			removeListenerModelo();
 		modeloClick.setEditable(bool);
 		modeloClick.setFocusTraversable(bool);
+		modeloClick.setDisable(!bool);
 		patClick.setEditable(bool);
 		patClick.setFocusTraversable(bool);
 		nsClick.setEditable(bool);
@@ -483,7 +493,7 @@ public class FindTabController implements Initializable{
 	private void clearText() {
 		fabricanteClick.setText("");
 		equipamentoClick.setText("");
-		modeloClick.setText("");
+		modeloClick.setValue("");
 		patClick.setText("");
 		nsClick.setText("");
 	}
@@ -523,14 +533,14 @@ public class FindTabController implements Initializable{
 		String fabricante;
 		
 		
-		if(modeloClick.getText()== "" || equipamentoClick.getText() == "" || 
+		if(modeloClick.getValue()== "" || equipamentoClick.getText() == "" || 
 				fabricanteClick.getText() == "" ) {
 			error("Campo vazio ", "Existe compo vazio");
 			return;
 		}
 		try {
 			empressaName = textEmpresa.getValue();	
-			modelo = modeloClick.getText();  		
+			modelo = modeloClick.getValue();  		
 			ns = nsClick.getText();
 			pat = patClick.getText();
 			instrumento = equipamentoClick.getText();
@@ -563,6 +573,28 @@ public class FindTabController implements Initializable{
 		
 	}
 	
+	@FXML
+	private void GerarRelatorio(ActionEvent event) {
+		EnsaiosController ensaioController = new EnsaiosController();
+		RelatorioGeneratorPDF pdf = new RelatorioGeneratorPDF();
+		if(orcamento != null)
+			if(orcamento.getId() != null) {
+				Ensaios ensaios = ensaioController.findByOrcamentoId(orcamento.getId());
+				
+				try{
+					if(ensaios.getPrimeiro()==null || ensaios.getPrimeiro().isBlank()) 
+						throw new NullPointerException();		
+				}catch(NullPointerException e) {
+					Alerts.showAlert("Falta ensaios", "Favor inserir o primeiro ensaio", "", AlertType.ERROR);
+					return;
+				}
+				
+				pdf.printRelatorioPdf(equipamento, ensaios, orcamento,itensOrcamentoClick.getText() , obsMateriais);					
+			}
+		
+	
+	}
+	
 	protected void error(String titulo, String mensagem) {
 		Alerts.showAlert(titulo, "", mensagem, AlertType.ERROR);
 	}
@@ -579,15 +611,42 @@ public class FindTabController implements Initializable{
 	}
 	
 	private void addListener() {
-		obsString = empresaController .findAllObs();
+		obsString = empresaController.findAllObs();
 		filteredList = new FilteredList<>(obsString);  
 		inputFilter = new InputFilter<String>( textEmpresa, filteredList );	
 		textEmpresa.getEditor().textProperty().addListener(inputFilter);	
-
 		textEmpresa.hide();
-
+					
 	}	
+	
+	private void addListenerModelo() {
+		ReadFiles readFiles = new ReadFiles();		
+	
+		obsStringModelo = readFiles.findAllModelos();
+		filteredListModelo = new FilteredList<>(obsStringModelo);  
+		inputFilterModelo = new InputFilter<String>( modeloClick, filteredListModelo );	
+		modeloClick.getEditor().textProperty().addListener(inputFilterModelo);	
+		modeloClick.hide();
+		
+		modeloClick.valueProperty().addListener((newValue)->{
+			if(modeloClick.isEditable()) {
+				EquipamentoComboBox combo = readFiles.readEquipamento(modeloClick.getValue());
+				fabricanteClick.setText(combo.getFabricante());
+				equipamentoClick.setText(combo.getEquipamento());				
+			}
 			
+		});
+	}
+	
+	private void removeListenerModelo() {
+		try {
+			modeloClick.getEditor().textProperty().removeListener(inputFilterModelo);
+			modeloClick.setValue("");			
+		}
+		catch(NullPointerException e) {}
+	}
+	
+	
 	private void removeListener() {
 		textEmpresa.getEditor().textProperty().removeListener(inputFilter);
 		textEmpresa.setValue("");
@@ -604,12 +663,14 @@ public class FindTabController implements Initializable{
 		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-excluir.png").toString() );
 		cancelarImg.setImage(image);
 		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-adicionar.png").toString() );
+		addEquipamento.setImage(image);
 		
     }
 	
 	private void startTable() {
 		tableFindEquipamentos.setEditable(false);	 	    
 	    empressaFind.setCellValueFactory(new PropertyValueFactory<Equipamento, String>("empresaName"));
+	    modeloFind.setCellValueFactory(new PropertyValueFactory<Equipamento, String>("modelo"));
 	    nsFind.setCellValueFactory(new PropertyValueFactory<Equipamento, String>("ns"));
 	    patFind.setCellValueFactory(new PropertyValueFactory<Equipamento, String>("pat"));
 	    dateChegadaFind.setCellValueFactory( new PropertyValueFactory<>("dateChegada"));

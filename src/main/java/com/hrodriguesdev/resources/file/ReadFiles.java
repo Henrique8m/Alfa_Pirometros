@@ -11,6 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.hrodriguesdev.AlfaPirometrosApplication;
+import com.hrodriguesdev.entities.DTO.EquipamentoComboBox;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class ReadFiles {
 
@@ -20,8 +24,9 @@ public class ReadFiles {
     private static String[] line; 
        
     
-    public static String[] readFile(String nameFile) throws com.hrodriguesdev.ExceptionAlfa {    
-    	ReadFiles.pathToFile = System.getProperty("user.home").toString() + AlfaPirometrosApplication.URL_DIRETORIO_YGGDRASIL +"\\" + nameFile;
+    public static String[] readFile(String nameFile) throws com.hrodriguesdev.ExceptionAlfa {  
+    	
+    	ReadFiles.pathToFile = AlfaPirometrosApplication.URL_DIRETORIO_MODELOS + "\\" + nameFile;
     	
     	if(pathToFile!=null)
     		try(BufferedReader br = new BufferedReader(new FileReader(pathToFile, StandardCharsets.UTF_8) ) ){
@@ -50,10 +55,20 @@ public class ReadFiles {
     	return line;
 	}
 
+    public ObservableList<String> findAllModelos(){
+    	ObservableList<String> list = FXCollections.observableArrayList();    	
+    	File file = new File( AlfaPirometrosApplication.URL_DIRETORIO_MODELOS );
+    	File[] files = file.listFiles();
+    	for(File f: files) {
+    		list.add(f.getName());
+    	}    	
+    	return list;
+    }
+    
 
 	public static boolean saveOrUpdatedeFile(String fileName, String[] lines) {
 		try {
-			File diretorio = new File(System.getProperty("user.home").toString() + AlfaPirometrosApplication.URL_DIRETORIO_YGGDRASIL);
+			File diretorio = new File(System.getProperty("user.home").toString() + AlfaPirometrosApplication.URL_DIRETORIO_MODELOS);
 			diretorio.mkdir();
 			File arquivo = new File(diretorio, fileName );
 			
@@ -86,6 +101,37 @@ public class ReadFiles {
 			e.printStackTrace();
 		}
 		
+	}
+
+	public EquipamentoComboBox readEquipamento(String value) {
+		EquipamentoComboBox combo = new EquipamentoComboBox();
+		
+		try {
+			String[] ensaiosRef = ReadFiles.readFile(value);
+			if(ensaiosRef != null ) 
+				for(String info: ensaiosRef) {
+					String[] split = info.split("=");
+					if(split.length>1) {
+						String descricao = split[0];
+						String informacao = split[1];
+						switch (descricao.toString()) {
+							case "Instrumento":
+								combo.setEquipamento(informacao);
+								break;
+							case "Fabricante":
+								combo.setFabricante(informacao);
+								break;
+							default:
+								break;
+						}
+					}
+				}
+				
+		}catch (Exception e1) {
+			System.out.println(e1.getMessage());
+		}
+		
+		return combo;
 	}
 		
 }

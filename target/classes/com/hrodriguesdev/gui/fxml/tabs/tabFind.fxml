@@ -25,7 +25,7 @@
                <children>
                   <HBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="500.0" minWidth="500.0" prefHeight="1031.0" prefWidth="726.0" style="-fx-background-color: #c9c9c9; -fx-background-radius: 15;">
+                        <VBox style="-fx-background-color: #c9c9c9; -fx-background-radius: 15;">
                            <children>
                               <HBox alignment="CENTER" minWidth="500.0" prefHeight="36.0" prefWidth="750.0">
                                  <children>
@@ -88,7 +88,7 @@
                                     </Button>
                                     <Button mnemonicParsing="false" onAction="#adcionarEquipamento" prefHeight="35.0" prefWidth="224.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Habilitar adcionar equipamento">
                                        <graphic>
-                                          <ImageView fx:id="pdf" fitHeight="23.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true" />
+                                          <ImageView fx:id="addEquipamento" fitHeight="23.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true" />
                                        </graphic>
                                        <padding>
                                           <Insets left="10.0" />
@@ -113,6 +113,14 @@
                               </HBox>
                               <HBox alignment="TOP_RIGHT" prefHeight="43.0" prefWidth="726.0">
                                  <children>
+                                    <Button mnemonicParsing="false" onAction="#GerarRelatorio" prefHeight="35.0" prefWidth="224.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Gerar Relatorio">
+                                       <graphic>
+                                          <ImageView fx:id="pdf" fitHeight="23.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true" />
+                                       </graphic>
+                                       <padding>
+                                          <Insets left="10.0" />
+                                       </padding>
+                                    </Button>
                                     <Button fx:id="cancelar" mnemonicParsing="false" onAction="#cancelarEdit" prefHeight="35.0" prefWidth="135.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Cancelar" visible="false">
                                        <graphic>
                                           <ImageView fx:id="cancelarImg" fitHeight="24.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true" />
@@ -125,13 +133,14 @@
                                     </Button>
                                  </children>
                               </HBox>
-                              <TableView fx:id="tableFindEquipamentos" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="300.0" minWidth="500.0" onKeyPressed="#deletEquipamento" onMouseClicked="#clickEquipamentos" prefHeight="924.0" prefWidth="750.0" style="-fx-background-radius: 10;">
+                              <TableView fx:id="tableFindEquipamentos" onKeyPressed="#deletEquipamento" onMouseClicked="#clickEquipamentos" prefHeight="924.0" style="-fx-background-radius: 10;">
                                  <columns>
-                                    <TableColumn fx:id="empressaFind" maxWidth="200.0" minWidth="150.0" prefWidth="200.0" text="Empresa" />
-                                    <TableColumn fx:id="nsFind" maxWidth="137.5" minWidth="87.5" prefWidth="137.5" text="Ns" />
-                                    <TableColumn fx:id="patFind" maxWidth="137.5" minWidth="87.5" prefWidth="137.5" text="Pat" />
-                                    <TableColumn fx:id="dateChegadaFind" maxWidth="137.5" minWidth="87.5" prefWidth="137.5" text="Data Chegada" />
-                                    <TableColumn fx:id="dataSaidaFind" maxWidth="137.5" minWidth="87.5" prefWidth="137.5" text="Data Saída" />
+                                    <TableColumn fx:id="empressaFind" minWidth="150.0" prefWidth="200.0" text="Empresa" />
+                                    <TableColumn fx:id="nsFind" minWidth="87.5" prefWidth="137.5" text="Ns" />
+                                    <TableColumn fx:id="patFind" minWidth="87.5" prefWidth="137.5" text="Pat" />
+                                    <TableColumn fx:id="modeloFind" minWidth="60.0" prefWidth="60.0" text="Modelo" />
+                                    <TableColumn fx:id="dateChegadaFind" minWidth="87.5" prefWidth="137.5" text="Data Chegada" />
+                                    <TableColumn fx:id="dataSaidaFind" minWidth="87.5" prefWidth="137.5" text="Data Saída" />
                                  </columns>
                                  <opaqueInsets>
                                     <Insets />
@@ -184,7 +193,7 @@
                                                 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="64.0" prefHeight="45.0" prefWidth="138.0">
                                                    <children>
                                                       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="MODELO" wrappingWidth="75.13671875" />
-                                                      <TextField fx:id="modeloClick" editable="false" focusTraversable="false" onKeyReleased="#onKeyModelo" prefHeight="25.0" prefWidth="138.0" />
+                                                      <ComboBox fx:id="modeloClick" disable="true" focusTraversable="false" prefHeight="25.0" prefWidth="138.0" />
                                                    </children>
                                                    <HBox.margin>
                                                       <Insets />

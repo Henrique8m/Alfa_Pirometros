@@ -4,7 +4,6 @@ import java.awt.print.PrinterJob;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.print.PrintService;
@@ -14,14 +13,19 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.printing.PDFPageable;
 
 import com.hrodriguesdev.AlfaPirometrosApplication;
+import com.hrodriguesdev.controller.ColetorController;
+import com.hrodriguesdev.entities.Coletor;
 import com.hrodriguesdev.entities.Ensaios;
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.entities.Orcamento;
 import com.hrodriguesdev.entities.Product;
+import com.hrodriguesdev.gui.alert.Alerts;
 import com.hrodriguesdev.utilitary.Format;
 import com.hrodriguesdev.utilitary.Log;
+import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Element;
+import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
@@ -125,8 +129,8 @@ public class RelatorioGeneratorPDF {
 			table.addCell(addCell(list,1,5,Element.ALIGN_LEFT));	
 			
 			list = new ArrayList<String>();
-			list.add("Data:");
-			list.add(Format.formatData.format( new Date() ));	
+			list.add("Data chegada:");
+			list.add(Format.formatData.format(orcamento.getData_chegada()) );	
 			table.addCell(addCell(list,1,5,Element.ALIGN_LEFT));	
 			
 			list = new ArrayList<String>();
@@ -202,6 +206,15 @@ public class RelatorioGeneratorPDF {
 			table.addCell(addCell(list,1,5,Element.ALIGN_LEFT));			
 			documento.add(table);
 			
+			if(orcamento.getColetor_id()!= 0) {
+				Paragraph paragraph = new Paragraph("");
+				documento.add(paragraph);
+				Coletor coletor = new ColetorController().findById(orcamento.getColetor_id()); 
+				paragraph = new Paragraph(ColetorParse(coletor));
+				documento.add(paragraph);
+				
+			}
+			
 			documento.setMargins(0, 0, 10, 10);
 	
 			// Fecha o arquivo após a escrita da mensagem
@@ -220,10 +233,13 @@ public class RelatorioGeneratorPDF {
 			  
 			 PDDocument documentoPdd = PDDocument.load(new File(arquivo));
 			 PrinterJob job = PrinterJob.getPrinterJob();
-			 job.setPageable( new PDFPageable(documentoPdd));
-			 job.setPrintService(servico);
-			 job.print();
-			 documentoPdd.close();
+			 
+			 if(Alerts.showAlertConfirmation("Relatorio printer", "Deseja imprimir o relatorio na impressora: \n" + servico.getName(), "")) {
+				 job.setPageable( new PDFPageable(documentoPdd));
+				 job.setPrintService(servico);
+				 job.print();
+				 documentoPdd.close();
+			 }
 
 		} catch (Exception e) {
 			documento.close();
@@ -231,6 +247,13 @@ public class RelatorioGeneratorPDF {
 		}
 	}
 	
+	private String ColetorParse(Coletor coletor) {
+		return "Dados da Coleta: \n" +
+				"Empresa: " + coletor.getEmpresaName() + "\n" +
+				"Nome responsavel: " + coletor.getNomeColetor() + "\n" + 
+				"Data: " + Format.formatData.format(coletor.getDate());
+	}
+
 	private PdfPCell addCell(List<String> phraseList, int paddingTop, int paddingBottom, int align) {
 		
 		PdfPCell cell = new PdfPCell();
