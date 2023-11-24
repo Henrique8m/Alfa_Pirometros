@@ -22,7 +22,46 @@ public class OrcamentoRepository {
 			
 
 	public Long add(Orcamento orcamento) throws DbException {
-		Long id = 0l;		
+		Long id = 0l;
+		if(orcamento.getData_chegada() == null) {
+			try {
+				conn = DB.getConnection();
+				conn.setAutoCommit(false);
+				pst = conn.prepareStatement("INSERT INTO tb_orcamento "
+						+ "(equipamento_id, laboratorio) "
+						+ "VALUES "
+						+ "(?, ?)",
+						Statement.RETURN_GENERATED_KEYS);			
+				
+				pst.setLong(1, orcamento.getEquipamento_id());
+				pst.setBoolean(2, orcamento.getLaboratorio());
+				
+				int rowsAffected = pst.executeUpdate();
+				conn.commit();
+				
+				if(rowsAffected> 0) {
+					ResultSet rs = pst.getGeneratedKeys();
+					while(rs.next())
+						id = rs.getLong(1);					
+				}
+			
+			}
+			catch (DbException | SQLException e) {
+				e.printStackTrace();
+				try {
+					conn.rollback();
+					throw new DbException("Transaction rolled back! Caused by: " + e.getMessage() );
+				}catch (SQLException e1) {
+					throw new DbException("Error trying to rollback! Caused by: \" + e1.getMessage()");
+				}
+			}
+			finally {
+				DB.closeResultSet(rs);
+				DB.closeStatement(pst);
+				
+			}
+		}
+		
 		try {
 			conn = DB.getConnection();
 			conn.setAutoCommit(false);
@@ -61,7 +100,6 @@ public class OrcamentoRepository {
 		finally {
 			DB.closeResultSet(rs);
 			DB.closeStatement(pst);
-			DB.closeConnection();
 			
 		}
 		return id;

@@ -37,6 +37,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -86,6 +88,12 @@ public class MainTabController implements Initializable, Runnable{
 	private boolean isFilter = true;		
 	private Thread threadFiltro = new Thread(this);	
 	
+	@FXML
+	private MenuItem menuCertificado;
+	
+	@FXML
+	private ContextMenu contextMenu;
+	
 	public static String comboBoxBusca = "";	
 	
 	//@Autowired
@@ -95,11 +103,28 @@ public class MainTabController implements Initializable, Runnable{
 	private Timeline timeline;
 	private boolean dbConection;
 	
+	private Equipamento equipamento;
+	
 	
 	public void initialize(URL location, ResourceBundle resources) {		
 		taskInicial();	
 	}
-
+	
+	@FXML
+	private void buscarEquipamento(ActionEvent event) {
+		comboBoxBusca = equipamento.getEmpresaName();
+		InjecaoDependency.TAB_FIND_CONTROLLER.findEquipamento(equipamento);
+		contextMenu.hide();
+		
+	}
+	
+	@FXML
+	private void Certificado(ActionEvent event) {
+		comboBoxBusca = equipamento.getEmpresaName();
+		InjecaoDependency.TAB_CERTIFICATE_CONTROLLER.findCertificado(equipamento);
+		contextMenu.hide();
+		
+	}
 	
 	@FXML
     public void refreshAndFilterTable(KeyEvent keyEvent) {
@@ -128,8 +153,20 @@ public class MainTabController implements Initializable, Runnable{
     
     @FXML
     public void tableFilaEquipamentoClick(MouseEvent event) throws IOException, SQLException {
+    	if(tableFilaEquipamentos.getSelectionModel().getSelectedItem() != null) {
+    		equipamento = tableFilaEquipamentos.getSelectionModel().getSelectedItem();
+    		if(equipamento.getCertificado_id()!= null)
+    			if(equipamento.getCertificado_id()!= 0) {
+    				menuCertificado.setDisable(false);
+    			}
+    			else menuCertificado.setDisable(true);
+    		else menuCertificado.setDisable(true);
+    		
+    	}
+    	else
+    		equipamento = null;
 		if(event.getClickCount() >= 2) {
-			if(tableFilaEquipamentos.getSelectionModel().getSelectedItem() != null) {
+			if(tableFilaEquipamentos.getSelectionModel().getSelectedItem() != null) {				
 				int status = tableFilaEquipamentos.getSelectionModel().getSelectedItem().getStatus();
 				
 //				Status 1, equipamento nao tem orcamento, ir para a pagina para adcionar

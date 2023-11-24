@@ -50,7 +50,7 @@ public class InputFilter<T> implements ChangeListener<String>{
         
     	}
 
-        if (!newValue.isEmpty()) {
+        if (!newValue.isBlank()) {
         	box.setValue((T) newValue);
         	Platform.runLater(() -> {
 	        	if(box.getSelectionModel().isEmpty())
@@ -58,9 +58,12 @@ public class InputFilter<T> implements ChangeListener<String>{
 	        	box.show();
 	        	box.getEditor().end();
         	});
+        }else{
+        	Platform.runLater(() -> {
+	        	box.hide();
+        	});
         }
 
-	    
 	}
 		
 }

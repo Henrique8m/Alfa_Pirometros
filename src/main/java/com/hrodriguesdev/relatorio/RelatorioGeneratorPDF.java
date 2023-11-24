@@ -22,7 +22,6 @@ import com.hrodriguesdev.entities.Product;
 import com.hrodriguesdev.gui.alert.Alerts;
 import com.hrodriguesdev.utilitary.Format;
 import com.hrodriguesdev.utilitary.Log;
-import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Paragraph;

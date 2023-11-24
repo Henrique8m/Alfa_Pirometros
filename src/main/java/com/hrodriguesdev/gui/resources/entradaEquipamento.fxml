@@ -16,7 +16,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<HBox minHeight="300.0" minWidth="400.0" prefHeight="1060.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<HBox minHeight="300.0" minWidth="400.0" prefHeight="1060.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox prefHeight="1060.0" prefWidth="1920.0">
          <children>
@@ -98,7 +98,7 @@
                         <RowConstraints maxHeight="60.0" minHeight="60.0" prefHeight="60.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <Button fx:id="salvar" minHeight="30.0" minWidth="-Infinity" mnemonicParsing="false" onAction="#salvar" prefHeight="45.0" prefWidth="185.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Salvar" GridPane.rowIndex="1">
+                        <Button fx:id="salvar" minHeight="30.0" minWidth="-Infinity" mnemonicParsing="false" onAction="#entrarEquipamento" prefHeight="45.0" prefWidth="185.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Entrar Equipamento" GridPane.rowIndex="1">
                            <graphic>
                               <ImageView fx:id="salvarImg" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" />
                            </graphic>

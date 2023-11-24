@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.Date;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import com.hrodriguesdev.AlfaPirometrosApplication;
@@ -29,9 +30,11 @@ import com.hrodriguesdev.gui.controller.view.updatede.OrcamentoUpdate;
 import com.hrodriguesdev.relatorio.RelatorioGeneratorPDF;
 import com.hrodriguesdev.resources.file.ReadFiles;
 import com.hrodriguesdev.utilitary.Format;
+import com.hrodriguesdev.utilitary.Geral;
 import com.hrodriguesdev.utilitary.InputFilter;
 import com.hrodriguesdev.utilitary.NewView;
 import com.hrodriguesdev.utilitary.fxml.FXMLPath;
+import com.hrodriguesdev.utilitary.tabsLoad.TabsMainView;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -44,6 +47,9 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -135,6 +141,12 @@ public class FindTabController implements Initializable{
 	
 	@FXML
 	private TextArea itensOrcamentoClick;
+	
+	@FXML
+	private MenuItem menuCertificado, menuEquipEntrar;
+	
+	@FXML
+	private ContextMenu contextMenu;
 	
 	//@Autowired
 	protected EquipamentoController equipamentoController = InjecaoDependency.EQUIPAMENTO_CONTROLLER;
@@ -230,8 +242,9 @@ public class FindTabController implements Initializable{
     		MainTabController.comboBoxBusca = "";
     	}
     	tableFindEquipamentos.setItems(obsListTableFindEquipamentos);
-		removeListener();
-		addListener();
+    	textEmpresa.setValue("");
+//		removeListener();
+//		addListener();
 		setEditable(false);
     }
 	
@@ -304,6 +317,8 @@ public class FindTabController implements Initializable{
 			tableOrcamentos.refresh();
 			nomeEmpressaClick.setText(equipamento.getEmpresaName());
 			
+			menuEquipEntrar.setDisable(equipamento.getLaboratorio());
+			
 			if( equipamento.getNs()!= null ) nsClick.setText(equipamento.getNs() );
 			else nsClick.setText("" );
 			
@@ -340,9 +355,70 @@ public class FindTabController implements Initializable{
 			EditarEquip.setVisible(true);
 		}else {
 			setEditable(false);
+			equipamento = null;
 		}
 		
 	}	
+	
+		
+	@FXML
+	private void EntrarEquipamento(ActionEvent event) {
+		if(equipamento != null) {
+			try {			
+				if( equipamento.getId() != null && equipamento.getLaboratorio() != true) {
+					Orcamento orcamento = new Orcamento(
+							equipamento.getId() , 
+							Geral.dateParceString( Format.formatData.format(new Date(System.currentTimeMillis())) ) ,
+							true					
+							);
+					Long orcamento_id = orcamentoController.add(orcamento);
+					if(orcamento_id != null)
+						equipamentoController.updatede(equipamento.getId(), true, orcamento_id);
+					
+					InjecaoDependency.MAIN_TAB_CONTROLLER.refreshTableMain();
+					contextMenu.hide();
+					try {
+						clickEquipamentos(null);
+					} catch (SQLException e) {}
+				}	
+			}catch(NullPointerException e) {
+				error("Selection", "Nada selecionado");		
+			}
+			
+		}			
+
+	}
+	
+	@FXML
+	private void Certificado(ActionEvent event) {
+		InjecaoDependency.TAB_CERTIFICATE_CONTROLLER.findCertificado(equipamento);
+		
+	}
+	
+
+	public void findEquipamento(Equipamento equipamento2) {
+		SingleSelectionModel<Tab> t = TabsMainView.TAB_PANE_MAIN.selectionModelProperty().getValue();
+		t.select(1);
+		if(equipamento2.getId()!=null) {
+			List<Equipamento> listE = tableFindEquipamentos.getItems();
+			tableFindEquipamentos.requestFocus();
+			int index = 0;
+			for(int i=0; i<listE.size(); i++) {
+				if(listE.get(i).getId().equals(equipamento2.getId()) ) {
+					tableFindEquipamentos.getSelectionModel().select(equipamento2);
+					index = i;
+				}
+			}
+		
+			try {
+				clickEquipamentos(null);
+			} catch (SQLException e) {}
+			
+			tableFindEquipamentos.focusModelProperty().getValue().focus( index );
+			
+		}
+		
+	}
 	
 	@FXML
     protected void deletEquipamento(KeyEvent keyEvent) throws IOException {
@@ -423,7 +499,9 @@ public class FindTabController implements Initializable{
 			else orcamento = null;
 		setEditable(false);
 	}
-		
+
+	
+	
 	@FXML
 	private void cancelarEdit(ActionEvent e) {
 		setEditable(false);		
@@ -615,7 +693,6 @@ public class FindTabController implements Initializable{
 		filteredList = new FilteredList<>(obsString);  
 		inputFilter = new InputFilter<String>( textEmpresa, filteredList );	
 		textEmpresa.getEditor().textProperty().addListener(inputFilter);	
-		textEmpresa.hide();
 					
 	}	
 	
@@ -649,7 +726,7 @@ public class FindTabController implements Initializable{
 	
 	private void removeListener() {
 		textEmpresa.getEditor().textProperty().removeListener(inputFilter);
-		textEmpresa.setValue("");
+		textEmpresa.setValue(" ");
 	}
 	
     private void imageInit() {			
@@ -772,5 +849,6 @@ public class FindTabController implements Initializable{
 		productSelectedTable.setItems(obsMateriais);
 		
 	}
+
 	
 }

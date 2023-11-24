@@ -154,7 +154,7 @@ public class EquipamentoEntradaViewController implements Initializable{
 	}
 	
 	@FXML
-	public void salvar(ActionEvent event) {	
+	public void entrarEquipamento(ActionEvent event) {	
 		try {			
 			if( tableEquipamentos.getSelectionModel().getSelectedItem().getId() != null && tableEquipamentos.getSelectionModel().getSelectedItem().getLaboratorio() != true) {
 				Orcamento orcamento = new Orcamento(
@@ -167,7 +167,7 @@ public class EquipamentoEntradaViewController implements Initializable{
 					equipamentoController.updatede(tableEquipamentos.getSelectionModel().getSelectedItem().getId(), true, orcamento_id);
 				
 				InjecaoDependency.MAIN_TAB_CONTROLLER.refreshTableMain();
-				NewView.fecharView();		
+				buscar(event);	
 			}	
 		}catch(NullPointerException e) {
 			error("Selection", "Nada selecionado");		
@@ -183,7 +183,7 @@ public class EquipamentoEntradaViewController implements Initializable{
 	@FXML
 	private void equipamentoClick(MouseEvent event) {
 		if(event.getClickCount() >= 2) 
-			salvar(new ActionEvent());
+			entrarEquipamento(new ActionEvent());
 		
 	}
 	

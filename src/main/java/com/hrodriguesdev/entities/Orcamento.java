@@ -3,6 +3,7 @@ package com.hrodriguesdev.entities;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 
 public class Orcamento {
 	
@@ -26,13 +27,15 @@ public class Orcamento {
 	private String author;
 	private Long empresaId;
 	
+	private Timestamp timestamp;
+	
 	
 	public Orcamento(Long equipamento_id, Date data_chegada, Boolean laboratorio) {
 		this.setEquipamento_id(equipamento_id);
 		this.setData_chegada(data_chegada);
 		this.setLaboratorio(laboratorio);
 	}
-		
+	
 	public Orcamento(ResultSet rs) {	
 		try {			
 			this.id = rs.getLong("id");
@@ -54,6 +57,8 @@ public class Orcamento {
 			this.author = rs.getString("author");
 			this.empresaId = rs.getLong("empresa_id");
 			
+			this.timestamp = rs.getTimestamp("data_chegada_sql");
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 			
@@ -63,6 +68,8 @@ public class Orcamento {
 			
 	public Orcamento() {}
 		
+
+
 	public String getRelatorio() {
 		return relatorio;
 	}
@@ -213,6 +220,14 @@ public class Orcamento {
 
 	public void setNfe(int nfe) {
 		this.nfe = nfe;
+	}
+
+	public Timestamp getTimestamp() {
+		return timestamp;
+	}
+
+	public void setTimestamp(Timestamp timestamp) {
+		this.timestamp = timestamp;
 	}
 
 }

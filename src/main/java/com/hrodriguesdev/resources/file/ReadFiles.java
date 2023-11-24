@@ -68,7 +68,7 @@ public class ReadFiles {
 
 	public static boolean saveOrUpdatedeFile(String fileName, String[] lines) {
 		try {
-			File diretorio = new File(System.getProperty("user.home").toString() + AlfaPirometrosApplication.URL_DIRETORIO_MODELOS);
+			File diretorio = new File(AlfaPirometrosApplication.URL_DIRETORIO_MODELOS);
 			diretorio.mkdir();
 			File arquivo = new File(diretorio, fileName );
 			

@@ -26,6 +26,7 @@ import com.hrodriguesdev.resources.file.FileEquipamento;
 import com.hrodriguesdev.utilitary.Format;
 import com.hrodriguesdev.utilitary.InputFilter;
 import com.hrodriguesdev.utilitary.NewView;
+import com.hrodriguesdev.utilitary.tabsLoad.TabsMainView;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -40,6 +41,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.DialogEvent;
+import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -143,8 +145,7 @@ public class CertificateTabController implements Initializable {
 				refreshTableCertificado();
 				if (MainTabController.comboBoxBusca != "") {
 					if (MainTabController.comboBoxBusca != "") {
-						textEmpresaCertificado.setValue(MainTabController.comboBoxBusca);
-						
+						textEmpresaCertificado.setValue(MainTabController.comboBoxBusca);						
 						buscar();
 					}
 				}
@@ -164,6 +165,18 @@ public class CertificateTabController implements Initializable {
 		};
 		new Thread(task).start();
 
+	}
+	
+	public void findCertificado(Equipamento equipamento) {	
+		SingleSelectionModel<Tab> t = TabsMainView.TAB_PANE_MAIN.selectionModelProperty().getValue();
+		t.select(2);
+		if(equipamento.getId()!=null) {
+			tableEquipamentosCertificados.getSelectionModel().select(equipamento);			
+			try {
+				clickEquipamentos(null);
+			} catch (SQLException e) {}
+		}
+		
 	}
 	
 	private void refreshTableCertificado() {
@@ -231,9 +244,10 @@ public class CertificateTabController implements Initializable {
 		}
 
 		tableEquipamentosCertificados.setItems(osbListEquipamento);
-
-		removeListener();
-		addListener();
+		textEmpresaCertificado.setValue("");
+		
+//		removeListener();
+//		addListener();
 	}
 
 	@FXML
@@ -430,6 +444,7 @@ public class CertificateTabController implements Initializable {
 		filteredList = new FilteredList<>(obsString);
 		inputFilter = new InputFilter<String>(textEmpresaCertificado, filteredList);
 		textEmpresaCertificado.getEditor().textProperty().addListener(inputFilter);
+		textEmpresaCertificado.hide();
 
 	}
 
