@@ -50,6 +50,7 @@ public class RelatoriosController implements Initializable {
 
 	@FXML
 	protected ComboBox<String> produtoCombobox;
+	
 	private static ObservableList<String> obsString = FXCollections.observableArrayList();
 	private FilteredList<String> filteredList;
 	private InputFilter<String> inputFilter;
@@ -153,29 +154,36 @@ public class RelatoriosController implements Initializable {
 		Task<Void> task = new Task<Void>() {
 			@Override
 			public Void call() {
-				if(!produtoCombobox.getValue().isBlank()) {
-					popularTableComFiltroProd(entrada, saida, mRealizada, mCurso);
-					ProgressIndicator.setVisible(false);
-					return null;
+				try {
+					if(!produtoCombobox.getValue().isBlank()) {
+						System.out.println("Entrou produto Combobox");
+						popularTableComFiltroProd(entrada, saida, mRealizada, mCurso);
+						ProgressIndicator.setVisible(false);
+						return null;
+					}
+				}catch(Exception e) {
+					e.printStackTrace();
 				}
 				if (entrada)
 					obsOrcamento.addAll(orcamentoController.findAllDTORelatorio().stream()
 							.filter(x -> x.getFinalidade().equals("Entrada")).collect(Collectors.toList()));
+				System.out.println("3");
 				if (saida)
 					obsOrcamento.addAll(orcamentoController.findAllDTORelatorio().stream()
 							.filter(x -> x.getFinalidade().equals("Saida")).collect(Collectors.toList()));
-
+				System.out.println("4");
 				if (mRealizada)
 					obsMaintenance.addAll(orcamentoController.findAllDTOEquipamento().stream()
 							.filter(x -> !x.isLaboratorio()).collect(Collectors.toList()));
+				System.out.println("5");
 				if (mCurso)
 					obsMaintenance.addAll(orcamentoController.findAllDTOEquipamento().stream()
 							.filter(x -> x.isLaboratorio()).collect(Collectors.toList()));
 
-				
+				System.out.println("6");
 				
 				if (inicioDatePiker.getValue() != null) {
-
+					System.out.println("7");
 					Date gettedDatePickerDateStart = Date.valueOf(inicioDatePiker.getValue());
 					obsOrcamento = obsOrcamento.filtered(x -> {
 
@@ -216,7 +224,7 @@ public class RelatoriosController implements Initializable {
 
 		ProgressIndicator.progressProperty().bind(task.progressProperty());
 		new Thread(task).start();
-
+//		ProgressIndicator.setVisible(false);
 	}
 
 	@FXML

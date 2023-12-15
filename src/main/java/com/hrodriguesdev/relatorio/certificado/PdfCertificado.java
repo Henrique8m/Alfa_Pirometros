@@ -1,6 +1,7 @@
 package com.hrodriguesdev.relatorio.certificado;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.net.URL;
 import java.text.SimpleDateFormat;
@@ -118,17 +119,12 @@ public class PdfCertificado {
 		
 		try {	
 			// Criação do objeto que será um documento PDF
-			Document documento = new Document();			
-//	        documento.setMargins(1, 1, 1, 1);
-	        
-			// Faz o apontamento para o arquivo de destino
-			File diretorio = new File(AlfaPirometrosApplication.CERTIFICADO_CAMINHO);
-			diretorio.mkdir();
+			Document documento = new Document();	
 			
-			PdfWriter.getInstance(documento, new FileOutputStream(
-			
-					AlfaPirometrosApplication.CERTIFICADO_CAMINHO
-							+ "/"
+			String caminho = AlfaPirometrosApplication.CERTIFICADO_CAMINHO;
+			String caminhoOne = AlfaPirometrosApplication.CERTIFICADO_CAMINHO_ONEDRIVER;
+			String fileName = 
+					"/"
 							+ certifNumero
 							+ " - " 
 							+ empresa.getName().split(" ")[0]
@@ -136,7 +132,36 @@ public class PdfCertificado {
 							+ equipamento.getNs().replaceAll("/", "-") 
 							+ " "
 							+ equipamento.getPat().replaceAll("/", "-") 
-							+ ".pdf"));
+							+ ".pdf";
+			
+			String arquivo = caminho + 
+					fileName;
+			String arquivo2 = caminhoOne + 
+					fileName;
+			
+//	        documento.setMargins(1, 1, 1, 1);
+	        
+			// Faz o apontamento para o arquivo de destino
+			try {
+				File diretorio = new File(caminho);
+				diretorio.mkdir();
+				File diretorio1 = new File(caminhoOne);
+				diretorio1.mkdir();
+			}catch (Exception e) {
+				System.err.println(e.getMessage());
+				e.printStackTrace();
+			}
+			
+			try {
+				PdfWriter.getInstance(documento, new FileOutputStream(arquivo) );
+			}catch(FileNotFoundException fil) {
+				try {
+					PdfWriter.getInstance(documento, new FileOutputStream(arquivo2) );
+				}catch(FileNotFoundException fil2) {
+					fil2.printStackTrace();
+					return false;
+				}
+			}
 			
 			// Realiza a abertura do arquivo para escrita
 			documento.open();
@@ -522,7 +547,7 @@ public class PdfCertificado {
 			documento.close();
 			
 //			Runtime.getRuntime().exec("explorer.exe " + caminho);
-//			Runtime.getRuntime().exec("explorer.exe " + arquivo);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;

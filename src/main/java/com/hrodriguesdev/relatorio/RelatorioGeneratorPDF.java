@@ -2,6 +2,7 @@ package com.hrodriguesdev.relatorio;
 
 import java.awt.print.PrinterJob;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,16 +49,31 @@ public class RelatorioGeneratorPDF {
 		String id = orcamento.getId().toString();
 		String idOrcamento = id + "-" + Format.formatYear.format(orcamento.getData_chegada());
 		String caminho = AlfaPirometrosApplication.URL_RELATORIOS;
+		String caminhoOne = AlfaPirometrosApplication.URL_RELATORIOS_ONEDRIVER;
 		try {	
 			
 			// Faz o apontamento para o arquivo de destino
 			File diretorio = new File(caminho);
 			diretorio.mkdir();
+			File diretorio1 = new File(caminhoOne);
+			diretorio1.mkdir();
+			
 			caminho = caminho + "\\";
 			String arquivo = caminho + idOrcamento + ".pdf";
 			
-			PdfWriter.getInstance(documento, new FileOutputStream(arquivo));			
+			caminhoOne = caminhoOne + "\\";
+			String arquivo2 = caminhoOne + idOrcamento + ".pdf";
 			
+			try {
+				PdfWriter.getInstance(documento, new FileOutputStream(arquivo) );
+			}catch(FileNotFoundException fil) {
+				try {
+					PdfWriter.getInstance(documento, new FileOutputStream(arquivo2) );
+				}catch(FileNotFoundException fil2) {
+					fil2.printStackTrace();
+					return;
+				}
+			}		
 		
 			// Realiza a abertura do arquivo para escrita
 			documento.open();
@@ -218,8 +234,6 @@ public class RelatorioGeneratorPDF {
 	
 			// Fecha o arquivo após a escrita da mensagem
 			documento.close();
-//			Runtime.getRuntime().exec("explorer.exe " + caminho);
-			Runtime.getRuntime().exec("explorer.exe " + arquivo);
 
 
 			 PrintService servico = PrintServiceLookup.lookupDefaultPrintService();
@@ -229,8 +243,20 @@ public class RelatorioGeneratorPDF {
 		//		        for (PrintService ps : impressoras) {
 		//		            System.out.println(ps.getName());
 		//		        }
-			  
-			 PDDocument documentoPdd = PDDocument.load(new File(arquivo));
+			 PDDocument documentoPdd = null;
+		 
+			try {
+				documentoPdd = PDDocument.load(new File(arquivo));
+				Runtime.getRuntime().exec("explorer.exe " + arquivo);
+			}catch(FileNotFoundException fil) {
+				try {
+					documentoPdd = PDDocument.load(new File(arquivo2));
+					Runtime.getRuntime().exec("explorer.exe " + arquivo2);
+				}catch(FileNotFoundException fil2) {
+					fil2.printStackTrace();
+				}
+			}
+			
 			 PrinterJob job = PrinterJob.getPrinterJob();
 			 
 			 if(Alerts.showAlertConfirmation("Relatorio printer", "Deseja imprimir o relatorio na impressora: \n" + servico.getName(), "")) {

@@ -12,7 +12,6 @@ public class Certificado {
 	private Long ensaio_id = 0l;
 	
 	public Certificado(Long equipamento_id, Date date_cal, int numero, Long ensaio_id) {
-		super();
 		this.equipamento_id = equipamento_id;
 		this.date_cal = date_cal;
 		this.numero = numero;
@@ -20,7 +19,6 @@ public class Certificado {
 	}
 	
 	public Certificado(Long equipamento_id, Date date_cal, int numero) {
-		super();
 		this.equipamento_id = equipamento_id;
 		this.date_cal = date_cal;
 		this.numero = numero;
@@ -30,7 +28,7 @@ public class Certificado {
 		try {
 			this.id = (rs.getLong("id"));
 			this.equipamento_id = rs.getLong("equipamento_id");
-			this.date_cal( rs.getDate("date_cal") );
+			this.date_cal = rs.getDate("date_cal");
 			this.numero = rs.getInt("numero");
 			this.ensaio_id = rs.getLong("ensaio_id");
 
@@ -53,14 +51,7 @@ public class Certificado {
 	public void setDate_cal(Date date_cal) {
 		this.date_cal = date_cal ;
 	}
-	
-	@Deprecated
-	public void date_cal(Date date_cal) {
-		int date = date_cal.getDate() + 1;
-		date_cal.setDate(date);
-		this.date_cal = date_cal ;
-	}
-	
+		
 	public Integer getNumero() {
 		return numero;
 	}

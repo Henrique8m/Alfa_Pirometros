@@ -25,8 +25,10 @@ public class AlfaPirometrosApplication extends Application{
 	
 	public static String URL_KEY = "reg query HKEY_USERS\\.DEFAULT\\Software\\Yggdrasil\\Alfaestoque";
 
-	public static String URL_RELATORIOS = System.getProperty("user.home")
-			.toString() + "\\Desktop\\Relatorios";
+	public static String userHome = System.getProperty("user.home").toString();
+	
+	public static String URL_RELATORIOS = userHome + "\\Desktop\\Relatorios";
+	public static String URL_RELATORIOS_ONEDRIVER = userHome + "\\OneDrive\\Área de Trabalho\\Relatorios";
 	public static String URL_CONEXAO = "C:\\Program Files\\Java\\resources";	
 	public static String URL_CONEXAO_PRODUCAO = URL_CONEXAO + "\\dbAlfa.properties";
 	public static String URL_CONEXAO_DESENVOLVIMENTO = URL_CONEXAO + "\\dbLocal.properties";	
@@ -35,10 +37,10 @@ public class AlfaPirometrosApplication extends Application{
 	
 	public static String PROPERTIES = "Properties.properties";
 	public static String URL_DIRETORIO_YGGDRASIL = "\\AppData\\Local\\YggDrasil";
-	public static String URL_DIRETORIO_MODELOS =  System.getProperty("user.home").toString() +  "\\AppData\\Local\\YggDrasil\\modelos";
-	public static String URL_AREA_DE_TRABALHO = System.getProperty("user.home").toString() + "\\Desktop"; 
-	public static String CERTIFICADO_CAMINHO = AlfaPirometrosApplication.URL_AREA_DE_TRABALHO + "\\Certificados YggDrasil";
-	
+	public static String URL_DIRETORIO_MODELOS =  userHome +  "\\AppData\\Local\\YggDrasil\\modelos";
+	public static String URL_AREA_DE_TRABALHO = userHome + "\\Desktop"; 
+	public static String CERTIFICADO_CAMINHO = AlfaPirometrosApplication.URL_AREA_DE_TRABALHO + "\\Certificados";
+	public static String CERTIFICADO_CAMINHO_ONEDRIVER = userHome + "\\OneDrive\\Área de Trabalho\\Certificados";
 	//Carregando a view de Load
 	@Override
 	public void start(Stage arg0) throws ExceptionAlfa, IOException{

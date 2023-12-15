@@ -2,12 +2,9 @@ package com.hrodriguesdev.gui.controller;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
 import com.hrodriguesdev.AlfaPirometrosApplication;
-import com.hrodriguesdev.controller.ProductsController;
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.entities.Orcamento;
 import com.hrodriguesdev.gui.alert.Alerts;
@@ -66,12 +63,8 @@ public class EstoqueController extends RegisterProductsController implements Ini
 	@FXML
 	protected void relatoriosPdf(ActionEvent event) throws IOException {
 		String local = 	AlfaPirometrosApplication.URL_RELATORIOS;
-		ProductsController products = new ProductsController();
-		List<String> listProducts = new ArrayList<>();
-		products.findAll().forEach(product ->{
-			listProducts.add(product.getName());
-		});
-		if(pdf.newDocument(listProducts, local))
+
+		if(pdf.newDocument(super.obs))
 			Alerts.showAlert("Relatorio", "Relatorio gerado com sucesso em , "+ local, "", AlertType.INFORMATION);
 	}
 	

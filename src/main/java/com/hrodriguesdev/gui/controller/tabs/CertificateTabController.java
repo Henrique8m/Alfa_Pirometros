@@ -171,19 +171,36 @@ public class CertificateTabController implements Initializable {
 		SingleSelectionModel<Tab> t = TabsMainView.TAB_PANE_MAIN.selectionModelProperty().getValue();
 		t.select(2);
 		if(equipamento.getId()!=null) {
-			tableEquipamentosCertificados.getSelectionModel().select(equipamento);			
+			List<Equipamento> listE = tableEquipamentosCertificados.getItems();
+			tableEquipamentosCertificados.requestFocus();
+			int index = 0;
+			for(int i=0; i<listE.size(); i++) {
+				if(listE.get(i).getId().equals(equipamento.getId()) ) {
+					tableEquipamentosCertificados.getSelectionModel().select(equipamento);
+					index = i;
+				}
+			}
+			
 			try {
 				clickEquipamentos(null);
 			} catch (SQLException e) {}
+			
+			tableEquipamentosCertificados.focusModelProperty().getValue().focus( index );			
 		}
-		
+			
 	}
 	
 	private void refreshTableCertificado() {
 		List<CertificadoDTO> list = certificadoController.findAllDTO();			
 		obsbListCertificadoAll = FXCollections.observableArrayList();
 		obsbListCertificadoAll.addAll(list);
-		obsbListCertificadoAll.sort((a,b) -> b.getDateCal().compareTo(a.getDateCal()));
+		obsbListCertificadoAll.sort( (a,b) -> {
+			if(b.getDateCal().equals(a.getDateCal())) {
+				Integer bn =  b.getNumero();
+				return bn.compareTo(a.getNumero());
+			}
+			return b.getDateCal().compareTo(a.getDateCal()); 
+		}   );
 		tableCertificadoAll.setItems(obsbListCertificadoAll);
 	}
 
@@ -444,7 +461,6 @@ public class CertificateTabController implements Initializable {
 		filteredList = new FilteredList<>(obsString);
 		inputFilter = new InputFilter<String>(textEmpresaCertificado, filteredList);
 		textEmpresaCertificado.getEditor().textProperty().addListener(inputFilter);
-		textEmpresaCertificado.hide();
 
 	}
 
@@ -455,8 +471,7 @@ public class CertificateTabController implements Initializable {
 	}
 
 	private void imageInit() {
-		Image image = new Image(
-				AlfaPirometrosApplication.class.getResource("gui/resources/icons-certificado.png").toString());
+		Image image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-certificado.png").toString());
 		certificadoImg.setImage(image);
 
 	}

@@ -4,9 +4,12 @@ import java.net.URL;
 import java.sql.Date;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
+import com.hrodriguesdev.AlfaPirometrosApplication;
 import com.hrodriguesdev.controller.OrcamentoController;
 import com.hrodriguesdev.dependency.InjecaoDependency;
+import com.hrodriguesdev.entities.Orcamento;
 import com.hrodriguesdev.entities.DTO.OrcamentoDTOEquipamento;
 import com.hrodriguesdev.utilitary.Format;
 
@@ -15,15 +18,20 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class AllOrcamentoTabController implements Initializable{
 	protected OrcamentoController orcamentoController = InjecaoDependency.ORCAMENTO_CONTROLLER;
+	List<OrcamentoDTOEquipamento> obsList = FXCollections.observableArrayList();
+	
 	@FXML
 	private Tab tabOs;
 	
@@ -31,11 +39,17 @@ public class AllOrcamentoTabController implements Initializable{
 	private ImageView os;
 	
 	@FXML
+	private TextField osSize;
+	
+	@FXML
+	private DatePicker datePickerLevantamento;
+	
+	@FXML
 	private CheckBox sortSaida, sortChegada, sortOs;
 	
 	@FXML
 	public TableView<OrcamentoDTOEquipamento> tableOs;
-	public static ObservableList<OrcamentoDTOEquipamento> obsListTableFilaEquipamentos = FXCollections.observableArrayList();
+	public static ObservableList<OrcamentoDTOEquipamento> obsListTableAllOs = FXCollections.observableArrayList();
 
 	@FXML
 	protected TableColumn<OrcamentoDTOEquipamento, String> empresa, status, modelo, ns, pat, relatorio, orcamentoN;
@@ -45,6 +59,8 @@ public class AllOrcamentoTabController implements Initializable{
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		Image image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-orcamento.png").toString());
+		os.setImage(image);
 		strartTable();
 		sortTable();
 		tabOs.selectedProperty().addListener((observable, oldValue, newValue) -> {
@@ -54,19 +70,66 @@ public class AllOrcamentoTabController implements Initializable{
 			}
 		});
 		
-		
 	
+	}
+	
+	@SuppressWarnings("deprecation")
+	@FXML
+	private void levantamento() {
+		if(datePickerLevantamento == null)
+			return;
+		Date dateFirst = Date.valueOf(datePickerLevantamento.getValue() );
+		Date dateLast = Date.valueOf(datePickerLevantamento.getValue() );
+		
+		
+		dateFirst.setDate(1);
+		dateFirst.setDate(dateFirst.getDate()-1);
+		dateLast.setDate(1);
+		dateLast.setMonth(dateLast.getMonth()+1);
+		
+		
+		System.out.println(dateFirst);		
+		System.out.println(dateLast);
+		
+		OrcamentoController orcamentoController = new OrcamentoController();
+		List<OrcamentoDTOEquipamento> obsMaintenance = orcamentoController.findAllDTOEquipamento();
+		
+		obsMaintenance = obsMaintenance.stream().filter(x -> {
+			if (x.getData_chegada().after(dateFirst)
+					|| x.getData_chegada().before(dateLast))
+				return true;
+			return false;
+		}).collect(Collectors.toList());
+		
+		obsList = orcamentoController.findAllDTOEquipamento();
+		
+		obsList = obsList.stream().filter(x -> {
+			if (x.getData_chegada().after(dateFirst)
+					&& x.getData_chegada().before(dateLast)) 
+				return true;		
+			return false;
+		}).collect(Collectors.toList());
+		
+		for(OrcamentoDTOEquipamento os: obsList) {
+//			System.out.println( os.getEmpresa() + "  " + os.getNs() );
+		}
+		
+		obsListTableAllOs = FXCollections.observableArrayList();
+		obsListTableAllOs.addAll( obsList);		
+		tableOs.setItems(obsListTableAllOs);
 	}
 
 	private void refreshTable() {
-		List<OrcamentoDTOEquipamento> obsList = FXCollections.observableArrayList();
 		obsList = orcamentoController.findAllDTOEquipamento();
 		
 		listShort(obsList); 		
 		
-		obsListTableFilaEquipamentos = FXCollections.observableArrayList();
-		obsListTableFilaEquipamentos.addAll( obsList);
-		tableOs.setItems(obsListTableFilaEquipamentos);
+		osSize.setText("0" +  obsList.size());
+		
+		obsListTableAllOs = FXCollections.observableArrayList();
+		obsListTableAllOs.addAll( obsList);
+		
+		tableOs.setItems(obsListTableAllOs);
 	}
 	
 	public void sortTable() {
@@ -212,7 +275,7 @@ public class AllOrcamentoTabController implements Initializable{
             };        
          } );		
 
-		tableOs.setItems(obsListTableFilaEquipamentos);		
+		tableOs.setItems(obsListTableAllOs);		
 		
 	}
 }

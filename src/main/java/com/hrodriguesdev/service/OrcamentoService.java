@@ -131,6 +131,7 @@ public class OrcamentoService {
 					dto.setUltimaCalibDate(equipamento.getUltimaCalibDate());
 					dto.setModelo(equipamento.getModelo());
 				} catch (ExceptionAlfa e) {
+					System.out.println(orcamento.getEquipamento_id() + " Id orcamento " + orcamento.getId());
 					e.printStackTrace();
 				}
 				list.add(dto);

@@ -374,7 +374,7 @@ public class FindTabController implements Initializable{
 					Long orcamento_id = orcamentoController.add(orcamento);
 					if(orcamento_id != null)
 						equipamentoController.updatede(equipamento.getId(), true, orcamento_id);
-					
+					equipamento.setLaboratorio(true);
 					InjecaoDependency.MAIN_TAB_CONTROLLER.refreshTableMain();
 					contextMenu.hide();
 					try {

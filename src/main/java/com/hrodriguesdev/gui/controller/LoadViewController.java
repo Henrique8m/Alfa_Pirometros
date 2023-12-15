@@ -4,9 +4,9 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.nio.charset.Charset;
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -114,9 +114,12 @@ public class LoadViewController implements Initializable {
 			int dados = Geral.getDecimal(  statusValue.replace("0x", "")  );
 			Date dateKey = Geral.dateParceNotSeparator(String.valueOf(dados)); 						
 			@SuppressWarnings("deprecation")
-			Date dateNow = new Date(LocalDate.now().getYear()-1900, LocalDate.now().getMonthValue(), LocalDate.now().getDayOfMonth());
-			if(dateKey.after(dateNow))
+			Date dateNow = new Date(LocalDate.now().getYear()-1900, LocalDate.now().getMonthValue()-1, LocalDate.now().getDayOfMonth());
+			
+			if(dateKey.after(dateNow)) {
+//				System.out.println(dateKey + "    " + dateNow);
 				return true;
+			}
 			
 		}catch(NumberFormatException e) {
 			Log.logString("LoadViewController", e.getMessage());

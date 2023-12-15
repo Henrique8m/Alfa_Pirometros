@@ -141,9 +141,13 @@ public class Orcamento {
 	
 	@SuppressWarnings("deprecation")
 	public void data_saida(Date data_saida) {
-		int date = data_saida.getDate() + 1;
-		data_saida.setDate(date);
-		this.data_saida = data_saida ;
+		try {
+			int date = data_saida.getDate() + 1;
+			data_saida.setDate(date);
+			this.data_saida = data_saida ;			
+		}catch (NullPointerException e) {
+			e.printStackTrace();
+		}
 	}
 
 
