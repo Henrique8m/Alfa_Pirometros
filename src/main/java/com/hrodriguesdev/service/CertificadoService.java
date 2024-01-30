@@ -4,6 +4,7 @@ import java.io.File;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.hrodriguesdev.AlfaPirometrosApplication;
 import com.hrodriguesdev.dao.repository.CertificadoRepository;
@@ -11,6 +12,7 @@ import com.hrodriguesdev.dependency.InjecaoDependency;
 import com.hrodriguesdev.entities.CalibracaoEnsaio;
 import com.hrodriguesdev.entities.Certificado;
 import com.hrodriguesdev.entities.DescricaoInstrumento;
+import com.hrodriguesdev.entities.Empresa;
 import com.hrodriguesdev.entities.Ensaios;
 import com.hrodriguesdev.entities.Equipamento;
 import com.hrodriguesdev.entities.Padrao;
@@ -166,24 +168,62 @@ public class CertificadoService {
 	public List<CertificadoDTO> findAllDTO() {
 		List<Certificado> listCertificado = repository.findAll();
 		List<Equipamento> listEquipamento = InjecaoDependency.EQUIPAMENTO_CONTROLLER.findAll();		
+		List<Empresa> listEmpresa = InjecaoDependency.EMPRESA_CONTROLLER.findAll();
 		List<CertificadoDTO> listDto = new ArrayList<>();
 		
 		listCertificado.forEach(certificado -> {
 					listEquipamento.stream()
 					.filter(equipamento -> equipamento.getId().equals(certificado.getEquipamento_id()))
 					.findFirst().ifPresent(equipamentoFind -> {
-						listDto.add(new CertificadoDTO(
-						certificado.getNumero(),
-						certificado.getDate_cal(),
-						equipamentoFind.getModelo(),
-						equipamentoFind.getNs(),
-						equipamentoFind.getPat(),
-						equipamentoFind.getEmpresaName()));
+						
+						CertificadoDTO certificadoDto = new CertificadoDTO(
+								certificado.getNumero(),
+								certificado.getDate_cal(),
+								equipamentoFind.getModelo(),
+								equipamentoFind.getNs(),
+								equipamentoFind.getPat(),
+								equipamentoFind.getEmpresaName());
+						
+						listEmpresa.stream().filter(a -> a.getId().equals(equipamentoFind.getEmpresa())).findFirst().ifPresent(empresa -> {
+							certificadoDto.setCidade(empresa.getCidade());
+							certificadoDto.setEndereco(empresa.getEndereco());
+						});
+						listDto.add( certificadoDto );
 					});			
 
 		});		
 
 		return listDto;
+	}
+	
+	public List<CertificadoDTO> findExpiredDTO(int time) {
+		List<CertificadoDTO> listDto = findAllDTO();
+		
+		listDto = listDto.stream().sorted((a,b) -> {
+			if(a.getDateCal().equals(b.getDateCal())) {
+				Integer bn =  a.getNumero();
+				return bn.compareTo(b.getNumero());
+			}
+			return a.getDateCal().compareTo(b.getDateCal()); 			
+			
+		}   ).collect(Collectors.toList());		
+
+		
+		
+		List<CertificadoDTO> listFiltrada = new ArrayList<>();
+		listDto.stream().forEachOrdered(CertificadoDto ->{
+			
+			listFiltrada.stream().filter(x -> x.equals(CertificadoDto)). 	
+			
+			findFirst().ifPresentOrElse(CertificadoFiltrado ->{
+				if(CertificadoFiltrado.getDateCal().after(CertificadoDto.getDateCal())) {
+					listFiltrada.add(CertificadoDto);
+				}
+			}, () -> listFiltrada.add(CertificadoDto) );			
+		});
+	
+
+		return listFiltrada;
 	}
 	
 }

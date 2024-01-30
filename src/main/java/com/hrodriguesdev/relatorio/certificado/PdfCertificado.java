@@ -126,6 +126,8 @@ public class PdfCertificado {
 			String fileName = 
 					"/"
 							+ certifNumero
+							+ "-"
+							+ year
 							+ " - " 
 							+ empresa.getName().split(" ")[0]
 							+ " - " 

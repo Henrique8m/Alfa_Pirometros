@@ -85,5 +85,9 @@ public class CertificadoController {
 	public List<CertificadoDTO> findAllDTO() {
 		return certificadoService.findAllDTO();
 	}
+
+	public List<CertificadoDTO> findExpiredDTO(int i) {
+		return certificadoService.findExpiredDTO(i);
+	}
 		
 }

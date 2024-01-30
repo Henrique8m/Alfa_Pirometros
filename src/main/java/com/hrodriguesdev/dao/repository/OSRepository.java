@@ -19,6 +19,35 @@ public class OSRepository {
 	private ResultSet rs = null;
 	private PreparedStatement pst = null;
 	
+	
+//	public void update(String table, Long id, Timestamp date) {
+//		conn = DB.getConnection();
+//		try {
+//			conn.setAutoCommit(false);							
+//				pst = conn.prepareStatement("UPDATE alfaestoque." + table
+//						+ "SET date = ?"
+//						+ "WHERE "
+//						+ "(id = ?)");
+//				pst.setTimestamp(1, date);
+//				pst.setLong(2, id);
+//				pst.executeUpdate();					
+//				conn.commit();					
+//			
+//		}catch (SQLException e) {
+//			Log.logString("OSRepository", e.getMessage());
+//			try {
+//				conn.rollback();
+//			} catch (SQLException e1) {
+//				e1.printStackTrace();
+//			}
+//			e.printStackTrace();
+//		}
+//		finally {
+//			DB.closeConnection();
+//			DB.closeStatement(pst);
+//		}
+//	}	
+	
 	public boolean createNewOs(List<ProductsOs> list, String table ) {
 		conn = DB.getConnection();
 		try {

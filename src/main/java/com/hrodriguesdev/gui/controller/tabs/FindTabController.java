@@ -269,6 +269,10 @@ public class FindTabController implements Initializable{
 				if(orcamento.getColetor_id()!= null && orcamento.getColetor_id() != 0)
 					NewView.getNewView("Editar coletor", FXMLPath.SAIDA_EQUIPAMENTO, new ColetorUpdateViewController(equipamento, orcamento));
 			}
+//			else if(event.getCode().toString() == "DELETE") {
+//				orcamentoController.delete(orcamento.getId());
+//				System.out.println("Del");
+//			}
 		}
 	}
 	

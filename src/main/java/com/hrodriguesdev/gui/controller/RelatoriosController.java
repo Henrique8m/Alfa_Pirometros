@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,11 +12,17 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 import com.hrodriguesdev.AlfaPirometrosApplication;
+import com.hrodriguesdev.controller.EquipamentoController;
+import com.hrodriguesdev.controller.OSController;
 import com.hrodriguesdev.controller.OrcamentoController;
 import com.hrodriguesdev.controller.ProductsController;
+import com.hrodriguesdev.entities.Equipamento;
+import com.hrodriguesdev.entities.Orcamento;
 import com.hrodriguesdev.entities.Product;
 import com.hrodriguesdev.entities.DTO.OrcamentoDTOEquipamento;
 import com.hrodriguesdev.entities.DTO.OrcamentoDTORelatorio;
+import com.hrodriguesdev.entities.products.ProductsOs;
+import com.hrodriguesdev.relatorio.RelatorioMateriais;
 import com.hrodriguesdev.utilitary.Format;
 import com.hrodriguesdev.utilitary.InputFilter;
 import com.hrodriguesdev.utilitary.NewView;
@@ -43,7 +50,10 @@ import javafx.scene.input.MouseEvent;
 public class RelatoriosController implements Initializable {
 
 	private OrcamentoController orcamentoController = new OrcamentoController();
-	private ProductsController controller = new ProductsController();
+	private ProductsController productsController = new ProductsController();
+	private EquipamentoController equipamentoContoller = new EquipamentoController();
+	private OSController osController = new OSController();
+	
 
 	@FXML
 	protected DatePicker inicioDatePiker, finalDatePiker;
@@ -59,7 +69,7 @@ public class RelatoriosController implements Initializable {
 	private CheckBox manutencaoEmCurco, manutencaoRealizada, saidaMaterial, entradaMaterial;
 
 	@FXML
-	private ImageView cancelarImg, buscarImg, pdfImg;
+	private ImageView cancelarImg, buscarImg, pdfImg, pdfImg1;
 
 	@FXML
 	private ProgressIndicator ProgressIndicator;
@@ -226,6 +236,76 @@ public class RelatoriosController implements Initializable {
 		new Thread(task).start();
 //		ProgressIndicator.setVisible(false);
 	}
+	
+	@FXML
+	public void relatorioReceptaculos() {
+		relatorioReceptaculos(42l,  " \"S\"");
+		relatorioReceptaculos(43l,  " \"SU\"");
+		relatorioReceptaculos(45l,  " \"K\"");
+	}
+		
+
+	public void relatorioReceptaculos(Long id, String modelo) {
+//		42 receptaculo s
+//		43 receptaculo su
+//		45 receptaculo K
+		
+		RelatorioMateriais relPDF = new RelatorioMateriais();
+		
+		ObservableList<OrcamentoDTORelatorio> obsReceptaculo = FXCollections.observableArrayList();
+		List<Orcamento> orcamentoList = orcamentoController.findAll();
+		List<ProductsOs> productsOsList = osController.findAllOut();
+		List<Equipamento> equipamentoList = equipamentoContoller.findAll();		
+		List<Orcamento> orcamentoFiltrado = new ArrayList<>();
+		
+//		Orcamentos que contem receptaculos S entrando
+		obsReceptaculo.addAll(orcamentoController.findAllDTORelatorio().stream()
+				.filter(x -> {
+					if(x.getFinalidade().equals("Entrada")) {
+						List<Product> list = productsController.findAllByOrcamentoId(x.getId());
+						list = list.stream().filter(y -> y.getId().equals(id)).collect(Collectors.toList());
+						if(list.size()>0)
+							return true;
+						else return false;
+					}
+					else return false;
+					
+				}).collect(Collectors.toList()));
+		
+//		Pega a data da ultima entrada de Receptaculos
+		obsReceptaculo.sort((a,b)-> b.getData_chegada().compareTo(a.getData_chegada()));
+		Date lastS = obsReceptaculo.get(0).getData_chegada();
+		Timestamp timeStamp = new Timestamp(lastS.getTime());
+					
+//		filtra todas as saidas de receptaculos depois da data de entrada
+		productsOsList = productsOsList.stream().filter(y -> y.getProductId().equals(id)).filter(x -> x.getDate().after(timeStamp)).collect(Collectors.toList());
+			
+//		Coleta os orcamentos que consta as saidas de receptaculos
+		productsOsList.forEach(pro -> {
+			try {
+				Orcamento orc = orcamentoList.stream().filter(x -> x.getId().equals(pro.getIdOrcamento())).findFirst().get();
+				orc.setProducts(modelo +  " - " + pro.getQtde() + " PÇs");
+				orc.setQuantidade(pro.getQtde());
+				Date d = new Date(pro.getDate().getTime());
+				orc.setData_saida(d);
+				orcamentoFiltrado.add(orc);
+
+			}catch (NullPointerException e) {
+				System.out.println(pro.getId() + " NullPointerException RelatoriosController");
+			}
+		});
+		
+//		Faz o somatorio da quantidade gasto, e para qual empresa foi
+		Double total = 0d;		
+		for(Orcamento orc: orcamentoFiltrado) {
+			total += orc.getQuantidade();
+			orc.setEmpressa( equipamentoList.stream().filter(x -> x.getId().equals(orc.getEquipamento_id() )).findFirst().get().getEmpresaName()  );
+		}
+		
+//		Gera o relatorio
+		relPDF.relatorio(orcamentoFiltrado, total, modelo);
+			
+	}
 
 	@FXML
 	public void relatorioPdf() {
@@ -233,7 +313,7 @@ public class RelatoriosController implements Initializable {
 		List<OrcamentoDTOEquipamento> listOrcamento = new ArrayList<>();
 		obsOrcamento.forEach(orca -> {
 			List<Product> listOrccamento = new ArrayList<>();
-			listOrccamento.addAll( controller
+			listOrccamento.addAll( productsController
 			.findAllByOrcamentoId(orca.getId()) );
 			listOfListOrcamento.add(listOrccamento);
 			
@@ -245,7 +325,7 @@ public class RelatoriosController implements Initializable {
 		List<OrcamentoDTOEquipamento> listMaintenance = new ArrayList<>();
 		obsMaintenance.forEach(orca -> {
 			List<Product> listMaiantenance = new ArrayList<>();
-			listMaiantenance.addAll( controller
+			listMaiantenance.addAll( productsController
 			.findAllByOrcamentoId(orca.getId()) );
 			listOfListMaintenance.add(listMaiantenance);
 			
@@ -290,7 +370,7 @@ public class RelatoriosController implements Initializable {
 	}
 	
 	private void selectMateriais(Long id) {
-		obsMateriais = controller
+		obsMateriais = productsController
 				.findAllByOrcamentoId(id);
 		productSelectedTable.setItems(obsMateriais);
 	}
@@ -316,6 +396,7 @@ public class RelatoriosController implements Initializable {
 		
 		image = new Image(AlfaPirometrosApplication.class.getResource("gui/resources/icons-pdf.png").toString());
 		pdfImg.setImage(image);
+		pdfImg1.setImage(image);
 
 	}
 

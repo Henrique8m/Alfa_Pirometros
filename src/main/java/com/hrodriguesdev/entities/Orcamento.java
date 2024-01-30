@@ -27,6 +27,16 @@ public class Orcamento {
 	private String author;
 	private Long empresaId;
 	
+	private Double quantidade;
+	
+	public Double getQuantidade() {
+		return quantidade;
+	}
+
+	public void setQuantidade(Double quantidade) {
+		this.quantidade = quantidade;
+	}
+
 	private Timestamp timestamp;
 	
 	
@@ -44,9 +54,9 @@ public class Orcamento {
 						
 			equipamento_id = rs.getLong("equipamento_id");
 			if(rs.getDate("data_saida") != null)
-				data_saida( rs.getDate("data_saida"));
+				this.data_saida = rs.getDate("data_saida");
 			
-			data_chegada( rs.getDate("data_chegada"));
+			this.data_chegada =  rs.getDate("data_chegada");
 			this.laboratorio = rs.getBoolean("laboratorio");
 			this.coletor_id = rs.getLong("coletor_id");
 			this.relatorio = rs.getString("relatorio");
@@ -54,7 +64,11 @@ public class Orcamento {
 			
 			
 			this.nfe = rs.getInt("nfe");
-			this.author = rs.getString("author");
+			try {
+				this.author = rs.getString("author");
+			}catch (NullPointerException e ) {
+				System.out.println("Null pointer - Orcamento");
+			}
 			this.empresaId = rs.getLong("empresa_id");
 			
 			this.timestamp = rs.getTimestamp("data_chegada_sql");
@@ -123,14 +137,6 @@ public class Orcamento {
 
 	}
 
-	@SuppressWarnings("deprecation")
-	public void data_chegada(Date data_chegada) {
-		int date = data_chegada.getDate() + 1;
-		data_chegada.setDate(date);
-		this.data_chegada = data_chegada ;
-
-	}
-
 	public Date getData_saida() {
 		return data_saida;
 	}
@@ -139,18 +145,6 @@ public class Orcamento {
 		this.data_saida = data_saida ;
 	}
 	
-	@SuppressWarnings("deprecation")
-	public void data_saida(Date data_saida) {
-		try {
-			int date = data_saida.getDate() + 1;
-			data_saida.setDate(date);
-			this.data_saida = data_saida ;			
-		}catch (NullPointerException e) {
-			e.printStackTrace();
-		}
-	}
-
-
 	public Boolean getLaboratorio() {
 		return laboratorio;
 	}
@@ -234,4 +228,31 @@ public class Orcamento {
 		this.timestamp = timestamp;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Orcamento other = (Orcamento) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
+	
+	
+	
 }

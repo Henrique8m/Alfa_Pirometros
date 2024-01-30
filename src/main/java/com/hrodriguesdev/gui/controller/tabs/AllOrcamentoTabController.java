@@ -9,7 +9,6 @@ import java.util.stream.Collectors;
 import com.hrodriguesdev.AlfaPirometrosApplication;
 import com.hrodriguesdev.controller.OrcamentoController;
 import com.hrodriguesdev.dependency.InjecaoDependency;
-import com.hrodriguesdev.entities.Orcamento;
 import com.hrodriguesdev.entities.DTO.OrcamentoDTOEquipamento;
 import com.hrodriguesdev.utilitary.Format;
 
@@ -110,9 +109,9 @@ public class AllOrcamentoTabController implements Initializable{
 			return false;
 		}).collect(Collectors.toList());
 		
-		for(OrcamentoDTOEquipamento os: obsList) {
+//		for(OrcamentoDTOEquipamento os: obsList) {
 //			System.out.println( os.getEmpresa() + "  " + os.getNs() );
-		}
+//		}
 		
 		obsListTableAllOs = FXCollections.observableArrayList();
 		obsListTableAllOs.addAll( obsList);		

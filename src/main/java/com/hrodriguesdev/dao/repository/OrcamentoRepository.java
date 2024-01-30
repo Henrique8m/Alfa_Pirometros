@@ -144,7 +144,6 @@ public class OrcamentoRepository {
 						
 		}catch(DbException | SQLException e) {
 			e.printStackTrace();
-			throw new DbException(e.getMessage());
 
 		}finally {
 			DB.closeResultSet(rs);

@@ -7,6 +7,7 @@ import com.hrodriguesdev.controller.EnsaiosController;
 import com.hrodriguesdev.controller.EquipamentoController;
 import com.hrodriguesdev.controller.OrcamentoController;
 import com.hrodriguesdev.gui.controller.tabs.AllOrcamentoTabController;
+import com.hrodriguesdev.gui.controller.tabs.CertificateExpiredTabController;
 import com.hrodriguesdev.gui.controller.tabs.CertificateTabController;
 import com.hrodriguesdev.gui.controller.tabs.CompanyTabController;
 import com.hrodriguesdev.gui.controller.tabs.FindTabController;
@@ -27,4 +28,5 @@ public class InjecaoDependency {
 	public static final CertificateTabController TAB_CERTIFICATE_CONTROLLER = new CertificateTabController();
 	public static final CompanyTabController TAB_COMPANY_CONTROLLER = new CompanyTabController();
 	public static final AllOrcamentoTabController TAB_OS_CONTROLLER = new AllOrcamentoTabController();
+	public static final CertificateExpiredTabController TAB_CERTIFICATE_EXPIRED_CONTROLLER = new CertificateExpiredTabController();
 }

@@ -2,6 +2,7 @@ package com.hrodriguesdev.entities.products;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 
 import com.hrodriguesdev.utilitary.Log;
 
@@ -11,6 +12,7 @@ public class ProductsOs {
 //	id do produto em si
 	private Long productId;
 	private Double qtde;
+	private Timestamp date;
 	private Long id;
 	
 	public ProductsOs(Long idProductsOs, Long productId, Double qtde) {
@@ -24,6 +26,7 @@ public class ProductsOs {
 			this.id_orcamento = rs.getLong("id_orcamento");
 			this.productId = rs.getLong("product_id");
 			this.qtde = rs.getDouble("qtde");
+			this.date = rs.getTimestamp("date");
 			this.id = rs.getLong("id");
 		}catch(SQLException e) {
 			Log.logString("ProductsOS", e.getMessage());
@@ -76,6 +79,12 @@ public class ProductsOs {
 		} else if (!productId.equals(other.productId))
 			return false;
 		return true;
+	}
+	public Timestamp getDate() {
+		return date;
+	}
+	public void setDate(Timestamp date) {
+		this.date = date;
 	}
 	
 }

@@ -20,7 +20,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<HBox style="-fx-background-color: #c9c9c9;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<HBox style="-fx-background-color: #c9c9c9;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <AnchorPane minHeight="300.0" style="-fx-background-color: #e1e1e1; -fx-background-radius: 15;">
          <children>
@@ -224,6 +224,11 @@
             <Button mnemonicParsing="false" onAction="#relatorioPdf" prefHeight="45.0" prefWidth="185.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Relatorio" GridPane.rowIndex="7">
                <graphic>
                   <ImageView fx:id="pdfImg" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" />
+               </graphic>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#relatorioReceptaculos" prefHeight="45.0" prefWidth="185.0" style="-fx-cursor: hand; -fx-background-radius: 10;" text="Relatorio Receptaculos" GridPane.rowIndex="6">
+               <graphic>
+                  <ImageView fx:id="pdfImg1" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" />
                </graphic>
             </Button>
          </children>

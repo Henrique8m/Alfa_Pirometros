@@ -112,14 +112,14 @@ public class EquipamentoEntradaViewController implements Initializable{
 		if(event.getTarget() == nomeEmpressa) {
 			
 			if(event.getCode().toString() == "ESCAPE") {
-				removeListener();
-				addListener();
+//				removeListener();
+//				addListener();
 				
 			}
 			if(event.getCode().toString() == "ENTER") {
 				buscar(new ActionEvent());
-				removeListener();
-				addListener();
+//				removeListener();
+//				addListener();
 				
 			}
 			
@@ -127,12 +127,16 @@ public class EquipamentoEntradaViewController implements Initializable{
 		
 	}
 	
+//	private String empresaNameBack = "";
+	
 	@FXML
 	private void buscar(ActionEvent event) {
 		if(nomeEmpressa.getValue()== "") {
 			error( "Campo nulo " ,"O campo nome da Empressa não pode ser nulo");
 			erro.setVisible(true);
 			erro.setText("Empressa nulo");
+			obsListEquipamentos = FXCollections.observableArrayList();
+			tableEquipamentos.setItems(obsListEquipamentos);
 			return;
 		}
 		try {
@@ -142,6 +146,7 @@ public class EquipamentoEntradaViewController implements Initializable{
 				erro.setText("Empressa não existe");
 				throw new DbException("Empresa não existe");
 			}else {
+//				empresaNameBack = nomeEmpressa.getValue();
 				obsListEquipamentos = equipamentoController.findByIdEmpresa( empressa_id, true);
 				tableEquipamentos.setItems(obsListEquipamentos);
 				tableEquipamentos.refresh();
@@ -167,6 +172,7 @@ public class EquipamentoEntradaViewController implements Initializable{
 					equipamentoController.updatede(tableEquipamentos.getSelectionModel().getSelectedItem().getId(), true, orcamento_id);
 				
 				InjecaoDependency.MAIN_TAB_CONTROLLER.refreshTableMain();
+//				nomeEmpressa.setValue(empresaNameBack);
 				buscar(event);	
 			}	
 		}catch(NullPointerException e) {
@@ -231,6 +237,7 @@ public class EquipamentoEntradaViewController implements Initializable{
 		
 	}
 	
+	@SuppressWarnings("unused")
 	private void removeListener() {
 		nomeEmpressa.getEditor().textProperty().removeListener(inputFilter);
 		nomeEmpressa.setValue("");
