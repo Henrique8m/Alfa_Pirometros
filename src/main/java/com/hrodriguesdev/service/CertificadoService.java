@@ -3,6 +3,7 @@ package com.hrodriguesdev.service;
 import java.io.File;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -196,8 +197,21 @@ public class CertificadoService {
 		return listDto;
 	}
 	
+	@SuppressWarnings("deprecation")
 	public List<CertificadoDTO> findExpiredDTO(int time) {
 		List<CertificadoDTO> listDto = findAllDTO();
+		Date dataVen = new Date(System.currentTimeMillis());
+		Calendar cal = Calendar.getInstance();
+		
+		cal.setTimeInMillis(System.currentTimeMillis());
+		cal.set(Calendar.MONTH, -time);
+		dataVen.setMonth(cal.get(Calendar.MONTH));
+		dataVen.setDate(cal.get(Calendar.DAY_OF_MONTH));
+		dataVen.setYear(cal.get(Calendar.YEAR)-1900);
+		
+		
+		System.out.println(cal.toString() + "\n" + dataVen);
+		
 		
 		listDto = listDto.stream().sorted((a,b) -> {
 			if(a.getDateCal().equals(b.getDateCal())) {
@@ -207,6 +221,7 @@ public class CertificadoService {
 			return a.getDateCal().compareTo(b.getDateCal()); 			
 			
 		}   ).collect(Collectors.toList());		
+		
 
 		
 		
@@ -216,14 +231,18 @@ public class CertificadoService {
 			listFiltrada.stream().filter(x -> x.equals(CertificadoDto)). 	
 			
 			findFirst().ifPresentOrElse(CertificadoFiltrado ->{
-				if(CertificadoFiltrado.getDateCal().after(CertificadoDto.getDateCal())) {
+				if(CertificadoFiltrado.getDateCal().before(CertificadoDto.getDateCal())) {
 					listFiltrada.add(CertificadoDto);
+					listFiltrada.remove(CertificadoFiltrado);
 				}
 			}, () -> listFiltrada.add(CertificadoDto) );			
 		});
 	
+		List<CertificadoDTO> listLast = listFiltrada;
+		
+		listLast = listLast.stream().filter(x -> x.getDateCal().before(dataVen)).collect(Collectors.toList());
 
-		return listFiltrada;
+		return listLast;
 	}
 	
 }

@@ -43,7 +43,7 @@ public class LoadViewController implements Initializable {
 		beginTimer();
 		logo.setImage(NewView.getLogo());		
 		licenseKey = exec(AlfaPirometrosApplication.URL_KEY);
-	
+
 	}
 
 	public void openView() {

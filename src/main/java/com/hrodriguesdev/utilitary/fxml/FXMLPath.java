@@ -16,6 +16,6 @@ public class FXMLPath {
 	public static String TAB_FIND = "tabFind";
 	public static String TAB_CERTIFICATE_EXPIRED = "tabCertificadosVencidos";
 	public static String ENTRADA_EQUIPAMENTO = "entradaEquipamento";
-	
+	public static String CATALINA = "catalina";
 
 }

@@ -70,14 +70,43 @@ public class CertificateExpiredTabController implements Initializable{
 		 * Adciona um listener do tipo Charge Listener, que seria um ouvinte das
 		 * variaveis, caso a tab fique no foco, é ativo e aloca os valores do comboBox
 		 */		
-		tabEmpresa.selectedProperty().addListener((observable, oldValue, newValue) -> {
-			if(newValue) {
-				refreshTableCertificado();
-			}else {
-				
+		
+		tresMeses.selectedProperty().addListener((obs, old, newv) -> {
+			if(newv) {
+				seisMeses.setSelected(false);
+				noveMeses.setSelected(false); 
+				doseMeses.setSelected(false);
+				refreshTableCertificado(3);
 			}
-
 		});
+		
+		seisMeses.selectedProperty().addListener((obs, old, newv) -> {
+			if(newv) {
+				tresMeses.setSelected(false);
+				noveMeses.setSelected(false); 
+				doseMeses.setSelected(false);
+				refreshTableCertificado(6);
+			}
+		});
+		
+		noveMeses.selectedProperty().addListener((obs, old, newv) -> {
+			if(newv) {
+				tresMeses.setSelected(false);
+				seisMeses.setSelected(false); 
+				doseMeses.setSelected(false);
+				refreshTableCertificado(9);
+			}
+		});
+		
+		doseMeses.selectedProperty().addListener((obs, old, newv) -> {
+			if(newv) {
+				tresMeses.setSelected(false);
+				noveMeses.setSelected(false); 
+				seisMeses.setSelected(false);
+				refreshTableCertificado(12);
+			}
+		});
+		
 		
 		Task<Void> task = new Task<Void>() {
 		    @Override public Void call() throws InterruptedException {
@@ -91,9 +120,9 @@ public class CertificateExpiredTabController implements Initializable{
 		
 	}
 
-	private void refreshTableCertificado() {
+	private void refreshTableCertificado(int moth) {
 		
-		List<CertificadoDTO> list = certificadoController.findExpiredDTO(6);			
+		List<CertificadoDTO> list = certificadoController.findExpiredDTO(moth);			
 		obsbListCertificadoAll = FXCollections.observableArrayList();
 		obsbListCertificadoAll.addAll(list);
 		obsbListCertificadoAll.sort( (a,b) -> {

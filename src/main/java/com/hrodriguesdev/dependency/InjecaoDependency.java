@@ -6,6 +6,7 @@ import com.hrodriguesdev.controller.EmpresaController;
 import com.hrodriguesdev.controller.EnsaiosController;
 import com.hrodriguesdev.controller.EquipamentoController;
 import com.hrodriguesdev.controller.OrcamentoController;
+import com.hrodriguesdev.gui.controller.server.CatalinaRunServer;
 import com.hrodriguesdev.gui.controller.tabs.AllOrcamentoTabController;
 import com.hrodriguesdev.gui.controller.tabs.CertificateExpiredTabController;
 import com.hrodriguesdev.gui.controller.tabs.CertificateTabController;
@@ -13,8 +14,9 @@ import com.hrodriguesdev.gui.controller.tabs.CompanyTabController;
 import com.hrodriguesdev.gui.controller.tabs.FindTabController;
 import com.hrodriguesdev.gui.controller.tabs.MainTabController;
 
+
 public class InjecaoDependency {
-	
+	public static final CatalinaRunServer CATALINA = new CatalinaRunServer();	
 	public static final CertificadoController CERTIFICADO_CONTROLLER = new CertificadoController();	
 	public static final EquipamentoController EQUIPAMENTO_CONTROLLER = new EquipamentoController();
 	public static final OrcamentoController ORCAMENTO_CONTROLLER = new OrcamentoController();

@@ -140,6 +140,11 @@ public class MainTabController implements Initializable, Runnable{
 	
 		if(keyEvent.getCode().toString() == "F5" )
 			refreshTableMain();
+		
+		
+		if(keyEvent.getCode().toString() == "F8" )
+				NewView.getNewView("Catalina",FXMLPath.CATALINA, InjecaoDependency.CATALINA);
+
 		    	
     	
     }

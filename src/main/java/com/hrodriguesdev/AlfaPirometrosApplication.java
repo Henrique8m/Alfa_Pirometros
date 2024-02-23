@@ -2,6 +2,7 @@ package com.hrodriguesdev;
 
 import java.io.IOException;
 
+import com.hrodriguesdev.dependency.InjecaoDependency;
 import com.hrodriguesdev.gui.controller.LoadViewController;
 import com.hrodriguesdev.utilitary.NewView;
 import com.hrodriguesdev.utilitary.fxml.FXMLPath;
@@ -74,6 +75,8 @@ public class AlfaPirometrosApplication extends Application{
 	
 	public static void main(String[] args) {
 		launch(args);
+		InjecaoDependency.CATALINA.shutdown();
+		
 		System.exit(1);
 	}
 
